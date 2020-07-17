@@ -16,29 +16,17 @@
     <Filter Include="2DGameFramework">
       <UniqueIdentifier>{6f3d1e45-ab86-42a7-9a61-2bd45cd7872c}</UniqueIdentifier>
     </Filter>
-    <Filter Include="playGround">
-      <UniqueIdentifier>{95982806-068a-439b-ba72-8cb93f3609f5}</UniqueIdentifier>
-    </Filter>
     <Filter Include="2DGameFramework\SingletonBase">
       <UniqueIdentifier>{fab0ad69-58ad-46bb-984d-736d10eee0f5}</UniqueIdentifier>
     </Filter>
     <Filter Include="2DGameFramework\Manager">
       <UniqueIdentifier>{05d340ae-7cae-42ce-831b-ae2b80a9b8c5}</UniqueIdentifier>
     </Filter>
-    <Filter Include="2DGameFramework\image">
-      <UniqueIdentifier>{161a019f-83fb-4aa5-a2bd-53b11c8888ac}</UniqueIdentifier>
-    </Filter>
     <Filter Include="2DGameFramework\Utils">
       <UniqueIdentifier>{6649f313-dbf4-4ec9-afff-24f47b1a709e}</UniqueIdentifier>
     </Filter>
-    <Filter Include="2DGameFramework\timer">
-      <UniqueIdentifier>{903124e9-0a6f-4f4f-8a9b-cc25c6f3482b}</UniqueIdentifier>
-    </Filter>
     <Filter Include="2DGameFramework\D2DRenderer">
       <UniqueIdentifier>{1f06f2e0-c3bd-4a9c-bad1-d0e16a21ee0c}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="2DGameFramework\txtData">
-      <UniqueIdentifier>{431e51a5-80a3-453e-b6b4-0a46c07862b8}</UniqueIdentifier>
     </Filter>
     <Filter Include="2DGameFramework\GameObject">
       <UniqueIdentifier>{7c039834-e9b1-46e8-a08a-6b025248ecf0}</UniqueIdentifier>
@@ -48,6 +36,42 @@
     </Filter>
     <Filter Include="2DGameFramework\Animation">
       <UniqueIdentifier>{206ac15a-4721-4c12-93be-e176c2715a13}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="2DGameFramework\Effect">
+      <UniqueIdentifier>{b21f1f29-0145-487a-9c68-6cd8d29ed1a0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="2DGameFramework\Image">
+      <UniqueIdentifier>{161a019f-83fb-4aa5-a2bd-53b11c8888ac}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="2DGameFramework\Timer">
+      <UniqueIdentifier>{903124e9-0a6f-4f4f-8a9b-cc25c6f3482b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="2DGameFramework\TxtData">
+      <UniqueIdentifier>{431e51a5-80a3-453e-b6b4-0a46c07862b8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="PlayGround">
+      <UniqueIdentifier>{95982806-068a-439b-ba72-8cb93f3609f5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="PlayGround\Scene">
+      <UniqueIdentifier>{7efd3c32-49af-4075-bd6c-3bc21e3ec1e6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="PlayGround\Player">
+      <UniqueIdentifier>{3662dc69-d8f7-4b14-8e49-f0e38e62f51e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="PlayGround\Player\State">
+      <UniqueIdentifier>{13464f96-8789-4761-b52c-4d32b5aeaa2f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="PlayGround\Stage">
+      <UniqueIdentifier>{057196e2-3d67-4f07-8ba9-cfe7cb4dc592}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="PlayGround\Object">
+      <UniqueIdentifier>{18d7c35b-6955-4206-ab64-06ea564c1cde}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="PlayGround\Enemy">
+      <UniqueIdentifier>{681e5dfa-c83a-48ed-9e24-dbac971463dd}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="PlayGround\UI">
+      <UniqueIdentifier>{43396194-297f-4fe8-a362-1b2c8e985169}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -63,20 +87,14 @@
     <ClInclude Include="windowsAPI.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
-    <ClInclude Include="commonMacroFunction.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
     <ClInclude Include="gameNode.h">
       <Filter>2DGameFramework</Filter>
     </ClInclude>
     <ClInclude Include="playGround.h">
-      <Filter>playGround</Filter>
+      <Filter>PlayGround</Filter>
     </ClInclude>
     <ClInclude Include="singletonBase.h">
       <Filter>2DGameFramework\SingletonBase</Filter>
-    </ClInclude>
-    <ClInclude Include="randomFunction.h">
-      <Filter>헤더 파일</Filter>
     </ClInclude>
     <ClInclude Include="utils.h">
       <Filter>2DGameFramework\Utils</Filter>
@@ -85,10 +103,10 @@
       <Filter>2DGameFramework\Utils</Filter>
     </ClInclude>
     <ClInclude Include="txtData.h">
-      <Filter>2DGameFramework\txtData</Filter>
+      <Filter>2DGameFramework\TxtData</Filter>
     </ClInclude>
     <ClInclude Include="timer.h">
-      <Filter>2DGameFramework\timer</Filter>
+      <Filter>2DGameFramework\Timer</Filter>
     </ClInclude>
     <ClInclude Include="timeManager.h">
       <Filter>2DGameFramework\Manager</Filter>
@@ -114,14 +132,8 @@
     <ClInclude Include="GameObject.h">
       <Filter>2DGameFramework\GameObject</Filter>
     </ClInclude>
-    <ClInclude Include="Player.h">
-      <Filter>playGround</Filter>
-    </ClInclude>
     <ClInclude Include="ObjectManager.h">
       <Filter>2DGameFramework\Manager</Filter>
-    </ClInclude>
-    <ClInclude Include="Obstacle.h">
-      <Filter>playGround</Filter>
     </ClInclude>
     <ClInclude Include="EventManager.h">
       <Filter>2DGameFramework\EventManager</Filter>
@@ -133,7 +145,7 @@
       <Filter>2DGameFramework\Animation</Filter>
     </ClInclude>
     <ClInclude Include="Image.h">
-      <Filter>2DGameFramework\image</Filter>
+      <Filter>2DGameFramework\Image</Filter>
     </ClInclude>
     <ClInclude Include="ImageManager.h">
       <Filter>2DGameFramework\Manager</Filter>
@@ -147,16 +159,31 @@
     <ClInclude Include="CameraManager.h">
       <Filter>2DGameFramework\Manager</Filter>
     </ClInclude>
+    <ClInclude Include="Effect.h">
+      <Filter>2DGameFramework\Effect</Filter>
+    </ClInclude>
+    <ClInclude Include="EffectManager.h">
+      <Filter>2DGameFramework\Manager</Filter>
+    </ClInclude>
+    <ClInclude Include="RandomFunction.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="CommonMacroFunction.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="MainScene.h">
+      <Filter>PlayGround\Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="StageScene.h">
+      <Filter>PlayGround\Scene</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="windowsAPI.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
-    <ClCompile Include="gameNode.cpp">
-      <Filter>2DGameFramework</Filter>
-    </ClCompile>
     <ClCompile Include="playGround.cpp">
-      <Filter>playGround</Filter>
+      <Filter>PlayGround</Filter>
     </ClCompile>
     <ClCompile Include="utils.cpp">
       <Filter>2DGameFramework\Utils</Filter>
@@ -165,7 +192,7 @@
       <Filter>2DGameFramework\Utils</Filter>
     </ClCompile>
     <ClCompile Include="timer.cpp">
-      <Filter>2DGameFramework\timer</Filter>
+      <Filter>2DGameFramework\Timer</Filter>
     </ClCompile>
     <ClCompile Include="timeManager.cpp">
       <Filter>2DGameFramework\Manager</Filter>
@@ -191,17 +218,11 @@
     <ClCompile Include="GameObject.cpp">
       <Filter>2DGameFramework\GameObject</Filter>
     </ClCompile>
-    <ClCompile Include="Player.cpp">
-      <Filter>playGround</Filter>
-    </ClCompile>
     <ClCompile Include="stdafx.cpp">
       <Filter>헤더 파일</Filter>
     </ClCompile>
     <ClCompile Include="ObjectManager.cpp">
       <Filter>2DGameFramework\Manager</Filter>
-    </ClCompile>
-    <ClCompile Include="Obstacle.cpp">
-      <Filter>playGround</Filter>
     </ClCompile>
     <ClCompile Include="EventManager.cpp">
       <Filter>2DGameFramework\EventManager</Filter>
@@ -213,7 +234,7 @@
       <Filter>2DGameFramework\Animation</Filter>
     </ClCompile>
     <ClCompile Include="Image.cpp">
-      <Filter>2DGameFramework\image</Filter>
+      <Filter>2DGameFramework\Image</Filter>
     </ClCompile>
     <ClCompile Include="ImageManager.cpp">
       <Filter>2DGameFramework\Manager</Filter>
@@ -222,13 +243,25 @@
       <Filter>2DGameFramework\Manager</Filter>
     </ClCompile>
     <ClCompile Include="TxtData.cpp">
-      <Filter>2DGameFramework\txtData</Filter>
+      <Filter>2DGameFramework\TxtData</Filter>
     </ClCompile>
     <ClCompile Include="Vector3.cpp">
       <Filter>2DGameFramework\Utils</Filter>
     </ClCompile>
     <ClCompile Include="CameraManager.cpp">
       <Filter>2DGameFramework\Manager</Filter>
+    </ClCompile>
+    <ClCompile Include="Effect.cpp">
+      <Filter>2DGameFramework\Effect</Filter>
+    </ClCompile>
+    <ClCompile Include="EffectManager.cpp">
+      <Filter>2DGameFramework\Manager</Filter>
+    </ClCompile>
+    <ClCompile Include="MainScene.cpp">
+      <Filter>PlayGround\Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="StageScene.cpp">
+      <Filter>PlayGround\Scene</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

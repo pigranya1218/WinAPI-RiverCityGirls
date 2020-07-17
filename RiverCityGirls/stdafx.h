@@ -29,16 +29,18 @@ enum class Pivot : int
 #include "Vector3.h"
 #include "FloatRect.h"
 
-#include "commonMacroFunction.h"
-#include "randomFunction.h"
-#include "keyManager.h"
+#include "CommonMacroFunction.h"
+#include "RandomFunction.h"
+#include "KeyManager.h"
 #include "Utils.h"
 #include "collision.h"
 #include "D2DRenderer.h"
-#include "imageManager.h"
-#include "timeManager.h"
-#include "soundManager.h"
-#include "sceneManager.h"
+#include "ImageManager.h"
+#include "TimeManager.h"
+#include "SoundManager.h"
+#include "SceneManager.h"
+#include "CameraManager.h"
+#include "EffectManager.h"
 #include "txtData.h"
 
 #include "ObjectManager.h"
@@ -67,6 +69,9 @@ using namespace TTYONE_UTIL;
 //#define KEYANIMANAGER keyAniManager::getSingleton()
 #define TXTDATA TxtData::getSingleton()
 #define OBJECT_MANAGER ObjectManager::getSingleton()
+#define D2D_RENDERER D2DRenderer::getSingleton()
+#define CAMERA_MANAGER CameraManager::getSingleton()
+#define EFFECT_MANAGER EffectManager::getSingleton()
 
 #define SAFE_DELETE(p)		{if(p) {delete(p); (p) = NULL;}}
 #define SAFE_RELEASE(p)		{if(p) {(p)->release(); (p) = NULL;}}

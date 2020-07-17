@@ -2,18 +2,12 @@
 /****************************************************************************
 ## D2DRenderer ##
 *****************************************************************************/
-class D2DRenderer final 
+class D2DRenderer final : public SingletonBase<D2DRenderer>
 {
 public:
-	static D2DRenderer* GetInstance()
-	{
-		static D2DRenderer instance;
-		return &instance;
-	}
-
-private:
 	D2DRenderer();
-	virtual ~D2DRenderer();
+	~D2DRenderer();
+
 public:
 	enum class DefaultBrush : UINT
 	{
