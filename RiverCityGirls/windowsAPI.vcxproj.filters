@@ -158,9 +158,6 @@
     <ClCompile Include="collision.cpp">
       <Filter>2DGameFramework\Utils</Filter>
     </ClCompile>
-    <ClCompile Include="txtData.cpp">
-      <Filter>2DGameFramework\txtData</Filter>
-    </ClCompile>
     <ClCompile Include="timer.cpp">
       <Filter>2DGameFramework\timer</Filter>
     </ClCompile>
@@ -217,6 +214,9 @@
     </ClCompile>
     <ClCompile Include="KeyManager.cpp">
       <Filter>2DGameFramework\Manager</Filter>
+    </ClCompile>
+    <ClCompile Include="TxtData.cpp">
+      <Filter>2DGameFramework\txtData</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

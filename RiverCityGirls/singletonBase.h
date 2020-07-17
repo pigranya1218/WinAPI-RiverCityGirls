@@ -1,31 +1,31 @@
 #pragma once
 
 template <typename T>
-class singletonBase
+class SingletonBase
 {
 protected:
 	static T* singleton;
 
-	singletonBase() {}
-	~singletonBase() {}
+	SingletonBase() {}
+	~SingletonBase() {}
 public:
 	static T* getSingleton();
 	void releaseSingleton();
 };
 
 template <typename T>
-T* singletonBase<T>::singleton = 0;
+T* SingletonBase<T>::singleton = 0;
 
 template<typename T>
-inline T * singletonBase<T>::getSingleton()
+inline T * SingletonBase<T>::getSingleton()
 {
 	if (!singleton) singleton = new T;
 
-	return singleton;;
+	return singleton;
 }
 
 template<typename T>
-inline void singletonBase<T>::releaseSingleton()
+inline void SingletonBase<T>::releaseSingleton()
 {
 	if (singleton)
 	{

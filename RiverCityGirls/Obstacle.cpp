@@ -4,22 +4,22 @@
 
 Obstacle::Obstacle()
 {
-	mName = "Obstacle";
-	mPosition = Vector2(WINSIZEX / 2, WINSIZEY / 2 - 100);
-	mSize = Vector2(300, 50);
-	mRect = RectMakePivot(mPosition, mSize, Pivot::Center);
-	mActive = true;
+	_name = "Obstacle";
+	_position = Vector2(WINSIZEX / 2, WINSIZEY / 2 - 100);
+	_size = Vector2(300, 50);
+	_rect = rectMakePivot(_position, _size, Pivot::Center);
+	_active = true;
 }
 Obstacle::~Obstacle() {}
 
-void Obstacle::Init() {}
+void Obstacle::init() {}
 
-void Obstacle::Release() {}
+void Obstacle::release() {}
 
-void Obstacle::Update() {}
+void Obstacle::update() {}
 
-void Obstacle::Render()
+void Obstacle::render()
 {
-	D2DRenderer::GetInstance()->drawRectangle(mRect,
+	D2DRenderer::GetInstance()->drawRectangle(_rect,
 		D2DRenderer::DefaultBrush::Blue, 1.f);
 }

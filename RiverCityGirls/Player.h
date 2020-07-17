@@ -6,19 +6,19 @@
 class Player : public GameObject
 {
 private:
-	Synthesize(Image*, mImg, Image)
-	Synthesize(animation*, mAni, Animation)
+	Synthesize(Image*, _img, Image)
+	Synthesize(Animation*, _ani, Animation)
 
 public:
 	Player();
 	virtual ~Player();
 
-	void Init()override;
-	void Release()override;
-	void Update()override;
-	void Render()override;
+	void init()override;
+	void release()override;
+	void update()override;
+	void render()override;
 
-	void Move(Vector2 moveDirection, float speed);
-	void MoveAngle(float angle,float speed);
+	void move(Vector2 moveDirection, float speed);
+	void moveAngle(float angle,float speed);
 };
 

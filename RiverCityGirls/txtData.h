@@ -2,11 +2,11 @@
 #include "singletonBase.h"
 #include <vector>
 
-class txtData : public singletonBase<txtData>
+class TxtData : public SingletonBase<TxtData>
 {
 public:
-	txtData();
-	~txtData();
+	TxtData();
+	~TxtData();
 
 	HRESULT init();
 	void release();

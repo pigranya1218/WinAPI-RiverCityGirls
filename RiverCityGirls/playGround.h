@@ -1,6 +1,6 @@
 #pragma once
-#include "gameNode.h"
-class playGround : public gameNode
+#include "GameNode.h"
+class playGround : public GameNode
 {
 public:
 	playGround();

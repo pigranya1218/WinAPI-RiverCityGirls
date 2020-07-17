@@ -281,7 +281,7 @@ void D2DRenderer::drawRectangle(const FloatRect& rc, const DefaultBrush& default
 ************************************************************************************************/
 void D2DRenderer::drawEllipse(const Vector2& origin, const float radius, const DefaultBrush& defaultBrush, const float strokeWidth)
 {
-	FloatRect rc = RectMakePivot(origin, Vector2(radius, radius), Pivot::Center);
+	FloatRect rc = rectMakePivot(origin, Vector2(radius, radius), Pivot::Center);
 	Vector2 pos = origin;
 	float tempRadius = radius;
 
@@ -306,7 +306,7 @@ void D2DRenderer::drawEllipse(const Vector2& origin, const float radius, const D
 void D2DRenderer::drawEllipse(const Vector2& origin, const float radius, const D2D1::ColorF::Enum& color,
 	const float alpha, const float strokeWidth)
 {
-	FloatRect rc = RectMakePivot(origin, Vector2(radius, radius), Pivot::Center);
+	FloatRect rc = rectMakePivot(origin, Vector2(radius, radius), Pivot::Center);
 	Vector2 pos = origin;
 	float tempRadius = radius;
 
@@ -367,7 +367,7 @@ void D2DRenderer::fillRectangle(const FloatRect& rc, const DefaultBrush& default
 ************************************************************************************************/
 void D2DRenderer::fiilEllipse(const Vector2& origin, const float radius, const D2D1::ColorF::Enum& color,const float alpha)
 {
-	FloatRect rc = RectMakePivot(origin, Vector2(radius, radius), Pivot::Center);
+	FloatRect rc = rectMakePivot(origin, Vector2(radius, radius), Pivot::Center);
 	Vector2 pos = origin;
 	float tempRadius = radius;
 
@@ -393,7 +393,7 @@ void D2DRenderer::fiilEllipse(const Vector2& origin, const float radius, const D
 ************************************************************************************************/
 void D2DRenderer::fiilEllipse(const Vector2& origin, const float radius, const DefaultBrush& brush)
 {
-	FloatRect rc = RectMakePivot(origin, Vector2(radius, radius), Pivot::Center);
+	FloatRect rc = rectMakePivot(origin, Vector2(radius, radius), Pivot::Center);
 	Vector2 pos = origin;
 	float tempRadius = radius;
 
@@ -413,8 +413,8 @@ void D2DRenderer::drawRotationNullRectangle(const FloatRect& rc, const D2D1::Col
 	FloatRect rect = rc;
 
 	D2D1_POINT_2F offset;
-	offset.x = rect.left + rect.GetWidth() / 2;
-	offset.y = rect.top + rect.GetHeight() / 2;
+	offset.x = rect.left + rect.getWidth() / 2;
+	offset.y = rect.top + rect.getHeight() / 2;
 
 	ID2D1SolidColorBrush* brush;
 	mD2DRenderTarget->CreateSolidColorBrush(D2D1::ColorF(color, alpha), &brush);
@@ -432,8 +432,8 @@ void D2DRenderer::drawRotationFillRectangle(const FloatRect& rc, const D2D1::Col
 	FloatRect rect = rc;
 
 	D2D1_POINT_2F offset;
-	offset.x = rect.left + rect.GetWidth() / 2;
-	offset.y = rect.top + rect.GetHeight() / 2;
+	offset.x = rect.left + rect.getWidth() / 2;
+	offset.y = rect.top + rect.getHeight() / 2;
 	ID2D1SolidColorBrush* brush;
 	mD2DRenderTarget->CreateSolidColorBrush(color, &brush);
 	mD2DRenderTarget->SetTransform(D2D1::Matrix3x2F::Rotation(angle, offset));

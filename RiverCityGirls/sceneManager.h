@@ -1,29 +1,29 @@
 #pragma once
-#include "singletonBase.h"
+#include "SingletonBase.h"
 
 
-class gameNode;
+class GameNode;
 
-class sceneManager : public singletonBase<sceneManager>
+class SceneManager : public SingletonBase<SceneManager>
 {
 public:
-	typedef map<string, gameNode*>			 mapSceneList;
-	typedef map<string, gameNode*>::iterator mapSceneIter;
+	typedef map<string, GameNode*>			 mapSceneList;
+	typedef map<string, GameNode*>::iterator mapSceneIter;
 
 private:
-	static gameNode* _currentScene;
+	static GameNode* _currentScene;
 	mapSceneList _mSceneList;
 
 public:
-	sceneManager();
-	~sceneManager();
+	SceneManager();
+	~SceneManager();
 
 	HRESULT init();
 	void release();
 	void update();
 	void render();
 
-	gameNode* addScene(string sceneName, gameNode* scene);
+	GameNode* addScene(string sceneName, GameNode* scene);
 
 	HRESULT changeScene(string sceneName);
 

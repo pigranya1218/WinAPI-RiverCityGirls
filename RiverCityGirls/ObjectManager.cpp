@@ -23,7 +23,7 @@ void ObjectManager::release()
 		vector<GameObject*>& objectList = iter->second;
 		for (int i = 0; i < objectList.size(); ++i)
 		{
-			objectList[i]->Release();
+			objectList[i]->release();
 			SAFE_DELETE(objectList[i]);
 		}
 	}
@@ -40,7 +40,7 @@ void ObjectManager::update()
 		for (int i = 0; i < objectList.size(); ++i)
 		{
 			if (objectList[i]->GetActive())
-				objectList[i]->Update();
+				objectList[i]->update();
 		}
 	}
 }
@@ -54,7 +54,7 @@ void ObjectManager::render()
 		for (int i = 0; i < objectList.size(); ++i)
 		{
 			if (objectList[i]->GetActive())
-				objectList[i]->Render();
+				objectList[i]->render();
 		}
 	}
 }
@@ -74,7 +74,7 @@ void ObjectManager::removeObject(ObjectType objectType, GameObject * deleteObjec
 	{
 		if (objectList[i] == deleteObject)
 		{
-			objectList[i]->Release();
+			objectList[i]->release();
 			SAFE_DELETE(objectList[i]);
 			objectList.erase(objectList.begin() + i);
 			return;

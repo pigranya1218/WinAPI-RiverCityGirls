@@ -6,7 +6,7 @@
 
 using namespace std;
 
-class KeyManager : public singletonBase<KeyManager>
+class KeyManager : public SingletonBase<KeyManager>
 {
 private:
 	bitset<KEYMAX> _keyUp;

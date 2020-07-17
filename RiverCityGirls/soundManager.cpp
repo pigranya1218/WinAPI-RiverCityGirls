@@ -1,8 +1,8 @@
 #include "stdafx.h"
-#include "soundManager.h"
+#include "SoundManager.h"
 
 
-soundManager::soundManager()
+SoundManager::SoundManager()
 	: _system(NULL),
 	_channel(NULL),
 	_sound(NULL)
@@ -10,11 +10,11 @@ soundManager::soundManager()
 }
 
 
-soundManager::~soundManager()
+SoundManager::~SoundManager()
 {
 }
 
-HRESULT soundManager::init()
+HRESULT SoundManager::init()
 {
 	//FMOD 엔진 초기화
 	System_Create(&_system);
@@ -32,7 +32,7 @@ HRESULT soundManager::init()
 	return S_OK;
 }
 
-void soundManager::release()
+void SoundManager::release()
 {
 	if (_system != NULL)
 	{
@@ -41,12 +41,12 @@ void soundManager::release()
 	}
 }
 
-void soundManager::update()
+void SoundManager::update()
 {
 	_system->update();
 }
 
-void soundManager::addSound(string keyName, string soundName, bool bgm, bool loop)
+void SoundManager::addSound(string keyName, string soundName, bool bgm, bool loop)
 {
 	if (loop)
 	{
@@ -74,7 +74,7 @@ void soundManager::addSound(string keyName, string soundName, bool bgm, bool loo
 	_mTotalSounds.insert(make_pair(keyName, &_sound[_mTotalSounds.size()]));
 }
 
-void soundManager::play(string keyName, float volume)
+void SoundManager::play(string keyName, float volume)
 {
 	arrSoundsIter iter = _mTotalSounds.begin();
 
@@ -93,7 +93,7 @@ void soundManager::play(string keyName, float volume)
 
 }
 
-void soundManager::stop(string keyName)
+void SoundManager::stop(string keyName)
 {
 	arrSoundsIter iter = _mTotalSounds.begin();
 
@@ -109,7 +109,7 @@ void soundManager::stop(string keyName)
 	}
 }
 
-void soundManager::pause(string keyName)
+void SoundManager::pause(string keyName)
 {
 	arrSoundsIter iter = _mTotalSounds.begin();
 
@@ -125,7 +125,7 @@ void soundManager::pause(string keyName)
 	}
 }
 
-void soundManager::resume(string keyName)
+void SoundManager::resume(string keyName)
 {
 	arrSoundsIter iter = _mTotalSounds.begin();
 
@@ -141,7 +141,7 @@ void soundManager::resume(string keyName)
 	}
 }
 
-bool soundManager::isPlaySound(string keyName)
+bool SoundManager::isPlaySound(string keyName)
 {
 	bool isPlay;
 	arrSoundsIter iter = _mTotalSounds.begin();
@@ -160,7 +160,7 @@ bool soundManager::isPlaySound(string keyName)
 	return isPlay;
 }
 
-bool soundManager::isPauseSound(string keyName)
+bool SoundManager::isPauseSound(string keyName)
 {
 	bool isPause;
 	arrSoundsIter iter = _mTotalSounds.begin();

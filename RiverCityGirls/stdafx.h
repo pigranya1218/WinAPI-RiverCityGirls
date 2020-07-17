@@ -56,11 +56,11 @@ using namespace TTYONE_UTIL;
 #define WINSIZEY	768
 #define WINSTYLE	WS_CAPTION | WS_SYSMENU
 
-#define RND randomFunction::getSingleton()
-#define KEYMANAGER keyManager::getSingleton()
-#define IMAGEMANAGER imageManager::getSingleton()
+#define RND RandomFunction::getSingleton()
+#define KEYMANAGER KeyManager::getSingleton()
+#define IMAGEMANAGER ImageManager::getSingleton()
 #define TIMEMANAGER TimeManager::getSingleton()
-#define EFFECTMANAGER effectManager::getSingleton()
+#define EFFECTMANAGER EffectManager::getSingleton()
 #define SOUNDMANAGER SoundManager::getSingleton()
 #define SCENEMANAGER SceneManager::getSingleton()
 //#define KEYANIMANAGER keyAniManager::getSingleton()

@@ -205,7 +205,7 @@
     </ClCompile>
     <ClCompile Include="TimeManager.cpp" />
     <ClCompile Include="Timer.cpp" />
-    <ClCompile Include="txtData.cpp" />
+    <ClCompile Include="TxtData.cpp" />
     <ClCompile Include="Utils.cpp" />
     <ClCompile Include="Vector2.cpp" />
     <ClCompile Include="windowsAPI.cpp" />

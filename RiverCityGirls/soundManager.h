@@ -12,7 +12,7 @@ using namespace FMOD;
 #define TOTALSOUNDBUFFER SOUNDBUFFER + EXTRACHANNELBUFFER
 
 
-class soundManager : public singletonBase<soundManager>
+class SoundManager : public SingletonBase<SoundManager>
 {
 private:
 	typedef map<string, Sound**>			arrSounds;
@@ -29,8 +29,8 @@ private:
 	arrSounds		_mTotalSounds;
 
 public:
-	soundManager();
-	~soundManager();
+	SoundManager();
+	~SoundManager();
 
 	HRESULT init();
 	void release();

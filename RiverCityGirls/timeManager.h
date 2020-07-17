@@ -1,15 +1,15 @@
 #pragma once
 #include "singletonBase.h"
-#include "timer.h"
+#include "Timer.h"
 
-class timeManager : public singletonBase<timeManager>
+class TimeManager : public SingletonBase<TimeManager>
 {
 private:
-	timer* _timer;
+	Timer* _timer;
 
 public:
-	timeManager();
-	~timeManager();
+	TimeManager();
+	~TimeManager();
 
 	HRESULT init();
 	void release();

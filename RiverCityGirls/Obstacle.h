@@ -6,10 +6,10 @@ public:
 	Obstacle();
 	~Obstacle();
 
-	void Init()override;
-	void Release()override;
-	void Update()override;
-	void Render()override; 
+	void init()override;
+	void release()override;
+	void update()override;
+	void render()override; 
 
 	void OnCollision(){}
 };

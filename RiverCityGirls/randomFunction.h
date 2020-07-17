@@ -2,14 +2,14 @@
 #include "singletonBase.h"
 #include <time.h>
 
-class randomFunction : public singletonBase<randomFunction>
+class RandomFunction : public SingletonBase<RandomFunction>
 {
 public:
-	randomFunction()
+	RandomFunction()
 	{
 		srand(GetTickCount());
 	}
-	~randomFunction()
+	~RandomFunction()
 	{
 
 	}
