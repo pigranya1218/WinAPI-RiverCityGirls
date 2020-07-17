@@ -1,5 +1,5 @@
 #include "stdafx.h"
-#include "playGround.h"
+#include "PlayGround.h"
 #include "Player.h"
 #include "Obstacle.h"
 
@@ -59,7 +59,7 @@ void playGround::update()
 void playGround::render()
 {	
 	//백버퍼 초기화
-	D2DRenderer::GetInstance()->BeginRender(D2D1::ColorF::Black);
+	D2DRenderer::GetInstance()->beginRender(D2D1::ColorF::Black);
 	{
 		OBJECTMANAGER->Render();
 		//FloatRect rect;
@@ -96,5 +96,5 @@ void playGround::render()
 		//frameImage->FrameRender(Vector2(WINSIZEX / 2, WINSIZEY / 2), 0, 0);
 	}
 	//백버퍼에 그린 내용들을 화면에 뿌려라~
-	D2DRenderer::GetInstance()->EndRender();
+	D2DRenderer::GetInstance()->endRender();
 }

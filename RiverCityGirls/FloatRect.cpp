@@ -16,7 +16,7 @@ FloatRect::FloatRect(const int& left, const int& top, const int& right, const in
 
 FloatRect::FloatRect(const Vector2& pos, const Vector2& size, const Pivot& pivot)
 {
-	*this = RectMakePivot(pos, size, pivot);
+	*this = rectMakePivot(pos, size, pivot);
 }
 
 FloatRect::FloatRect(const RECT& rc)
@@ -26,15 +26,15 @@ FloatRect::FloatRect(const RECT& rc)
 ## FloatRect::GetRect ##
 @@ return RECT : LONG형 RECT로 변환 후 반환
 **************************************************************************************************/
-const RECT FloatRect::GetRect()
+const RECT FloatRect::getRect()
 {
 	return { (LONG)left,(LONG)top,(LONG)right,(LONG)bottom };
 }
-float FloatRect::GetWidth()
+float FloatRect::getWidth()
 {
 	return right - left;
 }
-float FloatRect::GetHeight()
+float FloatRect::getHeight()
 {
 	return bottom - top;
 }
@@ -42,15 +42,15 @@ float FloatRect::GetHeight()
 ## FloatRect::GetCenter ##
 @@ return Vector2 : 중심 좌표
 **************************************************************************************************/
-Vector2 FloatRect::GetCenter()
+Vector2 FloatRect::getCenter()
 {
 	return Vector2(left + (right - left) / 2.f, top + (bottom - top) / 2.f);
 }
-Vector2 FloatRect::GetBottom()
+Vector2 FloatRect::getBottom()
 {
 	return Vector2(left + (right - left) / 2.f, bottom);
 }
-Vector2 FloatRect::GetSize()
+Vector2 FloatRect::getSize()
 {
 	return Vector2((right - left), (bottom - top));
 }
@@ -62,15 +62,15 @@ Vector2 FloatRect::GetSize()
 
 FLOATRECT 정보 갱신
 **************************************************************************************************/
-void FloatRect::Update(const Vector2& pos, const Vector2& size, const Pivot& pivot)
+void FloatRect::update(const Vector2& pos, const Vector2& size, const Pivot& pivot)
 {
-	*this = ::RectMakePivot(pos, size, pivot);
+	*this = ::rectMakePivot(pos, size, pivot);
 }
 /**************************************************************************************************
 ## FloatRect::Move ##
 @@ Vector2 moveValue : 이동방향 * 이동량
 **************************************************************************************************/
-void FloatRect::Move(const Vector2& moveValue)
+void FloatRect::move(const Vector2& moveValue)
 {
 	left += moveValue.x;
 	right += moveValue.x;

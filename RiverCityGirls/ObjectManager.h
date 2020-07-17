@@ -7,23 +7,23 @@ enum class ObjectType : int
 };
 
 //게임오브젝트를 관리하는 클래스
-class ObjectManager final : public singletonBase<ObjectManager>
+class ObjectManager final : public SingletonBase<ObjectManager>
 {
-	unordered_map<ObjectType, vector<class GameObject*>> mObjectContainer;
-	typedef unordered_map<ObjectType, vector<class GameObject*>>::iterator ObjectContainerIter;
+	unordered_map<ObjectType, vector<class GameObject*>> _objectContainer;
+	typedef unordered_map<ObjectType, vector<class GameObject*>>::iterator objectContainerIter;
 public:
 	ObjectManager();
 	~ObjectManager();
 
-	void Release();
-	void Update();
-	void Render();
+	void release();
+	void update();
+	void render();
 
-	void AddObject(ObjectType objectType,class GameObject* newObject);
-	void RemoveObject(ObjectType objectType,class GameObject* deleteObject);
+	void addObject(ObjectType objectType,class GameObject* newObject);
+	void removeObject(ObjectType objectType,class GameObject* deleteObject);
 
-	class GameObject* FindObject(ObjectType objectType,string objectName);
-	vector<class GameObject*> FindObjects(ObjectType objectType,string objectName);
-	vector<class GameObject*>& GetObjectList(ObjectType objectType);
+	class GameObject* findObject(ObjectType objectType,string objectName);
+	vector<class GameObject*> findObjects(ObjectType objectType,string objectName);
+	vector<class GameObject*>& getObjectList(ObjectType objectType);
 };
 

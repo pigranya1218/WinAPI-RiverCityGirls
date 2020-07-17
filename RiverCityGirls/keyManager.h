@@ -1,5 +1,5 @@
 #pragma once
-#include "singletonBase.h"
+#include "SingletonBase.h"
 #include <bitset>
 
 #define KEYMAX 256

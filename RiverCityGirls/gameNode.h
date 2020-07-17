@@ -1,14 +1,14 @@
 #pragma once
 #include "image.h"
 
-class gameNode
+class GameNode
 {
 private:
 	bool _managerInit;		//매니저들 초기화할꺼니
 
 public:
-	gameNode();
-	virtual ~gameNode();
+	GameNode();
+	virtual ~GameNode();
 
 	//HRESULT는 마이크로소프트 전용 디버깅 반환자 인데
 	//S_OK, E_FAIL, SUCCDED 등으로 출력창에 

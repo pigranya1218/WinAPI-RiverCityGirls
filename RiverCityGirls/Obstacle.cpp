@@ -20,6 +20,6 @@ void Obstacle::Update() {}
 
 void Obstacle::Render()
 {
-	D2DRenderer::GetInstance()->DrawRectangle(mRect,
+	D2DRenderer::GetInstance()->drawRectangle(mRect,
 		D2DRenderer::DefaultBrush::Blue, 1.f);
 }
