@@ -84,7 +84,7 @@ int APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpszCmd
 		else
 		{
 			//우선 60프레임으로 둔다
-			TIMEMANAGER->update(60);
+			TIME_MANAGER->update(60);
 			_pg.update();
 			_pg.render();
 		}

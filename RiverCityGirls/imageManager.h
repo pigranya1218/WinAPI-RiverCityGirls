@@ -3,15 +3,8 @@
 /****************************************************************************
 ## ImageRenderer ##
 *****************************************************************************/
-class ImageManager final 
+class ImageManager : public SingletonBase<ImageManager>
 {
-public:
-	static ImageManager* getInstance()
-	{
-		static ImageManager* istance = new ImageManager;
-		return istance;
-	}
-
 private:
 	typedef map<string, class Image*>::iterator ImageIter; 
 
@@ -31,5 +24,3 @@ private:
 	ID2D1Bitmap* createD2DBitmapFromFile(const wstring& file);
 	void deleteAll();
 };
-
-#define IMAGE_MANAGER ImageManager::getInstance()

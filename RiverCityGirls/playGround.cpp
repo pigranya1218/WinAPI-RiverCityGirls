@@ -20,13 +20,13 @@ HRESULT playGround::init()
 {
 	GameNode::init(true);
 
-	ImageManager::getInstance()->addImage("TestObject", L"TrapObject.png");
-	ImageManager::getInstance()->addFrameImage("TestFrameObject",
+	IMAGE_MANAGER->addImage("TestObject", L"TrapObject.png");
+	IMAGE_MANAGER->addFrameImage("TestFrameObject",
 		L"Bomb.png", 3, 1);
 
 	Player* player = new Player();
 	player->init();
-	OBJECTMANAGER->addObject(ObjectType::Player, player);
+	OBJECT_MANAGER->addObject(ObjectType::Player, player);
 
 	EventManager::getInstance()->addEvent(new IObjectMove
 	(
@@ -44,14 +44,14 @@ HRESULT playGround::init()
 //메모리 해제
 void playGround::release()
 {
-	OBJECTMANAGER->release();
+	OBJECT_MANAGER->release();
 }
 
 //연산
 void playGround::update()
 {
 	GameNode::update();
-	OBJECTMANAGER->update();
+	OBJECT_MANAGER->update();
 	EventManager::getInstance()->update();
 }
 
@@ -61,7 +61,7 @@ void playGround::render()
 	//백버퍼 초기화
 	D2DRenderer::GetInstance()->beginRender(D2D1::ColorF::Black);
 	{
-		OBJECTMANAGER->render();
+		OBJECT_MANAGER->render();
 		//FloatRect rect;
 		//rect = RectMakePivot(Vector2(WINSIZEX / 2, WINSIZEY / 2),
 		//	Vector2(50, 50), Pivot::Center);

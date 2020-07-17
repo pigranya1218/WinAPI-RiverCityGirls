@@ -11,7 +11,7 @@ protected:
 	*/
 	Synthesize(Vector2, _position, Position)
 	Synthesize(Vector2, _size,Size)
-	Synthesize(FloatRect, _rect,Rect) 
+	Synthesize(FloatRect, _rect,Rect)
 	Synthesize(bool, _active,Active)
 public:
 	GameObject();

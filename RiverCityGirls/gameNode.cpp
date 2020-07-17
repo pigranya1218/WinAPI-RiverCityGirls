@@ -25,11 +25,11 @@ HRESULT GameNode::init(bool managerInit)
 	if (_managerInit)
 	{
 	//	SetTimer(_hWnd, 1, 10, NULL);
-		KEYMANAGER->init();
-		TIMEMANAGER->init();
+		KEY_MANAGER->init();
+		TIME_MANAGER->init();
 
-		SOUNDMANAGER->init();
-		SCENEMANAGER->init();
+		SOUND_MANAGER->init();
+		SCENE_MANAGER->init();
 
 		TXTDATA->init();
 	}
@@ -44,20 +44,20 @@ void GameNode::release()
 	{
 	//	KillTimer(_hWnd, 1);
 
-		KEYMANAGER->release();
-		KEYMANAGER->releaseSingleton();
+		KEY_MANAGER->release();
+		KEY_MANAGER->releaseSingleton();
 
 		TXTDATA->release();
 		TXTDATA->releaseSingleton();
 
-		TIMEMANAGER->release();
-		TIMEMANAGER->releaseSingleton();
+		TIME_MANAGER->release();
+		TIME_MANAGER->releaseSingleton();
 
-		SOUNDMANAGER->release();
-		SOUNDMANAGER->releaseSingleton();
+		SOUND_MANAGER->release();
+		SOUND_MANAGER->releaseSingleton();
 
-		SCENEMANAGER->release();
-		SCENEMANAGER->releaseSingleton();
+		SCENE_MANAGER->release();
+		SCENE_MANAGER->releaseSingleton();
 
 	}
 	

@@ -10,7 +10,7 @@ Player::Player()
 	_size = Vector2(50, 50);
 	_rect = rectMakePivot(_position, _size, Pivot::Center);
 	_active = true;
-	_img = ImageManager::getInstance()->findImage("TestFrameObject");
+	_img = IMAGE_MANAGER->findImage("TestFrameObject");
 	_ani = new Animation;
 	_ani->init(_img->getWidth(), _img->getHeight(), _img->getMaxFrameX(), _img->getMaxFrameY());
 	_ani->setDefPlayFrame(true, true);
@@ -18,14 +18,12 @@ Player::Player()
 	_ani->start();
 }
 
-
 Player::~Player()
 {
 }
 
 void Player::init()
 {
-	
 }
 
 void Player::release()
@@ -34,18 +32,18 @@ void Player::release()
 
 void Player::update()
 {
-	if(KEYMANAGER->isStayKeyDown('A'))
+	if(KEY_MANAGER->isStayKeyDown('A'))
 	{
 		//왼쪽
 		move(Vector2(-1.f, 0.f), 100.f);
 	}
-	else if (KEYMANAGER->isStayKeyDown('D'))
+	else if (KEY_MANAGER->isStayKeyDown('D'))
 	{
 		//오른쪽
 		move(Vector2(1.f, 0.f), 100.f);
 	}
 
-	vector<GameObject*>& monsterList = OBJECTMANAGER->getObjectList(ObjectType::Monster);
+	vector<GameObject*>& monsterList = OBJECT_MANAGER->getObjectList(ObjectType::Monster);
 	for (int i = 0; i < monsterList.size(); ++i)
 	{
 		RECT temp;
@@ -55,7 +53,7 @@ void Player::update()
 		}
 	}
 
-	_ani->frameUpdate(TIMEMANAGER->getElapsedTime());
+	_ani->frameUpdate(TIME_MANAGER->getElapsedTime());
 }
 
 void Player::render()
@@ -70,8 +68,8 @@ void Player::render()
 void Player::move(Vector2 moveDirection, float speed)
 {
 	//예시 1
-	_position.x += moveDirection.x * speed * TIMEMANAGER->getElapsedTime();
-	_position.y += moveDirection.y * speed * TIMEMANAGER->getElapsedTime();
+	_position.x += moveDirection.x * speed * TIME_MANAGER->getElapsedTime();
+	_position.y += moveDirection.y * speed * TIME_MANAGER->getElapsedTime();
 	_rect = rectMakePivot(_position, _size, Pivot::Center);
 
 	////예시 2
@@ -81,7 +79,7 @@ void Player::move(Vector2 moveDirection, float speed)
 
 void Player::moveAngle(float angle, float speed)
 {
-	_position.x += cosf(angle) * speed * TIMEMANAGER->getElapsedTime();
-	_position.y -= sinf(angle) * speed * TIMEMANAGER->getElapsedTime();
+	_position.x += cosf(angle) * speed * TIME_MANAGER->getElapsedTime();
+	_position.y -= sinf(angle) * speed * TIME_MANAGER->getElapsedTime();
 	_rect.update(_position, _size,Pivot::Center);
 }

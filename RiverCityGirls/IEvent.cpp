@@ -20,8 +20,8 @@ bool IObjectMove::eventUpdate()
 	float angle = getAngle(position.x, position.y,
 		_targetLocation.x, _targetLocation.y);
 
-	position.x += cosf(angle) * _speed * TIMEMANAGER->getElapsedTime();
-	position.y -= sinf(angle) * _speed * TIMEMANAGER->getElapsedTime();
+	position.x += cosf(angle) * _speed * TIME_MANAGER->getElapsedTime();
+	position.y -= sinf(angle) * _speed * TIME_MANAGER->getElapsedTime();
 
 	_targetObject->SetPosition(position);
 	_targetObject->SetRect(FloatRect(position, _targetObject->GetSize(), Pivot::Center));

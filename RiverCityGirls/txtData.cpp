@@ -35,7 +35,6 @@ void TxtData::txtSave(const char * saveFileName, vector<string> vStr)
 	WriteFile(file, str, 128, &write, NULL);
 
 	CloseHandle(file);
-
 }
 
 char* TxtData::vectorArrayCombine(vector<string> vArray)
