@@ -44,8 +44,6 @@ void playGround::update()
 	GameNode::update();
 
 	SCENE_MANAGER->update();
-	
-	// EventManager::getInstance()->update();
 }
 
 //그리기 전용

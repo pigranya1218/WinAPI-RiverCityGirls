@@ -31,9 +31,6 @@
     <Filter Include="2DGameFramework\GameObject">
       <UniqueIdentifier>{7c039834-e9b1-46e8-a08a-6b025248ecf0}</UniqueIdentifier>
     </Filter>
-    <Filter Include="2DGameFramework\EventManager">
-      <UniqueIdentifier>{5cde8a1c-167c-4097-a35b-946e9cf12f91}</UniqueIdentifier>
-    </Filter>
     <Filter Include="2DGameFramework\Animation">
       <UniqueIdentifier>{206ac15a-4721-4c12-93be-e176c2715a13}</UniqueIdentifier>
     </Filter>
@@ -132,15 +129,6 @@
     <ClInclude Include="GameObject.h">
       <Filter>2DGameFramework\GameObject</Filter>
     </ClInclude>
-    <ClInclude Include="ObjectManager.h">
-      <Filter>2DGameFramework\Manager</Filter>
-    </ClInclude>
-    <ClInclude Include="EventManager.h">
-      <Filter>2DGameFramework\EventManager</Filter>
-    </ClInclude>
-    <ClInclude Include="IEvent.h">
-      <Filter>2DGameFramework\EventManager</Filter>
-    </ClInclude>
     <ClInclude Include="Animation.h">
       <Filter>2DGameFramework\Animation</Filter>
     </ClInclude>
@@ -176,6 +164,9 @@
     </ClInclude>
     <ClInclude Include="StageScene.h">
       <Filter>PlayGround\Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="Player.h">
+      <Filter>PlayGround\Player</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -221,15 +212,6 @@
     <ClCompile Include="stdafx.cpp">
       <Filter>헤더 파일</Filter>
     </ClCompile>
-    <ClCompile Include="ObjectManager.cpp">
-      <Filter>2DGameFramework\Manager</Filter>
-    </ClCompile>
-    <ClCompile Include="EventManager.cpp">
-      <Filter>2DGameFramework\EventManager</Filter>
-    </ClCompile>
-    <ClCompile Include="IEvent.cpp">
-      <Filter>2DGameFramework\EventManager</Filter>
-    </ClCompile>
     <ClCompile Include="Animation.cpp">
       <Filter>2DGameFramework\Animation</Filter>
     </ClCompile>
@@ -262,6 +244,9 @@
     </ClCompile>
     <ClCompile Include="StageScene.cpp">
       <Filter>PlayGround\Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="Player.cpp">
+      <Filter>PlayGround\Player</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

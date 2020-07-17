@@ -43,8 +43,6 @@ enum class Pivot : int
 #include "EffectManager.h"
 #include "txtData.h"
 
-#include "ObjectManager.h"
-
 using namespace TTYONE_UTIL;
 
 //MS VS버전이 올라가면서 기존의 문자열 함수의 안정성을 올리기위해
