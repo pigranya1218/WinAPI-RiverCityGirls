@@ -26,6 +26,7 @@ enum class Pivot : int
 #include "LibraryHeader.h"
 
 #include "Vector2.h"
+#include "Vector3.h"
 #include "FloatRect.h"
 
 #include "commonMacroFunction.h"
