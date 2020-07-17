@@ -7,7 +7,7 @@ ObjectManager::ObjectManager()
 {
 	for (int i = 0; i < (int)ObjectType::End; ++i)
 	{
-		mObjectContainer.insert(make_pair((ObjectType)i, vector<GameObject*>()));
+		_objectContainer.insert(make_pair((ObjectType)i, vector<GameObject*>()));
 	}
 }
 
@@ -15,10 +15,10 @@ ObjectManager::~ObjectManager()
 {
 }
 
-void ObjectManager::Release()
+void ObjectManager::release()
 {
-	ObjectContainerIter iter = mObjectContainer.begin();
-	for (; iter != mObjectContainer.end(); ++iter)
+	objectContainerIter iter = _objectContainer.begin();
+	for (; iter != _objectContainer.end(); ++iter)
 	{
 		vector<GameObject*>& objectList = iter->second;
 		for (int i = 0; i < objectList.size(); ++i)
@@ -28,13 +28,13 @@ void ObjectManager::Release()
 		}
 	}
 
-	mObjectContainer.clear();
+	_objectContainer.clear();
 }
 
-void ObjectManager::Update()
+void ObjectManager::update()
 {
-	ObjectContainerIter iter = mObjectContainer.begin();
-	for (; iter != mObjectContainer.end(); ++iter)
+	objectContainerIter iter = _objectContainer.begin();
+	for (; iter != _objectContainer.end(); ++iter)
 	{
 		vector<GameObject*>& objectList = iter->second;
 		for (int i = 0; i < objectList.size(); ++i)
@@ -45,10 +45,10 @@ void ObjectManager::Update()
 	}
 }
 
-void ObjectManager::Render()
+void ObjectManager::render()
 {
-	ObjectContainerIter iter = mObjectContainer.begin();
-	for (; iter != mObjectContainer.end(); ++iter)
+	objectContainerIter iter = _objectContainer.begin();
+	for (; iter != _objectContainer.end(); ++iter)
 	{
 		vector<GameObject*>& objectList = iter->second;
 		for (int i = 0; i < objectList.size(); ++i)
@@ -59,17 +59,17 @@ void ObjectManager::Render()
 	}
 }
 
-void ObjectManager::AddObject(ObjectType objectType, GameObject * newObject)
+void ObjectManager::addObject(ObjectType objectType, GameObject * newObject)
 {
 	//맵,언올더드맵 을 배열접근할때는 조심해야 하는 점이 있다
 	//만약에 해당 키값의 데이터가 없으면 새로 생성한다
 	//사실은 find랑 똑같이 되어있다 내부는
-	mObjectContainer[objectType].push_back(newObject);
+	_objectContainer[objectType].push_back(newObject);
 }
 
-void ObjectManager::RemoveObject(ObjectType objectType, GameObject * deleteObject)
+void ObjectManager::removeObject(ObjectType objectType, GameObject * deleteObject)
 {
-	vector<GameObject*>& objectList = mObjectContainer[objectType];
+	vector<GameObject*>& objectList = _objectContainer[objectType];
 	for (int i = 0; i < objectList.size(); ++i)
 	{
 		if (objectList[i] == deleteObject)
@@ -82,9 +82,9 @@ void ObjectManager::RemoveObject(ObjectType objectType, GameObject * deleteObjec
 	}
 }
 
-GameObject * ObjectManager::FindObject(ObjectType objectType, string objectName)
+GameObject * ObjectManager::findObject(ObjectType objectType, string objectName)
 {
-	vector<GameObject*>& objectList = mObjectContainer[objectType];
+	vector<GameObject*>& objectList = _objectContainer[objectType];
 	for (int i = 0; i < objectList.size(); ++i)
 	{
 		if (objectList[i]->GetName() == objectName)
@@ -97,12 +97,12 @@ GameObject * ObjectManager::FindObject(ObjectType objectType, string objectName)
 }
 
 //같은 이름을 가진 오브젝트 전부 찾아서 벡터로 반환
-vector<class GameObject*> ObjectManager::FindObjects(ObjectType objectType, string objectName)
+vector<class GameObject*> ObjectManager::findObjects(ObjectType objectType, string objectName)
 {
 	//같은 이름 가진 애들 담을 벡터
 	vector<GameObject*> resolt;
 	//이거는 해당 타입의 오브젝트를 모아논 맵안에 있는 벡터지???
-	vector<GameObject*>& objectList = mObjectContainer[objectType];
+	vector<GameObject*>& objectList = _objectContainer[objectType];
 	for (int i = 0; i < objectList.size(); ++i)
 	{
 		//같은 이름이라면
@@ -116,7 +116,7 @@ vector<class GameObject*> ObjectManager::FindObjects(ObjectType objectType, stri
 	return resolt;
 }
 
-vector<class GameObject*>& ObjectManager::GetObjectList(ObjectType objectType)
+vector<class GameObject*>& ObjectManager::getObjectList(ObjectType objectType)
 {
-	return mObjectContainer[objectType];
+	return _objectContainer[objectType];
 }

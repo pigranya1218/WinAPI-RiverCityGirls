@@ -13,9 +13,9 @@ public:
 	explicit Vector2(const int& x, const int& y);
 	explicit Vector2(const POINT& pt);
 
-	const int GetIntX();
-	const int GetIntY();
-	const POINT GetPoint();
+	const int getIntX();
+	const int getIntY();
+	const POINT getPoint();
 
 	Vector2 operator+ (const Vector2& v);
 	Vector2 operator- (const Vector2& v);
@@ -26,10 +26,10 @@ public:
 	const bool operator==(const Vector2& v);
 	const bool operator!=(const Vector2& v);
 public:
-	static Vector2 Normalize(const Vector2* const  pVector2);
-	static float ToRadian(const Vector2* const pVector2);
-	static float Length(const Vector2* const pVector2);
-	static float Dot(const Vector2* const pVector2A, const Vector2* const pVector2B);
-	static float Cross(const Vector2* const pvector2A, const Vector2* const pVector2B);
+	static Vector2 normalize(const Vector2* const  pVector2);
+	static float toRadian(const Vector2* const pVector2);
+	static float length(const Vector2* const pVector2);
+	static float dot(const Vector2* const pVector2A, const Vector2* const pVector2B);
+	static float cross(const Vector2* const pvector2A, const Vector2* const pVector2B);
 };
 

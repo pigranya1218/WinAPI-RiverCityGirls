@@ -18,26 +18,26 @@ Vector2::Vector2(const POINT& pt)
 	: x((float)pt.x), y((float)pt.y) {}
 
 /****************************************************************************************************
-## GetIntX ##
+## getIntX ##
 @@ return int : int 형 x
 *****************************************************************************************************/
-const int Vector2::GetIntX()
+const int Vector2::getIntX()
 {
 	return static_cast<int>(this->x);
 }
 /****************************************************************************************************
-## GetIntY ##
+## getIntY ##
 @@ return int : int형 y
 *****************************************************************************************************/
-const int Vector2::GetIntY()
+const int Vector2::getIntY()
 {
 	return static_cast<int>(this->y);
 }
 /****************************************************************************************************
-## GetPoint ##
+## getPoint ##
 @@ return POINT : POINT 형 Vector2
 *****************************************************************************************************/
-const POINT Vector2::GetPoint()
+const POINT Vector2::getPoint()
 {
 	return { (LONG)x,(LONG)y };
 }
@@ -109,7 +109,7 @@ const bool Vector2::operator!=(const Vector2& v)
 
 @@ return Vector2 : 정규화된 벡터
 *****************************************************************************************************/
-Vector2 Vector2::Normalize(const Vector2* const pVector2)
+Vector2 Vector2::normalize(const Vector2* const pVector2)
 {
 	Vector2 result = *pVector2;
 
@@ -125,11 +125,11 @@ Vector2 Vector2::Normalize(const Vector2* const pVector2)
 
 @@ return float : 해당 벡터 라디안으로 변환한 값
 *****************************************************************************************************/
-float Vector2::ToRadian(const Vector2* const pVector2)
+float Vector2::toRadian(const Vector2* const pVector2)
 {
 	int sign = 1;
 	Vector2 dir = *pVector2;
-	dir = Vector2::Normalize(&dir);
+	dir = Vector2::normalize(&dir);
 	float result = (acos(dir.x));
 	if (dir.y > 0.f)
 	{
@@ -143,7 +143,7 @@ float Vector2::ToRadian(const Vector2* const pVector2)
 
 @@ return float : 벡터의 크기
 *****************************************************************************************************/
-float Vector2::Length(const Vector2* const pVector2)
+float Vector2::length(const Vector2* const pVector2)
 {
 	return sqrt(pVector2->x * pVector2->x + pVector2->y * pVector2->y);
 }
@@ -154,7 +154,7 @@ float Vector2::Length(const Vector2* const pVector2)
 
 @@ return float : 두 벡터의 내적 값
 *****************************************************************************************************/
-float Vector2::Dot(const Vector2* const pVector2A, const Vector2* const pVector2B)
+float Vector2::dot(const Vector2* const pVector2A, const Vector2* const pVector2B)
 {
 	return pVector2A->x * pVector2B->x + pVector2A->y * pVector2B->y;
 }
@@ -165,7 +165,7 @@ float Vector2::Dot(const Vector2* const pVector2A, const Vector2* const pVector2
 
 @@ return float : 두 벡터의 외적 값
 *****************************************************************************************************/
-float Vector2::Cross(const Vector2* const pvector2A, const Vector2* const pVector2B)
+float Vector2::cross(const Vector2* const pvector2A, const Vector2* const pVector2B)
 {
 	return pvector2A->x * pVector2B->y - pvector2A->y * pVector2B->x;
 }

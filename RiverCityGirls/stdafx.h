@@ -31,7 +31,7 @@ enum class Pivot : int
 #include "commonMacroFunction.h"
 #include "randomFunction.h"
 #include "keyManager.h"
-#include "utils.h"
+#include "Utils.h"
 #include "collision.h"
 #include "D2DRenderer.h"
 #include "imageManager.h"
@@ -59,12 +59,12 @@ using namespace TTYONE_UTIL;
 #define RND randomFunction::getSingleton()
 #define KEYMANAGER keyManager::getSingleton()
 #define IMAGEMANAGER imageManager::getSingleton()
-#define TIMEMANAGER timeManager::getSingleton()
+#define TIMEMANAGER TimeManager::getSingleton()
 #define EFFECTMANAGER effectManager::getSingleton()
-#define SOUNDMANAGER soundManager::getSingleton()
-#define SCENEMANAGER sceneManager::getSingleton()
+#define SOUNDMANAGER SoundManager::getSingleton()
+#define SCENEMANAGER SceneManager::getSingleton()
 //#define KEYANIMANAGER keyAniManager::getSingleton()
-#define TXTDATA txtData::getSingleton()
+#define TXTDATA TxtData::getSingleton()
 #define OBJECTMANAGER ObjectManager::getSingleton()
 
 #define SAFE_DELETE(p)		{if(p) {delete(p); (p) = NULL;}}
