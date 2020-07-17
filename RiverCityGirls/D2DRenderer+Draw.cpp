@@ -16,7 +16,7 @@
 
 기본 정의해둔 브러쉬로 텍스트 렌더링
 ************************************************************************************************/
-void D2DRenderer::RenderText(const int x, const int y, const wstring& text, const int size,
+void D2DRenderer::renderText(const int x, const int y, const wstring& text, const int size,
 	const DefaultBrush& defaultBrush, const DWRITE_TEXT_ALIGNMENT& align,const wstring& font)
 {
 	Vector2 pos(x, y);
@@ -61,7 +61,7 @@ void D2DRenderer::RenderText(const int x, const int y, const wstring& text, cons
 
 새로운 브러쉬 생성후 렌더링
 ************************************************************************************************/
-void D2DRenderer::RenderText(const int x, const int y, const wstring& text, const COLORREF& color,
+void D2DRenderer::renderText(const int x, const int y, const wstring& text, const COLORREF& color,
 	const float alpha, const int size, const DWRITE_TEXT_ALIGNMENT& align, const wstring& font)
 {
 	Vector2 pos(x, y);
@@ -110,7 +110,7 @@ void D2DRenderer::RenderText(const int x, const int y, const wstring& text, cons
 
 영역내에서 기본 브러쉬로 글자 출력
 ************************************************************************************************/
-void D2DRenderer::RenderTextField(const int x, const int y, const wstring& text, const int size,
+void D2DRenderer::renderTextField(const int x, const int y, const wstring& text, const int size,
 	const int width, const int height, const DefaultBrush& defaultBrush, const DWRITE_TEXT_ALIGNMENT& align, const wstring& font)
 {
 	Vector2 pos(x, y);
@@ -155,7 +155,7 @@ void D2DRenderer::RenderTextField(const int x, const int y, const wstring& text,
 
 영역안에서 새로운 브러쉬를 생성해서 폰트출력
 ************************************************************************************************/
-void D2DRenderer::RenderTextField(const int x, const int y, const wstring& text, const COLORREF& color,
+void D2DRenderer::renderTextField(const int x, const int y, const wstring& text, const COLORREF& color,
 	const int size, const int width, const int height, const float alpha, const DWRITE_TEXT_ALIGNMENT& align, const wstring& font)
 {
 	Vector2 pos(x, y);
@@ -198,7 +198,7 @@ void D2DRenderer::RenderTextField(const int x, const int y, const wstring& text,
 @@ bool isRelative : 카메라 보정 여부
 @@ float strokeWidth : 선 굵기
 ************************************************************************************************/
-void D2DRenderer::DrawLine(const Vector2& start, const Vector2& end, const D2D1::ColorF::Enum& color,
+void D2DRenderer::drawLine(const Vector2& start, const Vector2& end, const D2D1::ColorF::Enum& color,
 	const float alpha, const float strokeWidth)
 {
 	ID2D1SolidColorBrush* brush;
@@ -220,7 +220,7 @@ void D2DRenderer::DrawLine(const Vector2& start, const Vector2& end, const D2D1:
 @@ bool isRelative : 카메라 보정 여부
 @@ float stroke : 선 굵기
 ***********************************************************************************************/
-void D2DRenderer::DrawLine(const Vector2& start, const Vector2& end, const DefaultBrush& defaultBrush, const float strokeWidth)
+void D2DRenderer::drawLine(const Vector2& start, const Vector2& end, const DefaultBrush& defaultBrush, const float strokeWidth)
 {
 	mD2DRenderTarget->SetTransform(D2D1::Matrix3x2F::Identity());
 
@@ -239,7 +239,7 @@ void D2DRenderer::DrawLine(const Vector2& start, const Vector2& end, const Defau
 @@ bool isRelative : 카메라 보정여부
 @@ float strokeWidth : 선 굵기
 ************************************************************************************************/
-void D2DRenderer::DrawRectangle(const FloatRect& rc, const D2D1::ColorF::Enum& color,
+void D2DRenderer::drawRectangle(const FloatRect& rc, const D2D1::ColorF::Enum& color,
 	const float alpha, const float strokeWidth)
 {
 	FloatRect rect = rc;
@@ -261,7 +261,7 @@ void D2DRenderer::DrawRectangle(const FloatRect& rc, const D2D1::ColorF::Enum& c
 @@ bool isRelative : 카메라 보정 여부
 @@ float stroke : 선 굵기
 ************************************************************************************************/
-void D2DRenderer::DrawRectangle(const FloatRect& rc, const DefaultBrush& defaultBrush, const float strokeWidth)
+void D2DRenderer::drawRectangle(const FloatRect& rc, const DefaultBrush& defaultBrush, const float strokeWidth)
 {
 	FloatRect rect = rc;
 
@@ -279,7 +279,7 @@ void D2DRenderer::DrawRectangle(const FloatRect& rc, const DefaultBrush& default
 @@ bool isRelative : 카메라 보정여부
 @@ float stroke : 선 굵기
 ************************************************************************************************/
-void D2DRenderer::DrawEllipse(const Vector2& origin, const float radius, const DefaultBrush& defaultBrush, const float strokeWidth)
+void D2DRenderer::drawEllipse(const Vector2& origin, const float radius, const DefaultBrush& defaultBrush, const float strokeWidth)
 {
 	FloatRect rc = RectMakePivot(origin, Vector2(radius, radius), Pivot::Center);
 	Vector2 pos = origin;
@@ -303,7 +303,7 @@ void D2DRenderer::DrawEllipse(const Vector2& origin, const float radius, const D
 @@ bool isRelative : 카메라 보정 여부
 @@ float stroke : 선 굵기
 ************************************************************************************************/
-void D2DRenderer::DrawEllipse(const Vector2& origin, const float radius, const D2D1::ColorF::Enum& color,
+void D2DRenderer::drawEllipse(const Vector2& origin, const float radius, const D2D1::ColorF::Enum& color,
 	const float alpha, const float strokeWidth)
 {
 	FloatRect rc = RectMakePivot(origin, Vector2(radius, radius), Pivot::Center);
@@ -331,7 +331,7 @@ void D2DRenderer::DrawEllipse(const Vector2& origin, const float radius, const D
 @@ float alpha  : 알파 값
 @@ bool isRelative : 카메라 보정 여부
 ************************************************************************************************/
-void D2DRenderer::FillRectangle(const FloatRect& rc, const D2D1::ColorF::Enum& color, const float alpha)
+void D2DRenderer::fillRectangle(const FloatRect& rc, const D2D1::ColorF::Enum& color, const float alpha)
 {
 	FloatRect rect = rc;
 
@@ -348,7 +348,7 @@ void D2DRenderer::FillRectangle(const FloatRect& rc, const D2D1::ColorF::Enum& c
 @@ DefaultBrush brush : 브러쉬
 @@ bool isRelative : 카메라 보정여부
 ************************************************************************************************/
-void D2DRenderer::FillRectangle(const FloatRect& rc, const DefaultBrush& defaultBrush)
+void D2DRenderer::fillRectangle(const FloatRect& rc, const DefaultBrush& defaultBrush)
 {
 	FloatRect rect = rc;
 
@@ -365,7 +365,7 @@ void D2DRenderer::FillRectangle(const FloatRect& rc, const DefaultBrush& default
 @@ float alpha : 알파 값
 @@ bool isRelative : 카메라 보정 여부
 ************************************************************************************************/
-void D2DRenderer::FiilEllipse(const Vector2& origin, const float radius, const D2D1::ColorF::Enum& color,const float alpha)
+void D2DRenderer::fiilEllipse(const Vector2& origin, const float radius, const D2D1::ColorF::Enum& color,const float alpha)
 {
 	FloatRect rc = RectMakePivot(origin, Vector2(radius, radius), Pivot::Center);
 	Vector2 pos = origin;
@@ -391,7 +391,7 @@ void D2DRenderer::FiilEllipse(const Vector2& origin, const float radius, const D
 @@ DefaultBrush brush : 브러쉬
 @@ bool isRlative : 카메라 보정 여부
 ************************************************************************************************/
-void D2DRenderer::FiilEllipse(const Vector2& origin, const float radius, const DefaultBrush& brush)
+void D2DRenderer::fiilEllipse(const Vector2& origin, const float radius, const DefaultBrush& brush)
 {
 	FloatRect rc = RectMakePivot(origin, Vector2(radius, radius), Pivot::Center);
 	Vector2 pos = origin;
@@ -407,7 +407,7 @@ void D2DRenderer::FiilEllipse(const Vector2& origin, const float radius, const D
 	mD2DRenderTarget->FillEllipse(&ellipse, mDefaultBrushList[(UINT)brush]);
 }
 
-void D2DRenderer::DrawRotationNullRectangle(const FloatRect& rc, const D2D1::ColorF::Enum& color,
+void D2DRenderer::drawRotationNullRectangle(const FloatRect& rc, const D2D1::ColorF::Enum& color,
 	const float alpha, const float angle,  const float strokeWidth)
 {
 	FloatRect rect = rc;
@@ -427,7 +427,7 @@ void D2DRenderer::DrawRotationNullRectangle(const FloatRect& rc, const D2D1::Col
 	NEW_SAFE_RELEASE(brush);
 }
 
-void D2DRenderer::DrawRotationFillRectangle(const FloatRect& rc, const D2D1::ColorF& color, const float angle)
+void D2DRenderer::drawRotationFillRectangle(const FloatRect& rc, const D2D1::ColorF& color, const float angle)
 {
 	FloatRect rect = rc;
 

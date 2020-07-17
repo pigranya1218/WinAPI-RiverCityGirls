@@ -34,9 +34,6 @@
     <Filter Include="2DGameFramework\timer">
       <UniqueIdentifier>{903124e9-0a6f-4f4f-8a9b-cc25c6f3482b}</UniqueIdentifier>
     </Filter>
-    <Filter Include="2DGameFramework\animation">
-      <UniqueIdentifier>{206ac15a-4721-4c12-93be-e176c2715a13}</UniqueIdentifier>
-    </Filter>
     <Filter Include="2DGameFramework\D2DRenderer">
       <UniqueIdentifier>{1f06f2e0-c3bd-4a9c-bad1-d0e16a21ee0c}</UniqueIdentifier>
     </Filter>
@@ -48,6 +45,9 @@
     </Filter>
     <Filter Include="2DGameFramework\EventManager">
       <UniqueIdentifier>{5cde8a1c-167c-4097-a35b-946e9cf12f91}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="2DGameFramework\Animation">
+      <UniqueIdentifier>{206ac15a-4721-4c12-93be-e176c2715a13}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -102,9 +102,6 @@
     <ClInclude Include="timeManager.h">
       <Filter>2DGameFramework\Manager</Filter>
     </ClInclude>
-    <ClInclude Include="animation.h">
-      <Filter>2DGameFramework\animation</Filter>
-    </ClInclude>
     <ClInclude Include="soundManager.h">
       <Filter>2DGameFramework\Manager</Filter>
     </ClInclude>
@@ -141,6 +138,9 @@
     <ClInclude Include="IEvent.h">
       <Filter>2DGameFramework\EventManager</Filter>
     </ClInclude>
+    <ClInclude Include="Animation.h">
+      <Filter>2DGameFramework\Animation</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="windowsAPI.cpp">
@@ -175,9 +175,6 @@
     </ClCompile>
     <ClCompile Include="timeManager.cpp">
       <Filter>2DGameFramework\Manager</Filter>
-    </ClCompile>
-    <ClCompile Include="animation.cpp">
-      <Filter>2DGameFramework\animation</Filter>
     </ClCompile>
     <ClCompile Include="soundManager.cpp">
       <Filter>2DGameFramework\Manager</Filter>
@@ -217,6 +214,9 @@
     </ClCompile>
     <ClCompile Include="IEvent.cpp">
       <Filter>2DGameFramework\EventManager</Filter>
+    </ClCompile>
+    <ClCompile Include="Animation.cpp">
+      <Filter>2DGameFramework\Animation</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

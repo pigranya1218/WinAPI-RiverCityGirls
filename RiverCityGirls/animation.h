@@ -6,7 +6,7 @@ typedef void(*CALLBACK_FUNCTION_PARAMETER)(void*);
 
 //void* 뭐든 담을 수 있습니다 다만 형변환 해서 써야죱
 
-class animation
+class Animation
 {
 public:
 	typedef vector<POINT>	vFrameList;	//애니메이션 프레임 저장용
@@ -34,8 +34,8 @@ private:
 	CALLBACK_FUNCTION_PARAMETER _callbackFunctionParameter;
 
 public:
-	animation();
-	~animation();
+	Animation();
+	~Animation();
 
 	HRESULT init(int totalW, int totalH, int frameW, int frameH);
 	void release();

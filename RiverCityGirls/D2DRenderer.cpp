@@ -7,10 +7,10 @@
 D2DRenderer::D2DRenderer()
 	:mD2DFactory(nullptr), mD2DRenderTarget(nullptr), mDWFactory(nullptr)
 {
-	this->CreateFactory();
-	this->CreateRenderTarget();
-	this->CreateDefaultBrush();
-	this->AddTextFormat(L"맑은고딕");
+	this->createFactory();
+	this->createRenderTarget();
+	this->createDefaultBrush();
+	this->addTextFormat(L"맑은고딕");
 	mD2DRenderTarget->SetAntialiasMode(D2D1_ANTIALIAS_MODE_ALIASED);
 }
 
@@ -35,7 +35,7 @@ D2DRenderer::~D2DRenderer()
 /*****************************************************
 ## BeginRender ##
 *******************************************************/
-void D2DRenderer::BeginRender(const D2D1::ColorF& backgroundColor)
+void D2DRenderer::beginRender(const D2D1::ColorF& backgroundColor)
 {
 	mD2DRenderTarget->BeginDraw();
 	mD2DRenderTarget->Clear(backgroundColor);
@@ -43,7 +43,7 @@ void D2DRenderer::BeginRender(const D2D1::ColorF& backgroundColor)
 /*****************************************************
 ## EndRender ##
 *******************************************************/
-void D2DRenderer::EndRender()
+void D2DRenderer::endRender()
 {
 
 	mD2DRenderTarget->EndDraw();
@@ -54,7 +54,7 @@ void D2DRenderer::EndRender()
 /*****************************************************
 ## CreateFactory ##
 *******************************************************/
-void D2DRenderer::CreateFactory()
+void D2DRenderer::createFactory()
 {
 	//1) D2D 팩토리 생성
 	//싱글쓰레드타입으로 
@@ -73,7 +73,7 @@ void D2DRenderer::CreateFactory()
 /*****************************************************
 ## CreateRenderTarget ##
 *******************************************************/
-void D2DRenderer::CreateRenderTarget()
+void D2DRenderer::createRenderTarget()
 {
 	//렌더타겟이란 백버퍼의 역할을 하는 클래스이자 여러 렌더링을 위한 유틸적인 것들이 들어있는 클래스다
 	//해서 화면에 뭔가 렌더링을 요청하려면 렌더타겟을 통해서만 가능하다
@@ -109,7 +109,7 @@ void D2DRenderer::CreateRenderTarget()
 /*****************************************************
 ## CreateDefaultBrush ##
 *******************************************************/
-void D2DRenderer::CreateDefaultBrush()
+void D2DRenderer::createDefaultBrush()
 {
 	this->mD2DRenderTarget->CreateSolidColorBrush(D2D1::ColorF(D2D1::ColorF::Black, 1.0f), &mDefaultBrushList[(UINT)DefaultBrush::Black]);
 	this->mD2DRenderTarget->CreateSolidColorBrush(D2D1::ColorF(D2D1::ColorF::White, 1.0f), &mDefaultBrushList[(UINT)DefaultBrush::White]);
@@ -124,7 +124,7 @@ void D2DRenderer::CreateDefaultBrush()
 @@ wstring font : 폰트명
 @@ float defaultSize : 폰트 사이즈 = 1.f
 *******************************************************/
-void D2DRenderer::AddTextFormat(const wstring& font, const float& defaultSize)
+void D2DRenderer::addTextFormat(const wstring& font, const float& defaultSize)
 {
 	HRESULT hr;
 	IDWriteTextFormat* format = NULL;
