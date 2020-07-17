@@ -5,14 +5,14 @@
 #include <io.h>
 
 ImageManager::ImageManager()
-	:mWicFactory(nullptr)
+	:_wicFactory(nullptr)
 {
 	//WIC 팩토리 생성
 	//Windows Imaging Component
 	//Direct2D는 이미지를 로드하는 기능이 없다. 
 	//고로 Direct2D는 WIC라는 라이브러리의 이미지로부터 이미지 데이터를 만들 수 있다.
 	CoInitialize(NULL);
-	HRESULT hr = CoCreateInstance(CLSID_WICImagingFactory, NULL, CLSCTX_INPROC_SERVER, IID_PPV_ARGS(&mWicFactory));
+	HRESULT hr = CoCreateInstance(CLSID_WICImagingFactory, NULL, CLSCTX_INPROC_SERVER, IID_PPV_ARGS(&_wicFactory));
 #ifdef _DEBUG
 	assert(SUCCEEDED(hr));
 #endif
@@ -23,24 +23,24 @@ ImageManager::ImageManager()
 **********************************************************************/
 ImageManager::~ImageManager()
 {
-	this->DeleteAll();
-	NEW_SAFE_RELEASE(mWicFactory);
+	this->deleteAll();
+	NEW_SAFE_RELEASE(_wicFactory);
 }
 /*********************************************************************
 ## AddImage ##
 **********************************************************************/
-Image * ImageManager::AddImage(const string& key, const wstring& file)
+Image * ImageManager::addImage(const string& key, const wstring& file)
 {
-	Image* image = this->FindImage(key);
+	Image* image = this->findImage(key);
 	if (image)
 		return image;
 
-	ID2D1Bitmap* bitmap = this->CreateD2DBitmapFromFile(file);
+	ID2D1Bitmap* bitmap = this->createD2DBitmapFromFile(file);
 	if (bitmap)
 	{
 		Image::TagLoadedImageInfo loadInfo(key, file);
 		image = new Image(bitmap, loadInfo);
-		mImageList.insert(make_pair(key, image));
+		_imageList.insert(make_pair(key, image));
 		return image;
 	}
 	else
@@ -51,18 +51,18 @@ Image * ImageManager::AddImage(const string& key, const wstring& file)
 /*********************************************************************
 ## AddFrameImage ##
 **********************************************************************/
-Image * ImageManager::AddFrameImage(const string& key,const wstring& file,const int maxFrameX,const int maxFrameY)
+Image * ImageManager::addFrameImage(const string& key,const wstring& file,const int maxFrameX,const int maxFrameY)
 {
-	Image* image = this->FindImage(key);
+	Image* image = this->findImage(key);
 	if (image)
 		return image;
 
-	ID2D1Bitmap* bitmap = CreateD2DBitmapFromFile(file);
+	ID2D1Bitmap* bitmap = createD2DBitmapFromFile(file);
 	if (bitmap)
 	{
 		Image::TagLoadedImageInfo loadInfo(key, file);
 		image = new Image(bitmap,loadInfo,maxFrameX,maxFrameY);
-		this->mImageList.insert(make_pair(key, image));
+		this->_imageList.insert(make_pair(key, image));
 		return image;
 	}
 
@@ -71,10 +71,10 @@ Image * ImageManager::AddFrameImage(const string& key,const wstring& file,const 
 /*********************************************************************
 ## FindImage ##
 **********************************************************************/
-Image * ImageManager::FindImage(const string& key)
+Image * ImageManager::findImage(const string& key)
 {
-	ImageIter iter = mImageList.find(key);
-	if (iter != mImageList.end())
+	ImageIter iter = _imageList.find(key);
+	if (iter != _imageList.end())
 		return iter->second;
 	return nullptr;
 }
@@ -82,12 +82,12 @@ Image * ImageManager::FindImage(const string& key)
 ## CreateD2DBitmapFromFile ##
 @@ wstring file : 파일 경로
 **********************************************************************/
-ID2D1Bitmap * ImageManager::CreateD2DBitmapFromFile(const wstring & file)
+ID2D1Bitmap * ImageManager::createD2DBitmapFromFile(const wstring & file)
 {
 	//디코더 생성
 	IWICBitmapDecoder* ipDecoder = nullptr;
 	HRESULT hr;
-	hr = mWicFactory->CreateDecoderFromFilename(file.c_str(), NULL, GENERIC_READ,
+	hr = _wicFactory->CreateDecoderFromFilename(file.c_str(), NULL, GENERIC_READ,
 		WICDecodeMetadataCacheOnDemand, &ipDecoder);
 #ifdef _DEBUG
 	assert(SUCCEEDED(hr));
@@ -100,7 +100,7 @@ ID2D1Bitmap * ImageManager::CreateD2DBitmapFromFile(const wstring & file)
 #endif
 	//프레임을 기반으로 포맷 컨버터 생성
 	IWICFormatConverter* convertedSrcBmp = nullptr;
-	hr = mWicFactory->CreateFormatConverter(&convertedSrcBmp);
+	hr = _wicFactory->CreateFormatConverter(&convertedSrcBmp);
 #ifdef _DEBUG
 	assert(SUCCEEDED(hr));
 #endif
@@ -119,7 +119,7 @@ ID2D1Bitmap * ImageManager::CreateD2DBitmapFromFile(const wstring & file)
 #endif
 	//컨버트된 데이터를 기반으로 실제 Direct2D용 비트맵을 생성
 	ID2D1Bitmap* ipResult = nullptr;
-	hr = D2DRenderer::GetInstance()->GetRenderTarget()->CreateBitmapFromWicBitmap
+	hr = D2DRenderer::GetInstance()->getRenderTarget()->CreateBitmapFromWicBitmap
 	(
 		convertedSrcBmp,
 		nullptr,
@@ -138,13 +138,13 @@ ID2D1Bitmap * ImageManager::CreateD2DBitmapFromFile(const wstring & file)
 /*********************************************************************
 ## DeleteAll ##
 **********************************************************************/
-void ImageManager::DeleteAll()
+void ImageManager::deleteAll()
 {
-	ImageIter iter = mImageList.begin();
-	for (; iter != mImageList.end(); ++iter)
+	ImageIter iter = _imageList.begin();
+	for (; iter != _imageList.end(); ++iter)
 	{
 		SAFE_DELETE(iter->second);
 	}
-	mImageList.clear();
+	_imageList.clear();
 }
 

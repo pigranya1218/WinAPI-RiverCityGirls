@@ -3,23 +3,23 @@
 class GameObject
 {
 protected:
-	Synthesize(string, mName, Name)
+	Synthesize(string, _name, Name)
 	/*
 	protected: string mName;
 	public: inline string GetName()const{return mName;}
 	public: inline void SetName(string value){mName = value;}
 	*/
-	Synthesize(Vector2, mPosition, Position)
-	Synthesize(Vector2, mSize,Size)
-	Synthesize(FloatRect, mRect,Rect) 
-	Synthesize(bool, mActive,Active)
+	Synthesize(Vector2, _position, Position)
+	Synthesize(Vector2, _size,Size)
+	Synthesize(FloatRect, _rect,Rect) 
+	Synthesize(bool, _active,Active)
 public:
 	GameObject();
 	virtual ~GameObject();
 
-	virtual void Init() = 0;
-	virtual void Release() = 0;
-	virtual void Update() = 0;
-	virtual void Render() = 0;
+	virtual void init() = 0;
+	virtual void release() = 0;
+	virtual void update() = 0;
+	virtual void render() = 0;
 };
 

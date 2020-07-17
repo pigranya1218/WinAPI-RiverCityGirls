@@ -78,20 +78,11 @@
     <ClInclude Include="randomFunction.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
-    <ClInclude Include="keyManager.h">
-      <Filter>2DGameFramework\Manager</Filter>
-    </ClInclude>
-    <ClInclude Include="image.h">
-      <Filter>2DGameFramework\image</Filter>
-    </ClInclude>
     <ClInclude Include="utils.h">
       <Filter>2DGameFramework\Utils</Filter>
     </ClInclude>
     <ClInclude Include="collision.h">
       <Filter>2DGameFramework\Utils</Filter>
-    </ClInclude>
-    <ClInclude Include="imageManager.h">
-      <Filter>2DGameFramework\Manager</Filter>
     </ClInclude>
     <ClInclude Include="txtData.h">
       <Filter>2DGameFramework\txtData</Filter>
@@ -141,6 +132,15 @@
     <ClInclude Include="Animation.h">
       <Filter>2DGameFramework\Animation</Filter>
     </ClInclude>
+    <ClInclude Include="Image.h">
+      <Filter>2DGameFramework\image</Filter>
+    </ClInclude>
+    <ClInclude Include="ImageManager.h">
+      <Filter>2DGameFramework\Manager</Filter>
+    </ClInclude>
+    <ClInclude Include="KeyManager.h">
+      <Filter>2DGameFramework\Manager</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="windowsAPI.cpp">
@@ -152,20 +152,11 @@
     <ClCompile Include="playGround.cpp">
       <Filter>playGround</Filter>
     </ClCompile>
-    <ClCompile Include="keyManager.cpp">
-      <Filter>2DGameFramework\Manager</Filter>
-    </ClCompile>
-    <ClCompile Include="image.cpp">
-      <Filter>2DGameFramework\image</Filter>
-    </ClCompile>
     <ClCompile Include="utils.cpp">
       <Filter>2DGameFramework\Utils</Filter>
     </ClCompile>
     <ClCompile Include="collision.cpp">
       <Filter>2DGameFramework\Utils</Filter>
-    </ClCompile>
-    <ClCompile Include="imageManager.cpp">
-      <Filter>2DGameFramework\Manager</Filter>
     </ClCompile>
     <ClCompile Include="txtData.cpp">
       <Filter>2DGameFramework\txtData</Filter>
@@ -217,6 +208,15 @@
     </ClCompile>
     <ClCompile Include="Animation.cpp">
       <Filter>2DGameFramework\Animation</Filter>
+    </ClCompile>
+    <ClCompile Include="Image.cpp">
+      <Filter>2DGameFramework\image</Filter>
+    </ClCompile>
+    <ClCompile Include="ImageManager.cpp">
+      <Filter>2DGameFramework\Manager</Filter>
+    </ClCompile>
+    <ClCompile Include="KeyManager.cpp">
+      <Filter>2DGameFramework\Manager</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

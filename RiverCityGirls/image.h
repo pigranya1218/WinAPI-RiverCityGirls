@@ -1,5 +1,5 @@
 #pragma once
-#include "animation.h"
+#include "Animation.h"
 
 class Image final
 {
@@ -13,7 +13,7 @@ public:
 		TagLoadedImageInfo(const string& key,const wstring& directory)
 			:key(key), directory(directory) {}
 	};
-	struct FrameRect
+	struct tagFrameRect
 	{
 		float x;
 		float y;
@@ -21,18 +21,18 @@ public:
 		float height;
 	};
 private:
-	ID2D1Bitmap*		mBitmap;
-	float				mAlpha;			
+	ID2D1Bitmap*		_bitmap;
+	float				_alpha;			
 
-	Vector2				mSize;			
-	float				mScale;			
-	float				mAngle;
+	Vector2				_size;			
+	float				_scale;			
+	float				_angle;
 
-	TagLoadedImageInfo	mLoadInfo;		
+	TagLoadedImageInfo	_loadInfo;		
 
-	vector<Image::FrameRect>	mFrameInfo;
-	int							mMaxFrameX;
-	int							mMaxFrameY;
+	vector<Image::tagFrameRect>	_frameInfo;
+	int							_maxFrameX;
+	int							_maxFrameY;
 private:
 	friend class ImageManager;
 	Image() = delete;
@@ -41,25 +41,25 @@ private:
 	virtual ~Image();
 	Image operator = (const Image& image) {}
 public:
-	void Render(const Vector2& position);
-	void Render(const Vector2& position, const Vector2& sourPos, const Vector2& sourSize);
-	void FrameRender(const Vector2& position, const int frameX, const int frameY);
-	void AniRender(const Vector2& position, animation* ani);
+	void render(const Vector2& position);
+	void render(const Vector2& position, const Vector2& sourPos, const Vector2& sourSize);
+	void frameRender(const Vector2& position, const int frameX, const int frameY);
+	void aniRender(const Vector2& position, Animation* ani);
 
-	void ResetRenderOption();
+	void resetRenderOption();
 
-	void SetSize(const Vector2& vec) { this->mSize = vec; }
-	void SetAlpha(const float alpha) { this->mAlpha = alpha; }
-	void SetScale(const float scale) { this->mScale = scale; }
-	void SetAngle(const float angle) { this->mAngle = angle; }
+	void setSize(const Vector2& vec) { this->_size = vec; }
+	void setAlpha(const float alpha) { this->_alpha = alpha; }
+	void setScale(const float scale) { this->_scale = scale; }
+	void setAngle(const float angle) { this->_angle = angle; }
 
-	const int GetMaxFrameX()const{ return mMaxFrameX; }
-	const int GetMaxFrameY()const{ return mMaxFrameY; }
-	const string GetKey() const { return this->mLoadInfo.key; }
-	const UINT GetWidth() const{ return mBitmap->GetPixelSize().width; }
-	const UINT GetHeight()const{ return mBitmap->GetPixelSize().height; }
-	const Vector2 GetSize()const { return this->mSize; }
-	Vector2 GetFrameSize(const int& frame = 0) const { return Vector2(mFrameInfo[frame].width, mFrameInfo[frame].height); }
-	const TagLoadedImageInfo& GetLoadInfo() const { return mLoadInfo; }
+	const int getMaxFrameX()const{ return _maxFrameX; }
+	const int getMaxFrameY()const{ return _maxFrameY; }
+	const string getKey() const { return this->_loadInfo.key; }
+	const UINT getWidth() const{ return _bitmap->GetPixelSize().width; }
+	const UINT getHeight()const{ return _bitmap->GetPixelSize().height; }
+	const Vector2 getSize()const { return this->_size; }
+	Vector2 getFrameSize(const int& frame = 0) const { return Vector2(_frameInfo[frame].width, _frameInfo[frame].height); }
+	const TagLoadedImageInfo& getLoadInfo() const { return _loadInfo; }
 };
 

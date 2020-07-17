@@ -9,18 +9,18 @@
 프레임이미지가 아닌 이미지 클래스 생성
 *********************************************************************************/
 Image::Image(ID2D1Bitmap * const bitmap, const TagLoadedImageInfo & loadinfo)
-	:mBitmap(bitmap),mLoadInfo(loadinfo),mScale(1.f),mAlpha(1.f),mAngle(0.f),mMaxFrameX(1),mMaxFrameY(1)
+	:_bitmap(bitmap),_loadInfo(loadinfo),_scale(1.f),_alpha(1.f),_angle(0.f),_maxFrameX(1),_maxFrameY(1)
 {
-	this->mSize.x = (float)this->mBitmap->GetPixelSize().width;
-	this->mSize.y = (float)this->mBitmap->GetPixelSize().height;
+	this->_size.x = (float)this->_bitmap->GetPixelSize().width;
+	this->_size.y = (float)this->_bitmap->GetPixelSize().height;
 
-	FrameRect rc;
+	tagFrameRect rc;
 	rc.x = 0;
 	rc.y = 0;
-	rc.width = mSize.x;
-	rc.height = mSize.y;
-	this->mFrameInfo.push_back(rc);
-	this->ResetRenderOption();
+	rc.width = _size.x;
+	rc.height = _size.y;
+	this->_frameInfo.push_back(rc);
+	this->resetRenderOption();
 }
 /********************************************************************************
 ## Image ##
@@ -32,15 +32,15 @@ Image::Image(ID2D1Bitmap * const bitmap, const TagLoadedImageInfo & loadinfo)
 프레임 이미지 클래스 생성
 *********************************************************************************/
 Image::Image( ID2D1Bitmap *const bitmap, const TagLoadedImageInfo & loadinfo, const int  maxFrameX, const int  maxFrameY)
-	:mBitmap(bitmap),mLoadInfo(loadinfo),mMaxFrameX(maxFrameX),mMaxFrameY(maxFrameY), mScale(1.f), mAlpha(1.f), mAngle(0.f)
+	:_bitmap(bitmap), _loadInfo(loadinfo), _maxFrameX(maxFrameX), _maxFrameY(maxFrameY), _scale(1.f), _alpha(1.f), _angle(0.f)
 {
-	this->mSize.x = (float)mBitmap->GetPixelSize().width;
-	this->mSize.y = (float)mBitmap->GetPixelSize().height;
+	this->_size.x = (float)_bitmap->GetPixelSize().width;
+	this->_size.y = (float)_bitmap->GetPixelSize().height;
 
-	float frameX = mSize.x / (float)this->mMaxFrameX;
-	float frameY = mSize.y / (float)this->mMaxFrameY;
+	float frameX = _size.x / (float)this->_maxFrameX;
+	float frameY = _size.y / (float)this->_maxFrameY;
 
-	FrameRect rc;
+	tagFrameRect rc;
 	for (int j = 0; j < maxFrameY; ++j)
 	{
 		for (int i = 0; i < maxFrameX; ++i)
@@ -49,11 +49,11 @@ Image::Image( ID2D1Bitmap *const bitmap, const TagLoadedImageInfo & loadinfo, co
 			rc.y = (float)j * (frameY);
 			rc.width = frameX;
 			rc.height = frameY;
-			this->mFrameInfo.push_back(rc);
+			this->_frameInfo.push_back(rc);
 		}
 	}
 
-	this->ResetRenderOption();
+	this->resetRenderOption();
 }
 /********************************************************************************
 ## ~Image ##
@@ -61,100 +61,100 @@ Image::Image( ID2D1Bitmap *const bitmap, const TagLoadedImageInfo & loadinfo, co
 *********************************************************************************/
 Image::~Image()
 {
-	NEW_SAFE_RELEASE(mBitmap);
+	NEW_SAFE_RELEASE(_bitmap);
 }
 /********************************************************************************
 ## PerfeactRender ##
 *********************************************************************************/
-void Image::Render(const Vector2& position)
+void Image::render(const Vector2& position)
 {
-	Vector2 size = mSize * mScale;
+	Vector2 size = _size * _scale;
 
 	//스케일 행렬을 만들어준다
-	D2D1::Matrix3x2F scaleMatrix = D2D1::Matrix3x2F::Scale(mScale, mScale, D2D1::Point2F(size.x / 2.f, size.y / 2.f));
+	D2D1::Matrix3x2F scaleMatrix = D2D1::Matrix3x2F::Scale(_scale, _scale, D2D1::Point2F(size.x / 2.f, size.y / 2.f));
 	//회전 행렬을 만들어준다. 
-	D2D1::Matrix3x2F rotateMatrix = D2D1::Matrix3x2F::Rotation(mAngle, D2D1::Point2F(size.x / 2.f, size.y / 2.f));
+	D2D1::Matrix3x2F rotateMatrix = D2D1::Matrix3x2F::Rotation(_angle, D2D1::Point2F(size.x / 2.f, size.y / 2.f));
 	//이동 행렬을 만들어준다.
 	D2D1::Matrix3x2F translateMatrix = D2D1::Matrix3x2F::Translation(position.x - size.x / 2.f, position.y - size.y / 2.f );
 
 	D2D1_RECT_F dxArea = D2D1::RectF(0.f, 0.f, size.x, size.y);
 
-	D2DRenderer::GetInstance()->GetRenderTarget()->SetTransform(scaleMatrix * rotateMatrix * translateMatrix);
-	D2DRenderer::GetInstance()->GetRenderTarget()->DrawBitmap(mBitmap, dxArea, mAlpha);
-	ResetRenderOption();
+	D2DRenderer::GetInstance()->getRenderTarget()->SetTransform(scaleMatrix * rotateMatrix * translateMatrix);
+	D2DRenderer::GetInstance()->getRenderTarget()->DrawBitmap(_bitmap, dxArea, _alpha);
+	resetRenderOption();
 }
 
-void Image::Render(const Vector2 & position, const Vector2 & sourPos, const Vector2 & sourSize)
+void Image::render(const Vector2 & position, const Vector2 & sourPos, const Vector2 & sourSize)
 {
-	Vector2 size = mSize * mScale;
+	Vector2 size = _size * _scale;
 
-	D2D1::Matrix3x2F scaleMatrix = D2D1::Matrix3x2F::Scale(mScale, mScale, D2D1::Point2F(size.x / 2.f, size.y / 2.f));
-	D2D1::Matrix3x2F rotateMatrix = D2D1::Matrix3x2F::Rotation(mAngle, D2D1::Point2F(size.x / 2.f, size.y / 2.f));
+	D2D1::Matrix3x2F scaleMatrix = D2D1::Matrix3x2F::Scale(_scale, _scale, D2D1::Point2F(size.x / 2.f, size.y / 2.f));
+	D2D1::Matrix3x2F rotateMatrix = D2D1::Matrix3x2F::Rotation(_angle, D2D1::Point2F(size.x / 2.f, size.y / 2.f));
 	D2D1::Matrix3x2F translateMatrix = D2D1::Matrix3x2F::Translation(position.x - size.x / 2.f, position.y - size.y / 2.f);
 
 	//그릴 영역 세팅 
 	D2D1_RECT_F dxArea = D2D1::RectF(0.0f, 0.0f, size.x, size.y);
 	D2D1_RECT_F dxSrc = D2D1::RectF(sourPos.x, sourPos.y, sourPos.x + sourSize.x, sourPos.y + sourSize.y);
 	//최종행렬 세팅
-	D2DRenderer::GetInstance()->GetRenderTarget()->SetTransform(scaleMatrix * rotateMatrix * translateMatrix);
+	D2DRenderer::GetInstance()->getRenderTarget()->SetTransform(scaleMatrix * rotateMatrix * translateMatrix);
 	//렌더링 요청
-	D2DRenderer::GetInstance()->GetRenderTarget()->DrawBitmap(mBitmap, dxArea, mAlpha,
+	D2DRenderer::GetInstance()->getRenderTarget()->DrawBitmap(_bitmap, dxArea, _alpha,
 		D2D1_BITMAP_INTERPOLATION_MODE_NEAREST_NEIGHBOR, &dxSrc);
 
-	this->ResetRenderOption();
+	this->resetRenderOption();
 }
 
 /********************************************************************************
 ## PerfeactFrameRender ##
 *********************************************************************************/
-void Image::FrameRender(const Vector2& position, const int frameX, const int frameY)
+void Image::frameRender(const Vector2& position, const int frameX, const int frameY)
 {
 	//현재 프레임인덱스 
-	int frame = frameY * mMaxFrameX + frameX;
-	Vector2 size = mSize * mScale;
+	int frame = frameY * _maxFrameX + frameX;
+	Vector2 size = _size * _scale;
 
-	D2D1::Matrix3x2F scaleMatrix = D2D1::Matrix3x2F::Scale(mScale, mScale, D2D1::Point2F(size.x / 2.f, size.y / 2.f));
-	D2D1::Matrix3x2F rotateMatrix = D2D1::Matrix3x2F::Rotation(mAngle, D2D1::Point2F(size.x / 2.f, size.y / 2.f));
+	D2D1::Matrix3x2F scaleMatrix = D2D1::Matrix3x2F::Scale(_scale, _scale, D2D1::Point2F(size.x / 2.f, size.y / 2.f));
+	D2D1::Matrix3x2F rotateMatrix = D2D1::Matrix3x2F::Rotation(_angle, D2D1::Point2F(size.x / 2.f, size.y / 2.f));
 	D2D1::Matrix3x2F translateMatrix = D2D1::Matrix3x2F::Translation(position.x - size.x / 2.f, position.y - size.y / 2.f);
 
 	//그릴 영역 세팅 
 	D2D1_RECT_F dxArea = D2D1::RectF(0.0f, 0.0f, size.x, size.y);
-	D2D1_RECT_F dxSrc = D2D1::RectF((float)mFrameInfo[frame].x, (float)mFrameInfo[frame].y,
-		(float)(mFrameInfo[frame].x + mFrameInfo[frame].width),
-		(float)(mFrameInfo[frame].y + mFrameInfo[frame].height));
+	D2D1_RECT_F dxSrc = D2D1::RectF((float)_frameInfo[frame].x, (float)_frameInfo[frame].y,
+		(float)(_frameInfo[frame].x + _frameInfo[frame].width),
+		(float)(_frameInfo[frame].y + _frameInfo[frame].height));
 	//최종행렬 세팅
-	D2DRenderer::GetInstance()->GetRenderTarget()->SetTransform(scaleMatrix * rotateMatrix * translateMatrix);
+	D2DRenderer::GetInstance()->getRenderTarget()->SetTransform(scaleMatrix * rotateMatrix * translateMatrix);
 	//렌더링 요청
-	D2DRenderer::GetInstance()->GetRenderTarget()->DrawBitmap(mBitmap, dxArea, mAlpha,
+	D2DRenderer::GetInstance()->getRenderTarget()->DrawBitmap(_bitmap, dxArea, _alpha,
 		D2D1_BITMAP_INTERPOLATION_MODE_NEAREST_NEIGHBOR, &dxSrc);
 
-	this->ResetRenderOption();
+	this->resetRenderOption();
 }
 
-void Image::AniRender(const Vector2 & position, animation * ani)
+void Image::aniRender(const Vector2 & position, Animation * ani)
 {
 	POINT sourPos = ani->getFramePos();
 	POINT sourSize = { ani->getFrameWidth(), ani->getFrameHeight() };
-	Render(position, Vector2(sourPos), Vector2(sourSize));
+	render(position, Vector2(sourPos), Vector2(sourSize));
 }
 
 /********************************************************************************
 ## ResetRenderOption ##
 이미지 클래스 렌더 관련 옵션들 전부 초기화
 *********************************************************************************/
-void Image::ResetRenderOption()
+void Image::resetRenderOption()
 {
-	this->mAlpha = 1.0f;
-	this->mScale = 1.0f;
-	this->mAngle = 0.f;
-	if (mFrameInfo.size() <= 1)
+	this->_alpha = 1.0f;
+	this->_scale = 1.0f;
+	this->_angle = 0.f;
+	if (_frameInfo.size() <= 1)
 	{
-		this->mSize.x = (float)mBitmap->GetPixelSize().width;
-		this->mSize.y = (float)mBitmap->GetPixelSize().height;
+		this->_size.x = (float)_bitmap->GetPixelSize().width;
+		this->_size.y = (float)_bitmap->GetPixelSize().height;
 	}
 	else
 	{
-		this->mSize.x = mFrameInfo[0].width;
-		this->mSize.y = mFrameInfo[0].height;
+		this->_size.x = _frameInfo[0].width;
+		this->_size.y = _frameInfo[0].height;
 	}
 }

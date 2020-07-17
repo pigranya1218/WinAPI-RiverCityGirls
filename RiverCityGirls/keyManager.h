@@ -6,17 +6,18 @@
 
 using namespace std;
 
-class keyManager : public singletonBase<keyManager>
+class KeyManager : public singletonBase<KeyManager>
 {
 private:
 	bitset<KEYMAX> _keyUp;
 	bitset<KEYMAX> _keyDown;
 
 public:
-	keyManager();
-	~keyManager();
+	KeyManager();
+	~KeyManager();
 
 	HRESULT init();
+
 	void release();
 	//키를 한 번 누르면
 	bool isOnceKeyDown(int key);
