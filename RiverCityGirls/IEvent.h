@@ -4,24 +4,25 @@ class IEvent
 {
 public:
 	//이벤트가 시작할때 실행할 함수
-	virtual void EventStart() = 0;
+	virtual void eventStart() = 0;
 	//이벤트 업데이트
-	virtual bool EventUpdate() = 0;
+	virtual bool eventUpdate() = 0;
 };
 
 class IObjectMove final : public IEvent
 {
+private:
 	//이동시킬 오브젝트
-	class GameObject* mTargetObject;
+	GameObject* _targetObject;
 	//목적지
-	Vector2 mTargetLocation;
+	Vector2 _targetLocation;
 	//스피드
-	float mSpeed;
+	float _speed;
 public:
 	IObjectMove(GameObject* targetObject, Vector2 targetLocation, float speed);
 
-	void EventStart()override;
-	bool EventUpdate()override;
+	void eventStart()override;
+	bool eventUpdate()override;
 };
 
 //몇초동안 멈추게 하는 이벤트

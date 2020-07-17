@@ -5,31 +5,31 @@
 
 IObjectMove::IObjectMove(GameObject* targetObject , Vector2 targetLocation, float speed)
 {
-	mTargetObject = targetObject;
-	mTargetLocation = targetLocation;
-	mSpeed = speed;
+	_targetObject = targetObject;
+	_targetLocation = targetLocation;
+	_speed = speed;
 }
 
-void IObjectMove::EventStart()
+void IObjectMove::eventStart()
 {
 }
 
-bool IObjectMove::EventUpdate()
+bool IObjectMove::eventUpdate()
 {
-	Vector2 position = mTargetObject->GetPosition();
+	Vector2 position = _targetObject->GetPosition();
 	float angle = getAngle(position.x, position.y,
-		mTargetLocation.x, mTargetLocation.y);
+		_targetLocation.x, _targetLocation.y);
 
-	position.x += cosf(angle) * mSpeed * TIMEMANAGER->getElapsedTime();
-	position.y -= sinf(angle) * mSpeed * TIMEMANAGER->getElapsedTime();
+	position.x += cosf(angle) * _speed * TIMEMANAGER->getElapsedTime();
+	position.y -= sinf(angle) * _speed * TIMEMANAGER->getElapsedTime();
 
-	mTargetObject->SetPosition(position);
-	mTargetObject->SetRect(FloatRect(position, mTargetObject->GetSize(), Pivot::Center));
+	_targetObject->SetPosition(position);
+	_targetObject->SetRect(FloatRect(position, _targetObject->GetSize(), Pivot::Center));
 
 	//이벤트 함수에서 종료해야 될때에는 true반환
-	if (getDistance(position.x, position.y, mTargetLocation.x, mTargetLocation.y) < 3)
+	if (getDistance(position.x, position.y, _targetLocation.x, _targetLocation.y) < 3)
 	{
-		mTargetObject->SetPosition(mTargetLocation);
+		_targetObject->SetPosition(_targetLocation);
 		return true;
 	}
 

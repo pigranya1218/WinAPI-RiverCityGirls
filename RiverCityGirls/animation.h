@@ -37,7 +37,8 @@ public:
 	Animation();
 	~Animation();
 
-	HRESULT init(int totalW, int totalH, int frameW, int frameH);
+	// 이미지 가로길이, 이미지 세로길이, 이미지 가로프레임 수, 이미지 세로프레임 수
+	HRESULT init(int totalW, int totalH, int frameNumWidth, int frameNumHeight);
 	void release();
 
 	//디폴트 애니메이션
