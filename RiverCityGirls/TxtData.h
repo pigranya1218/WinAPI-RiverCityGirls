@@ -2,7 +2,7 @@
 #include "singletonBase.h"
 #include <vector>
 
-class TxtData : public singletonBase<TxtData>
+class TxtData : public SingletonBase<TxtData>
 {
 public:
 	TxtData();
