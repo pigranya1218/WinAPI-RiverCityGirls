@@ -88,7 +88,7 @@ void Object::render()
 {
 	if (_object.isObjectHuman)
 	{
-		CAMERA_MANAGER->frameRenderZ(_object.objectImg, Vector3(_object.objectX, 0.0, _object.objectZ), _object.frameX, _object.isObjectLeft);
+		//CAMERA_MANAGER->frameRenderZ(_object.objectImg, Vector3(_object.objectX, 0.0, _object.objectZ), Vector3(_object.objectX, 0.0, _object.objectZ), _object.frameX, _object.isObjectLeft);
 		//_object.objectImg->frameRender(Vector2(_object.objectX, _object.objectZ), _object.frameX, _object.isObjectLeft);
 	}
 	if (!_object.isObjectHuman)
@@ -97,11 +97,13 @@ void Object::render()
 	}
 }
 
-void Object::setObject(TagObjectType objectType, tagImageState _objectImgState, float _x, float _z)
+void Object::setObject(TagObjectType objectType, tagImageState _objectImgState, float _x, float _z, float _sizeWidth, float _sizeheight)
 {
 	_object.objectType = objectType; 
 	_object.objectX = _x; 
 	_object.objectZ = _z;
+	_object.sizeWidth = _sizeWidth;
+	_object.sizeHeight = _sizeheight;
 	if (_objectImgState == REACTION)
 	{
 		_object.objectImgState = IDLE01;

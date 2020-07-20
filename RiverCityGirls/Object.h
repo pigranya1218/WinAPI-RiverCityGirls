@@ -22,6 +22,7 @@ struct TagObject
 	bool isObjectLeft;					//true : Left,			 false : Right
 	int frameX;							//프레임 x
 	float objectX, objectZ, objectY;	//좌표, 아마도 x,z를 통해 잡혀질듯
+	float sizeWidth, sizeHeight;		//사이즈
 	int stage;							//받아올 스테이지
 };
 
@@ -39,7 +40,7 @@ public:
 	void release();
 	void render();
 
-	void setObject(TagObjectType _objectType, tagImageState _objectImgState, float _x, float _z); //{ _object.objectType = objectType; _object.objectX = _x; _object.objectZ = _z; }
+	void setObject(TagObjectType _objectType, tagImageState _objectImgState, float _x, float _z, float _sizeWidth, float _sizeheight); //{ _object.objectType = objectType; _object.objectX = _x; _object.objectZ = _z; }
 	//void getPlayerReaction() //플레이어와 충돌하면
 };
 
