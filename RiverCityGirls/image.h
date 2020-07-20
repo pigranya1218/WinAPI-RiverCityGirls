@@ -44,7 +44,7 @@ public:
 	void Render(const Vector2& position);
 	void Render(const Vector2& position, const Vector2& sourPos, const Vector2& sourSize);
 	void FrameRender(const Vector2& position, const int frameX, const int frameY);
-	void AniRender(const Vector2& position, animation* ani);
+	void AniRender(const Vector2& position, Animation* ani);
 
 	void ResetRenderOption();
 

@@ -71,16 +71,16 @@ void Image::Render(const Vector2& position)
 	Vector2 size = mSize * mScale;
 
 	//스케일 행렬을 만들어준다
-	D2D1::Matrix3x2F scaleMatrix = D2D1::Matrix3x2F::Scale(mScale, mScale, D2D1::Point2F(size.x / 2.f, size.y / 2.f));
+	D2D1::Matrix3x2F scaleMatrix = D2D1::Matrix3x2F::Scale(mScale, mScale, D2D1::Point2F(0, 0));
 	//회전 행렬을 만들어준다. 
 	D2D1::Matrix3x2F rotateMatrix = D2D1::Matrix3x2F::Rotation(mAngle, D2D1::Point2F(size.x / 2.f, size.y / 2.f));
 	//이동 행렬을 만들어준다.
 	D2D1::Matrix3x2F translateMatrix = D2D1::Matrix3x2F::Translation(position.x - size.x / 2.f, position.y - size.y / 2.f );
 
-	D2D1_RECT_F dxArea = D2D1::RectF(0.f, 0.f, size.x, size.y);
+	D2D1_RECT_F dxArea = D2D1::RectF(0.f, 0.f, mSize.x, mSize.y);
 
-	D2DRenderer::GetInstance()->GetRenderTarget()->SetTransform(scaleMatrix * rotateMatrix * translateMatrix);
-	D2DRenderer::GetInstance()->GetRenderTarget()->DrawBitmap(mBitmap, dxArea, mAlpha);
+	D2DRenderer::GetInstance()->getRenderTarget()->SetTransform(scaleMatrix * rotateMatrix * translateMatrix);
+	D2DRenderer::GetInstance()->getRenderTarget()->DrawBitmap(mBitmap, dxArea, mAlpha);
 	ResetRenderOption();
 }
 
@@ -88,17 +88,17 @@ void Image::Render(const Vector2 & position, const Vector2 & sourPos, const Vect
 {
 	Vector2 size = mSize * mScale;
 
-	D2D1::Matrix3x2F scaleMatrix = D2D1::Matrix3x2F::Scale(mScale, mScale, D2D1::Point2F(size.x / 2.f, size.y / 2.f));
+	D2D1::Matrix3x2F scaleMatrix = D2D1::Matrix3x2F::Scale(mScale, mScale, D2D1::Point2F(0, 0));
 	D2D1::Matrix3x2F rotateMatrix = D2D1::Matrix3x2F::Rotation(mAngle, D2D1::Point2F(size.x / 2.f, size.y / 2.f));
 	D2D1::Matrix3x2F translateMatrix = D2D1::Matrix3x2F::Translation(position.x - size.x / 2.f, position.y - size.y / 2.f);
 
 	//그릴 영역 세팅 
-	D2D1_RECT_F dxArea = D2D1::RectF(0.0f, 0.0f, size.x, size.y);
+	D2D1_RECT_F dxArea = D2D1::RectF(0.0f, 0.0f, mSize.x, mSize.y);
 	D2D1_RECT_F dxSrc = D2D1::RectF(sourPos.x, sourPos.y, sourPos.x + sourSize.x, sourPos.y + sourSize.y);
 	//최종행렬 세팅
-	D2DRenderer::GetInstance()->GetRenderTarget()->SetTransform(scaleMatrix * rotateMatrix * translateMatrix);
+	D2DRenderer::GetInstance()->getRenderTarget()->SetTransform(scaleMatrix * rotateMatrix * translateMatrix);
 	//렌더링 요청
-	D2DRenderer::GetInstance()->GetRenderTarget()->DrawBitmap(mBitmap, dxArea, mAlpha,
+	D2DRenderer::GetInstance()->getRenderTarget()->DrawBitmap(mBitmap, dxArea, mAlpha,
 		D2D1_BITMAP_INTERPOLATION_MODE_NEAREST_NEIGHBOR, &dxSrc);
 
 	this->ResetRenderOption();
@@ -113,25 +113,25 @@ void Image::FrameRender(const Vector2& position, const int frameX, const int fra
 	int frame = frameY * mMaxFrameX + frameX;
 	Vector2 size = mSize * mScale;
 
-	D2D1::Matrix3x2F scaleMatrix = D2D1::Matrix3x2F::Scale(mScale, mScale, D2D1::Point2F(size.x / 2.f, size.y / 2.f));
+	D2D1::Matrix3x2F scaleMatrix = D2D1::Matrix3x2F::Scale(mScale, mScale, D2D1::Point2F(0, 0));
 	D2D1::Matrix3x2F rotateMatrix = D2D1::Matrix3x2F::Rotation(mAngle, D2D1::Point2F(size.x / 2.f, size.y / 2.f));
 	D2D1::Matrix3x2F translateMatrix = D2D1::Matrix3x2F::Translation(position.x - size.x / 2.f, position.y - size.y / 2.f);
 
 	//그릴 영역 세팅 
-	D2D1_RECT_F dxArea = D2D1::RectF(0.0f, 0.0f, size.x, size.y);
+	D2D1_RECT_F dxArea = D2D1::RectF(0.0f, 0.0f, mSize.x, mSize.y);
 	D2D1_RECT_F dxSrc = D2D1::RectF((float)mFrameInfo[frame].x, (float)mFrameInfo[frame].y,
 		(float)(mFrameInfo[frame].x + mFrameInfo[frame].width),
 		(float)(mFrameInfo[frame].y + mFrameInfo[frame].height));
 	//최종행렬 세팅
-	D2DRenderer::GetInstance()->GetRenderTarget()->SetTransform(scaleMatrix * rotateMatrix * translateMatrix);
+	D2DRenderer::GetInstance()->getRenderTarget()->SetTransform(scaleMatrix * rotateMatrix * translateMatrix);
 	//렌더링 요청
-	D2DRenderer::GetInstance()->GetRenderTarget()->DrawBitmap(mBitmap, dxArea, mAlpha,
+	D2DRenderer::GetInstance()->getRenderTarget()->DrawBitmap(mBitmap, dxArea, mAlpha,
 		D2D1_BITMAP_INTERPOLATION_MODE_NEAREST_NEIGHBOR, &dxSrc);
 
 	this->ResetRenderOption();
 }
 
-void Image::AniRender(const Vector2 & position, animation * ani)
+void Image::AniRender(const Vector2 & position, Animation * ani)
 {
 	POINT sourPos = ani->getFramePos();
 	POINT sourSize = { ani->getFrameWidth(), ani->getFrameHeight() };

@@ -5,17 +5,17 @@
 
 Player::Player()
 {
-	mName = "Player";
+	/*mName = "Player";
 	mPosition = Vector2(WINSIZEX / 2, WINSIZEY / 2);
 	mSize = Vector2(50, 50);
 	mRect = RectMakePivot(mPosition, mSize, Pivot::Center);
 	mActive = true;
 	mImg = ImageManager::GetInstance()->FindImage("TestFrameObject");
-	mAni = new animation;
+	mAni = new Animation;
 	mAni->init(mImg->GetWidth(), mImg->GetHeight(), mImg->GetMaxFrameX(), mImg->GetMaxFrameY());
 	mAni->setDefPlayFrame(true, true);
 	mAni->setFPS(20);
-	mAni->start();
+	mAni->start();*/
 }
 
 
@@ -60,7 +60,7 @@ void Player::Update()
 
 void Player::Render()
 {
-	D2DRenderer::GetInstance()->DrawRectangle(mRect,
+	D2DRenderer::GetInstance()->drawRectangle(mRect,
 		D2DRenderer::DefaultBrush::Red,1.f);
 
 	mImg->AniRender(Vector2(WINSIZEX / 2, WINSIZEY / 2), mAni);

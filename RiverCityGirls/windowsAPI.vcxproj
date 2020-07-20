@@ -151,6 +151,8 @@
     <ClInclude Include="collision.h" />
     <ClInclude Include="commonMacroFunction.h" />
     <ClInclude Include="D2DRenderer.h" />
+    <ClInclude Include="enemy.h" />
+    <ClInclude Include="enemyManager.h" />
     <ClInclude Include="EventManager.h" />
     <ClInclude Include="FloatRect.h" />
     <ClInclude Include="gameNode.h" />
@@ -167,6 +169,8 @@
     <ClInclude Include="randomFunction.h" />
     <ClInclude Include="Resource.h" />
     <ClInclude Include="sceneManager.h" />
+    <ClInclude Include="schoolBoy.h" />
+    <ClInclude Include="schoolGirl.h" />
     <ClInclude Include="singletonBase.h" />
     <ClInclude Include="soundManager.h" />
     <ClInclude Include="stdafx.h" />
@@ -183,6 +187,8 @@
     <ClCompile Include="collision.cpp" />
     <ClCompile Include="D2DRenderer+Draw.cpp" />
     <ClCompile Include="D2DRenderer.cpp" />
+    <ClCompile Include="enemy.cpp" />
+    <ClCompile Include="enemyManager.cpp" />
     <ClCompile Include="EventManager.cpp" />
     <ClCompile Include="FloatRect.cpp" />
     <ClCompile Include="gameNode.cpp" />
@@ -196,6 +202,8 @@
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="playGround.cpp" />
     <ClCompile Include="sceneManager.cpp" />
+    <ClCompile Include="schoolBoy.cpp" />
+    <ClCompile Include="schoolGirl.cpp" />
     <ClCompile Include="soundManager.cpp" />
     <ClCompile Include="stdafx.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>

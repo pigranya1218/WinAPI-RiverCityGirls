@@ -7,7 +7,7 @@ class Player : public GameObject
 {
 private:
 	Synthesize(Image*, mImg, Image)
-	Synthesize(animation*, mAni, Animation)
+	Synthesize(Animation*, mAni, Animation)
 
 public:
 	Player();

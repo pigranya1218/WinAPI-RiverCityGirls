@@ -49,6 +49,9 @@
     <Filter Include="2DGameFramework\Animation">
       <UniqueIdentifier>{206ac15a-4721-4c12-93be-e176c2715a13}</UniqueIdentifier>
     </Filter>
+    <Filter Include="playGround\enemy">
+      <UniqueIdentifier>{1441d63f-7e1a-404f-bd8a-a55ca8e8f193}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="stdafx.h">
@@ -141,6 +144,18 @@
     <ClInclude Include="Animation.h">
       <Filter>2DGameFramework\Animation</Filter>
     </ClInclude>
+    <ClInclude Include="enemyManager.h">
+      <Filter>playGround\enemy</Filter>
+    </ClInclude>
+    <ClInclude Include="enemy.h">
+      <Filter>playGround\enemy</Filter>
+    </ClInclude>
+    <ClInclude Include="schoolBoy.h">
+      <Filter>playGround\enemy</Filter>
+    </ClInclude>
+    <ClInclude Include="schoolGirl.h">
+      <Filter>playGround\enemy</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="windowsAPI.cpp">
@@ -217,6 +232,18 @@
     </ClCompile>
     <ClCompile Include="Animation.cpp">
       <Filter>2DGameFramework\Animation</Filter>
+    </ClCompile>
+    <ClCompile Include="enemyManager.cpp">
+      <Filter>playGround\enemy</Filter>
+    </ClCompile>
+    <ClCompile Include="enemy.cpp">
+      <Filter>playGround\enemy</Filter>
+    </ClCompile>
+    <ClCompile Include="schoolBoy.cpp">
+      <Filter>playGround\enemy</Filter>
+    </ClCompile>
+    <ClCompile Include="schoolGirl.cpp">
+      <Filter>playGround\enemy</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
