@@ -61,7 +61,14 @@ void Stage::moveGameObject(GameObject & gameObject, Vector3 move)
 		LINEAR_VALUE_TYPE type = _linearFuncs[i].line.getValueType(newPos.x, newPos.z);
 		if (type == _linearFuncs[i].type) // 선보다 넘어간 경우
 		{
-			newPos.x = _linearFuncs[i].line.getX(newPos.z);
+			if (_linearFuncs[i].line.a != 0)
+			{
+				newPos.x = _linearFuncs[i].line.getX(newPos.z);
+			}
+			else
+			{
+				newPos.z = _linearFuncs[i].line.getY(newPos.x);
+			}
 		}
 
 		//for (int j = 0; j < 4; j++) // 충돌 판정 RECT의 네 꼭지점과 비교

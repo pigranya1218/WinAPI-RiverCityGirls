@@ -91,14 +91,9 @@ HRESULT playGround::init()
 
 	IMAGE_MANAGER->addImage("startMapPhone", L"resources/images/UI/startStage_phone.png");			// 핸드폰 이미지
 
-	
-	
 	IMAGE_MANAGER->addImage("unlockDoor", L"resources/images/UI/UI_UNLOCKED_DOOR.png");				// 열린 문
 	IMAGE_MANAGER->addImage("lockDoor"	, L"resources/images/UI/UI_LOCKED_DOOR.png");				// 닫힌 문
 	
-	
-
-
 	// 모든 씬 SCENE_MANAGER에 등록
 	SCENE_MANAGER->addScene("MAIN", new MainScene);
 	SCENE_MANAGER->addScene("STAGE", new StageScene);
