@@ -6,6 +6,7 @@
 
 KyokoState * IdleState::update(Kyoko & Kyoko)
 {
+	ImageEnter(Kyoko);
 
 	if (KEYMANAGER->isOnceKeyDown(VK_RIGHT))
 	{
@@ -32,9 +33,9 @@ void IdleState::render(Kyoko & Kyoko)
 void IdleState::ImageEnter(Kyoko & Kyoko)
 {
 	Kyoko.setImage(_newImg = ImageManager::GetInstance()->FindImage("ÄìÄÚ´ë±â"));
-	//animation* _newAni = new animation;
-	//_newAni->init(_newImg->GetWidth(), _newImg->GetHeight(), _newImg->GetMaxFrameX(), _newImg->GetMaxFrameY());
-	////_newAni->setDefPlayFrame(false, true);
-	//_newAni->setFPS(2);
-	//_newAni->setPlayFrame(0, 12, false, true);
+	animation* _newAni = new animation;
+	_newAni->init(_newImg->GetWidth(), _newImg->GetHeight(), _newImg->GetMaxFrameX(), _newImg->GetMaxFrameY());
+	_newAni->setDefPlayFrame(false, true);
+	_newAni->setFPS(2);
+	_newAni->setPlayFrame(0, 12, false, true);
 }

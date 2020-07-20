@@ -1,11 +1,15 @@
 #pragma once
 #include "Kyoko.h"
 
+
 class KyokoState
 {
 protected:
 	Image* _newImg;
-	//animation* _newAni;
+	Animation* _newAni;
+
+	float _gravity;
+	float _jumpPower;
 
 public:
 	
@@ -22,7 +26,7 @@ private:
 	int _dashCount;
 
 public:
-	
+	IdleState();
 	virtual void imageEnter(Kyoko& Kyoko);
 	virtual KyokoState* update(Kyoko& Kyoko);
 	virtual void render(Kyoko& Kyoko);
@@ -35,22 +39,36 @@ private:
 	int _dashCount;
 
 public:
-	
+	WalkState();
 	virtual void imageEnter(Kyoko& Kyoko);
 	virtual KyokoState* update(Kyoko& Kyoko);
 	virtual void render(Kyoko& Kyoko);
 };
 
+//´Þ¸®±â
 class RunningState : public KyokoState
 {
 public:
-	
+	RunningState();
+
 	virtual void imageEnter(Kyoko& Kyoko);
 	virtual KyokoState* update(Kyoko& Kyoko);
 	virtual void render(Kyoko& Kyoko);
 
+};
 
 
+//
+class JumpState:public KyokoState
+{
+private:
+	
+
+public:
+	JumpState();
+
+	virtual KyokoState* update(Kyoko& Kyoko);
+	virtual void render(Kyoko& Kyoko);
 };
 
 

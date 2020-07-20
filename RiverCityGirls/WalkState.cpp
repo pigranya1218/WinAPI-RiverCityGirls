@@ -9,7 +9,7 @@
 
 KyokoState * WalkState::update(Kyoko& Kyoko)
 {
-
+	ImageEnter(Kyoko);
 
 	if (Kyoko.getDirection()==RIGHT)
 	{
@@ -52,9 +52,9 @@ void WalkState::ImageEnter(Kyoko & Kyoko)
 {
 	Kyoko.setImage(ImageManager::GetInstance()->FindImage("ÄìÄÚ°È±â"));
 	
-	//animation* _newAni = new animation;
-	//_newAni->init(_newImg->GetWidth(), _newImg->GetHeight(), _newImg->GetMaxFrameX(), _newImg->GetMaxFrameY());
-	////_newAni->setDefPlayFrame(false, true);
-	//_newAni->setFPS(2);
-	//_newAni->setPlayFrame(0, 12, false, true);
+	animation* _newAni = new animation;
+	_newAni->init(_newImg->GetWidth(), _newImg->GetHeight(), _newImg->GetMaxFrameX(), _newImg->GetMaxFrameY());
+	//_newAni->setDefPlayFrame(false, true);
+	_newAni->setFPS(2);
+	_newAni->setPlayFrame(0, 12, false, true);
 }
