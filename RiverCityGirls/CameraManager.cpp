@@ -295,6 +295,11 @@ FloatRect CameraManager::getAbsoluteFR(FloatRect rc)
 		getAbsoluteX(rc.right), getAbsoluteY(rc.bottom));
 }
 
+void CameraManager::drawLine(Vector2 start, Vector2 end)
+{
+	D2D_RENDERER->drawLine(getRelativeV2(start), getRelativeV2(end));
+}
+
 void CameraManager::rectangle(FloatRect rect, D2D1::ColorF::Enum color, float alpha, float strokeWidth)
 {
 	FloatRect relativeRc = getRelativeFR(rect);
@@ -311,15 +316,16 @@ void CameraManager::shadow(Vector3 pos, Vector3 size)
 void CameraManager::render(Image * img, Vector2 center)
 {
 	Vector2 drawPos = getRelativeV2(center);
-	img->render(center);
+	img->render(drawPos);
 }
 
 void CameraManager::render(Image * img, Vector2 center, Vector2 sourLT, Vector2 sourSize)
 {
 	Vector2 drawPos = getRelativeV2(center);
-	img->render(center, sourLT, sourSize);
+	img->render(drawPos, sourLT, sourSize);
 }
-
+
+
 void CameraManager::aniRender(Image * img, Vector3 center, Animation * ani)
 {
 	aniRender(img, convertV3ToV2(center), ani);
@@ -328,7 +334,7 @@ void CameraManager::aniRender(Image * img, Vector3 center, Animation * ani)
 void CameraManager::frameRender(Image * img, Vector2 center, int frameX, int frameY)
 {
 	Vector2 drawPos = getRelativeV2(center);
-	img->frameRender(center, frameX, frameY);
+	img->frameRender(drawPos, frameX, frameY);
 }
 
 void CameraManager::aniRender(Image * img, Vector2 center, Animation * ani)

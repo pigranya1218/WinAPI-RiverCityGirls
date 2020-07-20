@@ -19,10 +19,16 @@ private:
 
 public:
 	LinearFunc(float a, float b) :a(a), b(b) {}
+	LinearFunc(Vector2 start, Vector2 end);
 
 	LINEAR_VALUE_TYPE getValueType(float x, float y);
 	
 	float getX(float y) { return (y - b) / a; }
 	float getY(float x) { return a * x + b; }
+
+public:
+	static LinearFunc getLinearFuncFromPoints(Vector2 start, Vector2 end);
+
+
 };
 

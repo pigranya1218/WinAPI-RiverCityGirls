@@ -71,13 +71,13 @@ void Image::render(const Vector2& position)
 	Vector2 size = _size * _scale;
 
 	//스케일 행렬을 만들어준다
-	D2D1::Matrix3x2F scaleMatrix = D2D1::Matrix3x2F::Scale(_scale, _scale, D2D1::Point2F(size.x / 2.f, size.y / 2.f));
+	D2D1::Matrix3x2F scaleMatrix = D2D1::Matrix3x2F::Scale(_scale, _scale, D2D1::Point2F(0, 0));
 	//회전 행렬을 만들어준다. 
 	D2D1::Matrix3x2F rotateMatrix = D2D1::Matrix3x2F::Rotation(_angle, D2D1::Point2F(size.x / 2.f, size.y / 2.f));
 	//이동 행렬을 만들어준다.
 	D2D1::Matrix3x2F translateMatrix = D2D1::Matrix3x2F::Translation(position.x - size.x / 2.f, position.y - size.y / 2.f );
 
-	D2D1_RECT_F dxArea = D2D1::RectF(0.f, 0.f, size.x, size.y);
+	D2D1_RECT_F dxArea = D2D1::RectF(0.f, 0.f, _size.x, _size.y);
 
 	D2D_RENDERER->getRenderTarget()->SetTransform(scaleMatrix * rotateMatrix * translateMatrix);
 	D2D_RENDERER->getRenderTarget()->DrawBitmap(_bitmap, dxArea, _alpha);
@@ -88,12 +88,12 @@ void Image::render(const Vector2 & position, const Vector2 & sourPos, const Vect
 {
 	Vector2 size = _size * _scale;
 
-	D2D1::Matrix3x2F scaleMatrix = D2D1::Matrix3x2F::Scale(_scale, _scale, D2D1::Point2F(size.x / 2.f, size.y / 2.f));
+	D2D1::Matrix3x2F scaleMatrix = D2D1::Matrix3x2F::Scale(_scale, _scale, D2D1::Point2F(0, 0));
 	D2D1::Matrix3x2F rotateMatrix = D2D1::Matrix3x2F::Rotation(_angle, D2D1::Point2F(size.x / 2.f, size.y / 2.f));
 	D2D1::Matrix3x2F translateMatrix = D2D1::Matrix3x2F::Translation(position.x - size.x / 2.f, position.y - size.y / 2.f);
 
 	//그릴 영역 세팅 
-	D2D1_RECT_F dxArea = D2D1::RectF(0.0f, 0.0f, size.x, size.y);
+	D2D1_RECT_F dxArea = D2D1::RectF(0.0f, 0.0f, sourSize.x, sourSize.y);
 	D2D1_RECT_F dxSrc = D2D1::RectF(sourPos.x, sourPos.y, sourPos.x + sourSize.x, sourPos.y + sourSize.y);
 	//최종행렬 세팅
 	D2D_RENDERER->getRenderTarget()->SetTransform(scaleMatrix * rotateMatrix * translateMatrix);
@@ -113,7 +113,7 @@ void Image::frameRender(const Vector2& position, const int frameX, const int fra
 	int frame = frameY * _maxFrameX + frameX;
 	Vector2 size = _size * _scale;
 
-	D2D1::Matrix3x2F scaleMatrix = D2D1::Matrix3x2F::Scale(_scale, _scale, D2D1::Point2F(size.x / 2.f, size.y / 2.f));
+	D2D1::Matrix3x2F scaleMatrix = D2D1::Matrix3x2F::Scale(_scale, _scale, D2D1::Point2F(0, 0));
 	D2D1::Matrix3x2F rotateMatrix = D2D1::Matrix3x2F::Rotation(_angle, D2D1::Point2F(size.x / 2.f, size.y / 2.f));
 	D2D1::Matrix3x2F translateMatrix = D2D1::Matrix3x2F::Translation(position.x - size.x / 2.f, position.y - size.y / 2.f);
 

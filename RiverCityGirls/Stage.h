@@ -7,21 +7,22 @@ class ObjectManager;
 
 class Stage
 {
-private:
+protected:
 	struct tagDontMove // 스테이지 이동 영역을 제한하기 위한 구조체
 	{
 		LinearFunc line; // 선분
 		LINEAR_VALUE_TYPE type; // 이 선분 어디를 못지나가게 할 것인가?
 	};
-private:
+protected:
 	StageManager* _stageManager; 
 	ObjectManager* _objectManager; 
 	
-	Image* _background;
+	Image* _background; // 배경 이미지
+	float _bgScale; // 배경이미지 배율
 	vector<tagDontMove> _linearFuncs; // 스테이지의 이동 영역을 제한
 
 public:
-	virtual void init(Image* background) { _background = background; };
+	virtual void init(Image* background, float bgScale);
 	virtual void enter() {};
 	virtual void exit() {};
 	virtual Stage* update() { return nullptr; };

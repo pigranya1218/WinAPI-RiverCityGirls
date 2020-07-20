@@ -47,7 +47,6 @@ private:
 	void merge(int s, int e);
 	void sort(int s, int e);
 	void render(tagZImage imageInfo);
-	Vector2 convertV3ToV2(Vector3 v3);
 
 public:
 	CameraManager();
@@ -55,6 +54,8 @@ public:
 
 	HRESULT init();
 	void release();
+
+	Vector2 convertV3ToV2(Vector3 v3);
 
 	void setConfig(float left, float top, float width, float height, float minL, float minT, float maxL, float maxT);
 	void setConfigCenter(float x, float y, float width, float height, float minX, float minY, float maxX, float maxY);
@@ -86,6 +87,9 @@ public:
 	LONG getAbsoluteY(LONG top);
 	Vector2 getAbsoluteV2(Vector2 vec2);
 	FloatRect getAbsoluteFR(FloatRect rc);
+
+	// FOR DEBUG
+	void drawLine(Vector2 start, Vector2 end);
 
 	void rectangle(FloatRect rect, D2D1::ColorF::Enum color, float alpha, float strokeWidth);
 	void shadow(Vector3 pos, Vector3 size);

@@ -7,6 +7,10 @@ class StageManager
 private:
 	Stage* _currStage;
 
+
+	// DEBEG
+	GameObject* _dummy;
+
 public:
 	void init();
 

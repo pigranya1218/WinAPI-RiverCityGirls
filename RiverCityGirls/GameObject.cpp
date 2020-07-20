@@ -21,6 +21,9 @@ void GameObject::release()
 
 void GameObject::update()
 {
+	Vector2 XZsize;
+
+	_rect = rectMakePivot(CAMERA_MANAGER->convertV3ToV2(_position), XZsize, Pivot::Center);
 }
 
 void GameObject::render()

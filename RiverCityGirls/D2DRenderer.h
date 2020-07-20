@@ -57,9 +57,9 @@ public:
 		const wstring& font = L"¸¼Àº°íµñ");
 
 	void drawLine(const Vector2& start, const Vector2& end, const D2D1::ColorF::Enum& color, const float alpha,
-	 const float strokeWidth = 1.f);
+	 const float strokeWidth = 2.f);
 	void drawLine(const Vector2& start, const Vector2& end, const DefaultBrush& defaultBrush = DefaultBrush::Black,
-	 const float strokeWidth = 1.f);
+	 const float strokeWidth = 2.f);
 	void drawRectangle(const FloatRect& rc, const D2D1::ColorF::Enum& color, const float alpha,
 		const float strokeWidth = 1.f);
 	void drawRectangle(const FloatRect& rc, const DefaultBrush& defaultBrush = DefaultBrush::Black,

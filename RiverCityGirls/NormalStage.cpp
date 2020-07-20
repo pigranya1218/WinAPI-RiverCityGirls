@@ -1,8 +1,9 @@
 #include "stdafx.h"
 #include "NormalStage.h"
 
-void NormalStage::init(Image * background)
+void NormalStage::init(Image * background, float bgScale)
 {
+	Stage::init(background, bgScale);
 }
 
 void NormalStage::enter()
