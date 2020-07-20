@@ -186,6 +186,9 @@
     <ClInclude Include="Stage.h">
       <Filter>PlayGround\StageManager\Stage</Filter>
     </ClInclude>
+    <ClInclude Include="Object.h">
+      <Filter>PlayGround\Object</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="windowsAPI.cpp">
@@ -283,6 +286,9 @@
     </ClCompile>
     <ClCompile Include="GameNode.cpp">
       <Filter>2DGameFramework</Filter>
+    </ClCompile>
+    <ClCompile Include="Object.cpp">
+      <Filter>PlayGround\Object</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
