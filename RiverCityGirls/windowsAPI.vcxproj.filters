@@ -189,6 +189,9 @@
     <ClInclude Include="Object.h">
       <Filter>PlayGround\Object</Filter>
     </ClInclude>
+    <ClInclude Include="ObjectManager.h">
+      <Filter>PlayGround\Object</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="windowsAPI.cpp">
@@ -229,9 +232,6 @@
     </ClCompile>
     <ClCompile Include="GameObject.cpp">
       <Filter>2DGameFramework\GameObject</Filter>
-    </ClCompile>
-    <ClCompile Include="stdafx.cpp">
-      <Filter>헤더 파일</Filter>
     </ClCompile>
     <ClCompile Include="Animation.cpp">
       <Filter>2DGameFramework\Animation</Filter>
@@ -289,6 +289,12 @@
     </ClCompile>
     <ClCompile Include="Object.cpp">
       <Filter>PlayGround\Object</Filter>
+    </ClCompile>
+    <ClCompile Include="ObjectManager.cpp">
+      <Filter>PlayGround\Object</Filter>
+    </ClCompile>
+    <ClCompile Include="stdafx.cpp">
+      <Filter>소스 파일</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
