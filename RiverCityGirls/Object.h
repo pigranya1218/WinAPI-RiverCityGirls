@@ -16,14 +16,14 @@ struct TagObject
 	TagObjectType objectType;			//이미지 타입
 	tagImageState objectImgState;		//이미지 상태
 
-	bool isPlayerReactionObject;		//true : ReactionObject, false : Non-ReacionObject
-	bool isObjectHuman;					//true : human			 false : Non-human
-	Image* objectImg;					//image
-	bool isObjectLeft;					//true : Left,			 false : Right
-	int frameX;							//프레임 x
-	float objectX, objectZ, objectY;	//좌표, 아마도 x,z를 통해 잡혀질듯
-	float sizeWidth, sizeHeight;		//사이즈
-	int stage;							//받아올 스테이지
+	bool isPlayerReactionObject;			//true : ReactionObject, false : Non-ReacionObject
+	bool isObjectHuman;						//true : human			 false : Non-human
+	Image* objectImg;						//image
+	bool isObjectLeft;						//true : Left,			 false : Right
+	int frameX;								//프레임 x
+	float objectX, objectZ, objectY;		//좌표, 아마도 x,z를 통해 잡혀질듯
+	int stage;								//받아올 스테이지
+	float frameSizeWidth, frameSizeHeight;	//사이즈
 };
 
 class Object :
@@ -40,7 +40,7 @@ public:
 	void release();
 	void render();
 
-	void setObject(TagObjectType _objectType, tagImageState _objectImgState, float _x, float _z, float _sizeWidth, float _sizeheight); //{ _object.objectType = objectType; _object.objectX = _x; _object.objectZ = _z; }
+	void setObject(TagObjectType _objectType, tagImageState _objectImgState, float _x, float _z); //오브젝트 생성 - 타입, 상태, 위치 x, z
 	//void getPlayerReaction() //플레이어와 충돌하면
 };
 

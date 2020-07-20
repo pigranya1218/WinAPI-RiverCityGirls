@@ -47,7 +47,8 @@ HRESULT Object::init()
 
 				case REACTION:
 				{
-
+					_object.objectImg = IMAGE_MANAGER->addFrameImage("schoolBoyEReaction", L"object/objectHuman_update/schoolboyE_react.png", 3, 2);
+					_frameMax = 3;
 				}
 				break;
 			}
@@ -68,7 +69,29 @@ void Object::update()
 	
 	if (_object.isObjectHuman)
 	{
-		if (_count == 5)
+
+		switch (_object.objectImgState)
+		{
+			case IDLE01:
+			{
+				_frameMax = 4;
+			}
+			break;
+
+			case IDLE02:
+			{
+				_frameMax = 4;
+			}
+			break;
+
+			case REACTION:
+			{
+				_frameMax = 3;
+			}
+			break;
+		}
+
+		if (_count == 10)
 		{
 			_object.frameX++;
 			if (_object.frameX >= _frameMax)
@@ -77,6 +100,10 @@ void Object::update()
 			}
 			_count = 0;
 		}
+
+		_object.frameSizeWidth = _object.objectImg->getMaxFrameX();
+		_object.frameSizeHeight = _object.objectImg->getMaxFrameY();
+
 	}
 }
 
@@ -88,22 +115,21 @@ void Object::render()
 {
 	if (_object.isObjectHuman)
 	{
-		//CAMERA_MANAGER->frameRenderZ(_object.objectImg, Vector3(_object.objectX, 0.0, _object.objectZ), Vector3(_object.objectX, 0.0, _object.objectZ), _object.frameX, _object.isObjectLeft);
+		CAMERA_MANAGER->frameRenderZ(_object.objectImg, Vector3(_object.objectX, 0.0, _object.objectZ), Vector3(_object.frameSizeWidth, _object.frameSizeHeight, 0.0f), _object.frameX, _object.isObjectLeft);
 		//_object.objectImg->frameRender(Vector2(_object.objectX, _object.objectZ), _object.frameX, _object.isObjectLeft);
 	}
 	if (!_object.isObjectHuman)
 	{
-		_object.objectImg->render(Vector2(_object.objectX, _object.objectZ));
+		//_object.objectImg->render(Vector2(_object.objectX, _object.objectZ));
+		CAMERA_MANAGER->render(_object.objectImg, Vector2(_object.objectX, _object.objectZ));
 	}
 }
 
-void Object::setObject(TagObjectType objectType, tagImageState _objectImgState, float _x, float _z, float _sizeWidth, float _sizeheight)
+void Object::setObject(TagObjectType objectType, tagImageState _objectImgState, float _x, float _z)
 {
 	_object.objectType = objectType; 
 	_object.objectX = _x; 
 	_object.objectZ = _z;
-	_object.sizeWidth = _sizeWidth;
-	_object.sizeHeight = _sizeheight;
 	if (_objectImgState == REACTION)
 	{
 		_object.objectImgState = IDLE01;
