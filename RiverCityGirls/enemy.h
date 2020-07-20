@@ -1,45 +1,43 @@
 #pragma once
 #include "gameNode.h"
 
-enum ENEMYDIRECTION
+enum DIRECTION
 {
-	SIDE,
-	UPDOWN,
-	FREE
+	IDLE,
+	WALK,
+	RUN,	 //RUN상태에서 ATTACK -> DASH_ATTACK
+	JUMP,	 //JUMP상태에서 ATTACK -> JUMP_PUNCH
+	ATTACK,	 //콤보처리 ATTACK 1 ~ 3
+	GUARD,	 
+	HIT,
+	DOWN,	 //DOWN상태에서 피격 -> GROUND_HIT
+	STUN,
+	SKILL,	 //BOY(SANDTOSS), GIRL(), CHEER_GIRL()
+	HELD	 //HELD상태에서 피격 -> HELD_HIT / 일정 시간 지나면 HELD_RELEASE
 };
+//좌우 디렉션은 플레이어 기준 setFrameY로 조정
 
 class enemy : public gameNode
 {
 protected:
-	image* _imageName;		//적의 이미지에 사용할꺼
-	RECT _rc;				//충돌용 렉트
+	Image* _enemyImg;
+	FloatRect _attackRc;	//공격 렉트
+	FloatRect _getHitRc;	//피격 렉트
+	float  _x, _y;			//중점
+	DIRECTION _direction;	//디렉션
+	Animation* _ani;		//애니메이션
 
-	int _currentFrameX;		//프레임 이미지 1개 가지고 각각 다른 프레임 유지하려고
-	int _currentFrameY;
-
-	int _count;				//프레임 카운트 용
-	int _fireCount;			//발사 카운트 용
-	int _rndFireCount;		//발사되는 딜레이 용
-
-	ENEMYDIRECTION _direction;
+	int _initX, _initY;		//최초 생성 위치
 
 public:
-	enemy();
-	~enemy();
+	enemy() {};
+	~enemy() {};
 
-	HRESULT init();											//초기화용
-	HRESULT init(const char* imageName, POINT position);	//초기화 too
-	void release();
-	void update();
-	void render();
+	virtual HRESULT init();
+	virtual void release();
+	virtual void update();
+	virtual void render();
 
-	void move();			//움직임
-	void draw();			//그려주자
-
-	bool bulletCountFire();	//총알 클래스에게 발사되라고 전달해주세요~
-
-	void enemyDirection(int num) { _direction = (ENEMYDIRECTION)num; }
-	//렉트 접근자
-	inline RECT getRect() { return _rc; }
+	
 };
 
