@@ -96,6 +96,7 @@ public:
 	void frameRender(Image* img, Vector2 center, int frameX, int frameY);
 
 	void aniRender(Image* img, Vector2 center, Animation* ani);
+	void aniRender(Image* img, Vector3 center, Animation* ani);
 	
 	/*
 		Z ORDER 관련 함수	

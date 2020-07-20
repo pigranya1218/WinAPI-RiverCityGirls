@@ -281,6 +281,9 @@
     <ClCompile Include="Stage.cpp">
       <Filter>PlayGround\StageManager\Stage</Filter>
     </ClCompile>
+    <ClCompile Include="GameNode.cpp">
+      <Filter>2DGameFramework</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="windowsAPI.rc">

@@ -62,6 +62,13 @@ void Vector3::operator-=(const Vector3 & v)
 	z -= v.z;
 }
 
+void Vector3::operator=(const Vector2 & v2)
+{
+	x = v2.x;
+	y = v2.y;
+	z = 0;
+}
+
 Vector3 Vector3::operator*(const float & scalar)
 {
 	Vector3 result;

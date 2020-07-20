@@ -3,7 +3,7 @@
 #include <vector>
 #include <map>
 
-class effect;
+class Effect;
 
 class EffectManager : public SingletonBase<EffectManager>
 {

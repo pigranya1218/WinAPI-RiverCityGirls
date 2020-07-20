@@ -20,6 +20,7 @@ public:
 	Vector3 operator- (const Vector3& v);
 	void operator+= (const Vector3& v);
 	void operator-= (const Vector3& v);
+	void operator= (const Vector2& v2);
 	Vector3 operator* (const float& scalar);
 	Vector3 operator/ (const float& scalar);
 	const bool operator==(const Vector3& v);

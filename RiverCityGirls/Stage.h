@@ -24,7 +24,7 @@ public:
 	virtual void init(Image* background) { _background = background; };
 	virtual void enter() {};
 	virtual void exit() {};
-	virtual Stage* update() {};
+	virtual Stage* update() { return nullptr; };
 	virtual void render();
 
 	void setStageManager(StageManager* stageManager) { _stageManager = stageManager; }

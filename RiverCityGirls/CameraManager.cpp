@@ -319,6 +319,11 @@ void CameraManager::render(Image * img, Vector2 center, Vector2 sourLT, Vector2 
 	Vector2 drawPos = getRelativeV2(center);
 	img->render(center, sourLT, sourSize);
 }
+
+void CameraManager::aniRender(Image * img, Vector3 center, Animation * ani)
+{
+	aniRender(img, convertV3ToV2(center), ani);
+}
 
 void CameraManager::frameRender(Image * img, Vector2 center, int frameX, int frameY)
 {
