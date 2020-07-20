@@ -1,18 +1,18 @@
 #include "stdafx.h"
 #include "schoolBoy.h"
 
-HRESULT schoolBoy::init()
+HRESULT SchoolBoy::init()
 {
-	_enemyImg = ImageManager::GetInstance()->FindImage("½ºÄğº¸ÀÌ_±âº»");
+	_enemyImg = IMAGE_MANAGER->findImage("½ºÄğº¸ÀÌ_±âº»");
 	
-	_getHitRc = RectMakePivot(Vector2(WINSIZEX/2 - 200, WINSIZEY/2), Vector2(_enemyImg->GetFrameSize())* 1.5f, Pivot::Center);
+	_getHitRc = rectMakePivot(Vector2(WINSIZEX/2 - 200, WINSIZEY/2), Vector2(_enemyImg->getFrameSize())* 1.5f, Pivot::Center);
 
 	_direction = IDLE;
 
 	_ani = new Animation;
-	_enemyImg = ImageManager::GetInstance()->FindImage("½ºÄğº¸ÀÌ_±âº»");
-	_ani->init(_enemyImg->GetWidth(), _enemyImg->GetHeight(),
-		_enemyImg->GetMaxFrameX(), _enemyImg->GetMaxFrameY());
+	_enemyImg = IMAGE_MANAGER->findImage("½ºÄğº¸ÀÌ_±âº»");
+	_ani->init(_enemyImg->getWidth(), _enemyImg->getHeight(),
+		_enemyImg->getMaxFrameX(), _enemyImg->getMaxFrameY());
 	_ani->setPlayFrame(0, 8, false, true);
 	_ani->setFPS(10);
 	_ani->start();
@@ -21,30 +21,30 @@ HRESULT schoolBoy::init()
 	return S_OK;
 }
 
-void schoolBoy::release()
+void SchoolBoy::release()
 {
 }
 
-void schoolBoy::update()
+void SchoolBoy::update()
 {
 	//µğ·º¼Ç Å×½ºÆ®
-	if (KEYMANAGER->isOnceKeyDown(VK_SPACE))
+	if (KEY_MANAGER->isOnceKeyDown(VK_SPACE))
 	{
 		aniPlay(WALK, 0);
 	}
-	if (KEYMANAGER->isOnceKeyDown('R'))
+	if (KEY_MANAGER->isOnceKeyDown('R'))
 	{
 		aniPlay(RUN, 0);
 	}
-	if (KEYMANAGER->isOnceKeyDown('J'))
+	if (KEY_MANAGER->isOnceKeyDown('J'))
 	{
 		aniPlay(JUMP, 0);
 	}
-	if (KEYMANAGER->isOnceKeyDown('A'))
+	if (KEY_MANAGER->isOnceKeyDown('A'))
 	{
 		aniPlay(ATTACK, 0);
 	}
-	if (KEYMANAGER->isOnceKeyDown('G'))
+	if (KEY_MANAGER->isOnceKeyDown('G'))
 	{
 		aniPlay(GUARD, 1);
 	}
@@ -153,15 +153,15 @@ void schoolBoy::update()
 		break;
 	}*/
 
-	_ani->frameUpdate(TIMEMANAGER->getElapsedTime());
+	_ani->frameUpdate(TIME_MANAGER->getElapsedTime());
 }
 
-void schoolBoy::render()
+void SchoolBoy::render()
 {
-	_enemyImg->SetScale(1.5f);
+	_enemyImg->setScale(1.5f);
 	//_enemyImg->FrameRender(Vector2(WINSIZEX / 2, WINSIZEY / 2), 0, 0);
-	_enemyImg->AniRender(Vector2(WINSIZEX / 2 - 200, WINSIZEY / 2), _ani);
-	D2DRenderer::GetInstance()->drawRectangle
+	_enemyImg->aniRender(Vector2(WINSIZEX / 2 - 200, WINSIZEY / 2), _ani);
+	D2D_RENDERER->drawRectangle
 	(
 		_getHitRc,
 		D2DRenderer::DefaultBrush::Red,
@@ -169,85 +169,85 @@ void schoolBoy::render()
 	);
 	//test
 	char str[255];
-	sprintf_s(str, "GetMaxFrameX = %d", _enemyImg->GetMaxFrameX());
+	sprintf_s(str, "GetMaxFrameX = %d", _enemyImg->getMaxFrameX());
 	TextOut(_hdc, 0, 0, str, strlen(str));
 }
 
-void schoolBoy::aniPlay(DIRECTION direction, int numLR)
+void SchoolBoy::aniPlay(DIRECTION direction, int numLR)
 {
 	//µğ·º¼Ç¿¡ µû¸¥ ¾Ö´Ï¸ŞÀÌ¼Ç
 	if (direction == WALK)
 	{
 		_ani = new Animation;
-		_enemyImg = ImageManager::GetInstance()->FindImage("½ºÄğº¸ÀÌ_°È±â");
-		_ani->init(_enemyImg->GetWidth(), _enemyImg->GetHeight(),
-			_enemyImg->GetMaxFrameX(), _enemyImg->GetMaxFrameY());
+		_enemyImg = IMAGE_MANAGER->findImage("½ºÄğº¸ÀÌ_°È±â");
+		_ani->init(_enemyImg->getWidth(), _enemyImg->getHeight(),
+			_enemyImg->getMaxFrameX(), _enemyImg->getMaxFrameY());
 		//ÁÂÃø 0, ¿ìÃø 1
-		if (numLR == 0) _ani->setPlayFrame(_enemyImg->GetMaxFrameX(), _enemyImg->GetMaxFrameX()*2-1, false, true);
-		if (numLR == 1) _ani->setPlayFrame(0, _enemyImg->GetMaxFrameX()-1, false, true);
+		if (numLR == 0) _ani->setPlayFrame(_enemyImg->getMaxFrameX(), _enemyImg->getMaxFrameX()*2-1, false, true);
+		if (numLR == 1) _ani->setPlayFrame(0, _enemyImg->getMaxFrameX()-1, false, true);
 		_ani->setFPS(10);
 		_ani->start();
 	}
 	if (direction == RUN)
 	{
 		_ani = new Animation;
-		_enemyImg = ImageManager::GetInstance()->FindImage("½ºÄğº¸ÀÌ_´Ş¸®±â");
-		_ani->init(_enemyImg->GetWidth(), _enemyImg->GetHeight(),
-			_enemyImg->GetMaxFrameX(), _enemyImg->GetMaxFrameY());
+		_enemyImg = IMAGE_MANAGER->findImage("½ºÄğº¸ÀÌ_´Ş¸®±â");
+		_ani->init(_enemyImg->getWidth(), _enemyImg->getHeight(),
+			_enemyImg->getMaxFrameX(), _enemyImg->getMaxFrameY());
 		//ÁÂÃø 0, ¿ìÃø 1
-		if (numLR == 0) _ani->setPlayFrame(_enemyImg->GetMaxFrameX(), _enemyImg->GetMaxFrameX() * 2 - 1, false, true);
-		if (numLR == 1) _ani->setPlayFrame(0, _enemyImg->GetMaxFrameX() - 1, false, true);
+		if (numLR == 0) _ani->setPlayFrame(_enemyImg->getMaxFrameX(), _enemyImg->getMaxFrameX() * 2 - 1, false, true);
+		if (numLR == 1) _ani->setPlayFrame(0, _enemyImg->getMaxFrameX() - 1, false, true);
 		_ani->setFPS(10);
 		_ani->start();
 	}
 	if (direction == JUMP)
 	{
 		_ani = new Animation;
-		_enemyImg = ImageManager::GetInstance()->FindImage("½ºÄğº¸ÀÌ_Á¡ÇÁ");
-		_ani->init(_enemyImg->GetWidth(), _enemyImg->GetHeight(),
-			_enemyImg->GetMaxFrameX(), _enemyImg->GetMaxFrameY());
+		_enemyImg = IMAGE_MANAGER->findImage("½ºÄğº¸ÀÌ_Á¡ÇÁ");
+		_ani->init(_enemyImg->getWidth(), _enemyImg->getHeight(),
+			_enemyImg->getMaxFrameX(), _enemyImg->getMaxFrameY());
 		//ÁÂÃø 0, ¿ìÃø 1
-		if (numLR == 0) _ani->setPlayFrame(_enemyImg->GetMaxFrameX(), _enemyImg->GetMaxFrameX() * 2 - 1, false, true);
-		if (numLR == 1) _ani->setPlayFrame(0, _enemyImg->GetMaxFrameX() - 1, false, true);
+		if (numLR == 0) _ani->setPlayFrame(_enemyImg->getMaxFrameX(), _enemyImg->getMaxFrameX() * 2 - 1, false, true);
+		if (numLR == 1) _ani->setPlayFrame(0, _enemyImg->getMaxFrameX() - 1, false, true);
 		_ani->setFPS(10);
 		_ani->start();
 	}
 	if (direction == ATTACK)
 	{
 		_ani = new Animation;
-		int i = RND->getFromIntTo(1, 4);
+		int i = RANDOM->getFromIntTo(1, 4);
 		char imgNameNum[128]; 
 		sprintf_s(imgNameNum, "½ºÄğº¸ÀÌ_°ø°İ%d", i);
-		_enemyImg = ImageManager::GetInstance()->FindImage(imgNameNum);
-		_ani->init(_enemyImg->GetWidth(), _enemyImg->GetHeight(),
-			_enemyImg->GetMaxFrameX(), _enemyImg->GetMaxFrameY());
+		_enemyImg = IMAGE_MANAGER->findImage(imgNameNum);
+		_ani->init(_enemyImg->getWidth(), _enemyImg->getHeight(),
+			_enemyImg->getMaxFrameX(), _enemyImg->getMaxFrameY());
 		//ÁÂÃø 0, ¿ìÃø 1
-		if (numLR == 0) _ani->setPlayFrame(_enemyImg->GetMaxFrameX(), _enemyImg->GetMaxFrameX() * 2 - 1, false, true);
-		if (numLR == 1) _ani->setPlayFrame(0, _enemyImg->GetMaxFrameX() - 1, false, true);
+		if (numLR == 0) _ani->setPlayFrame(_enemyImg->getMaxFrameX(), _enemyImg->getMaxFrameX() * 2 - 1, false, true);
+		if (numLR == 1) _ani->setPlayFrame(0, _enemyImg->getMaxFrameX() - 1, false, true);
 		_ani->setFPS(10);
 		_ani->start();
 	}
 	if (direction == GUARD)
 	{
 		_ani = new Animation;
-		_enemyImg = ImageManager::GetInstance()->FindImage("½ºÄğº¸ÀÌ_°¡µå");
-		_ani->init(_enemyImg->GetWidth(), _enemyImg->GetHeight(),
-			_enemyImg->GetMaxFrameX(), _enemyImg->GetMaxFrameY());
+		_enemyImg = IMAGE_MANAGER->findImage("½ºÄğº¸ÀÌ_°¡µå");
+		_ani->init(_enemyImg->getWidth(), _enemyImg->getHeight(),
+			_enemyImg->getMaxFrameX(), _enemyImg->getMaxFrameY());
 		//ÁÂÃø 0, ¿ìÃø 1
-		if (numLR == 0) _ani->setPlayFrame(_enemyImg->GetMaxFrameX(), _enemyImg->GetMaxFrameX() * 2 - 1, false, true);
-		if (numLR == 1) _ani->setPlayFrame(0, _enemyImg->GetMaxFrameX() - 1, false, true);
+		if (numLR == 0) _ani->setPlayFrame(_enemyImg->getMaxFrameX(), _enemyImg->getMaxFrameX() * 2 - 1, false, true);
+		if (numLR == 1) _ani->setPlayFrame(0, _enemyImg->getMaxFrameX() - 1, false, true);
 		_ani->setFPS(10);
 		_ani->start();
 	}
 	if (direction == HIT)
 	{
 		_ani = new Animation;
-		_enemyImg = ImageManager::GetInstance()->FindImage("½ºÄğº¸ÀÌ_ÇÇ°İ");
-		_ani->init(_enemyImg->GetWidth(), _enemyImg->GetHeight(),
-			_enemyImg->GetMaxFrameX(), _enemyImg->GetMaxFrameY());
+		_enemyImg = IMAGE_MANAGER->findImage("½ºÄğº¸ÀÌ_ÇÇ°İ");
+		_ani->init(_enemyImg->getWidth(), _enemyImg->getHeight(),
+			_enemyImg->getMaxFrameX(), _enemyImg->getMaxFrameY());
 		//ÁÂÃø 0, ¿ìÃø 1
-		if (numLR == 0) _ani->setPlayFrame(_enemyImg->GetMaxFrameX(), _enemyImg->GetMaxFrameX() * 2 - 1, false, true);
-		if (numLR == 1) _ani->setPlayFrame(0, _enemyImg->GetMaxFrameX() - 1, false, true);
+		if (numLR == 0) _ani->setPlayFrame(_enemyImg->getMaxFrameX(), _enemyImg->getMaxFrameX() * 2 - 1, false, true);
+		if (numLR == 1) _ani->setPlayFrame(0, _enemyImg->getMaxFrameX() - 1, false, true);
 		_ani->setFPS(10);
 		_ani->start();
 	}

@@ -1,5 +1,5 @@
 #pragma once
-#include "gameNode.h"
+#include "GameNode.h"
 
 enum DIRECTION
 {
@@ -17,7 +17,7 @@ enum DIRECTION
 };
 //좌우 디렉션은 플레이어 기준 setFrameY로 조정
 
-class enemy : public gameNode
+class Enemy : public GameNode
 {
 protected:
 	Image* _enemyImg;
@@ -30,8 +30,8 @@ protected:
 	int _initX, _initY;		//최초 생성 위치
 
 public:
-	enemy() {};
-	~enemy() {};
+	Enemy() {};
+	~Enemy() {};
 
 	virtual HRESULT init();
 	virtual void release();

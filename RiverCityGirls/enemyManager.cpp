@@ -2,32 +2,32 @@
 #include "enemyManager.h"
 #include "enemy.h"
 
-HRESULT enemyManager::init()
+HRESULT EnemyManager::init()
 {
-	_schoolBoy = new schoolBoy;
+	_schoolBoy = new SchoolBoy;
 	_schoolBoy->init();
 
 	return S_OK;
 }
 
-void enemyManager::release()
+void EnemyManager::release()
 {
 }
 
-void enemyManager::update()
+void EnemyManager::update()
 {
 	_schoolBoy->update();
 }
 
-void enemyManager::render()
+void EnemyManager::render()
 {
 	_schoolBoy->render();
 }
 
-void enemyManager::setEnemy()
+void EnemyManager::setEnemy()
 {
 }
 
-void enemyManager::removeEnemy(int arrNum)
+void EnemyManager::removeEnemy(int arrNum)
 {
 }

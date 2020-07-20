@@ -1,14 +1,14 @@
 #pragma once
-#include "enemy.h"
+#include "Enemy.h"
 
-class schoolBoy : public enemy
+class SchoolBoy : public Enemy
 {
 private:
 	int _count;
 
 public:
-	schoolBoy() {};
-	~schoolBoy() {};
+	SchoolBoy() {};
+	~SchoolBoy() {};
 
 	virtual HRESULT init();
 	virtual void release();

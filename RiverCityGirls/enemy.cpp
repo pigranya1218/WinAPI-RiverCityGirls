@@ -1,21 +1,21 @@
 #include "stdafx.h"
-#include "enemy.h"
+#include "Enemy.h"
 
-HRESULT enemy::init()
+HRESULT Enemy::init()
 {
 
 	return S_OK;
 }
 
-void enemy::release()
+void Enemy::release()
 {
 }
 
-void enemy::update()
+void Enemy::update()
 {
 }
 
-void enemy::render()
+void Enemy::render()
 {
 	
 }

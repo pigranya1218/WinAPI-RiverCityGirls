@@ -1,5 +1,5 @@
 #pragma once
-#include "gameNode.h"
+#include "GameNode.h"
 
 enum DIRECTION : int
 {
@@ -11,11 +11,11 @@ enum DIRECTION : int
 
 class KyokoState;
 
-class Kyoko : public gameNode
+class Kyoko : public GameNode
 {
 private:
 	Image* _img;
-	animation* _ani;
+	Animation* _ani;
 	
 	RECT _rc; //피격판정렉트
 	RECT _hitRc;//타격판정렉트
@@ -24,9 +24,6 @@ private:
 	DIRECTION _direction;
 
 	KyokoState* _state;
-
-	
-
 
 public:
 

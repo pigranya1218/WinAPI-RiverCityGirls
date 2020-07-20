@@ -9,7 +9,7 @@ protected:
 
 public:
 	
-	virtual void ImageEnter(Kyoko& Kyoko);
+	virtual void imageEnter(Kyoko& Kyoko);
 	virtual KyokoState* update(Kyoko& Kyoko);
 	virtual void render(Kyoko& Kyoko);
 
@@ -23,7 +23,7 @@ private:
 
 public:
 	
-	virtual void ImageEnter(Kyoko& Kyoko);
+	virtual void imageEnter(Kyoko& Kyoko);
 	virtual KyokoState* update(Kyoko& Kyoko);
 	virtual void render(Kyoko& Kyoko);
 };
@@ -36,7 +36,7 @@ private:
 
 public:
 	
-	virtual void ImageEnter(Kyoko& Kyoko);
+	virtual void imageEnter(Kyoko& Kyoko);
 	virtual KyokoState* update(Kyoko& Kyoko);
 	virtual void render(Kyoko& Kyoko);
 };
@@ -45,7 +45,7 @@ class RunningState : public KyokoState
 {
 public:
 	
-	virtual void ImageEnter(Kyoko& Kyoko);
+	virtual void imageEnter(Kyoko& Kyoko);
 	virtual KyokoState* update(Kyoko& Kyoko);
 	virtual void render(Kyoko& Kyoko);
 

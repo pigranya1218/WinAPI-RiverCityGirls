@@ -1,25 +1,25 @@
 #pragma once
-#include "gameNode.h"
-#include "schoolBoy.h"
+#include "GameNode.h"
+#include "SchoolBoy.h"
 #include <vector>
 
-class enemy;
+class Enemy;
 
-class enemyManager : public gameNode
+class EnemyManager : public GameNode
 {
 private:
-	schoolBoy* _schoolBoy;
+	SchoolBoy* _schoolBoy;
 
-	typedef vector<enemy*>				vEnemy;
-	typedef vector<enemy*>::iterator	viEnemy;
+	typedef vector<Enemy*>				vEnemy;
+	typedef vector<Enemy*>::iterator	viEnemy;
 
 	vector<POINT> _enemyRespawnPos;
 
 protected:
 
 public:
-	enemyManager() {};
-	~enemyManager() {};
+	EnemyManager() {};
+	~EnemyManager() {};
 
 	HRESULT init();
 	void release();

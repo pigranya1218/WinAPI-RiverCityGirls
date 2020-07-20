@@ -1,19 +1,19 @@
 #include "stdafx.h"
-#include "schoolGirl.h"
+#include "SchoolGirl.h"
 
-HRESULT schoolGirl::init()
+HRESULT SchoolGirl::init()
 {
 	return E_NOTIMPL;
 }
 
-void schoolGirl::release()
+void SchoolGirl::release()
 {
 }
 
-void schoolGirl::update()
+void SchoolGirl::update()
 {
 }
 
-void schoolGirl::render()
+void SchoolGirl::render()
 {
 }
