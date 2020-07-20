@@ -41,6 +41,7 @@ enum class Pivot : int
 #include "SceneManager.h"
 #include "CameraManager.h"
 #include "EffectManager.h"
+#include "UIManager.h"
 #include "txtData.h"
 
 using namespace TTYONE_UTIL;
@@ -70,6 +71,7 @@ using namespace TTYONE_UTIL;
 #define D2D_RENDERER D2DRenderer::getSingleton()
 #define CAMERA_MANAGER CameraManager::getSingleton()
 #define EFFECT_MANAGER EffectManager::getSingleton()
+#define UI_MANAGER UIManager::getSingleton()
 
 #define SAFE_DELETE(p)		{if(p) {delete(p); (p) = NULL;}}
 #define SAFE_RELEASE(p)		{if(p) {(p)->release(); (p) = NULL;}}
