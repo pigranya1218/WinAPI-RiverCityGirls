@@ -20,6 +20,7 @@ HRESULT playGround::init()
 
 	// 모든 이미지 IMAGE_MANAGER에 등록
 
+
 	// 모든 씬 SCENE_MANAGER에 등록
 	SCENE_MANAGER->addScene("MAIN", new MainScene);
 	SCENE_MANAGER->addScene("STAGE", new StageScene);
