@@ -18,6 +18,17 @@ HRESULT playGround::init()
 {
 	GameNode::init(true);
 
+	ImageManager::GetInstance()->AddFrameImage("쿄코대기", L"Kyoko/Kyoko_idle.png", 12, 2);
+	ImageManager::GetInstance()->AddFrameImage("쿄코걷기", L"Kyoko/Kyoko_walk.png",12,2);
+	ImageManager::GetInstance()->AddFrameImage("쿄코달리기", L"Kyoko/Kyoko_run.png", 16, 2);
+
+
+	_kyoko = new Kyoko;
+	_kyoko->init();
+
+	/*ImageManager::GetInstance()->AddImage("TestObject", L"TrapObject.png");
+	ImageManager::GetInstance()->AddFrameImage("TestFrameObject",
+		L"Bomb.png", 3, 1);
 	//Enemy 이미지 
 	//*스쿨보이
 	IMAGE_MANAGER->addFrameImage("스쿨보이_공격1", L"images/enemy_schoolboy/SchoolBoyAttack1.png", 7, 2);
