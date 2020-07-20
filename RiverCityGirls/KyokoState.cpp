@@ -110,6 +110,12 @@ KyokoState * WalkState::update(Kyoko & Kyoko)
 		Kyoko.setX(Kyoko.getX() - 5);
 	}
 
+	if (KEY_MANAGER->isOnceKeyDown('X'))
+	{
+
+		return new JumpState;
+	}
+
 	if (KEY_MANAGER->isOnceKeyUp(VK_RIGHT)|| KEY_MANAGER->isOnceKeyUp(VK_LEFT))
 	{
 		return new IdleState;
@@ -155,6 +161,13 @@ KyokoState * RunningState::update(Kyoko & Kyoko)
 		_newAni->setPlayFrame(16, 32, false, true);
 		Kyoko.setX(Kyoko.getX() - 5);
 	}
+
+	if (KEY_MANAGER->isOnceKeyDown('X'))
+	{
+
+		return new JumpState;
+	}
+
 	if (KEY_MANAGER->isOnceKeyUp(VK_RIGHT) || KEY_MANAGER->isOnceKeyUp(VK_LEFT))
 	{
 		return new IdleState;
@@ -217,9 +230,21 @@ KyokoState * JumpState::update(Kyoko & Kyoko)
 		}
 	}
 
+	if (KEY_MANAGER->isStayKeyDown(VK_RIGHT))
+	{
+		
+		Kyoko.setX(Kyoko.getX() + 5);
+	}
+	if (KEY_MANAGER->isStayKeyDown(VK_LEFT))
+	{
+		
+		Kyoko.setX(Kyoko.getX() - 5);
+	}
+
 	if (Kyoko.getY() >= WINSIZEY / 2)
 	{
-		return new IdleState;
+		if (KEY_MANAGER->isStayKeyDown(VK_RIGHT) || KEY_MANAGER->isStayKeyDown(VK_LEFT)) return new WalkState;
+		else return new IdleState;
 	}
 
 	_newAni->frameUpdate(TIME_MANAGER->getElapsedTime() * 10);
