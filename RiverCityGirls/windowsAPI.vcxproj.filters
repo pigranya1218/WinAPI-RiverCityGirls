@@ -73,6 +73,9 @@
     <Filter Include="PlayGround\StageManager\Stage">
       <UniqueIdentifier>{f95e144e-cd00-43b0-b180-4d783b314160}</UniqueIdentifier>
     </Filter>
+    <Filter Include="2DGameFramework\ProgressBar">
+      <UniqueIdentifier>{66fa5f00-55d1-45aa-a684-0afa17cf66d9}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="stdafx.h">
@@ -186,6 +189,12 @@
     <ClInclude Include="Stage.h">
       <Filter>PlayGround\StageManager\Stage</Filter>
     </ClInclude>
+    <ClInclude Include="ProgressBar.h">
+      <Filter>2DGameFramework\ProgressBar</Filter>
+    </ClInclude>
+    <ClInclude Include="UIManager.h">
+      <Filter>PlayGround\UI</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="windowsAPI.cpp">
@@ -283,6 +292,12 @@
     </ClCompile>
     <ClCompile Include="GameNode.cpp">
       <Filter>2DGameFramework</Filter>
+    </ClCompile>
+    <ClCompile Include="ProgressBar.cpp">
+      <Filter>2DGameFramework\ProgressBar</Filter>
+    </ClCompile>
+    <ClCompile Include="UIManager.cpp">
+      <Filter>PlayGround\UI</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

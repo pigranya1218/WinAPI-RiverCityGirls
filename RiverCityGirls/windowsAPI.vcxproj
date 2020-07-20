@@ -167,6 +167,7 @@
     <ClInclude Include="NormalStage.h" />
     <ClInclude Include="Player.h" />
     <ClInclude Include="PlayGround.h" />
+    <ClInclude Include="ProgressBar.h" />
     <ClInclude Include="RandomFunction.h" />
     <ClInclude Include="Resource.h" />
     <ClInclude Include="SceneManager.h" />
@@ -180,6 +181,7 @@
     <ClInclude Include="TimeManager.h" />
     <ClInclude Include="Timer.h" />
     <ClInclude Include="TxtData.h" />
+    <ClInclude Include="UIManager.h" />
     <ClInclude Include="Utils.h" />
     <ClInclude Include="Vector2.h" />
     <ClInclude Include="Vector3.h" />
@@ -205,6 +207,7 @@
     <ClCompile Include="NormalStage.cpp" />
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="PlayGround.cpp" />
+    <ClCompile Include="ProgressBar.cpp" />
     <ClCompile Include="SceneManager.cpp" />
     <ClCompile Include="SoundManager.cpp" />
     <ClCompile Include="Stage.cpp" />
@@ -219,6 +222,7 @@
     <ClCompile Include="TimeManager.cpp" />
     <ClCompile Include="Timer.cpp" />
     <ClCompile Include="TxtData.cpp" />
+    <ClCompile Include="UIManager.cpp" />
     <ClCompile Include="Utils.cpp" />
     <ClCompile Include="Vector2.cpp" />
     <ClCompile Include="Vector3.cpp" />
