@@ -159,6 +159,8 @@
     <ClInclude Include="image.h" />
     <ClInclude Include="imageManager.h" />
     <ClInclude Include="keyManager.h" />
+    <ClInclude Include="Kyoko.h" />
+    <ClInclude Include="KyokoState.h" />
     <ClInclude Include="LibraryHeader.h" />
     <ClInclude Include="ObjectManager.h" />
     <ClInclude Include="Obstacle.h" />
@@ -187,14 +189,18 @@
     <ClCompile Include="FloatRect.cpp" />
     <ClCompile Include="gameNode.cpp" />
     <ClCompile Include="GameObject.cpp" />
+    <ClCompile Include="IdleState.cpp" />
     <ClCompile Include="IEvent.cpp" />
     <ClCompile Include="image.cpp" />
     <ClCompile Include="imageManager.cpp" />
     <ClCompile Include="keyManager.cpp" />
+    <ClCompile Include="Kyoko.cpp" />
+    <ClCompile Include="KyokoState.cpp" />
     <ClCompile Include="ObjectManager.cpp" />
     <ClCompile Include="Obstacle.cpp" />
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="playGround.cpp" />
+    <ClCompile Include="RunningState.cpp" />
     <ClCompile Include="sceneManager.cpp" />
     <ClCompile Include="soundManager.cpp" />
     <ClCompile Include="stdafx.cpp">
@@ -208,6 +214,7 @@
     <ClCompile Include="txtData.cpp" />
     <ClCompile Include="utils.cpp" />
     <ClCompile Include="Vector2.cpp" />
+    <ClCompile Include="WalkState.cpp" />
     <ClCompile Include="windowsAPI.cpp" />
   </ItemGroup>
   <ItemGroup>

@@ -20,7 +20,15 @@ HRESULT playGround::init()
 {
 	gameNode::init(true);
 
-	ImageManager::GetInstance()->AddImage("TestObject", L"TrapObject.png");
+	ImageManager::GetInstance()->AddFrameImage("쿄코대기", L"Kyoko/Kyoko_idle.png", 12, 2);
+	ImageManager::GetInstance()->AddFrameImage("쿄코걷기", L"Kyoko/Kyoko_walk.png",12,2);
+	ImageManager::GetInstance()->AddFrameImage("쿄코달리기", L"Kyoko/Kyoko_run.png", 16, 2);
+
+
+	_kyoko = new Kyoko;
+	_kyoko->init();
+
+	/*ImageManager::GetInstance()->AddImage("TestObject", L"TrapObject.png");
 	ImageManager::GetInstance()->AddFrameImage("TestFrameObject",
 		L"Bomb.png", 3, 1);
 
@@ -36,7 +44,7 @@ HRESULT playGround::init()
 	EventManager::GetInstance()->AddEvent(new IObjectMove
 	(
 		player, Vector2(WINSIZEX / 2, WINSIZEY / 2), 100.f
-	));
+	));*/
 
 	return S_OK;
 }
@@ -44,15 +52,16 @@ HRESULT playGround::init()
 //메모리 해제
 void playGround::release()
 {
-	OBJECTMANAGER->Release();
+	//OBJECTMANAGER->Release();
 }
 
 //연산
 void playGround::update()
 {
 	gameNode::update();
-	OBJECTMANAGER->Update();
-	EventManager::GetInstance()->Update();
+	/*OBJECTMANAGER->Update();
+	EventManager::GetInstance()->Update();*/
+	_kyoko->update();
 }
 
 //그리기 전용
@@ -61,7 +70,10 @@ void playGround::render()
 	//백버퍼 초기화
 	D2DRenderer::GetInstance()->BeginRender(D2D1::ColorF::Black);
 	{
-		OBJECTMANAGER->Render();
+		
+		_kyoko->render();
+
+		//OBJECTMANAGER->Render();
 		//FloatRect rect;
 		//rect = RectMakePivot(Vector2(WINSIZEX / 2, WINSIZEY / 2),
 		//	Vector2(50, 50), Pivot::Center);

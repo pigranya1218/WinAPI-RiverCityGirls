@@ -49,6 +49,9 @@
     <Filter Include="2DGameFramework\EventManager">
       <UniqueIdentifier>{5cde8a1c-167c-4097-a35b-946e9cf12f91}</UniqueIdentifier>
     </Filter>
+    <Filter Include="playGround\Kyoko">
+      <UniqueIdentifier>{5e289369-72b8-4e83-8b73-ec88565103d1}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="stdafx.h">
@@ -141,6 +144,12 @@
     <ClInclude Include="IEvent.h">
       <Filter>2DGameFramework\EventManager</Filter>
     </ClInclude>
+    <ClInclude Include="Kyoko.h">
+      <Filter>playGround\Kyoko</Filter>
+    </ClInclude>
+    <ClInclude Include="KyokoState.h">
+      <Filter>playGround\Kyoko</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="windowsAPI.cpp">
@@ -217,6 +226,21 @@
     </ClCompile>
     <ClCompile Include="IEvent.cpp">
       <Filter>2DGameFramework\EventManager</Filter>
+    </ClCompile>
+    <ClCompile Include="Kyoko.cpp">
+      <Filter>playGround\Kyoko</Filter>
+    </ClCompile>
+    <ClCompile Include="KyokoState.cpp">
+      <Filter>playGround\Kyoko</Filter>
+    </ClCompile>
+    <ClCompile Include="IdleState.cpp">
+      <Filter>playGround\Kyoko</Filter>
+    </ClCompile>
+    <ClCompile Include="WalkState.cpp">
+      <Filter>playGround\Kyoko</Filter>
+    </ClCompile>
+    <ClCompile Include="RunningState.cpp">
+      <Filter>playGround\Kyoko</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
