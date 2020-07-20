@@ -325,6 +325,33 @@ void D2DRenderer::drawEllipse(const Vector2& origin, const float radius, const D
 	NEW_SAFE_RELEASE(brush);
 }
 /**********************************************************************************************
+## DrawEllipse ##
+@@ Vector2 origin : 중점
+@@ Vector2 radius : 반지름
+@@ D2D1::ColorF::Enum color : D2D컬러 값
+@@ float alpha : 알파 값
+@@ bool isRelative : 카메라 보정 여부
+@@ float stroke : 선 굵기
+************************************************************************************************/
+void D2DRenderer::drawEllipse(const Vector2 & origin, const Vector2 & radius, const D2D1::ColorF::Enum & color, const float alpha, const float strokeWidth)
+{
+	Vector2 pos = origin;
+
+	ID2D1SolidColorBrush* brush(nullptr);
+	mD2DRenderTarget->CreateSolidColorBrush(D2D1::ColorF(color, alpha), &brush);
+
+	D2D1_ELLIPSE ellipse;
+	ellipse.point.x = pos.x;
+	ellipse.point.y = pos.y;
+	ellipse.radiusX = radius.x;
+	ellipse.radiusY = radius.y;
+
+	mD2DRenderTarget->SetTransform(D2D1::Matrix3x2F::Identity());
+	mD2DRenderTarget->DrawEllipse(&ellipse, brush, strokeWidth);
+
+	NEW_SAFE_RELEASE(brush);
+}
+/**********************************************************************************************
 ## FillRectagle ##
 @@ FloatRect rc : 그릴 렉트
 @@ D2D1::ColorF::Enum color : D2D컬러

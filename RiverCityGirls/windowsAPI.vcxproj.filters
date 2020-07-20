@@ -58,9 +58,6 @@
     <Filter Include="PlayGround\Player\State">
       <UniqueIdentifier>{13464f96-8789-4761-b52c-4d32b5aeaa2f}</UniqueIdentifier>
     </Filter>
-    <Filter Include="PlayGround\Stage">
-      <UniqueIdentifier>{057196e2-3d67-4f07-8ba9-cfe7cb4dc592}</UniqueIdentifier>
-    </Filter>
     <Filter Include="PlayGround\Object">
       <UniqueIdentifier>{18d7c35b-6955-4206-ab64-06ea564c1cde}</UniqueIdentifier>
     </Filter>
@@ -69,6 +66,12 @@
     </Filter>
     <Filter Include="PlayGround\UI">
       <UniqueIdentifier>{43396194-297f-4fe8-a362-1b2c8e985169}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="PlayGround\StageManager">
+      <UniqueIdentifier>{057196e2-3d67-4f07-8ba9-cfe7cb4dc592}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="PlayGround\StageManager\Stage">
+      <UniqueIdentifier>{f95e144e-cd00-43b0-b180-4d783b314160}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -168,6 +171,21 @@
     <ClInclude Include="Player.h">
       <Filter>PlayGround\Player</Filter>
     </ClInclude>
+    <ClInclude Include="LinearFunc.h">
+      <Filter>2DGameFramework\Utils</Filter>
+    </ClInclude>
+    <ClInclude Include="StageManager.h">
+      <Filter>PlayGround\StageManager</Filter>
+    </ClInclude>
+    <ClInclude Include="BossStage.h">
+      <Filter>PlayGround\StageManager\Stage</Filter>
+    </ClInclude>
+    <ClInclude Include="NormalStage.h">
+      <Filter>PlayGround\StageManager\Stage</Filter>
+    </ClInclude>
+    <ClInclude Include="Stage.h">
+      <Filter>PlayGround\StageManager\Stage</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="windowsAPI.cpp">
@@ -247,6 +265,21 @@
     </ClCompile>
     <ClCompile Include="Player.cpp">
       <Filter>PlayGround\Player</Filter>
+    </ClCompile>
+    <ClCompile Include="LinearFunc.cpp">
+      <Filter>2DGameFramework\Utils</Filter>
+    </ClCompile>
+    <ClCompile Include="StageManager.cpp">
+      <Filter>PlayGround\StageManager</Filter>
+    </ClCompile>
+    <ClCompile Include="BossStage.cpp">
+      <Filter>PlayGround\StageManager\Stage</Filter>
+    </ClCompile>
+    <ClCompile Include="NormalStage.cpp">
+      <Filter>PlayGround\StageManager\Stage</Filter>
+    </ClCompile>
+    <ClCompile Include="Stage.cpp">
+      <Filter>PlayGround\StageManager\Stage</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

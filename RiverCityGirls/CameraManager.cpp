@@ -58,6 +58,10 @@ void CameraManager::sort(int s, int e)
 
 void CameraManager::render(tagZImage imageInfo)
 {
+	// 그림자 그리기
+	shadow(imageInfo.pos, imageInfo.size);
+
+	// 타입에 맞게 이미지 그리기
 	switch (imageInfo.renderType)
 	{
 	case IMAGE_RENDER_TYPE::RENDER:
@@ -70,7 +74,7 @@ void CameraManager::render(tagZImage imageInfo)
 		render(imageInfo.img, getRelativeV2(convertV3ToV2(imageInfo.pos)), imageInfo.sourPos, imageInfo.sourSize);
 	}
 	break;
-	case IMAGE_RENDER_TYPE::FRAME_RENDER:
+	case IMAGE_RENDER_TYPE::FRAME_RENDER: 
 	{
 		frameRender(imageInfo.img, getRelativeV2(convertV3ToV2(imageInfo.pos)), imageInfo.frameX, imageInfo.frameY);
 	}
@@ -297,6 +301,13 @@ void CameraManager::rectangle(FloatRect rect, D2D1::ColorF::Enum color, float al
 	D2D_RENDERER->drawRectangle(relativeRc, color, alpha, strokeWidth);
 }
 
+void CameraManager::shadow(Vector3 pos, Vector3 size)
+{
+	Vector2 drawPos = convertV3ToV2(pos);
+	Vector2 drawSize = convertV3ToV2(size);
+	D2D_RENDERER->drawEllipse(drawPos, drawSize, D2D1::ColorF::Enum::Black, 0.2);
+}
+
 void CameraManager::render(Image * img, Vector2 center)
 {
 	Vector2 drawPos = getRelativeV2(center);
@@ -321,46 +332,50 @@ void CameraManager::aniRender(Image * img, Vector2 center, Animation * ani)
 	img->aniRender(drawPos, ani);
 }
 
-void CameraManager::renderZ(Image * img, Vector3 center)
+void CameraManager::renderZ(Image * img, Vector3 center, Vector3 size)
 {
 	tagZImage zImage;
 	zImage.renderType = IMAGE_RENDER_TYPE::RENDER;
 	zImage.img = img;
 	zImage.pos = center;
+	zImage.size = size;
 
 	_renderList.push_back(zImage);
 }
 
-void CameraManager::renderZ(Image * img, Vector3 center, Vector2 sourLT, Vector2 sourSize)
+void CameraManager::renderZ(Image * img, Vector3 center, Vector3 size, Vector2 sourLT, Vector2 sourSize)
 {
 	tagZImage zImage;
 	zImage.renderType = IMAGE_RENDER_TYPE::RENDER_WITH_SOURCE_POS;
 	zImage.img = img;
 	zImage.pos = center;
+	zImage.size = size;
 	zImage.sourPos = sourLT;
 	zImage.sourSize = sourSize;
 
 	_renderList.push_back(zImage);
 }
 
-void CameraManager::frameRenderZ(Image * img, Vector3 center, int frameX, int frameY)
+void CameraManager::frameRenderZ(Image * img, Vector3 center, Vector3 size, int frameX, int frameY)
 {
 	tagZImage zImage;
 	zImage.renderType = IMAGE_RENDER_TYPE::FRAME_RENDER;
 	zImage.img = img;
 	zImage.pos = center;
+	zImage.size = size;
 	zImage.frameX = frameX;
 	zImage.frameY = frameY;
 
 	_renderList.push_back(zImage);
 }
 
-void CameraManager::aniRenderZ(Image * img, Vector3 center, Animation * ani)
+void CameraManager::aniRenderZ(Image * img, Vector3 center, Vector3 size, Animation * ani)
 {
 	tagZImage zImage;
 	zImage.renderType = IMAGE_RENDER_TYPE::ANIMATION_RENDER;
 	zImage.img = img;
 	zImage.pos = center;
+	zImage.size = size;
 	zImage.ani = ani;
 
 	_renderList.push_back(zImage);
