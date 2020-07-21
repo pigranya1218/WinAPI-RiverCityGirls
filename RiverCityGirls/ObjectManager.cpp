@@ -8,9 +8,9 @@ HRESULT ObjectManager::init()
 	deskOb->setObject(desk, IDLE01, WINSIZEX / 2, WINSIZEY / 2);
 	deskOb->init();
 
-	//shcoolBoy01 = new Object;
-	//shcoolBoy01->setObject(schoolBoyE, IDLE01, WINSIZEX / 2 - 100, WINSIZEY / 2 - 100);
-	//shcoolBoy01->init();
+	shcoolBoy01 = new Object;
+	shcoolBoy01->setObject(schoolBoyE, IDLE01, WINSIZEX / 2 - 100, WINSIZEY / 2 - 100);
+	shcoolBoy01->init();
 
 	return S_OK;
 }
@@ -22,7 +22,7 @@ void ObjectManager::release()
 void ObjectManager::update()
 {
 	deskOb->update();
-	//shcoolBoy01->update();
+	shcoolBoy01->update();
 }
 
 void ObjectManager::render()

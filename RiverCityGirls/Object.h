@@ -1,5 +1,5 @@
 #pragma once
-#include"GameNode.h"
+#include "GameObject.h"
 
 enum TagObjectType
 {
@@ -11,10 +11,12 @@ enum tagImageState
 	IDLE01, IDLE02, REACTION
 };
 
-struct TagObject
+class Object :
+	public GameNode
 {
-	TagObjectType objectType;			//이미지 타입
-	tagImageState objectImgState;		//이미지 상태
+private:
+	TagObjectType objectType;				//이미지 타입
+	tagImageState objectImgState;			//이미지 상태
 
 	bool isPlayerReactionObject;			//true : ReactionObject, false : Non-ReacionObject
 	bool isObjectHuman;						//true : human			 false : Non-human
@@ -24,13 +26,7 @@ struct TagObject
 	float objectX, objectZ, objectY;		//좌표, 아마도 x,z를 통해 잡혀질듯
 	int stage;								//받아올 스테이지
 	float frameSizeWidth, frameSizeHeight;	//사이즈
-};
 
-class Object :
-	public GameNode
-{
-private:
-	TagObject _object;
 	int _frameMax;				//최대 프레임 x값	
 	int _count;					//시간
 public:
