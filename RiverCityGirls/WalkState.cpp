@@ -40,14 +40,40 @@ PlayerState * WalkState::update(Player& player)
 	
 	if (moveDir.x == 0 && moveDir.z == 0)
 	{
+		if (_state != WALK_STATE::IDLE)
+		{
+			_state = WALK_STATE::IDLE;
+			_img = IMAGE_MANAGER->findImage("쿄코대기");
+			_ani->init(_img->getWidth(), _img->getHeight(), _img->getMaxFrameX(), _img->getMaxFrameY());
+			if (player.getDirection() == DIRECTION::RIGHT)
+			{
+				_ani->setPlayFrame(0, 12, false, false); // 0 ~ 11
 
-		_state = WALK_STATE::IDLE;
+			}
+			else
+			{
+				_ani->setPlayFrame(12, 24, false, false); // 12 ~ 23
+
+			}
+
+			_ani->setFPS(20);
+			_ani->start();
+		}
+
 		// 후처리 이미지으로 바꾸기
 		// 후처리 애니메이션 설정하고 스타트
 	}
 	else
 	{
-		_state = WALK_STATE::MOVE;
+		if (_state != WALK_STATE::MOVE)
+		{
+			_state = WALK_STATE::MOVE;
+			_img = IMAGE_MANAGER->findImage("쿄코걷기");
+			_ani->init(_img->getWidth(), _img->getHeight(), _img->getMaxFrameX(), _img->getMaxFrameY());
+			_ani->setFPS(20);
+			_ani->start();
+			_initTime = 0;
+		}
 	}
 
 	switch (_state)
@@ -63,15 +89,7 @@ PlayerState * WalkState::update(Player& player)
 			_ani->setPlayFrame(12, 24, false, true); // 12 ~ 23
 		}
 
-		if (_initTime <= 0.5)
-		{
-			_initTime += TIME_MANAGER->getElapsedTime();
-			if ((player.getDirection() == DIRECTION::RIGHT && KEY_MANAGER->isOnceKeyDown(VK_RIGHT))
-				&& (player.getDirection() == DIRECTION::LEFT && KEY_MANAGER->isOnceKeyDown(VK_LEFT)))
-			{
-				return new RunState;
-			}
-		}
+		
 
 		player.move(moveDir);
 		
@@ -79,21 +97,36 @@ PlayerState * WalkState::update(Player& player)
 	break;
 	case WALK_STATE::IDLE:
 	{
-		//if (player.getDirection() == DIRECTION::RIGHT)
-		//{
-		//	// TODO
-		//}
-		//else
-		//{
-		//	// TODO
-		//}
-		//if (!_ani->isPlay())
-		//{
-		//	return new IdleState;
-		//}
-		return new IdleState;
+		if (player.getDirection() == DIRECTION::RIGHT)
+		{
+			_ani->setPlayFrame(0, 12, false, false); // 0 ~ 11
+			
+		}
+		else
+		{
+			_ani->setPlayFrame(12, 24, false, false); // 12 ~ 23
+			
+		}
+
+		if (!_ani->isPlay())
+		{
+			
+			return new IdleState;
+		}
+		
+
+		//return new IdleState;
 	}
 	break;
+	}
+	if (_initTime <= 0.5)
+	{
+		_initTime += TIME_MANAGER->getElapsedTime();
+		if ((player.getDirection() == DIRECTION::RIGHT && KEY_MANAGER->isOnceKeyDown(VK_RIGHT))
+			|| (player.getDirection() == DIRECTION::LEFT && KEY_MANAGER->isOnceKeyDown(VK_LEFT)))
+		{
+			return new RunState;
+		}
 	}
 
 	_ani->frameUpdate(TIME_MANAGER->getElapsedTime());
