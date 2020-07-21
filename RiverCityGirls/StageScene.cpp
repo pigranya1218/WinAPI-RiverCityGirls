@@ -11,6 +11,7 @@ HRESULT StageScene::init()
 
 	_stageManager->setUIManager(_uiManager);
 	_stageManager->setPlayer(_player);
+	_player->setStageManager(_stageManager);
 
 	_stageManager->init();
 	_uiManager->init();
@@ -37,4 +38,6 @@ void StageScene::render()
 	_stageManager->render();
 	_player->render();
 	_uiManager->render();
+
+	CAMERA_MANAGER->renderZList();
 }

@@ -29,6 +29,8 @@ HRESULT Animation::init(int totalW, int totalH, int frameNumWidth, int frameNumH
 	//총 애니메이션 프레임이 몇 장인지 계산
 	_frameNum = frameNumWidth * frameNumHeight;
 
+	_frameList.clear();
+
 	for (int i = 0; i < frameNumHeight; ++i)
 	{
 		for (int j = 0; j < frameNumWidth; ++j)

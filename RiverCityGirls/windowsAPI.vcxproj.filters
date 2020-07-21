@@ -216,10 +216,19 @@
     <ClInclude Include="SchoolGirl.h">
       <Filter>PlayGround\Enemy</Filter>
     </ClInclude>
-    <ClInclude Include="AttackState.h">
+    <ClInclude Include="PlayerState.h">
       <Filter>PlayGround\Player\State</Filter>
     </ClInclude>
-    <ClInclude Include="PlayerState.h">
+    <ClInclude Include="AllPlayerState.h">
+      <Filter>PlayGround\Player\State</Filter>
+    </ClInclude>
+    <ClInclude Include="IdleState.h">
+      <Filter>PlayGround\Player\State</Filter>
+    </ClInclude>
+    <ClInclude Include="WalkState.h">
+      <Filter>PlayGround\Player\State</Filter>
+    </ClInclude>
+    <ClInclude Include="RunState.h">
       <Filter>PlayGround\Player\State</Filter>
     </ClInclude>
   </ItemGroup>
@@ -344,13 +353,16 @@
     <ClCompile Include="SchoolGirl.cpp">
       <Filter>PlayGround\Enemy</Filter>
     </ClCompile>
-    <ClCompile Include="AttackState.cpp">
-      <Filter>PlayGround\Player\State</Filter>
-    </ClCompile>
     <ClCompile Include="PlayerState.cpp">
       <Filter>PlayGround\Player\State</Filter>
     </ClCompile>
     <ClCompile Include="IdleState.cpp">
+      <Filter>PlayGround\Player\State</Filter>
+    </ClCompile>
+    <ClCompile Include="WalkState.cpp">
+      <Filter>PlayGround\Player\State</Filter>
+    </ClCompile>
+    <ClCompile Include="RunState.cpp">
       <Filter>PlayGround\Player\State</Filter>
     </ClCompile>
   </ItemGroup>

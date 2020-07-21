@@ -1,12 +1,10 @@
 #pragma once
 #include "GameNode.h"
-#include "Kyoko.h"
 
 class playGround : public GameNode
 {	
 
 private:
-	Kyoko* _kyoko;
 
 public:
 	playGround();

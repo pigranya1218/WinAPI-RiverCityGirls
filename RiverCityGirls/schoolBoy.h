@@ -15,6 +15,6 @@ public:
 	virtual void update();
 	virtual void render();
 
-	void aniPlay(DIRECTION direction, int numLR);
+	void aniPlay(ENEMY_STATE direction, int numLR);
 };
 

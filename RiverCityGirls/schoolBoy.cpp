@@ -173,7 +173,7 @@ void SchoolBoy::render()
 	TextOut(_hdc, 0, 0, str, strlen(str));
 }
 
-void SchoolBoy::aniPlay(DIRECTION direction, int numLR)
+void SchoolBoy::aniPlay(ENEMY_STATE direction, int numLR)
 {
 	//디렉션에 따른 애니메이션
 	if (direction == WALK)
