@@ -21,15 +21,6 @@ HRESULT Kyoko::init()
 	
 	_state = new IdleState;
 
-	_img = IMAGE_MANAGER->findImage("ÄìÄÚ´ë±â");
-	_ani = new Animation;
-	_ani->init(_img->getWidth(),_img->getHeight(),_img->getMaxFrameX(), _img->getMaxFrameY());
-	_ani->setDefPlayFrame(false, true);
-	_ani->setFPS(2);
-	_ani->start();
-
-
-
 	return S_OK;
 }
 
@@ -49,9 +40,9 @@ void Kyoko::update()
 		
 	}
 
-	_state->imageEnter(*this);
+	//_state->imageEnter(*this);
 	
-	_ani->frameUpdate(TIME_MANAGER->getElapsedTime() * 10);
+	_rc = RectMakeCenter(_x, _y, 50, 100);
 
 	
 	
@@ -61,12 +52,12 @@ void Kyoko::update()
 
 void Kyoko::render()
 {
-	//_state->render(*this);
+	_state->render(*this);
 
 		//Image* image = ImageManager::GetInstance()->FindImage("ÄìÄÚ°È±â");
 		//image->FrameRender(Vector2(_x, _y), 0, 0);
 	//_img->SetSize(Vector2(140, 200));
-	_img->aniRender(Vector2(_x, _y), _ani);
+    //img->aniRender(Vector2(_x, _y), _ani);
 	
 }
 
