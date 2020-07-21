@@ -1,10 +1,9 @@
 #include "stdafx.h"
 #include "Enemy.h"
+#include "EnemyManager.h"
 
-HRESULT Enemy::init()
+void Enemy::init()
 {
-
-	return S_OK;
 }
 
 void Enemy::release()

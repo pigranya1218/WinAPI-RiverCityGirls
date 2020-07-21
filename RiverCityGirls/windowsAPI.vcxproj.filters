@@ -204,18 +204,6 @@
     <ClInclude Include="ObjectManager.h">
       <Filter>PlayGround\Object</Filter>
     </ClInclude>
-    <ClInclude Include="Enemy.h">
-      <Filter>PlayGround\Enemy</Filter>
-    </ClInclude>
-    <ClInclude Include="EnemyManager.h">
-      <Filter>PlayGround\Enemy</Filter>
-    </ClInclude>
-    <ClInclude Include="SchoolBoy.h">
-      <Filter>PlayGround\Enemy</Filter>
-    </ClInclude>
-    <ClInclude Include="SchoolGirl.h">
-      <Filter>PlayGround\Enemy</Filter>
-    </ClInclude>
     <ClInclude Include="PlayerState.h">
       <Filter>PlayGround\Player\State</Filter>
     </ClInclude>
@@ -230,6 +218,15 @@
     </ClInclude>
     <ClInclude Include="RunState.h">
       <Filter>PlayGround\Player\State</Filter>
+    </ClInclude>
+    <ClInclude Include="SchoolBoy.h">
+      <Filter>PlayGround\Enemy</Filter>
+    </ClInclude>
+    <ClInclude Include="Enemy.h">
+      <Filter>PlayGround\Enemy</Filter>
+    </ClInclude>
+    <ClInclude Include="EnemyManager.h">
+      <Filter>PlayGround\Enemy</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -341,18 +338,6 @@
     <ClCompile Include="Object.cpp">
       <Filter>PlayGround\Object</Filter>
     </ClCompile>
-    <ClCompile Include="Enemy.cpp">
-      <Filter>PlayGround\Enemy</Filter>
-    </ClCompile>
-    <ClCompile Include="EnemyManager.cpp">
-      <Filter>PlayGround\Enemy</Filter>
-    </ClCompile>
-    <ClCompile Include="SchoolBoy.cpp">
-      <Filter>PlayGround\Enemy</Filter>
-    </ClCompile>
-    <ClCompile Include="SchoolGirl.cpp">
-      <Filter>PlayGround\Enemy</Filter>
-    </ClCompile>
     <ClCompile Include="PlayerState.cpp">
       <Filter>PlayGround\Player\State</Filter>
     </ClCompile>
@@ -364,6 +349,15 @@
     </ClCompile>
     <ClCompile Include="RunState.cpp">
       <Filter>PlayGround\Player\State</Filter>
+    </ClCompile>
+    <ClCompile Include="SchoolBoy.cpp">
+      <Filter>PlayGround\Enemy</Filter>
+    </ClCompile>
+    <ClCompile Include="Enemy.cpp">
+      <Filter>PlayGround\Enemy</Filter>
+    </ClCompile>
+    <ClCompile Include="EnemyManager.cpp">
+      <Filter>PlayGround\Enemy</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

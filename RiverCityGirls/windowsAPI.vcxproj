@@ -180,7 +180,6 @@
     <ClInclude Include="RunState.h" />
     <ClInclude Include="SceneManager.h" />
     <ClInclude Include="SchoolBoy.h" />
-    <ClInclude Include="SchoolGirl.h" />
     <ClInclude Include="SingletonBase.h" />
     <ClInclude Include="SoundManager.h" />
     <ClInclude Include="Stage.h" />
@@ -228,7 +227,6 @@
     <ClCompile Include="RunState.cpp" />
     <ClCompile Include="SceneManager.cpp" />
     <ClCompile Include="SchoolBoy.cpp" />
-    <ClCompile Include="SchoolGirl.cpp" />
     <ClCompile Include="SoundManager.cpp" />
     <ClCompile Include="Stage.cpp" />
     <ClCompile Include="StageManager.cpp" />

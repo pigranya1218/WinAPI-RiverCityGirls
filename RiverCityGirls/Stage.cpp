@@ -41,6 +41,7 @@ void Stage::init(Image * background, float bgScale)
 	_objectManager->init();
 
 	_enemyManager = new EnemyManager;
+	_enemyManager->setStage(this);
 	_enemyManager->init();
 }
 
@@ -128,4 +129,9 @@ void Stage::moveGameObject(GameObject & gameObject, Vector3 move)
 
 
 	gameObject.setPosition(newPos);
+}
+
+Vector3 Stage::getPlayerPosition()
+{
+	return _player->getPosition();
 }

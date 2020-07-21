@@ -1,20 +1,22 @@
 #pragma once
 #include "Enemy.h"
+#include "EnemyManager.h"
 
 class SchoolBoy : public Enemy
 {
 private:
-	int _count;
+	int _attackS, _attackE;
+
 
 public:
 	SchoolBoy() {};
 	~SchoolBoy() {};
 
-	virtual HRESULT init();
+	virtual void init();
 	virtual void release();
 	virtual void update();
 	virtual void render();
 
-	void aniPlay(ENEMY_STATE direction, int numLR);
+	void aniPlay(ENEMY_STATE state, DIRECTION direction);
 };
 

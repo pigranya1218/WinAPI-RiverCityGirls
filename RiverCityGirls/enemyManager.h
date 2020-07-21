@@ -1,20 +1,21 @@
 #pragma once
-#include "GameNode.h"
-#include "SchoolBoy.h"
-#include "schoolGirl.h"
+#include "GameObject.h"
 #include <vector>
 
+class SchoolBoy;
 class Enemy;
+class Stage;
 
-class EnemyManager : public GameNode
+class EnemyManager
 {
 private:
+	using vEnemy = vector<Enemy*>;
+	using viEnemy = vector<Enemy*>::iterator;
+
+private:
+	Stage* _stage;
+	
 	SchoolBoy* _schoolBoy;
-	SchoolGirl* _SchoolGirl;
-
-	typedef vector<Enemy*>				vEnemy;
-	typedef vector<Enemy*>::iterator	viEnemy;
-
 	vector<POINT> _enemyRespawnPos;
 
 protected:
@@ -30,5 +31,9 @@ public:
 
 	void setEnemy();
 	void removeEnemy(int arrNum);
+	void moveEnemy(GameObject* enemy, Vector3 dir);
+
+	void setStage(Stage* stage) { _stage = stage; }
+	Vector3 getPlayerPosition();
 };
 

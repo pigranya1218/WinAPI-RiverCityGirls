@@ -1,139 +1,125 @@
 #include "stdafx.h"
 #include "schoolBoy.h"
 
-HRESULT SchoolBoy::init()
+void SchoolBoy::init()
 {
 	_enemyImg = IMAGE_MANAGER->findImage("스쿨보이_기본");
-	
-	_getHitRc = rectMakePivot(Vector2(WINSIZEX/2 - 200, WINSIZEY/2), Vector2(_enemyImg->getFrameSize())* 1.5f, Pivot::Center);
+	_position = Vector3(600, -100, 500);
+	_size = Vector3(140, 200, 40);
+	_state = ENEMY_STATE::IDLE;
+	_direction = DIRECTION::RIGHT;
+	aniPlay(_state, _direction);
 
-	_direction = IDLE;
-
-	_ani = new Animation;
-	_enemyImg = IMAGE_MANAGER->findImage("스쿨보이_기본");
-	_ani->init(_enemyImg->getWidth(), _enemyImg->getHeight(),
-		_enemyImg->getMaxFrameX(), _enemyImg->getMaxFrameY());
-	_ani->setPlayFrame(0, 8, false, true);
-	_ani->setFPS(10);
-	_ani->start();
-
-	_count = 0;
-	return S_OK;
+	_elapsedTime = 0;
 }
 
 void SchoolBoy::release()
 {
+	_ani->release();
+	SAFE_DELETE(_ani);
 }
 
 void SchoolBoy::update()
 {
-	//디렉션 테스트
-	if (KEY_MANAGER->isOnceKeyDown(VK_SPACE))
+	Vector3 playerPos = _enemyManager->getPlayerPosition();
+	if (playerPos.x <= _position.x)
 	{
-		aniPlay(WALK, 0);
+		_direction = DIRECTION::LEFT;
 	}
-	if (KEY_MANAGER->isOnceKeyDown('R'))
+	else
 	{
-		aniPlay(RUN, 0);
+		_direction = DIRECTION::RIGHT;
 	}
-	if (KEY_MANAGER->isOnceKeyDown('J'))
+
+	float distance = sqrt(pow(playerPos.x - _position.x, 2) + pow(playerPos.y - _position.y, 2) + pow(playerPos.z - _position.z , 2));
+
+	if (distance > 500)
 	{
-		aniPlay(JUMP, 0);
+		if (_state != ENEMY_STATE::IDLE)
+		{
+			aniPlay(ENEMY_STATE::IDLE, _direction);
+			_state = ENEMY_STATE::IDLE;
+		}
 	}
-	if (KEY_MANAGER->isOnceKeyDown('A'))
+	else if (distance > 350)
 	{
-		aniPlay(ATTACK, 0);
+		if (_state != ENEMY_STATE::RUN)
+		{
+			aniPlay(ENEMY_STATE::RUN, _direction);
+			_state = ENEMY_STATE::RUN;
+		}
+		
 	}
-	if (KEY_MANAGER->isOnceKeyDown('G'))
+	else if (distance > 100)
 	{
-		aniPlay(GUARD, 1);
+		if (_state != ENEMY_STATE::WALK)
+		{
+			aniPlay(ENEMY_STATE::WALK, _direction);
+			_state = ENEMY_STATE::WALK;
+		}
+		
 	}
+	else
+	{
+		if (_state != ENEMY_STATE::ATTACK)
+		{
+			aniPlay(ENEMY_STATE::ATTACK, _direction);
+			_state = ENEMY_STATE::ATTACK;
+		}
+	}
+
+	Vector3 moveDir = Vector3(0, 0, 0);
 
 	//상태 패턴에 따른 디렉션 조정
-	/*
-	switch (_direction)
+	switch (_state)
 	{
-	case IDLE:
-		if ((_getHitRc.GetCenter > _ptMouse.x + 600 && _getHitRc.GetCenter().GetIntX > _ptMouse.x + 5) ||
-			(_getHitRc.GetCenter().GetIntX < _ptMouse.x - 600 && _getHitRc.GetCenter().GetIntX < _ptMouse.x - 5))
+	case ENEMY_STATE::IDLE:
+	{
+	}
+	break;
+	case ENEMY_STATE::WALK:
+	{
+		if (_direction == DIRECTION::LEFT)
 		{
-			_direction = RUN;
-		}
-
-		if (_getHitRc.GetCenter().GetIntX < _ptMouse.x + 500 && _getHitRc.GetCenter().GetIntX > _ptMouse.x + 5)
-		{
-			_direction = WALK;
-		}
-		else if (_getHitRc.GetCenter().GetIntX > _ptMouse.x - 500 && _getHitRc.GetCenter().GetIntX < _ptMouse.x - 5)
-		{
-			_direction = WALK;
-		}
-
-		break;
-	case WALK:
-
-		if (_getHitRc.GetCenter().GetIntX < _ptMouse.x + 500 && _getHitRc.GetCenter().GetIntX > _ptMouse.x + 5)
-		{
-			_getHitRc.left -= 2;
-			_getHitRc.right -= 2;
-		}
-		else if (_getHitRc.GetCenter().GetIntX > _ptMouse.x - 500 && _getHitRc.GetCenter().GetIntX < _ptMouse.x - 5)
-		{
-			_getHitRc.left += 2;
-			_getHitRc.right += 2;
-		}
-		if ((_getHitRc.GetCenter().GetIntX < _ptMouse.x + 70 && _getHitRc.GetCenter().GetIntX > _ptMouse.x + 5) || 
-			(_getHitRc.GetCenter().GetIntX > _ptMouse.x - 70 && _getHitRc.GetCenter().GetIntX < _ptMouse.x - 5))
-		{
-			_direction = ATTACK;
+			moveDir.x -= 1;
 		}
 		else
 		{
-			_direction = WALK;
+			moveDir.x += 1;
 		}
-
-		if (_getHitRc.GetCenter().GetIntX > _ptMouse.x + 600 || _getHitRc.GetCenter().GetIntX < _ptMouse.x - 600)
+	}
+	break;
+	case ENEMY_STATE::RUN:
+	{
+		if (_direction == DIRECTION::LEFT)
 		{
-			_direction = RUN;
+			moveDir.x -= 2;
 		}
-
-
-		break;
-	case RUN:
-		if (_getHitRc.GetCenter().GetIntX > _ptMouse.x && _getHitRc.GetCenter().GetIntX > _ptMouse.x + 5)
+		else
 		{
-			_getHitRc.left -= 5;
-			_getHitRc.right -= 5;
+			moveDir.x += 2;
 		}
-		else if (_getHitRc.GetCenter().GetIntX < _ptMouse.x && _getHitRc.GetCenter().GetIntX < _ptMouse.x - 5)
+	}
+	break;
+	/*case JUMP:
+	break;*/
+	case ENEMY_STATE::ATTACK:
+	{
+		if (!_ani->isPlay())
 		{
-			_getHitRc.left += 5;
-			_getHitRc.right += 5;
+			aniPlay(ENEMY_STATE::IDLE, _direction);
+			_state = ENEMY_STATE::IDLE;
 		}
-
-		if ((_getHitRc.GetCenter().GetIntX < _ptMouse.x + 70 && _getHitRc.GetCenter().GetIntX > _ptMouse.x + 5) ||
-			(_getHitRc.GetCenter().GetIntX > _ptMouse.x - 70 && _getHitRc.GetCenter().GetIntX < _ptMouse.x - 5))
+		else
 		{
-			_direction = ATTACK;
+			if (_attackS <= _ani->getPlayIndex() && _ani->getPlayIndex() <= _attackE)
+			{
+				
+			}
 		}
-
-
-		break;
-	case JUMP:
-
-
-
-		break;
-	case ATTACK:
-		_count++;
-
-		if (_count > 30)
-		{
-			_count = 0;
-			_direction = WALK;
-		}
-		break;
-	case GUARD:
+	}
+	break;
+	/*case GUARD:
 
 		break;
 	case HIT:
@@ -150,105 +136,130 @@ void SchoolBoy::update()
 		break;
 	case HELD:
 
-		break;
-	}*/
+		break;*/
+	}
+
+	if (_direction == DIRECTION::LEFT)
+	{
+		_ani->setPlayFrame(_enemyImg->getMaxFrameX(), _enemyImg->getMaxFrameX() * 2 - 1, false, true);
+	}
+	else
+	{
+		_ani->setPlayFrame(0, _enemyImg->getMaxFrameX() - 1, false, true);
+	}
 
 	_ani->frameUpdate(TIME_MANAGER->getElapsedTime());
+
+	_enemyManager->moveEnemy(this, moveDir);
 }
 
 void SchoolBoy::render()
 {
-	_enemyImg->setScale(1.5f);
+	_enemyImg->setScale(3.f);
 	//_enemyImg->FrameRender(Vector2(WINSIZEX / 2, WINSIZEY / 2), 0, 0);
-	_enemyImg->aniRender(Vector2(WINSIZEX / 2 - 200, WINSIZEY / 2), _ani);
-	D2D_RENDERER->drawRectangle
+	CAMERA_MANAGER->aniRenderZ(_enemyImg, _position, _size, _ani, true);
+	// CAMERA_MANAGER->rectangle(_getHitRc, D2D1::ColorF::White, 1.f, 1.f);
+	/*D2D_RENDERER->drawRectangle
 	(
 		_getHitRc,
 		D2DRenderer::DefaultBrush::Red,
 		1.f
-	);
+	);*/
 	//test
 	char str[255];
-	sprintf_s(str, "GetMaxFrameX = %d", _enemyImg->getMaxFrameX());
+	sprintf_s(str, "state : %d", (int)_state);
 	TextOut(_hdc, 0, 0, str, strlen(str));
 }
 
-void SchoolBoy::aniPlay(ENEMY_STATE direction, int numLR)
+void SchoolBoy::aniPlay(ENEMY_STATE state, DIRECTION direction)
 {
 	//디렉션에 따른 애니메이션
-	if (direction == WALK)
+	switch (state)
+	{
+	case ENEMY_STATE::IDLE:
+	{
+		_ani = new Animation;
+		_enemyImg = IMAGE_MANAGER->findImage("스쿨보이_기본");
+		_ani->init(_enemyImg->getWidth(), _enemyImg->getHeight(),
+			_enemyImg->getMaxFrameX(), _enemyImg->getMaxFrameY());
+
+		_ani->setFPS(10);
+		_ani->start();
+	}
+	break;
+	case ENEMY_STATE::WALK:
 	{
 		_ani = new Animation;
 		_enemyImg = IMAGE_MANAGER->findImage("스쿨보이_걷기");
 		_ani->init(_enemyImg->getWidth(), _enemyImg->getHeight(),
 			_enemyImg->getMaxFrameX(), _enemyImg->getMaxFrameY());
-		//좌측 0, 우측 1
-		if (numLR == 0) _ani->setPlayFrame(_enemyImg->getMaxFrameX(), _enemyImg->getMaxFrameX()*2-1, false, true);
-		if (numLR == 1) _ani->setPlayFrame(0, _enemyImg->getMaxFrameX()-1, false, true);
+		
 		_ani->setFPS(10);
 		_ani->start();
 	}
-	if (direction == RUN)
+	break;
+	case ENEMY_STATE::RUN:
 	{
 		_ani = new Animation;
 		_enemyImg = IMAGE_MANAGER->findImage("스쿨보이_달리기");
 		_ani->init(_enemyImg->getWidth(), _enemyImg->getHeight(),
 			_enemyImg->getMaxFrameX(), _enemyImg->getMaxFrameY());
-		//좌측 0, 우측 1
-		if (numLR == 0) _ani->setPlayFrame(_enemyImg->getMaxFrameX(), _enemyImg->getMaxFrameX() * 2 - 1, false, true);
-		if (numLR == 1) _ani->setPlayFrame(0, _enemyImg->getMaxFrameX() - 1, false, true);
 		_ani->setFPS(10);
 		_ani->start();
 	}
-	if (direction == JUMP)
+	break;
+	case ENEMY_STATE::JUMP:
 	{
 		_ani = new Animation;
 		_enemyImg = IMAGE_MANAGER->findImage("스쿨보이_점프");
 		_ani->init(_enemyImg->getWidth(), _enemyImg->getHeight(),
 			_enemyImg->getMaxFrameX(), _enemyImg->getMaxFrameY());
-		//좌측 0, 우측 1
-		if (numLR == 0) _ani->setPlayFrame(_enemyImg->getMaxFrameX(), _enemyImg->getMaxFrameX() * 2 - 1, false, true);
-		if (numLR == 1) _ani->setPlayFrame(0, _enemyImg->getMaxFrameX() - 1, false, true);
 		_ani->setFPS(10);
 		_ani->start();
 	}
-	if (direction == ATTACK)
+	break;
+	case ENEMY_STATE::ATTACK:
 	{
 		_ani = new Animation;
 		int i = RANDOM->getFromIntTo(1, 4);
-		char imgNameNum[128]; 
+		if (i == 3)
+		{
+			_attackS = 3;
+			_attackE = 5;
+		}
+		else
+		{
+			_attackS = 2;
+			_attackE = 4;
+		}
+		char imgNameNum[128];
 		sprintf_s(imgNameNum, "스쿨보이_공격%d", i);
 		_enemyImg = IMAGE_MANAGER->findImage(imgNameNum);
 		_ani->init(_enemyImg->getWidth(), _enemyImg->getHeight(),
 			_enemyImg->getMaxFrameX(), _enemyImg->getMaxFrameY());
-		//좌측 0, 우측 1
-		if (numLR == 0) _ani->setPlayFrame(_enemyImg->getMaxFrameX(), _enemyImg->getMaxFrameX() * 2 - 1, false, true);
-		if (numLR == 1) _ani->setPlayFrame(0, _enemyImg->getMaxFrameX() - 1, false, true);
 		_ani->setFPS(10);
 		_ani->start();
 	}
-	if (direction == GUARD)
+	break;
+	case ENEMY_STATE::GUARD:
 	{
 		_ani = new Animation;
 		_enemyImg = IMAGE_MANAGER->findImage("스쿨보이_가드");
 		_ani->init(_enemyImg->getWidth(), _enemyImg->getHeight(),
 			_enemyImg->getMaxFrameX(), _enemyImg->getMaxFrameY());
-		//좌측 0, 우측 1
-		if (numLR == 0) _ani->setPlayFrame(_enemyImg->getMaxFrameX(), _enemyImg->getMaxFrameX() * 2 - 1, false, true);
-		if (numLR == 1) _ani->setPlayFrame(0, _enemyImg->getMaxFrameX() - 1, false, true);
 		_ani->setFPS(10);
 		_ani->start();
 	}
-	if (direction == HIT)
+	break;
+	case ENEMY_STATE::HIT:
 	{
 		_ani = new Animation;
 		_enemyImg = IMAGE_MANAGER->findImage("스쿨보이_피격");
 		_ani->init(_enemyImg->getWidth(), _enemyImg->getHeight(),
 			_enemyImg->getMaxFrameX(), _enemyImg->getMaxFrameY());
-		//좌측 0, 우측 1
-		if (numLR == 0) _ani->setPlayFrame(_enemyImg->getMaxFrameX(), _enemyImg->getMaxFrameX() * 2 - 1, false, true);
-		if (numLR == 1) _ani->setPlayFrame(0, _enemyImg->getMaxFrameX() - 1, false, true);
 		_ani->setFPS(10);
 		_ani->start();
+	}
+	break;
 	}
 }

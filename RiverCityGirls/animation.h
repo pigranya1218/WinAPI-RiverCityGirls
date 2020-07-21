@@ -71,6 +71,6 @@ public:
 	inline int getFrameWidth() { return _frameWidth; }
 	inline int getFrameHeight() { return _frameHeight; }
 
-
+	inline int getPlayIndex() { return _nowPlayIndex;}
 };
 
