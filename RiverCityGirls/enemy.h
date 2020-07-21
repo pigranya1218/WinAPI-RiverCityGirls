@@ -1,7 +1,7 @@
 #pragma once
 #include "GameNode.h"
 
-enum DIRECTION
+enum ENEMY_STATE
 {
 	IDLE,
 	WALK,
@@ -24,7 +24,7 @@ protected:
 	FloatRect _attackRc;	//공격 렉트
 	FloatRect _getHitRc;	//피격 렉트
 	float  _x, _y;			//중점
-	DIRECTION _direction;	//디렉션
+	ENEMY_STATE _direction;	//디렉션
 	Animation* _ani;		//애니메이션
 
 	int _initX, _initY;		//최초 생성 위치

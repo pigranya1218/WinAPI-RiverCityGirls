@@ -204,12 +204,6 @@
     <ClInclude Include="ObjectManager.h">
       <Filter>PlayGround\Object</Filter>
     </ClInclude>
-    <ClInclude Include="Kyoko.h">
-      <Filter>playGround\Kyoko</Filter>
-    </ClInclude>
-    <ClInclude Include="KyokoState.h">
-      <Filter>playGround\Kyoko</Filter>
-    </ClInclude>
     <ClInclude Include="Enemy.h">
       <Filter>PlayGround\Enemy</Filter>
     </ClInclude>
@@ -222,8 +216,20 @@
     <ClInclude Include="SchoolGirl.h">
       <Filter>PlayGround\Enemy</Filter>
     </ClInclude>
-    <ClInclude Include="AttackState.h">
-      <Filter>playGround\Kyoko</Filter>
+    <ClInclude Include="PlayerState.h">
+      <Filter>PlayGround\Player\State</Filter>
+    </ClInclude>
+    <ClInclude Include="AllPlayerState.h">
+      <Filter>PlayGround\Player\State</Filter>
+    </ClInclude>
+    <ClInclude Include="IdleState.h">
+      <Filter>PlayGround\Player\State</Filter>
+    </ClInclude>
+    <ClInclude Include="WalkState.h">
+      <Filter>PlayGround\Player\State</Filter>
+    </ClInclude>
+    <ClInclude Include="RunState.h">
+      <Filter>PlayGround\Player\State</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -335,12 +341,6 @@
     <ClCompile Include="Object.cpp">
       <Filter>PlayGround\Object</Filter>
     </ClCompile>
-    <ClCompile Include="Kyoko.cpp">
-      <Filter>playGround\Kyoko</Filter>
-    </ClCompile>
-    <ClCompile Include="KyokoState.cpp">
-      <Filter>playGround\Kyoko</Filter>
-    </ClCompile>
     <ClCompile Include="Enemy.cpp">
       <Filter>PlayGround\Enemy</Filter>
     </ClCompile>
@@ -353,8 +353,17 @@
     <ClCompile Include="SchoolGirl.cpp">
       <Filter>PlayGround\Enemy</Filter>
     </ClCompile>
-    <ClCompile Include="AttackState.cpp">
-      <Filter>playGround\Kyoko</Filter>
+    <ClCompile Include="PlayerState.cpp">
+      <Filter>PlayGround\Player\State</Filter>
+    </ClCompile>
+    <ClCompile Include="IdleState.cpp">
+      <Filter>PlayGround\Player\State</Filter>
+    </ClCompile>
+    <ClCompile Include="WalkState.cpp">
+      <Filter>PlayGround\Player\State</Filter>
+    </ClCompile>
+    <ClCompile Include="RunState.cpp">
+      <Filter>PlayGround\Player\State</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

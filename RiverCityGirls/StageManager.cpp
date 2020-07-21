@@ -19,7 +19,7 @@ void StageManager::init()
 	pos.x = 400; 
 	pos.y = 0;
 	pos.z = 400;
-	_dummy->SetPosition(pos);
+	_dummy->setPosition(pos);
 	Vector3 size; // 충돌 크기
 	size.x = 50;
 	size.y = 50;
@@ -27,8 +27,8 @@ void StageManager::init()
 	Vector2 sizeV2; // 그림자
 	sizeV2.x = 50;
 	sizeV2.y = 50;
-	_dummy->SetSize(size);
-	_dummy->SetRect(rectMakePivot(CAMERA_MANAGER->convertV3ToV2(pos), sizeV2, Pivot::Center));
+	_dummy->setSize(size);
+	_dummy->setRect(rectMakePivot(CAMERA_MANAGER->convertV3ToV2(pos), sizeV2, Pivot::Center));
 }
 
 void StageManager::release()
@@ -50,7 +50,7 @@ void StageManager::update()
 	dir.y = 0;
 	dir.z = 0;
 
-	if (KEY_MANAGER->isStayKeyDown(VK_LEFT))
+	/*if (KEY_MANAGER->isStayKeyDown(VK_LEFT))
 	{
 		dir.x -= 4;
 	}
@@ -65,19 +65,17 @@ void StageManager::update()
 	if (KEY_MANAGER->isStayKeyDown(VK_DOWN))
 	{
 		dir.z += 4;
-	}
+	}*/
 	moveGameObject(*_dummy, dir);
 	_dummy->update();
 
-	CAMERA_MANAGER->setXY(CAMERA_MANAGER->convertV3ToV2(_dummy->GetPosition()));
+	CAMERA_MANAGER->setXY(CAMERA_MANAGER->convertV3ToV2(_dummy->getPosition()));
 }
 
 void StageManager::render()
 {
 	_currStage->render();
 	
-	FloatRect fr = _dummy->GetRect();
+	FloatRect fr = _dummy->getRect();
 	CAMERA_MANAGER->rectangle(fr, D2D1::ColorF::Enum::Black, 1, 5);
-
-	CAMERA_MANAGER->renderZList();
 }

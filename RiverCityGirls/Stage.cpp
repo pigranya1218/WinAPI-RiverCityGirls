@@ -85,7 +85,7 @@ void Stage::moveGameObject(GameObject & gameObject, Vector3 move)
 {
 	if (move.x == 0 && move.y == 0 && move.z == 0) return;
 
-	Vector3 newPos = gameObject.GetPosition() + move;
+	Vector3 newPos = gameObject.getPosition() + move;
 	
 	// 선분과의 이동가능 비교는 x, z 비교
 	for (int i = 0; i < _linearFuncs.size(); i++)
@@ -111,5 +111,5 @@ void Stage::moveGameObject(GameObject & gameObject, Vector3 move)
 
 	// 물체와의 이동가능 비교는 x, y, z 비교
 
-	gameObject.SetPosition(newPos);
+	gameObject.setPosition(newPos);
 }

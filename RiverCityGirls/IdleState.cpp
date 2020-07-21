@@ -1,41 +1,76 @@
 #include "stdafx.h"
-#include "KyokoState.h"
+#include "AllPlayerState.h"
 
-
-
-
-KyokoState * IdleState::update(Kyoko & Kyoko)
+IdleState::IdleState()
 {
-	ImageEnter(Kyoko);
+    
+}
 
-	if (KEYMANAGER->isOnceKeyDown(VK_RIGHT))
+PlayerState * IdleState::update(Player & player)
+{
+	//if (player.getDirection() == DIRECTION::RIGHT)
+	//{
+	//	_ani->setPlayFrame(0, 12, false, true); // 0 ~ 11
+	//}
+	//else if (player.getDirection() == DIRECTION::LEFT)
+	//{
+	//	_ani->setPlayFrame(12, 24, false, true); // 12 ~ 23
+	//}
+
+	/*if (KEY_MANAGER->isOnceKeyDown('X'))
 	{
-		Kyoko.setDirection(RIGHT);
+		return new JumpState;
+	}*/
+	if (KEY_MANAGER->isOnceKeyDown(VK_RIGHT))
+	{
+		player.setDirection(DIRECTION::RIGHT);
 		return new WalkState;
 	}
-	if (KEYMANAGER->isOnceKeyDown(VK_LEFT))
+	if (KEY_MANAGER->isOnceKeyDown(VK_LEFT))
 	{
-		Kyoko.setDirection(LEFT);
+		player.setDirection(DIRECTION::LEFT);
+		return new WalkState;
+	}
+	if (KEY_MANAGER->isOnceKeyDown(VK_UP))
+	{
+		return new WalkState;
+	}
+	if (KEY_MANAGER->isOnceKeyDown(VK_DOWN))
+	{
 		return new WalkState;
 	}
 
-	
+	_ani->frameUpdate(TIME_MANAGER->getElapsedTime());
 
 	return nullptr;
 }
 
-void IdleState::render(Kyoko & Kyoko)
+void IdleState::render(Player & player)
 {
-	
+	_img->setScale(3);
+	CAMERA_MANAGER->aniRenderZ(_img, player.getPosition(), player.getSize(), _ani);
 }
 
-
-void IdleState::ImageEnter(Kyoko & Kyoko)
+void IdleState::enter(Player & player)
 {
-	Kyoko.setImage(_newImg = ImageManager::GetInstance()->FindImage("ÄìÄÚ´ë±â"));
-	animation* _newAni = new animation;
-	_newAni->init(_newImg->GetWidth(), _newImg->GetHeight(), _newImg->GetMaxFrameX(), _newImg->GetMaxFrameY());
-	_newAni->setDefPlayFrame(false, true);
-	_newAni->setFPS(2);
-	_newAni->setPlayFrame(0, 12, false, true);
+	_img = IMAGE_MANAGER->findImage("ÄìÄÚ´ë±â");
+	_img->setScale(3);
+	_ani = new Animation;
+	_ani->init(_img->getWidth(), _img->getHeight(), _img->getMaxFrameX(), _img->getMaxFrameY());
+	_ani->setFPS(20);
+	if (player.getDirection() == DIRECTION::RIGHT)
+	{
+		_ani->setPlayFrame(0, 12, false, true); // 0 ~ 11
+	}
+	else if (player.getDirection() == DIRECTION::LEFT)
+	{
+		_ani->setPlayFrame(12, 24, false, true); // 12 ~ 23
+	}
+	_ani->start();
+}
+
+void IdleState::exit(Player& player)
+{
+	_ani->release();
+	SAFE_DELETE(_ani);
 }
