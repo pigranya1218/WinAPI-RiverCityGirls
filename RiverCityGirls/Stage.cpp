@@ -15,8 +15,11 @@ void Stage::init(Image * background, float bgScale)
 	//CAMERA_MANAGER->setConfig(0, 0, WINSIZEX, WINSIZEY, 0, 0, 1000, 1000);
 	CAMERA_MANAGER->setConfig(0, 0, WINSIZEX, WINSIZEY, 0, 0, maxWidth - WINSIZEX, maxHeight - WINSIZEY);
 
-	int linePos[3][4] = { {0, 740, 740, 0}, {0, 380, _background->getWidth() * _bgScale, 380}, {_background->getWidth() * _bgScale, 770, _background->getWidth() * _bgScale - 770, 0} };
-	for (int i = 0; i < 3; i++)
+	int linePos[4][4] = { {0, 660, _background->getWidth() * _bgScale, 660},
+		{_background->getWidth() * _bgScale, 770, _background->getWidth() * _bgScale - 770, 0},
+	{0, 740, 740, 0},
+	{0, 380, _background->getWidth() * _bgScale, 380} };
+	for (int i = 0; i < 4; i++)
 	{
 		Vector2 lineStart;
 		lineStart.x = linePos[i][0];
@@ -24,7 +27,14 @@ void Stage::init(Image * background, float bgScale)
 		Vector2 lineEnd;
 		lineEnd.x = linePos[i][2];
 		lineEnd.y = linePos[i][3];
-		_linearFuncs.push_back({ LinearFunc::getLinearFuncFromPoints(lineStart, lineEnd), LINEAR_VALUE_TYPE::UP });
+		if (i >= 1)
+		{
+			_linearFuncs.push_back({ LinearFunc::getLinearFuncFromPoints(lineStart, lineEnd), LINEAR_VALUE_TYPE::UP });
+		}
+		else
+		{
+			_linearFuncs.push_back({ LinearFunc::getLinearFuncFromPoints(lineStart, lineEnd), LINEAR_VALUE_TYPE::DOWN });
+		}
 	}
 
 	_objectManager = new ObjectManager;
@@ -51,8 +61,11 @@ void Stage::render()
 	_background->setScale(_bgScale);
 	CAMERA_MANAGER->render(_background, bgCenter);
 
-	int linePos[3][4] = { {0, 740, 740, 0}, {_background->getWidth( ) * _bgScale, 770, _background->getWidth() * _bgScale - 770, 0}, {0, 380, _background->getWidth() * _bgScale, 380} };
-	for (int i = 0; i < 3; i++)
+	int linePos[4][4] = { {0, 660, _background->getWidth() * _bgScale, 660},
+		{_background->getWidth() * _bgScale, 770, _background->getWidth() * _bgScale - 770, 0},
+	{0, 740, 740, 0}, 
+	{0, 380, _background->getWidth() * _bgScale, 380}  };
+	for (int i = 0; i < 4; i++)
 	{
 		Vector2 lineStart;
 		lineStart.x = linePos[i][0];

@@ -66,22 +66,22 @@ void CameraManager::render(tagZImage imageInfo)
 	{
 	case IMAGE_RENDER_TYPE::RENDER:
 	{
-		render(imageInfo.img, getRelativeV2(convertV3ToV2(imageInfo.pos)));
+		render(imageInfo.img, convertV3ToV2(imageInfo.pos));
 	}
 	break;
 	case IMAGE_RENDER_TYPE::RENDER_WITH_SOURCE_POS:
 	{
-		render(imageInfo.img, getRelativeV2(convertV3ToV2(imageInfo.pos)), imageInfo.sourPos, imageInfo.sourSize);
+		render(imageInfo.img, convertV3ToV2(imageInfo.pos), imageInfo.sourPos, imageInfo.sourSize);
 	}
 	break;
 	case IMAGE_RENDER_TYPE::FRAME_RENDER: 
 	{
-		frameRender(imageInfo.img, getRelativeV2(convertV3ToV2(imageInfo.pos)), imageInfo.frameX, imageInfo.frameY);
+		frameRender(imageInfo.img, convertV3ToV2(imageInfo.pos), imageInfo.frameX, imageInfo.frameY);
 	}
 	break;
 	case IMAGE_RENDER_TYPE::ANIMATION_RENDER:
 	{
-		aniRender(imageInfo.img, getRelativeV2(convertV3ToV2(imageInfo.pos)), imageInfo.ani);
+		aniRender(imageInfo.img, convertV3ToV2(imageInfo.pos), imageInfo.ani);
 	}
 	break;
 	}
@@ -312,7 +312,7 @@ void CameraManager::drawShadow(Vector3 pos, Vector3 size)
 	bottom.x = pos.x;
 	bottom.y = pos.y;
 	bottom.z = pos.z + size.z;
-	Vector2 drawPos = convertV3ToV2(bottom);
+	Vector2 drawPos = getRelativeV2(convertV3ToV2(bottom));
 	Vector2 drawSize = convertV3ToV2(size);
 	// D2D_RENDERER->drawEllipse(drawPos, drawSize, D2D1::ColorF::Enum::Black, 0.2);
 	D2D_RENDERER->fillEllipse(drawPos, drawSize, D2D1::ColorF::Enum::Black, 0.1);
