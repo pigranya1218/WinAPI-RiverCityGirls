@@ -1,15 +1,18 @@
 #pragma once
-#include "singletonBase.h"
 #include "ProgressBar.h"
+
+#define PLAYERHPMAX 29
+#define DOORMAX 3
 
 struct tagPlayerHp
 {	
 	Image* frameHp;
-	ProgressBar* playerBar;
+	Image* hpDigit;
 	float currentHp;
 	float maxHp;
 	float x, y;
 	bool active;
+	int digitNum;
 };
 
 struct tagBossHp
@@ -24,7 +27,7 @@ struct tagBossHp
 
 enum class currentDoor
 {
-	LOCK, UNLOCK
+	LOCK, UNLOCK, SHOP
 };
 
 struct tagDoor
@@ -43,14 +46,13 @@ struct tagCellPhone
 	float height;	
 };
 
-class UIManager : public SingletonBase<UIManager>
+class UIManager
 {
 private:
 	tagPlayerHp		_playerHp;
 	tagBossHp		_bossHp;
 	tagCellPhone	_cellPhone;
-	tagDoor			_door;
-
+	tagDoor			_door[DOORMAX];
 
 public:
 	UIManager();
@@ -61,7 +63,7 @@ public:
 	void update();
 	void render();
 
-	void setDoorLock(bool active, const Vector2& pos, currentDoor currentDoor, float alpha = 1.0f);
+	void setDoorLock(int doorNum, bool active, const Vector2& pos, currentDoor currentDoor, float alpha = 1.0f);
 
 	void setPlayerHpActive(bool active) { _playerHp.active = active; }
 	void setPlayerHp(float currentHp, float maxHp) { _playerHp.currentHp = currentHp; _playerHp.maxHp = maxHp; }

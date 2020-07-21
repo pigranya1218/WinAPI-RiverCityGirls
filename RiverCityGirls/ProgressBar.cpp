@@ -9,12 +9,13 @@ ProgressBar::~ProgressBar()
 {
 }
 
-HRESULT ProgressBar::init(string backBarImage, string frontBarImage, const Vector2& pos)
+HRESULT ProgressBar::init(string backBarImage, string frontBarImage, const Vector2& pos, const Vector2& angle)
 {
 	_backBar = IMAGE_MANAGER->findImage(backBarImage);
 	_frontBar = IMAGE_MANAGER->findImage(frontBarImage);
 
 	_pos = pos;
+	_angle = angle;
 
 	_width = _backBar->getWidth();
 	
@@ -36,11 +37,13 @@ void ProgressBar::render()
 		_pos, 
 		Vector2(0, 0), 
 		Vector2((float)_backBar->getWidth(), (float)_backBar->getHeight())
-	);	
+	);		
+
+	_frontBar->setSkew(Vector2(_width, _backBar->getHeight()), _angle);
 	_frontBar->render(
 		_pos,											// 출력할 위치
 		Vector2(0, 0),									// 이미지의 시작위치
-		Vector2(_width, (float)(_backBar->getHeight()))	// 가져올 길이, 높이
+		Vector2(_width, (float)(_backBar->getHeight()))	// 가져올 길이, 높이		
 	);
 }
 

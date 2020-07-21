@@ -2,7 +2,7 @@
 #include "ObjectManager.h"
 #include "Object.h"
 
-HRESULT ObjectManager::init()
+void ObjectManager::init()
 {
 	deskOb = new Object;
 	deskOb->setObject(desk, IDLE01, WINSIZEX / 2, WINSIZEY / 2);
@@ -12,7 +12,7 @@ HRESULT ObjectManager::init()
 	shcoolBoy01->setObject(schoolBoyE, IDLE01, WINSIZEX / 2 - 100, WINSIZEY / 2 - 100);
 	shcoolBoy01->init();
 
-	return S_OK;
+	return;
 }
 
 void ObjectManager::release()

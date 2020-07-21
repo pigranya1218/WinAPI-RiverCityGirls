@@ -72,35 +72,56 @@ HRESULT playGround::init()
 	IMAGE_MANAGER->addImage("STAGE_2", L"resources/images/stages/stage_2.png");
 	IMAGE_MANAGER->addImage("STAGE_BOSS_BEFORE", L"resources/images/stages/stage_boss_before.png");
 	IMAGE_MANAGER->addImage("STAGE_BOSS_AFTER", L"resources/images/stages/stage_boss_after.png");
-	IMAGE_MANAGER->addImage("screenBorder", L"resources/images/UI/playBorder.png");					// 플레이화면 테두리
+	IMAGE_MANAGER->addImage("screenBorder", L"resources/images/UI/playBorder.png");				// 플레이화면 테두리
 
-	IMAGE_MANAGER->addImage("playerBackBar"	, L"resources/images/UI/UI_Player_HP_BackBar.png");		// 플레이어 체력 뒤
-	IMAGE_MANAGER->addImage("playerFrontBar", L"resources/images/UI/UI_Player_HP_FrontBar.png");	// 플레이어 체력 앞
-	IMAGE_MANAGER->addImage("playerHpFrame"	, L"resources/images/UI/UI_Player_Bar.png");			// 플레이어 체력 프레임
-	IMAGE_MANAGER->addImage("kyokoShot"		, L"resources/images/UI/UI_kyoko_shot.png");			// 플레이어 체력 옆 이미지
 
-	IMAGE_MANAGER->addImage("bossBackBar"	, L"resources/images/UI/UI_Boss_HP_BackBar.png");		// 보스 체력 뒤
-	IMAGE_MANAGER->addImage("bossFrontBar"	, L"resources/images/UI/UI_Boss_HP_FrontBar.png");		// 보스 체력 앞
-	IMAGE_MANAGER->addImage("bossHpFrame"	, L"resources/images/UI/UI_Boss_HP_Frame.png");			// 보스 체력 프레임
+	// UI 이미지입니다.
+	IMAGE_MANAGER->addImage("blackScreen", L"resources/images/UI/blackScreen.png");				// 검은 화면입니다.
 
-	IMAGE_MANAGER->addImage("startMapPhone", L"resources/images/UI/startStage_phone.png");			// 핸드폰 이미지
+	IMAGE_MANAGER->addImage("playerHPBackBar", L"resources/images/UI/kyoko_HP_backFrame.png");	// 플레이어 체력 뒤
+	IMAGE_MANAGER->addImage("playerDigit"	 , L"resources/images/UI/kyoko_hp_digit.png");		// 플레이어 체력 앞
+	IMAGE_MANAGER->addImage("playerHpFrame"	 , L"resources/images/UI/kyoko_frontFrame.png");	// 플레이어 체력 프레임	
+	IMAGE_MANAGER->addImage("bossBackBar"	, L"resources/images/UI/boss_HP_backBar.png");		// 보스 체력 뒤
+	IMAGE_MANAGER->addImage("bossFrontBar"	, L"resources/images/UI/boss_HP_frontBar.png");		// 보스 체력 앞
+	IMAGE_MANAGER->addImage("bossHpFrame"	, L"resources/images/UI/boss_HP_frame.png");		// 보스 체력 프레임
 
-	IMAGE_MANAGER->addImage("unlockDoor", L"resources/images/UI/UI_UNLOCKED_DOOR.png");				// 열린 문
-	IMAGE_MANAGER->addImage("lockDoor"	, L"resources/images/UI/UI_LOCKED_DOOR.png");				// 닫힌 문
+	IMAGE_MANAGER->addImage("startMapPhone", L"resources/images/UI/startStage_phone.png");		// 핸드폰 이미지
+
+	IMAGE_MANAGER->addImage("unlockDoor", L"resources/images/UI/door_unlock.png");			// 열린 문
+	IMAGE_MANAGER->addImage("lockDoor"	, L"resources/images/UI/door_lock.png");			// 닫힌 문
+
+	// 다이얼로그 이미지입니다.	
+	string file;
+	wstring fileW = L"";	
+	for (int i = 1; i <= 6; i++)
+	{
+		// 쿄코
+		if (i <= 5)
+		{
+			file = "resources/images/UI/dialogue/Kyoko_" + to_string(i) + ".png";
+			fileW = L"";
+			fileW.assign(file.begin(), file.end());
+			IMAGE_MANAGER->addImage("kyoko_" + to_string(i), fileW);
+		}
+		// 미사코
+		file = "resources/images/UI/dialogue/Misako_" + to_string(i) + ".png";
+		fileW = L"";
+		fileW.assign(file.begin(), file.end());
+		IMAGE_MANAGER->addImage("misako_" + to_string(i), fileW);
+
+		// 미스즈
+		file = "resources/images/UI/dialogue/Misuzu_" + to_string(i) + ".png";
+		fileW = L"";
+		fileW.assign(file.begin(), file.end());
+		IMAGE_MANAGER->addImage("misuzu_" + to_string(i), fileW);
+	}
+
+	D2D_RENDERER->addTextFormat(L"메이플스토리");		// 폰트 갖고옴	
 	
 	// 모든 씬 SCENE_MANAGER에 등록
 	SCENE_MANAGER->addScene("MAIN", new MainScene);
 	SCENE_MANAGER->addScene("STAGE", new StageScene);
-	SCENE_MANAGER->changeScene("STAGE");
-
-	// UI 테스트용
-	UI_MANAGER->init();
-	UI_MANAGER->setBossHpActive(true);
-	UI_MANAGER->setPlayerHp(100.0f, 100.0f);
-	UI_MANAGER->setPlayerHpActive(true);
-	UI_MANAGER->setBossHp(100.0f, 100.0f);
-
-	UI_MANAGER->setDoorLock(true, Vector2(WINSIZEX / 2, WINSIZEY / 2), currentDoor::UNLOCK, 0.5f);
+	SCENE_MANAGER->changeScene("STAGE");	
 
 
 	return S_OK;
@@ -119,14 +140,7 @@ void playGround::update()
 
 	SCENE_MANAGER->update();
 
-	/*
-	UI_MANAGER->update();
-
-	static float hp = 100;
-	if (hp < 0) hp = 100;
-	hp -= 0.5f;
-	UI_MANAGER->setBossHp(hp, 100.0f);	
-	UI_MANAGER->setPlayerHp(hp, 100.0f);*/
+	
 }
 
 //그리기 전용
@@ -136,8 +150,7 @@ void playGround::render()
 	D2D_RENDERER->beginRender(D2D1::ColorF::Black);
 	{
 		// _kyoko->render();
-		SCENE_MANAGER->render();
-		//UI_MANAGER->render();		
+		SCENE_MANAGER->render();		
 	}
 	//백버퍼에 그린 내용들을 화면에 뿌려라~
 	D2D_RENDERER->endRender();

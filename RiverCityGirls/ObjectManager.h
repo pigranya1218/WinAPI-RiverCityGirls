@@ -1,16 +1,16 @@
 #pragma once
-#include "GameNode.h"
+#include "GameObject.h"
 
 class Object;
 
 class ObjectManager :
-	public GameNode
+	public GameObject
 {
 private:
 	Object* deskOb;
 	Object* shcoolBoy01;
 public:
-	virtual HRESULT init();
+	virtual void init();
 	virtual void release();
 	virtual void update();
 	virtual void render();
