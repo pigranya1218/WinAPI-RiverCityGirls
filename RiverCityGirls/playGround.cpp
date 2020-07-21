@@ -90,7 +90,7 @@ HRESULT playGround::init()
 	IMAGE_MANAGER->addImage("unlockDoor", L"resources/images/UI/door_unlock.png");			// 열린 문
 	IMAGE_MANAGER->addImage("lockDoor"	, L"resources/images/UI/door_lock.png");			// 닫힌 문
 
-	// 다이얼로그 이미지입니다.	
+	// 다이얼로그 이미지입니다.
 	string file;
 	wstring fileW = L"";	
 	for (int i = 1; i <= 6; i++)

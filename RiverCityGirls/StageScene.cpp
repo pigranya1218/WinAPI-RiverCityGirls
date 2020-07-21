@@ -62,8 +62,8 @@ void StageScene::render()
 {
 	_stageManager->render();
 	_player->render();
-	_uiManager->render();
-	//_dgManager->render();
+	//_uiManager->render();
+	_dgManager->render();
 
 	CAMERA_MANAGER->renderZList();
 }
