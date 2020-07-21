@@ -25,6 +25,8 @@ void Player::init()
 	_state = new IdleState;
 	_state->enter(*this);
 
+	_direction = DIRECTION::RIGHT;
+
 	_speed = 5;
 }
 
