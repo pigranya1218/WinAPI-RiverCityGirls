@@ -154,6 +154,7 @@
     <ClInclude Include="Collision.h" />
     <ClInclude Include="CommonMacroFunction.h" />
     <ClInclude Include="D2DRenderer.h" />
+    <ClInclude Include="DialogueManager.h" />
     <ClInclude Include="Effect.h" />
     <ClInclude Include="EffectManager.h" />
     <ClInclude Include="Enemy.h" />
@@ -204,6 +205,7 @@
     <ClCompile Include="Collision.cpp" />
     <ClCompile Include="D2DRenderer+Draw.cpp" />
     <ClCompile Include="D2DRenderer.cpp" />
+    <ClCompile Include="DialogueManager.cpp" />
     <ClCompile Include="Effect.cpp" />
     <ClCompile Include="EffectManager.cpp" />
     <ClCompile Include="Enemy.cpp" />

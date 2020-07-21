@@ -79,6 +79,9 @@
     <Filter Include="playGround\Kyoko">
       <UniqueIdentifier>{5e289369-72b8-4e83-8b73-ec88565103d1}</UniqueIdentifier>
     </Filter>
+    <Filter Include="PlayGround\Dialogue">
+      <UniqueIdentifier>{82db21ad-d762-4ca3-811d-b3dae3050686}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="stdafx.h">
@@ -225,6 +228,9 @@
     <ClInclude Include="AttackState.h">
       <Filter>playGround\Kyoko</Filter>
     </ClInclude>
+    <ClInclude Include="DialogueManager.h">
+      <Filter>PlayGround\Dialogue</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="windowsAPI.cpp">
@@ -355,6 +361,9 @@
     </ClCompile>
     <ClCompile Include="AttackState.cpp">
       <Filter>playGround\Kyoko</Filter>
+    </ClCompile>
+    <ClCompile Include="DialogueManager.cpp">
+      <Filter>PlayGround\Dialogue</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

@@ -28,6 +28,9 @@ private:
 	float				_scale;			
 	float				_angle;
 
+	// 황수현 추가
+	Vector2				_skewPos, _skewAngle;	// 찌그러트릴 좌표, 각도
+
 	TagLoadedImageInfo	_loadInfo;		
 
 	vector<Image::tagFrameRect>	_frameInfo;
@@ -42,7 +45,7 @@ private:
 	Image operator = (const Image& image) {}
 public:
 	void render(const Vector2& position);
-	void render(const Vector2& position, const Vector2& sourPos, const Vector2& sourSize);
+	void render(const Vector2& position, const Vector2& sourPos, const Vector2& sourSize);	
 	void frameRender(const Vector2& position, const int frameX, const int frameY);
 	void aniRender(const Vector2& position, Animation* ani);
 
@@ -52,6 +55,9 @@ public:
 	void setAlpha(const float alpha) { this->_alpha = alpha; }
 	void setScale(const float scale) { this->_scale = scale; }
 	void setAngle(const float angle) { this->_angle = angle; }
+	
+	// 황수현 추가
+	void setSkew(const Vector2& pos, const Vector2& angle) { this->_skewPos = pos; this->_skewAngle = angle; }
 
 	const int getMaxFrameX()const{ return _maxFrameX; }
 	const int getMaxFrameY()const{ return _maxFrameY; }

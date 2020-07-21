@@ -1,6 +1,7 @@
 #pragma once
 #include "GameObject.h"
 
+
 enum TagObjectType
 {
 	desk, deskChair, table, tableChair, pillar, snackMachine, box, mrRudis, schoolBoyA, schoolBoyB, schoolBoyE, schoolGirlA, schoolGirlB, schoolGirlE, workingFemaleA, workingMaleD
@@ -12,7 +13,7 @@ enum tagImageState
 };
 
 class Object :
-	public GameNode
+	public GameObject
 {
 private:
 	TagObjectType objectType;				//이미지 타입
@@ -31,7 +32,7 @@ private:
 	int _count;					//시간
 public:
 
-	HRESULT init();
+	void init();
 	void update();
 	void release();
 	void render();

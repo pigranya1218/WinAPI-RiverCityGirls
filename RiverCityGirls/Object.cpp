@@ -1,7 +1,7 @@
 #include "stdafx.h"
 #include "Object.h"
 
-HRESULT Object::init()
+void Object::init()
 {
 	switch (objectType)
 	{
@@ -63,7 +63,7 @@ HRESULT Object::init()
 	
 
 	_frameMax = 0;
-	return S_OK;
+	return;
 }
 
 void Object::update()
