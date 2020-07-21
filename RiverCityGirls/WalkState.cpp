@@ -90,7 +90,8 @@ PlayerState * WalkState::update(Player& player)
 		}
 
 		
-
+		moveDir = Vector3::normalize(&moveDir);
+		moveDir = moveDir * player.getSpeed();
 		player.move(moveDir);
 		
 	}
