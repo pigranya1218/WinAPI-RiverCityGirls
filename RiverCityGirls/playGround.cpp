@@ -26,11 +26,10 @@ HRESULT playGround::init()
 	/*_kyoko = new Kyoko;
 	_kyoko->init();*/
 
-	/*IMAGE_MANAGER->AddImage("TestObject", L"TrapObject.png");
-	IMAGE_MANAGER->AddFrameImage("TestFrameObject",
-		L"Bomb.png", 3, 1);
+	
+		
 	//Enemy 이미지 
-	//*스쿨보이
+    //스쿨보이
 	IMAGE_MANAGER->addFrameImage("스쿨보이_공격1", L"images/enemy_schoolboy/SchoolBoyAttack1.png", 7, 2);
 	IMAGE_MANAGER->addFrameImage("스쿨보이_공격2", L"images/enemy_schoolboy/SchoolBoyAttack2.png", 7, 2);
 	IMAGE_MANAGER->addFrameImage("스쿨보이_공격3", L"images/enemy_schoolboy/SchoolBoyAttack3.png", 9, 2);
@@ -49,7 +48,7 @@ HRESULT playGround::init()
 	IMAGE_MANAGER->addFrameImage("스쿨보이_스턴", L"images/enemy_schoolboy/SchoolBoyStun.png", 4, 2);
 	IMAGE_MANAGER->addFrameImage("스쿨보이_걷기", L"images/enemy_schoolboy/SchoolBoyWalk.png", 12, 2);
 	IMAGE_MANAGER->addFrameImage("스쿨보이_대시공격", L"images/enemy_schoolboy/SchoolDashAttack.png", 7, 2);
-	//*스쿨걸
+	//스쿨걸
 	IMAGE_MANAGER->addFrameImage("스쿨걸_피격_다운", L"images/enemy_schoolgirl/blowBack.png", 33, 2);
 	IMAGE_MANAGER->addFrameImage("스쿨걸_피격", L"images/enemy_schoolgirl/getHit.png", 9, 2);
 	IMAGE_MANAGER->addFrameImage("스쿨걸_속박피격", L"images/enemy_schoolgirl/HeldHit.png", 4, 2);
