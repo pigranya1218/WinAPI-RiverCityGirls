@@ -3,6 +3,8 @@
 #include <vector>
 
 class SchoolBoy;
+class SchoolGirl;
+class CheerGirl;
 class Enemy;
 class Stage;
 
@@ -16,6 +18,9 @@ private:
 	Stage* _stage;
 	
 	SchoolBoy* _schoolBoy;
+	SchoolGirl* _schoolGirl;
+	CheerGirl* _cheerGirl;
+
 	vector<POINT> _enemyRespawnPos;
 
 protected:

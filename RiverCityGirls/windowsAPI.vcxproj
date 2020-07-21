@@ -151,6 +151,7 @@
     <ClInclude Include="Animation.h" />
     <ClInclude Include="BossStage.h" />
     <ClInclude Include="CameraManager.h" />
+    <ClInclude Include="CheerGirl.h" />
     <ClInclude Include="Collision.h" />
     <ClInclude Include="CommonMacroFunction.h" />
     <ClInclude Include="D2DRenderer.h" />
@@ -182,6 +183,7 @@
     <ClInclude Include="RunState.h" />
     <ClInclude Include="SceneManager.h" />
     <ClInclude Include="SchoolBoy.h" />
+    <ClInclude Include="SchoolGirl.h" />
     <ClInclude Include="SingletonBase.h" />
     <ClInclude Include="SoundManager.h" />
     <ClInclude Include="Stage.h" />
@@ -203,6 +205,7 @@
     <ClCompile Include="Animation.cpp" />
     <ClCompile Include="BossStage.cpp" />
     <ClCompile Include="CameraManager.cpp" />
+    <ClCompile Include="CheerGirl.cpp" />
     <ClCompile Include="Collision.cpp" />
     <ClCompile Include="D2DRenderer+Draw.cpp" />
     <ClCompile Include="D2DRenderer.cpp" />
@@ -231,6 +234,7 @@
     <ClCompile Include="RunState.cpp" />
     <ClCompile Include="SceneManager.cpp" />
     <ClCompile Include="SchoolBoy.cpp" />
+    <ClCompile Include="SchoolGirl.cpp" />
     <ClCompile Include="SoundManager.cpp" />
     <ClCompile Include="Stage.cpp" />
     <ClCompile Include="StageManager.cpp" />

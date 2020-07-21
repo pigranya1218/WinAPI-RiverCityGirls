@@ -24,43 +24,63 @@ HRESULT playGround::init()
 	IMAGE_MANAGER->addFrameImage("Kyoko_jump", L"Kyoko/Kyoko_jump.png", 3, 2);
 
 	//Enemy 이미지 
-    //스쿨보이
-	IMAGE_MANAGER->addFrameImage("스쿨보이_공격1", L"images/enemy_schoolboy/SchoolBoyAttack1.png", 7, 2);
-	IMAGE_MANAGER->addFrameImage("스쿨보이_공격2", L"images/enemy_schoolboy/SchoolBoyAttack2.png", 7, 2);
-	IMAGE_MANAGER->addFrameImage("스쿨보이_공격3", L"images/enemy_schoolboy/SchoolBoyAttack3.png", 9, 2);
-	IMAGE_MANAGER->addFrameImage("스쿨보이_항복", L"images/enemy_schoolboy/SchoolBoybegging.png", 2, 2);
-	IMAGE_MANAGER->addFrameImage("스쿨보이_가드", L"images/enemy_schoolboy/SchoolBoyBlock.png", 3, 2);
-	IMAGE_MANAGER->addFrameImage("스쿨보이_피격", L"images/enemy_schoolboy/SchoolBoyGetHit.png", 9, 2);
-	IMAGE_MANAGER->addFrameImage("스쿨보이_그라운드피격", L"images/enemy_schoolboy/SchoolBoyGroundHit.png", 3, 2);
-	IMAGE_MANAGER->addFrameImage("스쿨보이_속박피격", L"images/enemy_schoolboy/SchoolBoyHeldHit.png", 4, 2);
-	IMAGE_MANAGER->addFrameImage("스쿨보이_속박해제", L"images/enemy_schoolboy/SchoolBoyHeldRelease.png", 4, 2);
-	IMAGE_MANAGER->addFrameImage("스쿨보이_기본", L"images/enemy_schoolboy/SchoolBoyIdle.png", 8, 2);
-	IMAGE_MANAGER->addFrameImage("스쿨보이_점프", L"images/enemy_schoolboy/SchoolBoyJump.png", 3, 2);
-	IMAGE_MANAGER->addFrameImage("스쿨보이_점프공격", L"images/enemy_schoolboy/SchoolBoyJumpPunch.png", 6, 2);
-	IMAGE_MANAGER->addFrameImage("스쿨보이_다운", L"images/enemy_schoolboy/SchoolBoyKcockDown.png", 33, 2);
-	IMAGE_MANAGER->addFrameImage("스쿨보이_달리기", L"images/enemy_schoolboy/SchoolBoyRun.png", 10, 2);
-	IMAGE_MANAGER->addFrameImage("스쿨보이_모래뿌리기", L"images/enemy_schoolboy/SchoolBoySandToss.png", 9, 2);
-	IMAGE_MANAGER->addFrameImage("스쿨보이_스턴", L"images/enemy_schoolboy/SchoolBoyStun.png", 4, 2);
-	IMAGE_MANAGER->addFrameImage("스쿨보이_걷기", L"images/enemy_schoolboy/SchoolBoyWalk.png", 12, 2);
-	IMAGE_MANAGER->addFrameImage("스쿨보이_대시공격", L"images/enemy_schoolboy/SchoolDashAttack.png", 7, 2);
-	//스쿨걸
-	IMAGE_MANAGER->addFrameImage("스쿨걸_피격_다운", L"images/enemy_schoolgirl/blowBack.png", 33, 2);
-	IMAGE_MANAGER->addFrameImage("스쿨걸_피격", L"images/enemy_schoolgirl/getHit.png", 9, 2);
-	IMAGE_MANAGER->addFrameImage("스쿨걸_속박피격", L"images/enemy_schoolgirl/HeldHit.png", 4, 2);
-	IMAGE_MANAGER->addFrameImage("스쿨걸_속박해제", L"images/enemy_schoolgirl/잡기 풀기.png", 4, 2);
-	IMAGE_MANAGER->addFrameImage("스쿨걸_기본", L"images/enemy_schoolgirl/Idle.png", 10, 2);
-	IMAGE_MANAGER->addFrameImage("스쿨걸_다운", L"images/enemy_schoolgirl/knokBack.png", 33, 2);
-	IMAGE_MANAGER->addFrameImage("스쿨걸_스턴", L"images/enemy_schoolgirl/stun.png", 4, 2);
-	IMAGE_MANAGER->addFrameImage("스쿨걸_걷기", L"images/enemy_schoolgirl/Walk.png", 12, 2);
-	IMAGE_MANAGER->addFrameImage("스쿨걸_달리기", L"images/enemy_schoolgirl/run.png", 9, 2);
-	IMAGE_MANAGER->addFrameImage("스쿨걸_가드", L"images/enemy_schoolgirl/가드.png", 3, 2);
-	IMAGE_MANAGER->addFrameImage("스쿨걸_그라운드피격", L"images/enemy_schoolgirl/그라운드 히트.png", 3, 2);
-	IMAGE_MANAGER->addFrameImage("스쿨걸_공격1", L"images/enemy_schoolgirl/잽.png", 8, 2);
-	IMAGE_MANAGER->addFrameImage("스쿨걸_공격2", L"images/enemy_schoolgirl/니킥.png", 7, 2);
-	IMAGE_MANAGER->addFrameImage("스쿨걸_공격3", L"images/enemy_schoolgirl/발차기.png", 8, 2);
-	IMAGE_MANAGER->addFrameImage("스쿨걸_회전킥", L"images/enemy_schoolgirl/회전킥.png", 12, 2);
-	IMAGE_MANAGER->addFrameImage("스쿨걸_점프", L"images/enemy_schoolgirl/점프.png", 3, 2);
-	IMAGE_MANAGER->addFrameImage("스쿨걸_항복", L"images/enemy_schoolgirl/항복.png", 3, 2);
+    //schoolBoy
+	IMAGE_MANAGER->addFrameImage("schoolboy_attack1", L"images/enemy_schoolboy/SchoolBoyAttack1.png", 7, 2);
+	IMAGE_MANAGER->addFrameImage("schoolboy_attack2", L"images/enemy_schoolboy/SchoolBoyAttack2.png", 7, 2);
+	IMAGE_MANAGER->addFrameImage("schoolboy_attack3", L"images/enemy_schoolboy/SchoolBoyAttack3.png", 9, 2);
+	IMAGE_MANAGER->addFrameImage("schoolboy_begging", L"images/enemy_schoolboy/SchoolBoybegging.png", 2, 2);
+	IMAGE_MANAGER->addFrameImage("schoolboy_block", L"images/enemy_schoolboy/SchoolBoyBlock.png", 3, 2);
+	IMAGE_MANAGER->addFrameImage("schoolboy_getHit", L"images/enemy_schoolboy/SchoolBoyGetHit.png", 9, 2);
+	IMAGE_MANAGER->addFrameImage("schoolboy_groundHit", L"images/enemy_schoolboy/SchoolBoyGroundHit.png", 3, 2);
+	IMAGE_MANAGER->addFrameImage("schoolboy_heldHit", L"images/enemy_schoolboy/SchoolBoyHeldHit.png", 4, 2);
+	IMAGE_MANAGER->addFrameImage("schoolboy_heldRelease", L"images/enemy_schoolboy/SchoolBoyHeldRelease.png", 4, 2);
+	IMAGE_MANAGER->addFrameImage("schoolboy_idle", L"images/enemy_schoolboy/SchoolBoyIdle.png", 8, 2);
+	IMAGE_MANAGER->addFrameImage("schoolboy_jump", L"images/enemy_schoolboy/SchoolBoyJump.png", 3, 2);
+	IMAGE_MANAGER->addFrameImage("schoolboy_jumpAttack", L"images/enemy_schoolboy/SchoolBoyJumpPunch.png", 6, 2);
+	IMAGE_MANAGER->addFrameImage("schoolboy_groundDown", L"images/enemy_schoolboy/SchoolBoyKcockDown.png", 33, 2);
+	IMAGE_MANAGER->addFrameImage("schoolboy_run", L"images/enemy_schoolboy/SchoolBoyRun.png", 10, 2);
+	IMAGE_MANAGER->addFrameImage("schoolboy_skill", L"images/enemy_schoolboy/SchoolBoySandToss.png", 9, 2);
+	IMAGE_MANAGER->addFrameImage("schoolboy_stun", L"images/enemy_schoolboy/SchoolBoyStun.png", 4, 2);
+	IMAGE_MANAGER->addFrameImage("schoolboy_walk", L"images/enemy_schoolboy/SchoolBoyWalk.png", 12, 2);
+	IMAGE_MANAGER->addFrameImage("schoolboy_runAttack", L"images/enemy_schoolboy/SchoolDashAttack.png", 7, 2);
+	//schoolGirl
+	IMAGE_MANAGER->addFrameImage("schoolgirl_groundDown", L"images/enemy_schoolgirl/blowBack.png", 33, 2);
+	IMAGE_MANAGER->addFrameImage("schoolgirl_gethit", L"images/enemy_schoolgirl/getHit.png", 9, 2);
+	IMAGE_MANAGER->addFrameImage("schoolgirl_heldHit", L"images/enemy_schoolgirl/HeldHit.png", 4, 2);
+	IMAGE_MANAGER->addFrameImage("schoolgirl_heldRelease", L"images/enemy_schoolgirl/잡기 풀기.png", 4, 2);
+	IMAGE_MANAGER->addFrameImage("schoolgirl_idle", L"images/enemy_schoolgirl/Idle.png", 10, 2);	
+	IMAGE_MANAGER->addFrameImage("schoolgirl_stun", L"images/enemy_schoolgirl/stun.png", 4, 2);
+	IMAGE_MANAGER->addFrameImage("schoolgirl_walk", L"images/enemy_schoolgirl/Walk.png", 12, 2);
+	IMAGE_MANAGER->addFrameImage("schoolgirl_run", L"images/enemy_schoolgirl/run.png", 9, 2);
+	IMAGE_MANAGER->addFrameImage("schoolgirl_block", L"images/enemy_schoolgirl/가드.png", 3, 2);
+	IMAGE_MANAGER->addFrameImage("schoolgirl_groundHit", L"images/enemy_schoolgirl/그라운드 히트.png", 3, 2);
+	IMAGE_MANAGER->addFrameImage("schoolgirl_attack1", L"images/enemy_schoolgirl/잽.png", 8, 2);
+	IMAGE_MANAGER->addFrameImage("schoolgirl_attack2", L"images/enemy_schoolgirl/니킥.png", 7, 2);
+	IMAGE_MANAGER->addFrameImage("schoolgirl_attack3", L"images/enemy_schoolgirl/발차기.png", 8, 2);
+	IMAGE_MANAGER->addFrameImage("schoolgirl_skill", L"images/enemy_schoolgirl/회전킥.png", 12, 2);
+	IMAGE_MANAGER->addFrameImage("schoolgirl_jump", L"images/enemy_schoolgirl/점프.png", 3, 2);
+	IMAGE_MANAGER->addFrameImage("schoolgirl_begGing", L"images/enemy_schoolgirl/항복.png", 3, 2);
+	//치어걸
+	IMAGE_MANAGER->addFrameImage("cheergirl_block", L"images/enemy_cheergirl/block.png", 3, 2);
+	IMAGE_MANAGER->addFrameImage("cheergirl_groundHit", L"images/enemy_cheergirl/groundhit.png", 4, 2);
+	IMAGE_MANAGER->addFrameImage("cheergirl_idle", L"images/enemy_cheergirl/idle.png", 12, 2);
+	IMAGE_MANAGER->addFrameImage("cheergirl_attack1", L"images/enemy_cheergirl/japAttack.png", 6, 2);
+	IMAGE_MANAGER->addFrameImage("cheergirl_jump", L"images/enemy_cheergirl/jump.png", 3, 2);
+	IMAGE_MANAGER->addFrameImage("cheergirl_run", L"images/enemy_cheergirl/run.png", 8, 2);
+	IMAGE_MANAGER->addFrameImage("cheergirl_attack2", L"images/enemy_cheergirl/spinpoom.png", 7, 2);
+	IMAGE_MANAGER->addFrameImage("cheergirl_begGing", L"images/enemy_cheergirl/begging.png", 2, 2);
+	IMAGE_MANAGER->addFrameImage("cheergirl_blownBack", L"images/enemy_cheergirl/blownback.png", 23, 2);
+	IMAGE_MANAGER->addFrameImage("cheergirl_skill", L"images/enemy_cheergirl/cartwheel.png", 15, 2); // 치어걸은 회피스킬
+	IMAGE_MANAGER->addFrameImage("cheergirl_getHits", L"images/enemy_cheergirl/gethits.png", 9, 2);
+	IMAGE_MANAGER->addFrameImage("cheergirl_heldRelease", L"images/enemy_cheergirl/grab_release.png", 4, 2);
+	IMAGE_MANAGER->addFrameImage("cheergirl_groundUp", L"images/enemy_cheergirl/groundup.png", 11, 2);
+	IMAGE_MANAGER->addFrameImage("cheergirl_stun", L"images/enemy_cheergirl/stun.png", 5, 2);
+	IMAGE_MANAGER->addFrameImage("cheergirl_walk", L"images/enemy_cheergirl/walk.png", 12, 2);
+	IMAGE_MANAGER->addFrameImage("cheergirl_jumpAttack1", L"images/enemy_cheergirl/divekick_start.png", 6, 2);
+	IMAGE_MANAGER->addFrameImage("cheergirl_jumpAttack2", L"images/enemy_cheergirl/divekick_middle.png", 7, 2);
+	IMAGE_MANAGER->addFrameImage("cheergirl_jumpAttack3", L"images/enemy_cheergirl/divekick_end.png", 13, 2);
+
+
 
 
 	/*_enemyMg = new enemyManager;

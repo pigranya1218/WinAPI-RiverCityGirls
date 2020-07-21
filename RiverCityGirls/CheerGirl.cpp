@@ -1,28 +1,24 @@
 #include "stdafx.h"
-#include "schoolBoy.h"
+#include "CheerGirl.h"
 
-void SchoolBoy::init()
+void CheerGirl::init()
 {
-	_enemyImg = IMAGE_MANAGER->findImage("school_idle");
-	_position = Vector3(600, -100, 500);
+	_enemyImg = IMAGE_MANAGER->findImage("cheergirl_idle");
+	_position = Vector3(1000, -100, 500);
 	_size = Vector3(140, 200, 40);
 	_state = ENEMY_STATE::IDLE;
 	_direction = DIRECTION::RIGHT;
 	aniPlay(_state, _direction);
-
-	
 }
 
-void SchoolBoy::release()
+void CheerGirl::release()
 {
 	_ani->release();
 	SAFE_DELETE(_ani);
 }
 
-void SchoolBoy::update()
+void CheerGirl::update()
 {
-
-	
 	Vector3 playerPos = _enemyManager->getPlayerPosition();
 	if (playerPos.x <= _position.x)
 	{
@@ -33,10 +29,10 @@ void SchoolBoy::update()
 		_direction = DIRECTION::RIGHT;
 	}
 
-	
 
-	float distance = sqrt(pow(playerPos.x - _position.x, 2) + pow(playerPos.y - _position.y, 2) + pow(playerPos.z - _position.z , 2));
-	
+
+	float distance = sqrt(pow(playerPos.x - _position.x, 2) + pow(playerPos.y - _position.y, 2) + pow(playerPos.z - _position.z, 2));
+
 	if (distance > 700)
 	{
 		if (_state != ENEMY_STATE::IDLE)
@@ -52,16 +48,16 @@ void SchoolBoy::update()
 			aniPlay(ENEMY_STATE::RUN, _direction);
 			_state = ENEMY_STATE::RUN;
 		}
-		
+
 	}
-	else if (distance > 100 )
+	else if (distance > 100)
 	{
 		if (_state != ENEMY_STATE::WALK)
 		{
 			aniPlay(ENEMY_STATE::WALK, _direction);
 			_state = ENEMY_STATE::WALK;
 		}
-		
+
 	}
 	else
 	{
@@ -71,12 +67,12 @@ void SchoolBoy::update()
 			_state = ENEMY_STATE::ATTACK;
 		}
 	}
-	
-	
+
+
 	Vector3 moveDir = Vector3(0, 0, 0);
-	
-	
-	
+
+
+
 
 	//상태 패턴에 따른 디렉션 조정
 	switch (_state)
@@ -95,7 +91,20 @@ void SchoolBoy::update()
 		{
 			moveDir.x += 1;
 		}
-		
+		//점프 테스트하기위해 카운트로 만들었음
+		_elapsedTime++;
+		if (_elapsedTime > 150)
+		{
+
+			_state = ENEMY_STATE::JUMP;
+			_jumpPower = 11.0f;
+			_gravity = 0.3f;
+			_elapsedTime = 0;
+
+		}
+
+
+
 	}
 	break;
 	case ENEMY_STATE::RUN:
@@ -109,16 +118,16 @@ void SchoolBoy::update()
 			moveDir.x += 4;
 		}
 
-		
+
 	}
 	break;
 	case ENEMY_STATE::JUMP:
-		
-		
-		
 
 
-	break;
+
+
+
+		break;
 	case ENEMY_STATE::ATTACK:
 	{
 		if (!_ani->isPlay())
@@ -163,39 +172,43 @@ void SchoolBoy::update()
 	{
 		_ani->setPlayFrame(0, _enemyImg->getMaxFrameX() - 1, false, true);
 	}
-	
-	
+	//항상 플레이어 z축따라감
+	if (playerPos.z < _position.z)
+	{
+		moveDir.z -= 1;
+	}
+	else if (playerPos.z > _position.z)
+	{
+		moveDir.z += 1;
+	}
+
+
 
 	_ani->frameUpdate(TIME_MANAGER->getElapsedTime());
 
 	_enemyManager->moveEnemy(this, moveDir);
-	
 }
 
-void SchoolBoy::render()
+void CheerGirl::render()
 {
-	
 	_enemyImg->setScale(3.f);
-	
+	//_enemyImg->FrameRender(Vector2(WINSIZEX / 2, WINSIZEY / 2), 0, 0);
 	CAMERA_MANAGER->aniRenderZ(_enemyImg, _position, _size, _ani, true);
-	/*
+
 	//test
 	char str[255];
-	sprintf_s(str, "state : %d, jumpPower : %d, gravity : %d", (int)_state,_jumpPower,_gravity);
+	sprintf_s(str, "state : %d, jumpPower : %d, gravity : %d", (int)_state, _jumpPower, _gravity);
 	TextOut(_hdc, 0, 0, str, strlen(str));
-	*/
-	
 }
 
-void SchoolBoy::aniPlay(ENEMY_STATE state, DIRECTION direction)
+void CheerGirl::aniPlay(ENEMY_STATE state, DIRECTION direction)
 {
-	//디렉션에 따른 애니메이션
 	switch (state)
 	{
 	case ENEMY_STATE::IDLE:
 	{
 		_ani = new Animation;
-		_enemyImg = IMAGE_MANAGER->findImage("schoolboy_idle");
+		_enemyImg = IMAGE_MANAGER->findImage("cheergirl_idle");
 		_ani->init(_enemyImg->getWidth(), _enemyImg->getHeight(),
 			_enemyImg->getMaxFrameX(), _enemyImg->getMaxFrameY());
 
@@ -206,10 +219,10 @@ void SchoolBoy::aniPlay(ENEMY_STATE state, DIRECTION direction)
 	case ENEMY_STATE::WALK:
 	{
 		_ani = new Animation;
-		_enemyImg = IMAGE_MANAGER->findImage("schoolboy_walk");
+		_enemyImg = IMAGE_MANAGER->findImage("cheergirl_walk");
 		_ani->init(_enemyImg->getWidth(), _enemyImg->getHeight(),
 			_enemyImg->getMaxFrameX(), _enemyImg->getMaxFrameY());
-		
+
 		_ani->setFPS(10);
 		_ani->start();
 	}
@@ -217,7 +230,7 @@ void SchoolBoy::aniPlay(ENEMY_STATE state, DIRECTION direction)
 	case ENEMY_STATE::RUN:
 	{
 		_ani = new Animation;
-		_enemyImg = IMAGE_MANAGER->findImage("schoolboy_run");
+		_enemyImg = IMAGE_MANAGER->findImage("cheergirl_run");
 		_ani->init(_enemyImg->getWidth(), _enemyImg->getHeight(),
 			_enemyImg->getMaxFrameX(), _enemyImg->getMaxFrameY());
 		_ani->setFPS(10);
@@ -227,7 +240,7 @@ void SchoolBoy::aniPlay(ENEMY_STATE state, DIRECTION direction)
 	case ENEMY_STATE::JUMP:
 	{
 		_ani = new Animation;
-		_enemyImg = IMAGE_MANAGER->findImage("schoolboy_jump");
+		_enemyImg = IMAGE_MANAGER->findImage("cheergirl_jump");
 		_ani->init(_enemyImg->getWidth(), _enemyImg->getHeight(),
 			_enemyImg->getMaxFrameX(), _enemyImg->getMaxFrameY());
 		_ani->setFPS(10);
@@ -237,30 +250,31 @@ void SchoolBoy::aniPlay(ENEMY_STATE state, DIRECTION direction)
 	case ENEMY_STATE::ATTACK:
 	{
 		_ani = new Animation;
-		int i = RANDOM->getFromIntTo(1, 4);
-		if (i == 3)
+		int i = RANDOM->getFromIntTo(1, 3);
+		if (i == 2)
 		{
 			_attackS = 3;
 			_attackE = 5;
 		}
 		else
 		{
-			_attackS = 2;
-			_attackE = 4;
+			_attackS = 3;
+			_attackE = 6;
 		}
 		char imgNameNum[128];
-		sprintf_s(imgNameNum, "schoolboy_attack%d", i);
+		sprintf_s(imgNameNum, "cheergirl_attack%d", i);
 		_enemyImg = IMAGE_MANAGER->findImage(imgNameNum);
 		_ani->init(_enemyImg->getWidth(), _enemyImg->getHeight(),
 			_enemyImg->getMaxFrameX(), _enemyImg->getMaxFrameY());
 		_ani->setFPS(10);
 		_ani->start();
+	
 	}
 	break;
 	case ENEMY_STATE::GUARD:
 	{
 		_ani = new Animation;
-		_enemyImg = IMAGE_MANAGER->findImage("schoolboy_bolck");
+		_enemyImg = IMAGE_MANAGER->findImage("cheergirl_block");
 		_ani->init(_enemyImg->getWidth(), _enemyImg->getHeight(),
 			_enemyImg->getMaxFrameX(), _enemyImg->getMaxFrameY());
 		_ani->setFPS(10);
@@ -270,7 +284,7 @@ void SchoolBoy::aniPlay(ENEMY_STATE state, DIRECTION direction)
 	case ENEMY_STATE::HIT:
 	{
 		_ani = new Animation;
-		_enemyImg = IMAGE_MANAGER->findImage("schoolboy_getHit");
+		_enemyImg = IMAGE_MANAGER->findImage("cheergirl_getHit");
 		_ani->init(_enemyImg->getWidth(), _enemyImg->getHeight(),
 			_enemyImg->getMaxFrameX(), _enemyImg->getMaxFrameY());
 		_ani->setFPS(10);

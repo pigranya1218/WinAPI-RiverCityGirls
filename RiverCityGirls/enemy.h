@@ -35,6 +35,8 @@ protected:
 	DIRECTION _direction;	// 애니메이션 좌우 재생
 	DIRECTION _moveTo;		// 현재 이동 방향
 	
+	float _jumpPower;
+	float _gravity;
 	float _elapsedTime;		// 상태 전환 계산 타이머
 
 public:
