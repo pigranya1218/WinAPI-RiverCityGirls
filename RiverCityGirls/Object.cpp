@@ -11,13 +11,13 @@ HRESULT Object::init()
 			{
 				case IDLE01:
 				{
-					objectImg = IMAGE_MANAGER->addImage("desk01", L"object/03_Detention_OBJ_Desks_02.png");
+					objectImg = IMAGE_MANAGER->addImage("desk01", L"resources/images/object/03_Detention_OBJ_Desks_02.png");
 				}
 				break;
 
 				case IDLE02:
 				{
-					objectImg = IMAGE_MANAGER->addImage("desk02", L"object/03_Detention_OBJ_Desks_01.png");
+					objectImg = IMAGE_MANAGER->addImage("desk02", L"resources/images/object/03_Detention_OBJ_Desks_01.png");
 				}
 				break;
 
@@ -33,7 +33,7 @@ HRESULT Object::init()
 			{
 				case IDLE01:
 				{
-					objectImg = IMAGE_MANAGER->addFrameImage("schoolBoyE01", L"object/objectHuman_update/schoolBoyE_idleA.png", 4, 2);
+					objectImg = IMAGE_MANAGER->addFrameImage("schoolBoyE01", L"resources/images/object/objectHuman_update/schoolBoyE_idleA.png", 4, 2);
 					frameX = 0;
 					_frameMax = 4;
 				}
@@ -41,7 +41,7 @@ HRESULT Object::init()
 
 				case IDLE02:
 				{
-					objectImg = IMAGE_MANAGER->addFrameImage("schoolBoyE02", L"object/objectHuman_update/schoolBoyE_idleB.png", 4, 2);
+					objectImg = IMAGE_MANAGER->addFrameImage("schoolBoyE02", L"resources/images/object/objectHuman_update/schoolBoyE_idleB.png", 4, 2);
 					_frameMax = 4;
 					frameX = 0;
 				}
@@ -49,7 +49,7 @@ HRESULT Object::init()
 
 				case REACTION:
 				{
-					objectImg = IMAGE_MANAGER->addFrameImage("schoolBoyEReaction", L"object/objectHuman_update/schoolboyE_react.png", 3, 2);
+					objectImg = IMAGE_MANAGER->addFrameImage("schoolBoyEReaction", L"resources/images/object/objectHuman_update/schoolboyE_react.png", 3, 2);
 					_frameMax = 3;
 					frameX = 0;
 				}
