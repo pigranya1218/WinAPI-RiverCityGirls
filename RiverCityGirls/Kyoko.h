@@ -1,11 +1,7 @@
 #pragma once
 #include "GameNode.h"
 
-enum DIRECTION : int
-{
-	RIGHT,
-	LEFT
-};
+
 
 
 
@@ -14,8 +10,7 @@ class KyokoState;
 class Kyoko : public GameNode
 {
 private:
-	Image* _img;
-	Animation* _ani;
+	
 	
 	RECT _rc; //피격판정렉트
 	RECT _hitRc;//타격판정렉트
@@ -42,7 +37,7 @@ public:
 	void setX(float x) { _x = x; }
 	void setY(float y) { _y = y; }
 
-	int getDirection() { return _direction; }
+	DIRECTION getDirection() { return _direction; }
 	void setDirection(DIRECTION direction) { _direction = direction; }
 	void setImage(Image* image) { _img = image; }
 

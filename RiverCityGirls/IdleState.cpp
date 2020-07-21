@@ -1,41 +1,62 @@
 #include "stdafx.h"
-#include "KyokoState.h"
+#include "PlayerState.h"
 
-
-
-
-KyokoState * IdleState::update(Kyoko & Kyoko)
+IdleState::IdleState()
 {
-	ImageEnter(Kyoko);
+    _img = IMAGE_MANAGER->findImage("ÄìÄÚ´ë±â");
+	_ani = new Animation;
+	_ani->init(_img->getWidth(), _img->getHeight(), _img->getMaxFrameX(), _img->getMaxFrameY());
+	_ani->setDefPlayFrame(false, true);
+	_ani->setFPS(2);
+	_ani->start();
+}
 
-	if (KEYMANAGER->isOnceKeyDown(VK_RIGHT))
+
+
+PlayerState * IdleState::update(Player & player)
+{
+
+
+	if (player.getDirection() == RIGHT)
 	{
-		Kyoko.setDirection(RIGHT);
-		return new WalkState;
+		_ani->setPlayFrame(0, 12, false, true);
 	}
-	if (KEYMANAGER->isOnceKeyDown(VK_LEFT))
+	if (player.getDirection() == LEFT)
 	{
-		Kyoko.setDirection(LEFT);
-		return new WalkState;
+		_ani->setPlayFrame(23, 12, false, true);
 	}
 
-	
+	if (KEY_MANAGER->isOnceKeyDown('X'))
+	{
+
+		return new JumpState;
+	}
+
+	if (KEY_MANAGER->isOnceKeyDown(VK_RIGHT))
+	{
+		player.setDirection(RIGHT);
+		if (_ani->getFramePos().x > 6 * _img->getMaxFrameX()) return new WalkState;
+		else return new RunningState;
+	}
+	if (KEY_MANAGER->isOnceKeyDown(VK_LEFT))
+	{
+		player.setDirection(LEFT);
+
+		if (_ani->getFramePos().x > 6 * _img->getMaxFrameX()) return new WalkState;
+		else return new RunningState;
+	}
+
+
+	_ani->frameUpdate(TIME_MANAGER->getElapsedTime() * 10);
 
 	return nullptr;
 }
 
-void IdleState::render(Kyoko & Kyoko)
+void IdleState::render(Player & player)
 {
 	
 }
 
-
-void IdleState::ImageEnter(Kyoko & Kyoko)
+void IdleState::enter(Player & player)
 {
-	Kyoko.setImage(_newImg = ImageManager::GetInstance()->FindImage("ÄìÄÚ´ë±â"));
-	animation* _newAni = new animation;
-	_newAni->init(_newImg->GetWidth(), _newImg->GetHeight(), _newImg->GetMaxFrameX(), _newImg->GetMaxFrameY());
-	_newAni->setDefPlayFrame(false, true);
-	_newAni->setFPS(2);
-	_newAni->setPlayFrame(0, 12, false, true);
 }

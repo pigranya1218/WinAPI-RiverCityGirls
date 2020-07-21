@@ -1,84 +1,15 @@
 #include "stdafx.h"
-#include "KyokoState.h"
+#include "PlayerState.h"
 
 
-void KyokoState::imageEnter(Kyoko & Kyoko)
-{
-}
-
-//State 부모클래스
-KyokoState * KyokoState::update(Kyoko & Kyoko)
+PlayerState * PlayerState::update(Player & player)
 {
 	return nullptr;
 }
 
-void KyokoState::render(Kyoko & Kyoko)
+void PlayerState::render(Player & player)
 {
 }
-
-
-
-
-IdleState::IdleState()
-{
-	
-	_newImg = IMAGE_MANAGER->findImage("쿄코대기");
-	_newAni = new Animation;
-	_newAni->init(_newImg->getWidth(), _newImg->getHeight(), _newImg->getMaxFrameX(), _newImg->getMaxFrameY());
-	_newAni->setDefPlayFrame(false, true);
-	_newAni->setFPS(2);
-	_newAni->start();
-}
-
-void IdleState::imageEnter(Kyoko & Kyoko)
-{
-	
-}
-
-KyokoState * IdleState::update(Kyoko & Kyoko)
-{
-	
-
-	if (Kyoko.getDirection() == RIGHT)
-	{
-		_newAni->setPlayFrame(0, 12, false, true);
-	}
-	if (Kyoko.getDirection() == LEFT)
-	{
-		_newAni->setPlayFrame(23, 12, false, true);
-	}
-	
-	if (KEY_MANAGER->isOnceKeyDown('X'))
-	{
-		
-		return new JumpState;
-	}
-
-	if (KEY_MANAGER->isOnceKeyDown(VK_RIGHT))
-	{
-		Kyoko.setDirection(RIGHT);		
-		if(_newAni->getFramePos().x>6*_newImg->getMaxFrameX()) return new WalkState;
-		else return new RunningState;
-	}
-	if (KEY_MANAGER->isOnceKeyDown(VK_LEFT))
-	{
-		Kyoko.setDirection(LEFT);
-			
-		if (_newAni->getFramePos().x > 6 * _newImg->getMaxFrameX()) return new WalkState;
-		else return new RunningState;
-	}
-	
-
-	_newAni->frameUpdate(TIME_MANAGER->getElapsedTime() * 10);
-
-	return nullptr;
-}
-
-void IdleState::render(Kyoko & Kyoko)
-{
-	_newImg->aniRender(Vector2( Kyoko.getX(), Kyoko.getY()), _newAni);
-}
-
 
 
 
@@ -116,7 +47,7 @@ KyokoState * WalkState::update(Kyoko & Kyoko)
 		return new JumpState;
 	}
 
-	if (KEY_MANAGER->isOnceKeyUp(VK_RIGHT)|| KEY_MANAGER->isOnceKeyUp(VK_LEFT))
+	if (KEY_MANAGER->isOnceKeyUp(VK_RIGHT) || KEY_MANAGER->isOnceKeyUp(VK_LEFT))
 	{
 		return new IdleState;
 	}
@@ -232,12 +163,12 @@ KyokoState * JumpState::update(Kyoko & Kyoko)
 
 	if (KEY_MANAGER->isStayKeyDown(VK_RIGHT))
 	{
-		
+
 		Kyoko.setX(Kyoko.getX() + 5);
 	}
 	if (KEY_MANAGER->isStayKeyDown(VK_LEFT))
 	{
-		
+
 		Kyoko.setX(Kyoko.getX() - 5);
 	}
 
@@ -256,3 +187,5 @@ void JumpState::render(Kyoko & Kyoko)
 {
 	_newImg->aniRender(Vector2(Kyoko.getX(), Kyoko.getY()), _newAni);
 }
+
+
