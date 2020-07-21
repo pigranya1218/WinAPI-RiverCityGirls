@@ -4,6 +4,8 @@
 
 class StageManager;
 class ObjectManager;
+class EnemyManager;
+class Player;
 
 class Stage
 {
@@ -16,6 +18,8 @@ protected:
 protected:
 	StageManager* _stageManager; 
 	ObjectManager* _objectManager; 
+	EnemyManager* _enemyManager;
+	Player* _player;
 	
 	Image* _background; // 배경 이미지
 	float _bgScale; // 배경이미지 배율
@@ -25,10 +29,11 @@ public:
 	virtual void init(Image* background, float bgScale);
 	virtual void enter() {};
 	virtual void exit() {};
-	virtual Stage* update() { return nullptr; };
+	virtual Stage* update();
 	virtual void render();
 
 	void setStageManager(StageManager* stageManager) { _stageManager = stageManager; }
+	void setPlayer(Player* player) { _player = player; }
 
 	void pushLine(LinearFunc line, LINEAR_VALUE_TYPE type) { _linearFuncs.push_back({ line, type }); }
 

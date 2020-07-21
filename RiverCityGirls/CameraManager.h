@@ -92,7 +92,7 @@ public:
 	void drawLine(Vector2 start, Vector2 end);
 
 	void rectangle(FloatRect rect, D2D1::ColorF::Enum color, float alpha, float strokeWidth);
-	void shadow(Vector3 pos, Vector3 size);
+	void drawShadow(Vector3 pos, Vector3 size);
 
 	void render(Image* img, Vector2 center);
 	void render(Image* img, Vector2 center, Vector2 sourLT, Vector2 sourSize);

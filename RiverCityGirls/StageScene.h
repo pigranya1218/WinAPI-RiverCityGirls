@@ -1,11 +1,15 @@
 #pragma once
 #include "GameNode.h"
 #include "StageManager.h"'
+#include "UIManager.h"
+#include "Player.h"
 
 class StageScene : public GameNode
 {
 private:
 	StageManager* _stageManager;
+	UIManager* _uiManager;
+	Player* _player;
 
 public:
 	virtual HRESULT init();			//초기화 전용 함수

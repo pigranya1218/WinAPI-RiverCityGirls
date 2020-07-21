@@ -1,6 +1,10 @@
 #include "stdafx.h"
 #include "Stage.h"
 #include "StageManager.h"
+#include "ObjectManager.h"
+#include "EnemyManager.h"
+#include "Player.h"
+
 
 void Stage::init(Image * background, float bgScale)
 {
@@ -22,6 +26,20 @@ void Stage::init(Image * background, float bgScale)
 		lineEnd.y = linePos[i][3];
 		_linearFuncs.push_back({ LinearFunc::getLinearFuncFromPoints(lineStart, lineEnd), LINEAR_VALUE_TYPE::UP });
 	}
+
+	_objectManager = new ObjectManager;
+	_objectManager->init();
+
+	_enemyManager = new EnemyManager;
+	_enemyManager->init();
+}
+
+Stage * Stage::update()
+{
+	_objectManager->update();
+	_enemyManager->update();
+
+	return nullptr;
 }
 
 void Stage::render()
@@ -33,7 +51,7 @@ void Stage::render()
 	_background->setScale(_bgScale);
 	CAMERA_MANAGER->render(_background, bgCenter);
 
-	int linePos[3][4] = { {0, 740, 740, 0}, {_background->getWidth() * _bgScale, 770, _background->getWidth() * _bgScale - 770, 0}, {0, 380, _background->getWidth() * _bgScale, 380} };
+	int linePos[3][4] = { {0, 740, 740, 0}, {_background->getWidth( ) * _bgScale, 770, _background->getWidth() * _bgScale - 770, 0}, {0, 380, _background->getWidth() * _bgScale, 380} };
 	for (int i = 0; i < 3; i++)
 	{
 		Vector2 lineStart;
@@ -45,7 +63,8 @@ void Stage::render()
 		CAMERA_MANAGER->drawLine(lineStart, lineEnd);
 	}
 
-	
+	_objectManager->render();
+	_enemyManager->render();
 }
 
 // 게임 오브젝트가 이동가능한 영역까지 이동할 수 있도록 하는 함수

@@ -59,7 +59,7 @@ void CameraManager::sort(int s, int e)
 void CameraManager::render(tagZImage imageInfo)
 {
 	// 그림자 그리기
-	shadow(imageInfo.pos, imageInfo.size);
+	drawShadow(imageInfo.pos, imageInfo.size);
 
 	// 타입에 맞게 이미지 그리기
 	switch (imageInfo.renderType)
@@ -306,11 +306,16 @@ void CameraManager::rectangle(FloatRect rect, D2D1::ColorF::Enum color, float al
 	D2D_RENDERER->drawRectangle(relativeRc, color, alpha, strokeWidth);
 }
 
-void CameraManager::shadow(Vector3 pos, Vector3 size)
+void CameraManager::drawShadow(Vector3 pos, Vector3 size)
 {
-	Vector2 drawPos = convertV3ToV2(pos);
+	Vector3 bottom;
+	bottom.x = pos.x;
+	bottom.y = pos.y;
+	bottom.z = pos.z + size.z;
+	Vector2 drawPos = convertV3ToV2(bottom);
 	Vector2 drawSize = convertV3ToV2(size);
-	D2D_RENDERER->drawEllipse(drawPos, drawSize, D2D1::ColorF::Enum::Black, 0.2);
+	// D2D_RENDERER->drawEllipse(drawPos, drawSize, D2D1::ColorF::Enum::Black, 0.2);
+	D2D_RENDERER->fillEllipse(drawPos, drawSize, D2D1::ColorF::Enum::Black, 0.1);
 }
 
 void CameraManager::render(Image * img, Vector2 center)

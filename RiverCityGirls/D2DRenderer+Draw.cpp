@@ -392,7 +392,7 @@ void D2DRenderer::fillRectangle(const FloatRect& rc, const DefaultBrush& default
 @@ float alpha : 알파 값
 @@ bool isRelative : 카메라 보정 여부
 ************************************************************************************************/
-void D2DRenderer::fiilEllipse(const Vector2& origin, const float radius, const D2D1::ColorF::Enum& color,const float alpha)
+void D2DRenderer::fillEllipse(const Vector2& origin, const float radius, const D2D1::ColorF::Enum& color,const float alpha)
 {
 	FloatRect rc = rectMakePivot(origin, Vector2(radius, radius), Pivot::Center);
 	Vector2 pos = origin;
@@ -411,6 +411,21 @@ void D2DRenderer::fiilEllipse(const Vector2& origin, const float radius, const D
 	mD2DRenderTarget->FillEllipse(&ellipse, brush);
 	NEW_SAFE_RELEASE(brush);
 }
+void D2DRenderer::fillEllipse(const Vector2 & origin, const Vector2 & radius, const D2D1::ColorF::Enum & color, const float alpha)
+{
+	ID2D1SolidColorBrush* brush(nullptr);
+	mD2DRenderTarget->CreateSolidColorBrush(D2D1::ColorF(color, alpha), &brush);
+
+	D2D1_ELLIPSE ellipse;
+	ellipse.point.x = origin.x;
+	ellipse.point.y = origin.y;
+	ellipse.radiusX = radius.x;
+	ellipse.radiusY = radius.y;
+
+	mD2DRenderTarget->SetTransform(D2D1::Matrix3x2F::Identity());
+	mD2DRenderTarget->FillEllipse(&ellipse, brush);
+	NEW_SAFE_RELEASE(brush);
+}
 /**********************************************************************************************
 ## FillEllipse ##
 @@ Vector2 origin : 중점 좌표
@@ -418,7 +433,7 @@ void D2DRenderer::fiilEllipse(const Vector2& origin, const float radius, const D
 @@ DefaultBrush brush : 브러쉬
 @@ bool isRlative : 카메라 보정 여부
 ************************************************************************************************/
-void D2DRenderer::fiilEllipse(const Vector2& origin, const float radius, const DefaultBrush& brush)
+void D2DRenderer::fillEllipse(const Vector2& origin, const float radius, const DefaultBrush& brush)
 {
 	FloatRect rc = rectMakePivot(origin, Vector2(radius, radius), Pivot::Center);
 	Vector2 pos = origin;

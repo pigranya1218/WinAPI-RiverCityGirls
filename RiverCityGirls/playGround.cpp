@@ -23,11 +23,6 @@ HRESULT playGround::init()
 	IMAGE_MANAGER->addFrameImage("쿄코달리기", L"Kyoko/Kyoko_run.png", 16, 2);
 	IMAGE_MANAGER->addFrameImage("쿄코점프", L"Kyoko/Kyoko_jump.png", 3, 2);
 
-	_kyoko = new Kyoko;
-	_kyoko->init();
-
-	
-		
 	//Enemy 이미지 
     //스쿨보이
 	IMAGE_MANAGER->addFrameImage("스쿨보이_공격1", L"images/enemy_schoolboy/SchoolBoyAttack1.png", 7, 2);
@@ -122,9 +117,9 @@ void playGround::update()
 {
 	GameNode::update();
 
-	_kyoko->update();
+	SCENE_MANAGER->update();
 
-	/*SCENE_MANAGER->update();
+	/*
 	UI_MANAGER->update();
 
 	static float hp = 100;
@@ -140,11 +135,9 @@ void playGround::render()
 	//백버퍼 초기화
 	D2D_RENDERER->beginRender(D2D1::ColorF::Black);
 	{
-
-		_kyoko->render();
-		/*SCENE_MANAGER->render();
-		UI_MANAGER->render();		
-*/
+		// _kyoko->render();
+		SCENE_MANAGER->render();
+		//UI_MANAGER->render();		
 	}
 	//백버퍼에 그린 내용들을 화면에 뿌려라~
 	D2D_RENDERER->endRender();

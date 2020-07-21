@@ -6,17 +6,13 @@
 
 void StageManager::init()
 {
-	//오브젝트 연습
-	_objectMg = new ObjectManager;
-	_objectMg->init();
-
-
 	// 모든 스테이지들의 정보를 데이터 파일로부터 읽고 맵으로 관리
 	
 	// DEBUG
 	_currStage = new NormalStage;
 	_currStage->init(IMAGE_MANAGER->findImage("STAGE_1"), 3);
 	_currStage->setStageManager(this);
+	_currStage->setPlayer(_player);
 
 	_dummy = new GameObject;
 	Vector3 pos; // 위치
@@ -73,20 +69,15 @@ void StageManager::update()
 	moveGameObject(*_dummy, dir);
 	_dummy->update();
 
-	//오브젝트 연습/////
-	_objectMg->update();
-	//-----------------//
-
 	CAMERA_MANAGER->setXY(CAMERA_MANAGER->convertV3ToV2(_dummy->GetPosition()));
 }
 
 void StageManager::render()
 {
 	_currStage->render();
-	_objectMg->render();
 	
 	FloatRect fr = _dummy->GetRect();
-	CAMERA_MANAGER->rectangle(fr, D2D1::ColorF::Enum::Black, 1, 20);
+	CAMERA_MANAGER->rectangle(fr, D2D1::ColorF::Enum::Black, 1, 5);
 
 	CAMERA_MANAGER->renderZList();
 }

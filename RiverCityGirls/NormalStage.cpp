@@ -16,6 +16,8 @@ void NormalStage::exit()
 
 Stage * NormalStage::update()
 {
+	Stage::update();
+
 	return nullptr;
 }
 

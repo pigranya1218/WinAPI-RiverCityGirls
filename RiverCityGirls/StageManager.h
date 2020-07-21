@@ -2,12 +2,15 @@
 #include "GameObject.h"
 #include "Stage.h"
 #include "ObjectManager.h"
+#include "Player.h"
+#include "UIManager.h"
 
 class StageManager
 {
 private:
 	Stage* _currStage;
-	ObjectManager* _objectMg;
+	Player* _player;
+	UIManager* _uiManager;
 
 	// DEBEG
 	GameObject* _dummy;
@@ -22,5 +25,7 @@ public:
 	void render();
 
 	void moveGameObject(GameObject& gameObject, Vector3 moveDir) { _currStage->moveGameObject(gameObject, moveDir); }
+	void setPlayer(Player* player) { _player = player; }
+	void setUIManager(UIManager* uiManager) { _uiManager = uiManager; }
 };
 

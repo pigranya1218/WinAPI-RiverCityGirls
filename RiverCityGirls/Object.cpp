@@ -124,7 +124,8 @@ void Object::render()
 	if (!isObjectHuman)
 	{
 		//_object.objectImg->render(Vector2(_object.objectX, _object.objectZ));
-		CAMERA_MANAGER->render(objectImg, Vector2(objectX, objectZ));
+		CAMERA_MANAGER->renderZ(objectImg, Vector3(objectX, 0.0, objectZ), Vector3(40.0f, 0.0f, 10.0f));
+		CAMERA_MANAGER->rectangle(FloatRect(objectX - 2, objectZ - 2, objectX + 2, objectZ + 2), D2D1::ColorF::Enum::Black, 1, 2);
 	}
 }
 
