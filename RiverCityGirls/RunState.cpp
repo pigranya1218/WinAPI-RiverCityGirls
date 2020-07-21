@@ -52,7 +52,7 @@ PlayerState * RunState::update(Player & player)
 void RunState::render(Player & player)
 {
 	_img->setScale(3);
-	CAMERA_MANAGER->aniRenderZ(_img, player.getPosition(), player.getSize(), _ani);
+	CAMERA_MANAGER->aniRenderZ(_img, player.getPosition(), player.getSize(), _ani, true);
 }
 
 void RunState::enter(Player & player)

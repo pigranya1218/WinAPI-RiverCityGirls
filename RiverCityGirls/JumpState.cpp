@@ -87,7 +87,7 @@ PlayerState * JumpState::update(Player & player)
 void JumpState::render(Player & player)
 {
 	_img->setScale(3);
-	CAMERA_MANAGER->aniRenderZ(_img, player.getPosition(), player.getSize(), _ani);
+	CAMERA_MANAGER->aniRenderZ(_img, player.getPosition(), player.getSize(), _ani, true);
 }
 
 void JumpState::enter(Player & player)
