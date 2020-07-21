@@ -19,8 +19,8 @@ void Player::move(Vector3 moveDir)
 
 void Player::init()
 {
-	setPosition(Vector3(500, 0, 500));
-	setSize(Vector3(100, 100, 100));
+	setPosition(Vector3(500, -105, 500));
+	setSize(Vector3(130, 210, 30));
 
 	_state = new IdleState;
 	_state->enter(*this);

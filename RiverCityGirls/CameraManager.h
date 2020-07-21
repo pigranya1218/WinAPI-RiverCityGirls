@@ -21,6 +21,7 @@ public:
 		Vector2 sourSize; // render with sour 
 		int frameX, frameY; // frameRender
 		Animation* ani; // aniRender
+		bool drawShadow;
 		IMAGE_RENDER_TYPE renderType;
 	};
 
@@ -105,12 +106,12 @@ public:
 	/*
 		Z ORDER 관련 함수	
 	*/
-	void renderZ(Image* img, Vector3 center, Vector3 size);
-	void renderZ(Image* img, Vector3 center, Vector3 size, Vector2 sourLT, Vector2 sourSize);
+	void renderZ(Image* img, Vector3 center, Vector3 size, bool drawShadow);
+	void renderZ(Image* img, Vector3 center, Vector3 size, Vector2 sourLT, Vector2 sourSize, bool drawShadow);
 
-	void frameRenderZ(Image* img, Vector3 center, Vector3 size, int frameX, int frameY);
+	void frameRenderZ(Image* img, Vector3 center, Vector3 size, int frameX, int frameY, bool drawShadow);
 
-	void aniRenderZ(Image* img, Vector3 center, Vector3 size, Animation* ani);
+	void aniRenderZ(Image* img, Vector3 center, Vector3 size, Animation* ani, bool drawShadow);
 
 	// 정렬 및 그리기
 	void renderZList();

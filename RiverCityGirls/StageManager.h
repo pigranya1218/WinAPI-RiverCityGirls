@@ -12,9 +12,6 @@ private:
 	Player* _player;
 	UIManager* _uiManager;
 
-	// DEBEG
-	GameObject* _dummy;
-
 public:
 	void init();
 

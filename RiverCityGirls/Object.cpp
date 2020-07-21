@@ -118,15 +118,15 @@ void Object::render()
 {
 	if (isObjectHuman)
 	{
-		CAMERA_MANAGER->frameRenderZ(objectImg, Vector3(objectX, 0.0, objectZ), Vector3(50.0f, 0.0, 80.0f), frameX, isObjectLeft);
+		CAMERA_MANAGER->frameRenderZ(objectImg, Vector3(objectX, 0.0, objectZ), Vector3(50.0f, 0.0, 80.0f), frameX, isObjectLeft, true);
 		//_object.objectImg->frameRender(Vector2(_object.objectX, _object.objectZ), _object.frameX, _object.isObjectLeft);
 	}
 	if (!isObjectHuman)
 	{
 		//_object.objectImg->render(Vector2(_object.objectX, _object.objectZ));
 		objectImg->setScale(3);
-		CAMERA_MANAGER->renderZ(objectImg, Vector3(objectX, 0.0, objectZ), Vector3(40.0f, 0.0f, 10.0f));
-		CAMERA_MANAGER->rectangle(FloatRect(objectX - 2, objectZ - 2, objectX + 2, objectZ + 2), D2D1::ColorF::Enum::Black, 1, 2);
+		CAMERA_MANAGER->renderZ(objectImg, Vector3(710, -55.0, 515), Vector3(120.0f, 110.0f, 40.0f), false);
+		//CAMERA_MANAGER->rectangle(FloatRect(objectX - 2, objectZ - 2, objectX + 2, objectZ + 2), D2D1::ColorF::Enum::Black, 1, 2);
 	}
 }
 

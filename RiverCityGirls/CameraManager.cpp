@@ -59,7 +59,10 @@ void CameraManager::sort(int s, int e)
 void CameraManager::render(tagZImage imageInfo)
 {
 	// 그림자 그리기
-	drawShadow(imageInfo.pos, imageInfo.size);
+	if (imageInfo.drawShadow)
+	{
+		drawShadow(imageInfo.pos, imageInfo.size);
+	}
 
 	// 타입에 맞게 이미지 그리기
 	switch (imageInfo.renderType)
@@ -308,14 +311,10 @@ void CameraManager::rectangle(FloatRect rect, D2D1::ColorF::Enum color, float al
 
 void CameraManager::drawShadow(Vector3 pos, Vector3 size)
 {
-	Vector3 bottom;
-	bottom.x = pos.x;
-	bottom.y = pos.y;
-	bottom.z = pos.z + size.z;
-	Vector2 drawPos = getRelativeV2(convertV3ToV2(bottom));
-	Vector2 drawSize = convertV3ToV2(size);
+	Vector2 drawPos = getRelativeV2(Vector2(pos.x, pos.z));
+	Vector2 drawSize = Vector2(size.x / 2, size.z / 2);
 	// D2D_RENDERER->drawEllipse(drawPos, drawSize, D2D1::ColorF::Enum::Black, 0.2);
-	D2D_RENDERER->fillEllipse(drawPos, drawSize, D2D1::ColorF::Enum::Black, 0.1);
+	D2D_RENDERER->fillEllipse(drawPos, drawSize, D2D1::ColorF::Enum::Black, 0.3);
 }
 
 void CameraManager::render(Image * img, Vector2 center)
@@ -348,18 +347,19 @@ void CameraManager::aniRender(Image * img, Vector2 center, Animation * ani)
 	img->aniRender(drawPos, ani);
 }
 
-void CameraManager::renderZ(Image * img, Vector3 center, Vector3 size)
+void CameraManager::renderZ(Image * img, Vector3 center, Vector3 size, bool drawShadow)
 {
 	tagZImage zImage;
 	zImage.renderType = IMAGE_RENDER_TYPE::RENDER;
 	zImage.img = img;
 	zImage.pos = center;
 	zImage.size = size;
+	zImage.drawShadow = drawShadow;
 
 	_renderList.push_back(zImage);
 }
 
-void CameraManager::renderZ(Image * img, Vector3 center, Vector3 size, Vector2 sourLT, Vector2 sourSize)
+void CameraManager::renderZ(Image * img, Vector3 center, Vector3 size, Vector2 sourLT, Vector2 sourSize, bool drawShadow)
 {
 	tagZImage zImage;
 	zImage.renderType = IMAGE_RENDER_TYPE::RENDER_WITH_SOURCE_POS;
@@ -368,11 +368,12 @@ void CameraManager::renderZ(Image * img, Vector3 center, Vector3 size, Vector2 s
 	zImage.size = size;
 	zImage.sourPos = sourLT;
 	zImage.sourSize = sourSize;
-
+	zImage.drawShadow = drawShadow;
+	
 	_renderList.push_back(zImage);
 }
 
-void CameraManager::frameRenderZ(Image * img, Vector3 center, Vector3 size, int frameX, int frameY)
+void CameraManager::frameRenderZ(Image * img, Vector3 center, Vector3 size, int frameX, int frameY, bool drawShadow)
 {
 	tagZImage zImage;
 	zImage.renderType = IMAGE_RENDER_TYPE::FRAME_RENDER;
@@ -381,11 +382,12 @@ void CameraManager::frameRenderZ(Image * img, Vector3 center, Vector3 size, int 
 	zImage.size = size;
 	zImage.frameX = frameX;
 	zImage.frameY = frameY;
+	zImage.drawShadow = drawShadow;
 
 	_renderList.push_back(zImage);
 }
 
-void CameraManager::aniRenderZ(Image * img, Vector3 center, Vector3 size, Animation * ani)
+void CameraManager::aniRenderZ(Image * img, Vector3 center, Vector3 size, Animation * ani, bool drawShadow)
 {
 	tagZImage zImage;
 	zImage.renderType = IMAGE_RENDER_TYPE::ANIMATION_RENDER;
@@ -393,6 +395,7 @@ void CameraManager::aniRenderZ(Image * img, Vector3 center, Vector3 size, Animat
 	zImage.pos = center;
 	zImage.size = size;
 	zImage.ani = ani;
+	zImage.drawShadow = drawShadow;
 
 	_renderList.push_back(zImage);
 }
