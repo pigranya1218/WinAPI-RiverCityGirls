@@ -17,10 +17,10 @@ PlayerState * IdleState::update(Player & player)
 	//	_ani->setPlayFrame(12, 24, false, true); // 12 ~ 23
 	//}
 
-	/*if (KEY_MANAGER->isOnceKeyDown('X'))
+	if (KEY_MANAGER->isOnceKeyDown('X'))
 	{
 		return new JumpState;
-	}*/
+	}
 	if (KEY_MANAGER->isOnceKeyDown(VK_RIGHT))
 	{
 		player.setDirection(DIRECTION::RIGHT);
@@ -53,7 +53,7 @@ void IdleState::render(Player & player)
 
 void IdleState::enter(Player & player)
 {
-	_img = IMAGE_MANAGER->findImage("ÄìÄÚ´ë±â");
+	_img = IMAGE_MANAGER->findImage("Kyoko_idle");
 	_img->setScale(3);
 	_ani = new Animation;
 	_ani->init(_img->getWidth(), _img->getHeight(), _img->getMaxFrameX(), _img->getMaxFrameY());

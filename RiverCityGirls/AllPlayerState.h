@@ -4,3 +4,4 @@
 #include "IdleState.h"
 #include "WalkState.h"
 #include "RunState.h"
+#include "JumpState.h"

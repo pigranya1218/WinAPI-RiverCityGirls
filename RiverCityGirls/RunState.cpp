@@ -11,6 +11,7 @@ PlayerState * RunState::update(Player & player)
 
 	if (KEY_MANAGER->isStayKeyDown(VK_RIGHT))
 	{
+		
 		moveDir.x += player.getSpeed() * 2;
 	}
 	else if (KEY_MANAGER->isStayKeyDown(VK_LEFT))
@@ -18,16 +19,29 @@ PlayerState * RunState::update(Player & player)
 		moveDir.x -= player.getSpeed() * 2;
 	}
 
+	if (KEY_MANAGER->isStayKeyDown(VK_UP))
+	{
+		moveDir.z -= player.getSpeed();
+	}
+	else if (KEY_MANAGER->isStayKeyDown(VK_DOWN))
+	{
+		moveDir.z += player.getSpeed();
+	}
+
 	if (moveDir.x > 0)
 	{
+		_ani->setPlayFrame(0, 16, false, true);
 		player.setDirection(DIRECTION::RIGHT);
 	}
 	else if(moveDir.x<0)
 	{
+		_ani->setPlayFrame(16, 32, false, true);
 		player.setDirection(DIRECTION::LEFT);
 	}
 	else return new IdleState;
 
+	moveDir = Vector3::normalize(&moveDir);
+	moveDir = moveDir * player.getSpeed()*2;
 	player.move(moveDir);
 
 	_ani->frameUpdate(TIME_MANAGER->getElapsedTime());
@@ -43,7 +57,7 @@ void RunState::render(Player & player)
 
 void RunState::enter(Player & player)
 {
-	_img = IMAGE_MANAGER->findImage("ÄìÄÚ´Þ¸®±â");
+	_img = IMAGE_MANAGER->findImage("Kyoko_run");
 	_ani = new Animation;
 	_ani->init(_img->getWidth(), _img->getHeight(), _img->getMaxFrameX(), _img->getMaxFrameY());
 	_ani->setFPS(20);
@@ -61,4 +75,6 @@ void RunState::enter(Player & player)
 
 void RunState::exit(Player & player)
 {
+	_ani->release();
+	SAFE_DELETE(_ani);
 }

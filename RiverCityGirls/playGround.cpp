@@ -18,10 +18,10 @@ HRESULT playGround::init()
 {
 	GameNode::init(true);
 
-	IMAGE_MANAGER->addFrameImage("쿄코대기", L"Kyoko/Kyoko_idle.png", 12, 2);
-	IMAGE_MANAGER->addFrameImage("쿄코걷기", L"Kyoko/Kyoko_walk.png",12,2);
-	IMAGE_MANAGER->addFrameImage("쿄코달리기", L"Kyoko/Kyoko_run.png", 16, 2);
-	IMAGE_MANAGER->addFrameImage("쿄코점프", L"Kyoko/Kyoko_jump.png", 3, 2);
+	IMAGE_MANAGER->addFrameImage("Kyoko_idle", L"Kyoko/Kyoko_idle.png", 12, 2);
+	IMAGE_MANAGER->addFrameImage("Kyoko_walk", L"Kyoko/Kyoko_walk.png",12,2);
+	IMAGE_MANAGER->addFrameImage("Kyoko_run", L"Kyoko/Kyoko_run.png", 16, 2);
+	IMAGE_MANAGER->addFrameImage("Kyoko_jump", L"Kyoko/Kyoko_jump.png", 3, 2);
 
 	//Enemy 이미지 
     //스쿨보이

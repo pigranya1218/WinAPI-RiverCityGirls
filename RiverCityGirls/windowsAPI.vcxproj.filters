@@ -231,6 +231,9 @@
     <ClInclude Include="RunState.h">
       <Filter>PlayGround\Player\State</Filter>
     </ClInclude>
+    <ClInclude Include="JumpState.h">
+      <Filter>PlayGround\Player\State</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="windowsAPI.cpp">
@@ -363,6 +366,9 @@
       <Filter>PlayGround\Player\State</Filter>
     </ClCompile>
     <ClCompile Include="RunState.cpp">
+      <Filter>PlayGround\Player\State</Filter>
+    </ClCompile>
+    <ClCompile Include="JumpState.cpp">
       <Filter>PlayGround\Player\State</Filter>
     </ClCompile>
   </ItemGroup>
