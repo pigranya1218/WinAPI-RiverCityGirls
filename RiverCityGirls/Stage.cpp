@@ -39,11 +39,22 @@ void Stage::init(Image * background, float bgScale)
 
 	_objectManager = new ObjectManager;
 	_objectManager->init();
+	
+	_objectManager->spawnObject(OBJECT_TYPE::BOX, Vector3(1000, 0, 450), DIRECTION::LEFT);
 
 	_objectManager->spawnObject(OBJECT_TYPE::DESK, Vector3(710, 0, 540), DIRECTION::LEFT);
 	_objectManager->spawnObject(OBJECT_TYPE::DESK, Vector3(480, 0, 540), DIRECTION::LEFT);
 	_objectManager->spawnObject(OBJECT_TYPE::DESK, Vector3(980, 0, 540), DIRECTION::LEFT);
+	_objectManager->spawnObject(OBJECT_TYPE::DESK, Vector3(1220, 0, 540), DIRECTION::LEFT);
 
+	_objectManager->spawnObject(OBJECT_TYPE::mrRudis, Vector3(1700, 0, 540), DIRECTION::LEFT);
+
+	_objectManager->spawnObject(OBJECT_TYPE::schoolBoyA, Vector3(430, 0, 390), DIRECTION::LEFT);
+	_objectManager->spawnObject(OBJECT_TYPE::schoolGirlB, Vector3(540, 0, 390), DIRECTION::RIGHT);
+	
+	_objectManager->spawnObject(OBJECT_TYPE::schoolBoyE, Vector3(800, 0, 390), DIRECTION::LEFT);
+	_objectManager->spawnObject(OBJECT_TYPE::workingMaleD, Vector3(1200, 0, 390), DIRECTION::LEFT);
+	_objectManager->spawnObject(OBJECT_TYPE::workingFemaleA, Vector3(1400, 0, 390), DIRECTION::RIGHT);
 
 
 	_enemyManager = new EnemyManager;

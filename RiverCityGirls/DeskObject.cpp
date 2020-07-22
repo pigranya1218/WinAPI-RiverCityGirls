@@ -8,13 +8,12 @@ DeskObject::DeskObject(Vector3 position, DIRECTION direction)
 	_position = Vector3(position.x, -(_size.y / 2), position.z);
 
 	_img = IMAGE_MANAGER->findImage("OBJECT_DESK");
-
 }
 
 
 void DeskObject::update()
 {
-
+	//_img->setScale(3);
 }
 
 void DeskObject::release()
