@@ -4,7 +4,8 @@
 enum class JUMP_TYPE : int //
 {
 	RUN_JUMP,
-	DEFAULT_JUMP
+	DEFAULT_JUMP,
+	WALL_JUMP
 };
 
 class JumpState : public PlayerState

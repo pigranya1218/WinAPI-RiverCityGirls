@@ -9,46 +9,50 @@ PlayerState * JumpState::update(Player & player)
 	moveDir.z = 0;
 	moveDir.y = 0;
 
-	moveDir.y -= player.getJumpPower();
-	player.setJumpPower((player.getJumpPower() - _gravity));
-	float lastPlayerY = player.getPosition().y;
 	
+	float lastPlayerY = player.getPosition().y;
+	float lastPlayerX = player.getPosition().x;
 
-
-	if (player.getDirection() == DIRECTION:: RIGHT)
-	{
-		if (player.getJumpPower() > 2)
-		{
-			_ani->setPlayFrame(0, 1, false, false);
-		}
-		if (player.getJumpPower() < -1)
-		{
-			_ani->setPlayFrame(2, 1, false, false);
-		}
-		if (player.getJumpPower() >= -1 && player.getJumpPower() <= 2)
-		{
-			_ani->setPlayFrame(1, 2, false, false);
-		}
-	}
-	if (player.getDirection() == DIRECTION:: LEFT)
-	{
-		if (player.getJumpPower() > 2)
-		{
-			_ani->setPlayFrame(3, 4, false, false);
-		}
-		if (player.getJumpPower() < -1)
-		{
-			_ani->setPlayFrame(5, 4, false, false);
-		}
-		if (player.getJumpPower() >= -1 && player.getJumpPower() <= 2)
-		{
-			_ani->setPlayFrame(4, 5, false, false);
-		}
-	}
+	
 
 	switch (_jumpType)
 	{
+		
+
 	case JUMP_TYPE::DEFAULT_JUMP:
+		moveDir.y -= player.getJumpPower();
+		player.setJumpPower((player.getJumpPower() - _gravity));
+
+		if (player.getDirection() == DIRECTION::RIGHT)
+		{
+			if (player.getJumpPower() > 2)
+			{
+				_ani->setPlayFrame(0, 1, false, false);
+			}
+			if (player.getJumpPower() < -1)
+			{
+				_ani->setPlayFrame(2, 1, false, false);
+			}
+			if (player.getJumpPower() >= -1 && player.getJumpPower() <= 2)
+			{
+				_ani->setPlayFrame(1, 2, false, false);
+			}
+		}
+		if (player.getDirection() == DIRECTION::LEFT)
+		{
+			if (player.getJumpPower() > 2)
+			{
+				_ani->setPlayFrame(3, 4, false, false);
+			}
+			if (player.getJumpPower() < -1)
+			{
+				_ani->setPlayFrame(5, 4, false, false);
+			}
+			if (player.getJumpPower() >= -1 && player.getJumpPower() <= 2)
+			{
+				_ani->setPlayFrame(4, 5, false, false);
+			}
+		}
 
 	if (KEY_MANAGER->isStayKeyDown(VK_RIGHT))
 	{
@@ -67,6 +71,7 @@ PlayerState * JumpState::update(Player & player)
 	{
 		moveDir.z += player.getSpeed()/2;
 	}
+	
 
 	if (moveDir.x > 0)
 	{
@@ -76,9 +81,43 @@ PlayerState * JumpState::update(Player & player)
 	{
 		player.setDirection(DIRECTION::LEFT);
 	}
+
 	break;
 	case JUMP_TYPE::RUN_JUMP:
-		
+		moveDir.y -= player.getJumpPower();
+		player.setJumpPower((player.getJumpPower() - _gravity));
+
+		if (player.getDirection() == DIRECTION::RIGHT)
+		{
+			if (player.getJumpPower() > 2)
+			{
+				_ani->setPlayFrame(0, 1, false, false);
+			}
+			if (player.getJumpPower() < -1)
+			{
+				_ani->setPlayFrame(2, 1, false, false);
+			}
+			if (player.getJumpPower() >= -1 && player.getJumpPower() <= 2)
+			{
+				_ani->setPlayFrame(1, 2, false, false);
+			}
+		}
+		if (player.getDirection() == DIRECTION::LEFT)
+		{
+			if (player.getJumpPower() > 2)
+			{
+				_ani->setPlayFrame(3, 4, false, false);
+			}
+			if (player.getJumpPower() < -1)
+			{
+				_ani->setPlayFrame(5, 4, false, false);
+			}
+			if (player.getJumpPower() >= -1 && player.getJumpPower() <= 2)
+			{
+				_ani->setPlayFrame(4, 5, false, false);
+			}
+		}
+
 	if (_jumpDirection==0)
 	{
 		moveDir.x += player.getSpeed()*2;
@@ -96,14 +135,76 @@ PlayerState * JumpState::update(Player & player)
 		player.setDirection(DIRECTION::LEFT);
 	}
 
+	
+
+	
+
+		break;
+	case JUMP_TYPE::WALL_JUMP:
+
+		
+
+		if (!_ani->isPlay())
+		{
+			_ani->release();
+
+			_img = IMAGE_MANAGER->findImage("Kyoko_jump");
+			_ani->init(_img->getWidth(), _img->getHeight(), _img->getMaxFrameX(), _img->getMaxFrameY());
+			if (player.getDirection() == DIRECTION::LEFT)
+			{
+				if (player.getJumpPower() > 2)
+				{
+					_ani->setPlayFrame(0, 1, false, false);
+				}
+				if (player.getJumpPower() < -1)
+				{
+					_ani->setPlayFrame(2, 1, false, false);
+				}
+				if (player.getJumpPower() >= -1 && player.getJumpPower() <= 2)
+				{
+					_ani->setPlayFrame(1, 2, false, false);
+				}
+			}
+			if (player.getDirection() == DIRECTION::RIGHT)
+			{
+				if (player.getJumpPower() > 2)
+				{
+					_ani->setPlayFrame(3, 4, false, false);
+				}
+				if (player.getJumpPower() < -1)
+				{
+					_ani->setPlayFrame(5, 4, false, false);
+				}
+				if (player.getJumpPower() >= -1 && player.getJumpPower() <= 2)
+				{
+					_ani->setPlayFrame(4, 5, false, false);
+				}
+			}
+			if (player.getDirection() == DIRECTION::LEFT)
+			{
+				_jumpDirection = 0;
+			}
+			else if (player.getDirection() == DIRECTION::RIGHT)
+			{
+				_jumpDirection = 1;
+			}
+			_ani->setFPS(15);
+			_ani->start();
+
+			player.setJumpPower(6);
+			_jumpType = JUMP_TYPE::RUN_JUMP;
+		}
+		
+
 		break;
 	}
 
 	player.move(moveDir);
 
+
 	float currentPlayerY = player.getPosition().y;
 
-	if (player.getJumpPower() < -0.4 && currentPlayerY == lastPlayerY)
+	if (player.getJumpPower() < -1 && currentPlayerY == lastPlayerY&& _jumpType != JUMP_TYPE::WALL_JUMP)
 	{
 		if (KEY_MANAGER->isStayKeyDown(VK_RIGHT) || KEY_MANAGER->isStayKeyDown(VK_LEFT))
 		{
@@ -115,6 +216,28 @@ PlayerState * JumpState::update(Player & player)
 		}
 	}
 
+	float currentPlayerX = player.getPosition().x;
+
+	if (currentPlayerX == lastPlayerX && KEY_MANAGER->isOnceKeyDown('X'))
+	{
+		if (_jumpType != JUMP_TYPE::WALL_JUMP)
+		{
+			_jumpType = JUMP_TYPE::WALL_JUMP;
+			_img = IMAGE_MANAGER->findImage("Kyoko_walljump");
+			_ani->init(_img->getWidth(), _img->getHeight(), _img->getMaxFrameX(), _img->getMaxFrameY());
+			if (player.getDirection() == DIRECTION::RIGHT)
+			{
+				_ani->setPlayFrame(2, 4, false, false);
+			}
+			if (player.getDirection() == DIRECTION::LEFT)
+			{
+				_ani->setPlayFrame(0, 2, false, false);
+			}
+			_ani->setFPS(1);
+			_ani->start();
+			
+		}
+	}
 
 	_ani->frameUpdate(TIME_MANAGER->getElapsedTime() * 10);
 
