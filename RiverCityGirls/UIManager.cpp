@@ -26,7 +26,7 @@ HRESULT UIManager::init()
 
 	_bossHp.bossBar = new ProgressBar;	
 	_bossHp.frameHp	= IMAGE_MANAGER->findImage("bossHpFrame");
-	_bossHp.bossBar->init("bossBackBar", "bossFrontBar", Vector2(WINSIZEX / 2 - 70, WINSIZEY - 95), Vector2(-25.0f, 0.0f));	// 보스 체력 위치설정
+	_bossHp.bossBar->init("bossBackBar", "bossFrontBar", Vector2(WINSIZEX / 2 - 70, WINSIZEY - 95), Vector2(-30.0f, 0.0f));	// 보스 체력 위치설정
 
 	_cellPhone.phoneImg = IMAGE_MANAGER->findImage("startMapPhone");
 	_cellPhone.x = WINSIZEX / 2 - 200;

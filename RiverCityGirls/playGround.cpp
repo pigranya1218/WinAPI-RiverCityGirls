@@ -107,10 +107,16 @@ HRESULT playGround::init()
 
 	IMAGE_MANAGER->addImage("startMapPhone", L"resources/images/UI/startStage_phone.png");		// 핸드폰 이미지
 
-	IMAGE_MANAGER->addImage("unlockDoor", L"resources/images/UI/door_unlock.png");			// 열린 문
-	IMAGE_MANAGER->addImage("lockDoor"	, L"resources/images/UI/door_lock.png");			// 닫힌 문
+	IMAGE_MANAGER->addImage("unlockDoor", L"resources/images/UI/door_unlock.png");				// 열린 문
+	IMAGE_MANAGER->addImage("lockDoor"	, L"resources/images/UI/door_lock.png");				// 닫힌 문
 
 	// 다이얼로그 이미지입니다.
+	IMAGE_MANAGER->addImage("kyokoName"	, L"resources/images/UI/dialogue/Kyoko_name.png");		// 쿄코 이름
+	IMAGE_MANAGER->addImage("misakoName", L"resources/images/UI/dialogue/Misako_name.png");		// 미사코 이름
+	IMAGE_MANAGER->addImage("misuzuName", L"resources/images/UI/dialogue/Misuzu_name.png");		// 미스즈 이름
+	IMAGE_MANAGER->addImage("skipFront"	, L"resources/images/UI/dialogue/skip_full.png");		// 스킵 막대 앞
+	IMAGE_MANAGER->addImage("skipBack"	, L"resources/images/UI/dialogue/skip_fill.png");		// 스킵 막대 뒤
+
 	string file;
 	wstring fileW = L"";	
 	for (int i = 1; i <= 6; i++)
