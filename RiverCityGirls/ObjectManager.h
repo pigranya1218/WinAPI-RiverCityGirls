@@ -5,7 +5,7 @@
 
 enum class OBJECT_TYPE
 {
-	DESK
+	DESK, BOX, 
 };
 
 

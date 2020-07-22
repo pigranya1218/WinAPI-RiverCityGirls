@@ -13,5 +13,6 @@ public:
 	virtual void release();
 	virtual void render();
 	virtual void collision(Vector3** pos);
+	//virtual void scale(int scale);
 };
 
