@@ -64,6 +64,10 @@ void CameraManager::render(tagZImage imageInfo)
 		drawShadow(imageInfo.pos, imageInfo.size);
 	}
 
+	imageInfo.img->setScale(imageInfo.scale);
+	imageInfo.img->setAngle(imageInfo.angle);
+	imageInfo.img->setAlpha(imageInfo.alpha);
+
 	// 타입에 맞게 이미지 그리기
 	switch (imageInfo.renderType)
 	{
@@ -352,6 +356,9 @@ void CameraManager::renderZ(Image * img, Vector3 center, Vector3 size, bool draw
 	tagZImage zImage;
 	zImage.renderType = IMAGE_RENDER_TYPE::RENDER;
 	zImage.img = img;
+	zImage.scale = img->getScale();
+	zImage.alpha = img->getAlpha();
+	zImage.angle = img->getAngle();
 	zImage.pos = center;
 	zImage.size = size;
 	zImage.drawShadow = drawShadow;
@@ -364,6 +371,9 @@ void CameraManager::renderZ(Image * img, Vector3 center, Vector3 size, Vector2 s
 	tagZImage zImage;
 	zImage.renderType = IMAGE_RENDER_TYPE::RENDER_WITH_SOURCE_POS;
 	zImage.img = img;
+	zImage.scale = img->getScale();
+	zImage.alpha = img->getAlpha();
+	zImage.angle = img->getAngle(); 
 	zImage.pos = center;
 	zImage.size = size;
 	zImage.sourPos = sourLT;
@@ -378,6 +388,9 @@ void CameraManager::frameRenderZ(Image * img, Vector3 center, Vector3 size, int 
 	tagZImage zImage;
 	zImage.renderType = IMAGE_RENDER_TYPE::FRAME_RENDER;
 	zImage.img = img;
+	zImage.scale = img->getScale();
+	zImage.alpha = img->getAlpha();
+	zImage.angle = img->getAngle(); 
 	zImage.pos = center;
 	zImage.size = size;
 	zImage.frameX = frameX;
@@ -392,6 +405,9 @@ void CameraManager::aniRenderZ(Image * img, Vector3 center, Vector3 size, Animat
 	tagZImage zImage;
 	zImage.renderType = IMAGE_RENDER_TYPE::ANIMATION_RENDER;
 	zImage.img = img;
+	zImage.scale = img->getScale();
+	zImage.alpha = img->getAlpha();
+	zImage.angle = img->getAngle(); 
 	zImage.pos = center;
 	zImage.size = size;
 	zImage.ani = ani;

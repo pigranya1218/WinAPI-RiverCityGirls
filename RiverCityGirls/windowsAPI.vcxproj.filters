@@ -76,11 +76,11 @@
     <Filter Include="2DGameFramework\ProgressBar">
       <UniqueIdentifier>{66fa5f00-55d1-45aa-a684-0afa17cf66d9}</UniqueIdentifier>
     </Filter>
-    <Filter Include="playGround\Kyoko">
-      <UniqueIdentifier>{5e289369-72b8-4e83-8b73-ec88565103d1}</UniqueIdentifier>
-    </Filter>
     <Filter Include="PlayGround\Dialogue">
       <UniqueIdentifier>{82db21ad-d762-4ca3-811d-b3dae3050686}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="2DGameFramework\Utils\RectrictMove">
+      <UniqueIdentifier>{b50bd15b-7139-4f12-b6cf-211f88538d05}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -250,7 +250,10 @@
       <Filter>PlayGround\Object</Filter>
     </ClInclude>
     <ClInclude Include="RestrictMoveLine.h">
-      <Filter>2DGameFramework\Utils</Filter>
+      <Filter>2DGameFramework\Utils\RectrictMove</Filter>
+    </ClInclude>
+    <ClInclude Include="RestrictMoveRect.h">
+      <Filter>2DGameFramework\Utils\RectrictMove</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -399,7 +402,10 @@
       <Filter>PlayGround\Object</Filter>
     </ClCompile>
     <ClCompile Include="RestrictMoveLine.cpp">
-      <Filter>2DGameFramework\Utils</Filter>
+      <Filter>2DGameFramework\Utils\RectrictMove</Filter>
+    </ClCompile>
+    <ClCompile Include="RestrictMoveRect.cpp">
+      <Filter>2DGameFramework\Utils\RectrictMove</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

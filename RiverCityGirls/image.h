@@ -55,6 +55,10 @@ public:
 	void setAlpha(const float alpha) { this->_alpha = alpha; }
 	void setScale(const float scale) { this->_scale = scale; }
 	void setAngle(const float angle) { this->_angle = angle; }
+
+	float getScale() { return _scale; }
+	float getAngle() { return _angle; }
+	float getAlpha() { return _alpha; }
 	
 	// 황수현 추가
 	void setSkew(const Vector2& pos, const Vector2& angle) { this->_skewPos = pos; this->_skewAngle = angle; }

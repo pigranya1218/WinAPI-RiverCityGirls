@@ -1,11 +1,11 @@
 #pragma once
 #include "Object.h"
-#include "RestrictMoveLine.h"
+#include "RestrictMoveRect.h"
 
  class DeskObject : public Object
 {
 private:
-	vector<RestrictMoveLine*> _restrictLines;
+	RestrictMoveRect* _restrictRect;
 	
 
 public:
@@ -14,6 +14,6 @@ public:
 	virtual void update();
 	virtual void release();
 	virtual void render();
-	virtual void collision(Vector3* pos, Vector3 size);
+	virtual void collision(Vector3* newPoses, Vector3 size);
 };
 

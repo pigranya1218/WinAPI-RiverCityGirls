@@ -15,31 +15,31 @@ void Stage::init(Image * background, float bgScale)
 	//CAMERA_MANAGER->setConfig(0, 0, WINSIZEX, WINSIZEY, 0, 0, 1000, 1000);
 	CAMERA_MANAGER->setConfig(0, 0, WINSIZEX, WINSIZEY, 0, 0, maxWidth - WINSIZEX, maxHeight - WINSIZEY);
 
-	int linePos[4][4] = { {0, 670, _background->getWidth() * _bgScale, 670}, 
-							{0, 380, _background->getWidth() * _bgScale, 380}, 
-						{_background->getWidth() * _bgScale, 770, _background->getWidth() * _bgScale - 770, 0},
-						{0, 740, 740, 0}};
+	int linePos[4][4] = { {0, 670, _background->getWidth() * _bgScale, 670}, // 하
+							{0, 380, _background->getWidth() * _bgScale, 380}, // 상
+						{_background->getWidth() * _bgScale, 770, _background->getWidth() * _bgScale - 770, 0}, // 우
+						{0, 740, 740, 0}}; // 좌
 	LINEAR_VALUE_TYPE lineTypes[4] = {LINEAR_VALUE_TYPE::DOWN,
 										LINEAR_VALUE_TYPE::UP,
 										LINEAR_VALUE_TYPE::UP,
 										LINEAR_VALUE_TYPE::UP};
-	float lineRangeX[4][2] = { {70, _background->getWidth() * _bgScale - 100} , 
-								{360, 1625}, 
-								{1625, _background->getWidth() * _bgScale - 100},
-								{70, 360}};
+	float lineRange[4][4] = { {70, _background->getWidth() * _bgScale - 100} , // 하
+								{360, 1625}, // 상
+								{1625, _background->getWidth() * _bgScale - 100}, // 좌
+								{70, 360}}; // 우
 	for (int i = 0; i < 4; i++)
 	{
 		LinearFunc line = LinearFunc::getLinearFuncFromPoints(Vector2(linePos[i][0], linePos[i][1]), Vector2(linePos[i][2], linePos[i][3]));
-		_restrictLines.push_back(new RestrictMoveLine(line, lineTypes[i], lineRangeX[i][0], lineRangeX[i][1]));
+		_restrictLines.push_back(new RestrictMoveLine(line, lineTypes[i], lineRange[i][0], lineRange[i][1]));
 	}
 
 	_objectManager = new ObjectManager;
 	_objectManager->init();
-	_objectManager->spawnObject(OBJECT_TYPE::DESK, Vector3(680, 0, 525), DIRECTION::LEFT);
+	_objectManager->spawnObject(OBJECT_TYPE::DESK, Vector3(680, 0, 495), DIRECTION::LEFT);
 
-	_enemyManager = new EnemyManager;
-	_enemyManager->setStage(this);
-	_enemyManager->init();
+	//_enemyManager = new EnemyManager;
+	//_enemyManager->setStage(this);
+	//_enemyManager->init();
 }
 
 void Stage::enter()
@@ -60,7 +60,7 @@ void Stage::exit()
 Stage * Stage::update()
 {
 	_objectManager->update();
-	_enemyManager->update();
+	//_enemyManager->update();
 
 	CAMERA_MANAGER->setXY(CAMERA_MANAGER->convertV3ToV2(_player->getPosition()));
 
@@ -82,7 +82,7 @@ void Stage::render()
 	}
 
 	_objectManager->render();
-	_enemyManager->render();
+	//_enemyManager->render();
 }
 
 // 게임 오브젝트가 이동가능한 영역까지 이동할 수 있도록 하는 함수
@@ -137,7 +137,7 @@ void Stage::moveGameObject(GameObject & gameObject, Vector3 move)
 	}
 
 	// 물체와의 이동가능 비교는 x, y, z 비교, 물체를 올라탈 수도 있음
-	// _objectManager->collision(newPoses);
+	_objectManager->collision(newPoses, size);
 	
 	newPos = Vector3(0, 0, 0);
 	for (int i = 0; i < 4; i++)

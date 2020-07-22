@@ -4,29 +4,31 @@
 DeskObject::DeskObject(Vector3 position, DIRECTION direction)
 {
 	_direction = direction;
-	_size = Vector3(150, 150, 100);
+	_size = Vector3(120, 80, 80);
 	_position = Vector3(position.x, -(_size.y / 2), position.z);
 
 	_img = IMAGE_MANAGER->findImage("OBJECT_DESK");
 
+	int linePos[4][4] = { {_position.x - (_size.x / 2) + (_size.z / 2) , _position.z - (_size.z / 2), _position.x + (_size.x / 2) + (_size.z / 2), _position.z - (_size.z / 2)}, // ╩С
+						{_position.x - (_size.x / 2) - (_size.z / 2), _position.z + (_size.z / 2), _position.x + (_size.x / 2) - (_size.z / 2), _position.z + (_size.z / 2)}, }; // го
+	linePos[2][0] = linePos[1][0]; // аб
+	linePos[2][1] = linePos[1][1];
+	linePos[2][2] = linePos[0][0];
+	linePos[2][3] = linePos[0][1];
+	linePos[3][0] = linePos[1][2]; // ©Л
+	linePos[3][1] = linePos[1][3];
+	linePos[3][2] = linePos[0][2];
+	linePos[3][3] = linePos[0][3];
 
-	int linePos[4][4] = { {0, 0, 0, 0}, // ╩С
-						{0, 0, 0, 0}, // го
-						{0, 0, 0, 0},  // аб
-						{0, 0, 0, 0} }; // ©Л
-	LINEAR_VALUE_TYPE lineTypes[4] = { LINEAR_VALUE_TYPE::UP,
-										LINEAR_VALUE_TYPE::DOWN,
-										LINEAR_VALUE_TYPE::UP,
-										LINEAR_VALUE_TYPE::UP };
-	float lineRangeX[4][2] = { {0, 0}, // ╩С
-								{0, 0}, // го
-								{0, 0}, // аб
-								{0, 0}, }; // ©Л
-	for (int i = 0; i < 4; i++)
-	{
-		LinearFunc line = LinearFunc::getLinearFuncFromPoints(Vector2(linePos[i][0], linePos[i][1]), Vector2(linePos[i][2], linePos[i][3]));
-		_restrictLines.push_back(new RestrictMoveLine(line, lineTypes[i], lineRangeX[i][0], lineRangeX[i][1]));
-	}
+	int lineRange[4][4] = { {linePos[0][0], linePos[0][2], linePos[0][1], linePos[1][1]}, // ╩С
+							{linePos[1][0], linePos[1][2], linePos[0][1], linePos[1][1]}, // го
+							{linePos[2][0], linePos[2][2], linePos[0][1], linePos[1][1]}, // аб 
+							{linePos[3][0], linePos[3][2], linePos[0][1], linePos[1][1]} }; // ©Л
+
+	_restrictRect = new RestrictMoveRect(Vector2(_position.x - (_size.x / 2) + (_size.z / 2), _position.z - (_size.z / 2)),		// LT
+										Vector2(_position.x + (_size.x / 2) + (_size.z / 2), _position.z - (_size.z / 2)),		// RT
+										Vector2(_position.x + (_size.x / 2) - (_size.z / 2), _position.z + (_size.z / 2)),		// RB
+										Vector2(_position.x - (_size.x / 2) - (_size.z / 2), _position.z + (_size.z / 2)));		// LB
 }
 
 
@@ -37,25 +39,20 @@ void DeskObject::update()
 
 void DeskObject::release()
 {
-	for (int i = 0; i < _restrictLines.size(); i++)
-	{
-		delete _restrictLines[i];
-	}
-	_restrictLines.clear();
+	delete _restrictRect;
 }
 
 void DeskObject::render()
 {
 	_img->setScale(3);
+	_img->setAlpha(0.5);
 	CAMERA_MANAGER->renderZ(_img, _position, _size, false);
-	
-	for (int i = 0; i < _restrictLines.size(); i++)
-	{
-		_restrictLines[i]->render();
-	}
+
+	_restrictRect->render();
+	CAMERA_MANAGER->drawLine(Vector2(_position.x, _position.z), Vector2(_position.x, _position.z - _size.y));
 }
 
-void DeskObject::collision(Vector3 * pos, Vector3 size)
+void DeskObject::collision(Vector3 * newPoses, Vector3 size)
 {
-
+	_restrictRect->checkCollision(newPoses, size);
 }

@@ -15,6 +15,9 @@ public:
 	struct tagZImage
 	{
 		Image* img;
+		float scale;
+		float angle;
+		float alpha;
 		Vector3 pos;
 		Vector3 size;
 		Vector2 sourPos; // render with sour

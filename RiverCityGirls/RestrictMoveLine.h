@@ -12,7 +12,9 @@ private:
 
 public:
 	RestrictMoveLine(LinearFunc line, LINEAR_VALUE_TYPE type, float startX, float endX)
-		: _line(line), _type(type), _startX(startX), _endX(endX) {}
+		: _line(line), _type(type), _startX(startX), _endX(endX)
+	{
+	}
 
 	void checkCollision(Vector3* poses, Vector3 size);
 

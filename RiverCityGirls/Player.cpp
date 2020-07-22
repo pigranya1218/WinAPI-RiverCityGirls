@@ -51,9 +51,6 @@ void Player::update()
 
 void Player::render()
 {
-	
 	_state->render(*this);
-
-	
-
+	CAMERA_MANAGER->drawLine(Vector2(_position.x, _position.z), Vector2(_position.x, _position.z - _size.y));
 }
