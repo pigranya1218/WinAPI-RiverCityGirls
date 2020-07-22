@@ -5,3 +5,4 @@
 #include "WalkState.h"
 #include "RunState.h"
 #include "JumpState.h"
+#include "WeakAttack.h"

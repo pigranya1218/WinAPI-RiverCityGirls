@@ -82,6 +82,9 @@
     <Filter Include="PlayGround\Dialogue">
       <UniqueIdentifier>{82db21ad-d762-4ca3-811d-b3dae3050686}</UniqueIdentifier>
     </Filter>
+    <Filter Include="PlayGround\Player\State\AttackState">
+      <UniqueIdentifier>{74d002a6-5207-4ba7-89e2-1820213dbe79}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="stdafx.h">
@@ -252,8 +255,11 @@
     <ClInclude Include="JumpState.h">
       <Filter>PlayGround\Player\State</Filter>
     </ClInclude>
+    <ClInclude Include="WeakAttack.h">
+      <Filter>PlayGround\Player\State\AttackState</Filter>
+    </ClInclude>
     <ClInclude Include="AttackState.h">
-      <Filter>PlayGround\Player\State</Filter>
+      <Filter>PlayGround\Player\State\AttackState</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -404,8 +410,11 @@
     <ClCompile Include="JumpState.cpp">
       <Filter>PlayGround\Player\State</Filter>
     </ClCompile>
+    <ClCompile Include="WeakAttack.cpp">
+      <Filter>PlayGround\Player\State\AttackState</Filter>
+    </ClCompile>
     <ClCompile Include="AttackState.cpp">
-      <Filter>PlayGround\Player\State</Filter>
+      <Filter>PlayGround\Player\State\AttackState</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

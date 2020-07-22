@@ -30,6 +30,9 @@ HRESULT playGround::init()
 	IMAGE_MANAGER->addFrameImage("Kyoko_run", L"images/kyoko/Kyoko_run.png", 16, 2);
 	IMAGE_MANAGER->addFrameImage("Kyoko_jump", L"images/kyoko/Kyoko_jump.png", 3, 2);
 	IMAGE_MANAGER->addFrameImage("Kyoko_walljump", L"images/kyoko/Kyoko_walljump.png", 2, 2);
+	IMAGE_MANAGER->addFrameImage("Kyoko_chop", L"images/kyoko/Kyoko_qc1.png", 6, 2);
+	IMAGE_MANAGER->addFrameImage("Kyoko_qc2", L"images/kyoko/Kyoko_qc2.png", 7, 2);
+	IMAGE_MANAGER->addFrameImage("Kyoko_qc3", L"images/kyoko/Kyoko_qc3.png", 9, 2);
 
 	// * Enemy 
     // ** schoolBoy

@@ -183,10 +183,12 @@ PlayerState * JumpState::update(Player & player)
 			if (player.getDirection() == DIRECTION::LEFT)
 			{
 				_jumpDirection = 0;
+				player.setDirection(DIRECTION::RIGHT);
 			}
 			else if (player.getDirection() == DIRECTION::RIGHT)
 			{
 				_jumpDirection = 1;
+				player.setDirection(DIRECTION::LEFT);
 			}
 			_ani->setFPS(15);
 			_ani->start();
@@ -218,7 +220,7 @@ PlayerState * JumpState::update(Player & player)
 
 	float currentPlayerX = player.getPosition().x;
 
-	if (currentPlayerX == lastPlayerX && KEY_MANAGER->isOnceKeyDown('X'))
+	if (currentPlayerX == lastPlayerX&& moveDir.x != 0 && KEY_MANAGER->isOnceKeyDown('X'))
 	{
 		if (_jumpType != JUMP_TYPE::WALL_JUMP)
 		{
@@ -233,13 +235,13 @@ PlayerState * JumpState::update(Player & player)
 			{
 				_ani->setPlayFrame(0, 2, false, false);
 			}
-			_ani->setFPS(1);
+			_ani->setFPS(10);
 			_ani->start();
 			
 		}
 	}
 
-	_ani->frameUpdate(TIME_MANAGER->getElapsedTime() * 10);
+	_ani->frameUpdate(TIME_MANAGER->getElapsedTime());
 
 	return nullptr;
 }
