@@ -149,7 +149,7 @@ void CheerGirl::update()
 		else
 		{
 			moveDir.x += 2;
-		}¤¤
+		}
 
 		if (moveDir.y -100< _position.y) {
 			_jumpPower = 0.0f;

@@ -28,7 +28,7 @@ HRESULT StageScene::init()
 	_uiManager->setBossHp(100.0f, 100.0f);
 	
 	// 다이얼로그 테스티입니다.
-	_dgManager->startChapter(BossChapter::BATTLE_AFTER);
+	// _dgManager->startChapter(BossChapter::BATTLE_AFTER);
 
 	return S_OK;
 }
@@ -42,11 +42,11 @@ void StageScene::release()
 void StageScene::update()
 {
 	_stageManager->update();
-	//_player->update();
-	//_uiManager->update();
+	_player->update();
+	_uiManager->update();
 
 	//
-	_dgManager->update();
+	// _dgManager->update();
 
 	// UI 테스트입니다.
 	static float hp = 100.0f;
@@ -61,12 +61,12 @@ void StageScene::update()
 void StageScene::render()
 {
 	_stageManager->render();
-	//_player->render();
+	_player->render();
 
-	//CAMERA_MANAGER->renderZList();
+	CAMERA_MANAGER->renderZList();
 
-	//_uiManager->render();
-	_dgManager->render();
+	_uiManager->render();
+	// _dgManager->render();
 
 	
 }
