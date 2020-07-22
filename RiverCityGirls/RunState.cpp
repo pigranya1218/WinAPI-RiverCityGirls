@@ -28,6 +28,13 @@ PlayerState * RunState::update(Player & player)
 		moveDir.z += player.getSpeed();
 	}
 
+	if (KEY_MANAGER->isOnceKeyDown('X'))
+	{
+		JumpState* jumpState = new JumpState;
+		jumpState->setJumpType(JUMP_TYPE::RUN_JUMP);
+		return jumpState;
+	}
+
 	if (moveDir.x > 0)
 	{
 		_ani->setPlayFrame(0, 16, false, true);
@@ -60,7 +67,7 @@ void RunState::enter(Player & player)
 	_img = IMAGE_MANAGER->findImage("Kyoko_run");
 	_ani = new Animation;
 	_ani->init(_img->getWidth(), _img->getHeight(), _img->getMaxFrameX(), _img->getMaxFrameY());
-	_ani->setFPS(20);
+	_ani->setFPS(15);
 
 	if (player.getDirection() == DIRECTION::RIGHT)
 	{

@@ -4,17 +4,29 @@
 PlayerState * WalkState::update(Player& player)
 {
 
-	Vector3 moveDir;
+
 	moveDir.x = 0;
 	moveDir.y = 0;
 	moveDir.z = 0;
 
+	if (_initTime <= 0.08 && _state == WALK_STATE::IDLE)
+	{
+		_initTime += TIME_MANAGER->getElapsedTime();
+		if ((player.getDirection() == DIRECTION::RIGHT && KEY_MANAGER->isOnceKeyDown(VK_RIGHT))
+			|| (player.getDirection() == DIRECTION::LEFT && KEY_MANAGER->isOnceKeyDown(VK_LEFT)))
+		{
+			return new RunState;
+		}
+	}
+
 	if (KEY_MANAGER->isStayKeyDown(VK_RIGHT))
 	{
+		
 		moveDir.x += player.getSpeed();
 	}
 	else if (KEY_MANAGER->isStayKeyDown(VK_LEFT))
 	{
+		
 		moveDir.x -= player.getSpeed();
 	}
 	if (KEY_MANAGER->isStayKeyDown(VK_UP))
@@ -59,10 +71,13 @@ PlayerState * WalkState::update(Player& player)
 
 			}
 
-			_ani->setFPS(20);
+			_ani->setFPS(15);
 			_ani->start();
-		}
+			
 
+
+		}
+		
 
 
 		// 후처리 이미지으로 바꾸기
@@ -75,7 +90,7 @@ PlayerState * WalkState::update(Player& player)
 			_state = WALK_STATE::MOVE;
 			_img = IMAGE_MANAGER->findImage("Kyoko_walk");
 			_ani->init(_img->getWidth(), _img->getHeight(), _img->getMaxFrameX(), _img->getMaxFrameY());
-			_ani->setFPS(20);
+			_ani->setFPS(15);
 			_ani->start();
 			_initTime = 0;
 		}
@@ -96,8 +111,14 @@ PlayerState * WalkState::update(Player& player)
 
 		if (KEY_MANAGER->isOnceKeyDown('X'))
 		{
-			return new JumpState;
+			
+			JumpState* jumpState = new JumpState;
+			jumpState->setJumpType(JUMP_TYPE::DEFAULT_JUMP);
+			return jumpState;
 		}
+
+		
+
 
 		moveDir = Vector3::normalize(&moveDir);
 		moveDir = moveDir * player.getSpeed();
@@ -122,35 +143,23 @@ PlayerState * WalkState::update(Player& player)
 			
 		}
 
+		if (KEY_MANAGER->isOnceKeyDown('X'))
+		{
+			JumpState* jumpState = new JumpState;
+			jumpState->setJumpType(JUMP_TYPE::DEFAULT_JUMP);
+			return jumpState;
+		}
 
 
 		if (!_ani->isPlay())
 		{
-			
 			return new IdleState;
 		}
-		else 
-		{
-			if ((player.getDirection() == DIRECTION::RIGHT && KEY_MANAGER->isOnceKeyDown(VK_RIGHT))
-				|| (player.getDirection() == DIRECTION::LEFT && KEY_MANAGER->isOnceKeyDown(VK_LEFT)))
-			{
-				return new RunState;
-			}
-		}
-		
 	}
 	break;
 	}
 	
-	if (_initTime <= 0.5)
-	{
-		_initTime += TIME_MANAGER->getElapsedTime();
-		if ((player.getDirection() == DIRECTION::RIGHT && KEY_MANAGER->isOnceKeyDown(VK_RIGHT))
-			|| (player.getDirection() == DIRECTION::LEFT && KEY_MANAGER->isOnceKeyDown(VK_LEFT)))
-		{
-				return new RunState;
-		}
-	}
+	
 
 	_ani->frameUpdate(TIME_MANAGER->getElapsedTime());
 
@@ -161,6 +170,10 @@ void WalkState::render(Player& player)
 {
 	_img->setScale(3);
 	CAMERA_MANAGER->aniRenderZ(_img, player.getPosition(), player.getSize(), _ani, true);
+
+	/*char str[254];
+	sprintf_s(str, "state:%d ,direction:%d ", _state, player.getDirection());
+	TextOut(_hdc, 0, 100, str, strlen(str));*/
 }
 
 
@@ -169,7 +182,7 @@ void WalkState::enter(Player& player)
 	_img = IMAGE_MANAGER->findImage("Kyoko_walk");
 	_ani = new Animation;
 	_ani->init(_img->getWidth(), _img->getHeight(), _img->getMaxFrameX(), _img->getMaxFrameY());
-	_ani->setFPS(20);
+	_ani->setFPS(15);
 
 	if (player.getDirection() == DIRECTION::RIGHT)
 	{

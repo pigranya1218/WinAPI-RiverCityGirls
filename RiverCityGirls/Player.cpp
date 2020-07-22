@@ -26,7 +26,8 @@ void Player::init()
 	_state->enter(*this);
 
 	_direction = DIRECTION::RIGHT;
-
+	
+	_jumpPower = 12;
 	_speed = 5;
 }
 
@@ -50,5 +51,9 @@ void Player::update()
 
 void Player::render()
 {
+	
 	_state->render(*this);
+
+	
+
 }

@@ -20,7 +20,8 @@ private:
 	
 	Synthesize(float, _speed, Speed)
 	Synthesize(DIRECTION, _direction, Direction)
-	
+	Synthesize(float, _jumpPower, JumpPower)
+
 	PlayerState* _state;
 
 public:

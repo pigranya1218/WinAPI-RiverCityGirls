@@ -100,7 +100,7 @@ void Stage::moveGameObject(GameObject & gameObject, Vector3 move)
 	{
 		newPos.y = -(size.y / 2);
 	}
-
+	
 	Vector3 newPoses[4]; // 새로운 좌표를 기준으로 하는 대각 위치
 	for (int i = 0; i < 4; i++)
 	{
