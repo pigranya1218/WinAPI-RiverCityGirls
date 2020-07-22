@@ -44,7 +44,7 @@ void EnemyManager::update()
 void EnemyManager::render()
 {
 
-//	_schoolBoy->render();
+	_schoolBoy->render();
 	_cheerGirl->render();	
 	_schoolGirl->render();
 	_boss->render();
