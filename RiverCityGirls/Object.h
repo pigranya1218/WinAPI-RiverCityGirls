@@ -16,6 +16,7 @@ protected:
 	DIRECTION _direction;
 
 	Image* _img;								//image
+	float _imgScale = 3;
 	Animation* _ani;
 
 public:
@@ -25,7 +26,7 @@ public:
 	virtual void update();
 	virtual void release();
 	virtual void render();
-	virtual void collision(Vector3* pos);
+	virtual void collision(Vector3* pos, const Vector3 size);
 	virtual void reaction();
 };
 

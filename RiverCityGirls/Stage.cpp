@@ -15,7 +15,7 @@ void Stage::init(Image * background, float bgScale)
 	//CAMERA_MANAGER->setConfig(0, 0, WINSIZEX, WINSIZEY, 0, 0, 1000, 1000);
 	CAMERA_MANAGER->setConfig(0, 0, WINSIZEX, WINSIZEY, 0, 0, maxWidth - WINSIZEX, maxHeight - WINSIZEY);
 
-	int linePos[4][4] = { {0, 660, _background->getWidth() * _bgScale, 660}, 
+	int linePos[4][4] = { {0, 670, _background->getWidth() * _bgScale, 670}, 
 							{0, 380, _background->getWidth() * _bgScale, 380}, 
 						{_background->getWidth() * _bgScale, 770, _background->getWidth() * _bgScale - 770, 0},
 						{0, 740, 740, 0}};
@@ -23,10 +23,10 @@ void Stage::init(Image * background, float bgScale)
 										LINEAR_VALUE_TYPE::UP,
 										LINEAR_VALUE_TYPE::UP,
 										LINEAR_VALUE_TYPE::UP};
-	float lineRangeX[4][2] = { {80, _background->getWidth() * _bgScale - 110} , 
+	float lineRangeX[4][2] = { {70, _background->getWidth() * _bgScale - 100} , 
 								{360, 1625}, 
-								{1625, _background->getWidth() * _bgScale - 110},
-								{80, 360}};
+								{1625, _background->getWidth() * _bgScale - 100},
+								{70, 360}};
 	for (int i = 0; i < 4; i++)
 	{
 		LinearFunc line = LinearFunc::getLinearFuncFromPoints(Vector2(linePos[i][0], linePos[i][1]), Vector2(linePos[i][2], linePos[i][3]));
@@ -35,7 +35,7 @@ void Stage::init(Image * background, float bgScale)
 
 	_objectManager = new ObjectManager;
 	_objectManager->init();
-	_objectManager->spawnObject(OBJECT_TYPE::DESK, Vector3(720, 0, 550), DIRECTION::LEFT);
+	_objectManager->spawnObject(OBJECT_TYPE::DESK, Vector3(680, 0, 525), DIRECTION::LEFT);
 
 	_enemyManager = new EnemyManager;
 	_enemyManager->setStage(this);
