@@ -19,7 +19,9 @@ PlayerState * IdleState::update(Player & player)
 
 	if (KEY_MANAGER->isOnceKeyDown('X'))
 	{
-		return new JumpState;
+		JumpState* jumpState = new JumpState;
+		jumpState->setJumpType(JUMP_TYPE::DEFAULT_JUMP);
+		return jumpState;
 	}
 	if (KEY_MANAGER->isOnceKeyDown(VK_RIGHT))
 	{
