@@ -21,6 +21,17 @@ public:
 		_lines[3] = new LinearFunc(LB, RB); // BOTTOM
 	}
 
+	RestrictMoveRect(Vector3 position, Vector3 size)
+	{
+		int linePos[2][4] = { {position.x - (size.x / 2) + (size.z / 2) , position.z - (size.z / 2), position.x + (size.x / 2) + (size.z / 2), position.z - (size.z / 2)}, // ¿≠ ¡Ÿ 
+						{position.x - (size.x / 2) - (size.z / 2), position.z + (size.z / 2), position.x + (size.x / 2) - (size.z / 2), position.z + (size.z / 2)}, }; // æ∆∑ß ¡Ÿ
+
+		RestrictMoveRect(Vector2(linePos[0][0], linePos[0][1]),		// LT
+			Vector2(linePos[0][2], linePos[0][3]),		// RT
+			Vector2(linePos[1][2], linePos[1][3]),		// RB
+			Vector2(linePos[1][0], linePos[1][1]));		// LB
+	}
+
 	~RestrictMoveRect()
 	{
 		for (int i = 0; i < 4; i++)
