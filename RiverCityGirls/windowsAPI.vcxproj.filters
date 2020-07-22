@@ -249,6 +249,9 @@
     <ClInclude Include="AllObjects.h">
       <Filter>PlayGround\Object</Filter>
     </ClInclude>
+    <ClInclude Include="RestrictMoveLine.h">
+      <Filter>PlayGround\StageManager\Stage</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="windowsAPI.cpp">
@@ -394,6 +397,9 @@
     </ClCompile>
     <ClCompile Include="DeskObject.cpp">
       <Filter>PlayGround\Object</Filter>
+    </ClCompile>
+    <ClCompile Include="RestrictMoveLine.cpp">
+      <Filter>PlayGround\StageManager\Stage</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

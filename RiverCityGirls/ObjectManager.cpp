@@ -32,6 +32,14 @@ void ObjectManager::render()
 	}
 }
 
+void ObjectManager::collision(Vector3 * pos)
+{
+	for (int i = 0; i < _objects.size(); i++)
+	{
+		_objects[i]->collision(pos);
+	}
+}
+
 void ObjectManager::spawnObject(OBJECT_TYPE type, Vector3 pos, DIRECTION direction)
 {
 	switch (type)

@@ -182,6 +182,7 @@
     <ClInclude Include="ProgressBar.h" />
     <ClInclude Include="RandomFunction.h" />
     <ClInclude Include="Resource.h" />
+    <ClInclude Include="RestrictMoveLine.h" />
     <ClInclude Include="RunState.h" />
     <ClInclude Include="SceneManager.h" />
     <ClInclude Include="SchoolBoy.h" />
@@ -234,6 +235,7 @@
     <ClCompile Include="PlayerState.cpp" />
     <ClCompile Include="PlayGround.cpp" />
     <ClCompile Include="ProgressBar.cpp" />
+    <ClCompile Include="RestrictMoveLine.cpp" />
     <ClCompile Include="RunState.cpp" />
     <ClCompile Include="SceneManager.cpp" />
     <ClCompile Include="SchoolBoy.cpp" />

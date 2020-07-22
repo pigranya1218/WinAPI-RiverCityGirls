@@ -1,6 +1,7 @@
 #pragma once
 #include "linearFunc.h"
 #include "GameObject.h"
+#include "RestrictMoveLine.h"
 
 class StageManager;
 class ObjectManager;
@@ -23,19 +24,17 @@ protected:
 	
 	Image* _background; // 배경 이미지
 	float _bgScale; // 배경이미지 배율
-	vector<tagDontMove> _linearFuncs; // 스테이지의 이동 영역을 제한
+	vector<RestrictMoveLine*> _restrictLines; // 스테이지의 이동 영역을 제한
 
 public:
 	virtual void init(Image* background, float bgScale);
-	virtual void enter() {};
-	virtual void exit() {};
+	virtual void enter();
+	virtual void exit();
 	virtual Stage* update();
 	virtual void render();
 
 	void setStageManager(StageManager* stageManager) { _stageManager = stageManager; }
 	void setPlayer(Player* player) { _player = player; }
-
-	void pushLine(LinearFunc line, LINEAR_VALUE_TYPE type) { _linearFuncs.push_back({ line, type }); }
 
 	// 게임 오브젝트를 가능한만큼 이동시킴
 	void moveGameObject(GameObject& gameObject, Vector3 move);

@@ -9,21 +9,19 @@ Object::Object(Vector3 position, DIRECTION direction)
 
 void Object::update()
 {
-
 }
 
 void Object::release()
 {
-
 }
 
 void Object::render()
 {
-
 }
 
-void Object::collision(Vector3 ** pos)
+void Object::collision(Vector3 * pos)
 {
+
 }
 
 void Object::reaction()

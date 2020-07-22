@@ -27,6 +27,10 @@ void DeskObject::render()
 	CAMERA_MANAGER->renderZ(_img, _position, _size, false);
 }
 
-void DeskObject::collision(Vector3 ** pos)
+void DeskObject::collision(Vector3 * pos)
 {
+	pos[0] = Vector3(0, 0, 0);
+	pos[1] = Vector3(1, 1, 1);
+	pos[2] = Vector3(2, 2, 2);
+	pos[3] = Vector3(3, 3, 3);
 }

@@ -18,7 +18,7 @@ void StageManager::init()
 void StageManager::release()
 {
 }
-
+ 
 void StageManager::update()
 {
 	Stage* newStage = _currStage->update();
@@ -28,8 +28,6 @@ void StageManager::update()
 		_currStage = newStage;
 		_currStage->enter();
 	}
-
-	CAMERA_MANAGER->setXY(CAMERA_MANAGER->convertV3ToV2(_player->getPosition()));
 }
 
 void StageManager::render()
