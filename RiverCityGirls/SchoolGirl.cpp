@@ -81,6 +81,18 @@ void SchoolGirl::update()
 	{
 	case ENEMY_STATE::IDLE:
 	{
+		if (_attackCount > 100)
+		{
+			aniPlay(ENEMY_STATE::WALK, _direction);
+			_state = ENEMY_STATE::WALK;
+			_attackCount = 0;
+		}
+		else
+		{
+			aniPlay(ENEMY_STATE::ATTACK, _direction);
+			_state = ENEMY_STATE::ATTACK;
+		}
+
 	}
 	break;
 	case ENEMY_STATE::WALK:
@@ -143,38 +155,29 @@ void SchoolGirl::update()
 			moveDir.x += 2;
 		}
 
-		if(-100 < _position.y){
-		_jumpPower = 0.0f;
-		_gravity = 0.0f;	
-		_position.y = -100;
-		aniPlay(ENEMY_STATE::WALK, _direction);
-		_state = ENEMY_STATE::WALK;
+		if (moveDir.y - 100 < _position.y) {
+			_jumpPower = 0.0f;
+			_gravity = 0.0f;
+			_position.y = moveDir.y - 100;
+			aniPlay(ENEMY_STATE::WALK, _direction);
+			_state = ENEMY_STATE::WALK;
 		}
 	break;
 	case ENEMY_STATE::ATTACK:
 	{
 		
-		if (!_ani->isPlay())
+		_attackCount++;
+		if (_attackCount % 25 == 0)
 		{
+			_ani->stop();
 			aniPlay(ENEMY_STATE::IDLE, _direction);
 			_state = ENEMY_STATE::IDLE;
-		}
-		else
-		{
+			//플레이어 피격 판정
 			if (_attackS <= _ani->getPlayIndex() && _ani->getPlayIndex() <= _attackE)
 			{
 
-			}			
+			}
 		}
-
-		_elapsedTime++;	
-		if (_elapsedTime > 30)
-		{
-
-			aniPlay(ENEMY_STATE::WALK, _direction);
-			_state = ENEMY_STATE::WALK;
-			_elapsedTime = 0;
-		}		
 	}
 	break;
 	/*case GUARD:

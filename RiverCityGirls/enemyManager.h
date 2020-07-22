@@ -5,8 +5,10 @@
 class SchoolBoy;
 class SchoolGirl;
 class CheerGirl;
+class Boss;
 class Enemy;
 class Stage;
+
 
 class EnemyManager
 {
@@ -20,6 +22,7 @@ private:
 	SchoolBoy* _schoolBoy;
 	SchoolGirl* _schoolGirl;
 	CheerGirl* _cheerGirl;
+	Boss* _boss;
 
 	vector<POINT> _enemyRespawnPos;
 

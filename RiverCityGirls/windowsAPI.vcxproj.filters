@@ -288,6 +288,9 @@
     <ClInclude Include="RestrictMoveRect.h">
       <Filter>2DGameFramework\Utils\RectrictMove</Filter>
     </ClInclude>
+    <ClInclude Include="Boss.h">
+      <Filter>PlayGround\Enemy</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="windowsAPI.cpp">
@@ -472,6 +475,9 @@
     </ClCompile>
     <ClCompile Include="RestrictMoveRect.cpp">
       <Filter>2DGameFramework\Utils\RectrictMove</Filter>
+    </ClCompile>
+    <ClCompile Include="Boss.cpp">
+      <Filter>PlayGround\Enemy</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
