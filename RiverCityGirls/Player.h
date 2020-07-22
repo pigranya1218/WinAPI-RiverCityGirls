@@ -15,7 +15,6 @@ class Player : public GameObject
 {
 private:
 	StageManager* _stageManager;
-
 	RECT _hitRc; //타격판정렉트
 	
 	Synthesize(float, _speed, Speed)
@@ -36,5 +35,6 @@ public:
 	virtual void render();
 
 	void setStageManager(StageManager* stageManager) { _stageManager = stageManager; }
+	
 };
 

@@ -35,6 +35,8 @@ protected:
 	Animation* _ani;		// 애니메이션
 	DIRECTION _direction;	// 애니메이션 좌우 재생
 	DIRECTION _moveTo;		// 현재 이동 방향
+
+	float _playerDistance;	//플레이어와의 거리
 	
 	float _jumpPower;       //점프파워
 	float _gravity;         //중력값
@@ -53,6 +55,6 @@ public:
 	virtual void render();
 
 	void setEnemyManager(EnemyManager* enemyManager) { _enemyManager = enemyManager; }
-	
+	void hit();
 };
 
