@@ -197,8 +197,8 @@ void CheerGirl::render()
 
 	//test
 	char str[255];
-	sprintf_s(str, "state : %d, jumpPower : %d, gravity : %d", (int)_state, _jumpPower, _gravity);
-	TextOut(_hdc, 0, 0, str, strlen(str));
+	sprintf_s(str, "[치어리더] state : %d, jumpPower : %d, gravity : %d", (int)_state, _jumpPower, _gravity);
+	TextOut(_hdc, 0, 80, str, strlen(str));
 }
 
 void CheerGirl::aniPlay(ENEMY_STATE state, DIRECTION direction)

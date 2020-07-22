@@ -9,8 +9,9 @@ void SchoolBoy::init()
 	_state = ENEMY_STATE::IDLE;
 	_direction = DIRECTION::RIGHT;
 	aniPlay(_state, _direction);
-
-	
+	_attackCount = 0;
+	_gravity = 0;
+	_jumpPower = 0;
 }
 
 void SchoolBoy::release()
@@ -24,69 +25,96 @@ void SchoolBoy::update()
 
 	
 	Vector3 playerPos = _enemyManager->getPlayerPosition();
-	if (playerPos.x <= _position.x)
+	if (playerPos.x <= _position.x - 50)
 	{
 		_direction = DIRECTION::LEFT;
 	}
-	else
+	else if(playerPos.x >= _position.x + 50)
 	{
 		_direction = DIRECTION::RIGHT;
 	}
+
+	//점프력
+	_position.y -= _jumpPower;
+	_jumpPower -= _gravity;
 
 	
 
 	float distance = sqrt(pow(playerPos.x - _position.x, 2) + pow(playerPos.y - _position.y, 2) + pow(playerPos.z - _position.z , 2));
 	
-	if (distance > 700)
+	if (_state != ENEMY_STATE::JUMP)
 	{
-		if (_state != ENEMY_STATE::IDLE)
+		if (distance > 900)
 		{
-			aniPlay(ENEMY_STATE::IDLE, _direction);
-			_state = ENEMY_STATE::IDLE;
+			if (_state != ENEMY_STATE::IDLE)
+			{
+				aniPlay(ENEMY_STATE::IDLE, _direction);
+				_state = ENEMY_STATE::IDLE;
+			}
 		}
-	}
-	else if (distance > 350)
-	{
-		if (_state != ENEMY_STATE::RUN)
+		else if (distance > 550)
 		{
-			aniPlay(ENEMY_STATE::RUN, _direction);
-			_state = ENEMY_STATE::RUN;
+			if (_state != ENEMY_STATE::RUN)
+			{
+				aniPlay(ENEMY_STATE::RUN, _direction);
+				_state = ENEMY_STATE::RUN;
+			}
+
 		}
-		
-	}
-	else if (distance > 100 )
-	{
-		if (_state != ENEMY_STATE::WALK)
+		else if (distance <= 550 && distance > 100)
 		{
-			aniPlay(ENEMY_STATE::WALK, _direction);
-			_state = ENEMY_STATE::WALK;
+			if (_state != ENEMY_STATE::WALK)
+			{
+				aniPlay(ENEMY_STATE::WALK, _direction);
+				_state = ENEMY_STATE::WALK;
+			}
 		}
-		
-	}
-	else
-	{
-		if (_state != ENEMY_STATE::ATTACK)
+		/*else
 		{
-			aniPlay(ENEMY_STATE::ATTACK, _direction);
-			_state = ENEMY_STATE::ATTACK;
-		}
+			if (_state != ENEMY_STATE::ATTACK && _attackCount <= 0)
+			{
+				aniPlay(ENEMY_STATE::ATTACK, _direction);
+				_state = ENEMY_STATE::ATTACK;
+			}
+		}*/
 	}
-	
 	
 	Vector3 moveDir = Vector3(0, 0, 0);
 	
+	//플레이어의 Z축 검사
+	if (playerPos.z - 1 > _position.z)
+	{
+		moveDir.z += 1;
+	}
+	else if(playerPos.z + 1 < _position.z)
+	{
+		moveDir.z -= 1;
+	}
 	
-	
+	//
+	//if (_state != ENEMY_STATE::ATTACK && _state != ENEMY_STATE::IDLE) _attackCount = 0;
 
 	//상태 패턴에 따른 디렉션 조정
 	switch (_state)
 	{
 	case ENEMY_STATE::IDLE:
 	{
+		if (_attackCount > 100)
+		{
+			aniPlay(ENEMY_STATE::WALK, _direction);
+			_state = ENEMY_STATE::WALK;
+			_attackCount = 0;
+		}
+		else
+		{
+			aniPlay(ENEMY_STATE::ATTACK, _direction);
+			_state = ENEMY_STATE::ATTACK;
+		}
 	}
 	break;
 	case ENEMY_STATE::WALK:
 	{
+		_elapsedTime++;
 		if (_direction == DIRECTION::LEFT)
 		{
 			moveDir.x -= 1;
@@ -94,6 +122,25 @@ void SchoolBoy::update()
 		else
 		{
 			moveDir.x += 1;
+		}
+		//점프
+		if (_elapsedTime > 300)
+		{
+			aniPlay(ENEMY_STATE::JUMP, _direction);
+			_state = ENEMY_STATE::JUMP;
+			_jumpPower = 12.f;
+			_gravity = 0.3;
+			_elapsedTime = 0;
+		}
+		//공격
+		if (distance < 100 && _elapsedTime > 100)
+		{
+			if (_state != ENEMY_STATE::ATTACK)
+			{
+				_elapsedTime = 0;
+				aniPlay(ENEMY_STATE::ATTACK, _direction);
+				_state = ENEMY_STATE::ATTACK;
+			}
 		}
 		
 	}
@@ -113,26 +160,48 @@ void SchoolBoy::update()
 	}
 	break;
 	case ENEMY_STATE::JUMP:
-		
-		
-		
-
-
-	break;
-	case ENEMY_STATE::ATTACK:
 	{
-		if (!_ani->isPlay())
+		if (_direction == DIRECTION::LEFT)
 		{
-			aniPlay(ENEMY_STATE::IDLE, _direction);
-			_state = ENEMY_STATE::IDLE;
+			moveDir.x -= 2;
 		}
 		else
 		{
+			moveDir.x += 2;
+		}
+
+		//점프 후 착지했을 경우
+		//if(moveDir.y > 0.5 && )
+		if (-100 < _position.y)
+		{
+			_jumpPower = 0;
+			_gravity = 0;
+			_position.y = -100;
+			aniPlay(ENEMY_STATE::WALK, _direction);
+			_state = ENEMY_STATE::WALK;
+		}
+	}
+	break;
+	case ENEMY_STATE::ATTACK:
+	{
+		_attackCount++;
+		/*if (!_ani->isPlay())
+		{
+			aniPlay(ENEMY_STATE::IDLE, _direction);
+			_state = ENEMY_STATE::IDLE;	
+		}*/
+		if (_attackCount % 25 == 0)
+		{
+			_ani->stop();
+			aniPlay(ENEMY_STATE::IDLE, _direction);
+			_state = ENEMY_STATE::IDLE;
+			//플레이어 피격 판정
 			if (_attackS <= _ani->getPlayIndex() && _ani->getPlayIndex() <= _attackE)
 			{
 				
 			}
 		}
+		
 	}
 	break;
 	/*case GUARD:
@@ -178,12 +247,15 @@ void SchoolBoy::render()
 	_enemyImg->setScale(3.f);
 	
 	CAMERA_MANAGER->aniRenderZ(_enemyImg, _position, _size, _ani, true);
-	/*
+	
 	//test
 	char str[255];
-	sprintf_s(str, "state : %d, jumpPower : %d, gravity : %d", (int)_state,_jumpPower,_gravity);
+	sprintf_s(str, "[스쿨보이] state : %d, jumpPower : %d, gravity : %d", (int)_state,_jumpPower,_gravity);
 	TextOut(_hdc, 0, 0, str, strlen(str));
-	*/
+
+	sprintf_s(str, "[스쿨보이] attackCount : %d, elapsedTime : %f", _attackCount, _elapsedTime);
+	TextOut(_hdc, 0, 20, str, strlen(str));
+	
 	
 }
 
@@ -230,7 +302,7 @@ void SchoolBoy::aniPlay(ENEMY_STATE state, DIRECTION direction)
 		_enemyImg = IMAGE_MANAGER->findImage("schoolboy_jump");
 		_ani->init(_enemyImg->getWidth(), _enemyImg->getHeight(),
 			_enemyImg->getMaxFrameX(), _enemyImg->getMaxFrameY());
-		_ani->setFPS(10);
+		_ani->setFPS(2);
 		_ani->start();
 	}
 	break;

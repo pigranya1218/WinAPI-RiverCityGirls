@@ -39,6 +39,8 @@ protected:
 	float _gravity;
 	float _elapsedTime;		// 상태 전환 계산 타이머
 
+	int _attackCount;		//공격 딜레이 카운트
+
 public:
 	Enemy() {};
 	~Enemy() {};
