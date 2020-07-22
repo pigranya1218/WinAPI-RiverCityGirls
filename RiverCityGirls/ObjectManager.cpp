@@ -44,10 +44,53 @@ void ObjectManager::spawnObject(OBJECT_TYPE type, Vector3 pos, DIRECTION directi
 {
 	switch (type)
 	{
-	case OBJECT_TYPE::DESK:
-	{
-		_objects.push_back(new DeskObject(pos, direction));
-	}
-	break;
+		case OBJECT_TYPE::DESK: 
+		{ _objects.push_back(new DeskObject(pos, direction)); }
+		break;
+
+		case OBJECT_TYPE::BOX:	
+		{ _objects.push_back(new BoxObject(pos, direction));  }
+		break;
+
+		case OBJECT_TYPE::DESK_CHAIR:
+		{		}
+		break;
+
+		case OBJECT_TYPE::mrRudis: 
+		{ _objects.push_back(new MrRudis(pos, direction)); }
+		break;
+
+		case OBJECT_TYPE::schoolBoyA: 
+		{ _objects.push_back(new SchoolBoyA(pos, direction)); }
+		break;
+
+		case OBJECT_TYPE::schoolBoyB:
+		{ _objects.push_back(new SchoolBoyB(pos, direction)); }
+		break;
+
+		case OBJECT_TYPE::schoolBoyE:
+		{ _objects.push_back(new SchoolBoyE(pos, direction)); }
+		break;
+
+		case OBJECT_TYPE::schoolGirlA:
+		{ _objects.push_back(new SchoolGirlA(pos, direction)); }
+		break;
+
+		case OBJECT_TYPE::schoolGirlB:
+		{ _objects.push_back(new SchoolGirlB(pos, direction)); }
+		break;
+
+		case OBJECT_TYPE::schoolGirlE:
+		{ _objects.push_back(new SchoolGirlE(pos, direction)); }
+		break;
+
+		case OBJECT_TYPE::workingFemaleA:
+		{ _objects.push_back(new WorkingFemaleA(pos, direction)); }
+		break;
+		
+		case OBJECT_TYPE::workingMaleD:
+		{ _objects.push_back(new WorkingMaleD(pos, direction)); }
+		break;
+
 	}
 }

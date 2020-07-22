@@ -34,7 +34,7 @@ DeskObject::DeskObject(Vector3 position, DIRECTION direction)
 
 void DeskObject::update()
 {
-
+	//_img->setScale(3);
 }
 
 void DeskObject::release()
@@ -56,3 +56,4 @@ void DeskObject::collision(Vector3 * newPoses, Vector3 size)
 {
 	_restrictRect->checkCollision(newPoses, size);
 }
+

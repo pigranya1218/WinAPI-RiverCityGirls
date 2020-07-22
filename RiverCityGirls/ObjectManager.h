@@ -5,7 +5,7 @@
 
 enum class OBJECT_TYPE
 {
-	DESK
+	DESK, BOX, DESK_CHAIR, TEACHER_TABLE, TABLE, TABLE_CHAIR, PILLAR, SNACKMACHINE, LOCKER, mrRudis, schoolBoyA, schoolBoyB, schoolBoyE, schoolGirlA, schoolGirlB, schoolGirlE, workingFemaleA, workingMaleD
 };
 
 

@@ -249,6 +249,39 @@
     <ClInclude Include="AllObjects.h">
       <Filter>PlayGround\Object</Filter>
     </ClInclude>
+    <ClInclude Include="BoxObject.h">
+      <Filter>PlayGround\Object</Filter>
+    </ClInclude>
+    <ClInclude Include="MrRudis.h">
+      <Filter>PlayGround\Object</Filter>
+    </ClInclude>
+    <ClInclude Include="SchoolBoyE.h">
+      <Filter>PlayGround\Object</Filter>
+    </ClInclude>
+    <ClInclude Include="SchoolBoyA.h">
+      <Filter>PlayGround\Object</Filter>
+    </ClInclude>
+    <ClInclude Include="SchoolBoyB.h">
+      <Filter>PlayGround\Object</Filter>
+    </ClInclude>
+    <ClInclude Include="SchoolGirlA.h">
+      <Filter>PlayGround\Object</Filter>
+    </ClInclude>
+    <ClInclude Include="SchoolGirlB.h">
+      <Filter>PlayGround\Object</Filter>
+    </ClInclude>
+    <ClInclude Include="SchoolGirlE.h">
+      <Filter>PlayGround\Object</Filter>
+    </ClInclude>
+    <ClInclude Include="WorkingFemaleA.h">
+      <Filter>PlayGround\Object</Filter>
+    </ClInclude>
+    <ClInclude Include="WorkingMaleD.h">
+      <Filter>PlayGround\Object</Filter>
+    </ClInclude>
+    <ClInclude Include="Table.h">
+      <Filter>PlayGround\Object</Filter>
+    </ClInclude>
     <ClInclude Include="RestrictMoveLine.h">
       <Filter>2DGameFramework\Utils\RectrictMove</Filter>
     </ClInclude>
@@ -399,6 +432,39 @@
       <Filter>PlayGround\Enemy</Filter>
     </ClCompile>
     <ClCompile Include="DeskObject.cpp">
+      <Filter>PlayGround\Object</Filter>
+    </ClCompile>
+    <ClCompile Include="BoxObject.cpp">
+      <Filter>PlayGround\Object</Filter>
+    </ClCompile>
+    <ClCompile Include="MrRudis.cpp">
+      <Filter>PlayGround\Object</Filter>
+    </ClCompile>
+    <ClCompile Include="SchoolBoyE.cpp">
+      <Filter>PlayGround\Object</Filter>
+    </ClCompile>
+    <ClCompile Include="SchoolBoyA.cpp">
+      <Filter>PlayGround\Object</Filter>
+    </ClCompile>
+    <ClCompile Include="SchoolBoyB.cpp">
+      <Filter>PlayGround\Object</Filter>
+    </ClCompile>
+    <ClCompile Include="SchoolGirlA.cpp">
+      <Filter>PlayGround\Object</Filter>
+    </ClCompile>
+    <ClCompile Include="SchoolGirlB.cpp">
+      <Filter>PlayGround\Object</Filter>
+    </ClCompile>
+    <ClCompile Include="SchoolGirlE.cpp">
+      <Filter>PlayGround\Object</Filter>
+    </ClCompile>
+    <ClCompile Include="WorkingFemaleA.cpp">
+      <Filter>PlayGround\Object</Filter>
+    </ClCompile>
+    <ClCompile Include="WorkingMaleD.cpp">
+      <Filter>PlayGround\Object</Filter>
+    </ClCompile>
+    <ClCompile Include="Table.cpp">
       <Filter>PlayGround\Object</Filter>
     </ClCompile>
     <ClCompile Include="RestrictMoveLine.cpp">
