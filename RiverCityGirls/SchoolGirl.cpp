@@ -231,8 +231,8 @@ void SchoolGirl::render()
 
 	//test
 	char str[1000];
-	sprintf_s(str, "state : %d, y : %f ,_elapsedTime : %f ", (int)_state, _position.z, _elapsedTime);
-	TextOut(_hdc, 0, 0, str, strlen(str));
+	sprintf_s(str, "[½ºÄð°É] state : %d, y : %f ,_elapsedTime : %f ", (int)_state, _position.z, _elapsedTime);
+	TextOut(_hdc, 0, 40, str, strlen(str));
 	
 }
 

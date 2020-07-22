@@ -31,8 +31,7 @@ void CheerGirl::update()
 		_direction = DIRECTION::RIGHT;
 	}
 
-
-
+	//มกวมทย
 	_position.y -= _jumpPower;
 	_jumpPower -= _gravity;
 

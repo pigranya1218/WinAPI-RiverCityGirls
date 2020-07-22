@@ -54,7 +54,7 @@ HRESULT playGround::init()
 	IMAGE_MANAGER->addFrameImage("schoolgirl_run", L"resources/images/characters/enemy_schoolgirl/run.png", 9, 2);
 	IMAGE_MANAGER->addFrameImage("schoolgirl_block", L"resources/images/characters/enemy_schoolgirl/°¡µå.png", 3, 2);
 	IMAGE_MANAGER->addFrameImage("schoolgirl_groundHit", L"resources/images/characters/enemy_schoolgirl/±×¶ó¿îµå È÷Æ®.png", 3, 2);
-	IMAGE_MANAGER->addFrameImage("schoolgirl_attack1", L"resources/images/characters/enemy_schoolgirl/Àì.png", 8, 2);
+	IMAGE_MANAGER->addFrameImage("schoolgirl_attack1", L"resources/images/characters/enemy_schoolgirl/Àì.png", 7, 2);
 	IMAGE_MANAGER->addFrameImage("schoolgirl_attack2", L"resources/images/characters/enemy_schoolgirl/´ÏÅ±.png", 7, 2);
 	IMAGE_MANAGER->addFrameImage("schoolgirl_attack3", L"resources/images/characters/enemy_schoolgirl/¹ßÂ÷±â.png", 8, 2);
 	IMAGE_MANAGER->addFrameImage("schoolgirl_skill", L"resources/images/characters/enemy_schoolgirl/È¸ÀüÅ±.png", 12, 2);

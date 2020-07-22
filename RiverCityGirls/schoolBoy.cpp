@@ -10,6 +10,7 @@ void SchoolBoy::init()
 	_direction = DIRECTION::RIGHT;
 	aniPlay(_state, _direction);
 	_attackCount = 0;
+	_dashAttackCount = 0;
 	_gravity = 0;
 	_jumpPower = 0;
 }
@@ -22,8 +23,6 @@ void SchoolBoy::release()
 
 void SchoolBoy::update()
 {
-
-	
 	Vector3 playerPos = _enemyManager->getPlayerPosition();
 	if (playerPos.x <= _position.x - 50)
 	{
@@ -38,13 +37,18 @@ void SchoolBoy::update()
 	_position.y -= _jumpPower;
 	_jumpPower -= _gravity;
 
-	
+
+	//테스트
+	if (KEY_MANAGER->isOnceKeyDown(VK_SPACE))
+	{
+		aniPlay(ENEMY_STATE::DASHATTACK, _direction);
+	}
 
 	float distance = sqrt(pow(playerPos.x - _position.x, 2) + pow(playerPos.y - _position.y, 2) + pow(playerPos.z - _position.z , 2));
 	
-	if (_state != ENEMY_STATE::JUMP)
+	if (_state != ENEMY_STATE::JUMP && _state != ENEMY_STATE::DASHATTACK)
 	{
-		if (distance > 900)
+		if (distance > 700)
 		{
 			if (_state != ENEMY_STATE::IDLE)
 			{
@@ -52,7 +56,7 @@ void SchoolBoy::update()
 				_state = ENEMY_STATE::IDLE;
 			}
 		}
-		else if (distance > 550)
+		else if (distance > 300)
 		{
 			if (_state != ENEMY_STATE::RUN)
 			{
@@ -61,7 +65,7 @@ void SchoolBoy::update()
 			}
 
 		}
-		else if (distance <= 550 && distance > 100)
+		else if (distance <= 300 && distance > 100 && _state != ENEMY_STATE::RUN)
 		{
 			if (_state != ENEMY_STATE::WALK)
 			{
@@ -147,6 +151,7 @@ void SchoolBoy::update()
 	break;
 	case ENEMY_STATE::RUN:
 	{
+		_elapsedTime++;
 		if (_direction == DIRECTION::LEFT)
 		{
 			moveDir.x -= 4;
@@ -155,8 +160,11 @@ void SchoolBoy::update()
 		{
 			moveDir.x += 4;
 		}
-
-		
+		if (_elapsedTime > 50 && distance < 100)
+		{
+			aniPlay(ENEMY_STATE::DASHATTACK, _direction);
+			_state = ENEMY_STATE::DASHATTACK;
+		}
 	}
 	break;
 	case ENEMY_STATE::JUMP:
@@ -198,10 +206,21 @@ void SchoolBoy::update()
 			//플레이어 피격 판정
 			if (_attackS <= _ani->getPlayIndex() && _ani->getPlayIndex() <= _attackE)
 			{
-				
+				//if((playerPos.x - 50 >= _position.x)&&(playerPos.x<= _position.x+50) || ())
 			}
 		}
 		
+	}
+	break;
+	case ENEMY_STATE::DASHATTACK:
+	{
+		_elapsedTime = 0;
+		_dashAttackCount++;
+		if (_dashAttackCount % 50 == 0)
+		{
+			aniPlay(ENEMY_STATE::WALK, _direction);
+			_state = ENEMY_STATE::WALK;
+		}
 	}
 	break;
 	/*case GUARD:
@@ -243,7 +262,6 @@ void SchoolBoy::update()
 
 void SchoolBoy::render()
 {
-	/*
 	_enemyImg->setScale(3.f);
 	
 	CAMERA_MANAGER->aniRenderZ(_enemyImg, _position, _size, _ani, true);
@@ -253,7 +271,7 @@ void SchoolBoy::render()
 	sprintf_s(str, "[스쿨보이] state : %d, jumpPower : %d, gravity : %d", (int)_state,_jumpPower,_gravity);
 	TextOut(_hdc, 0, 0, str, strlen(str));
 
-	sprintf_s(str, "[스쿨보이] attackCount : %d, elapsedTime : %f", _attackCount, _elapsedTime);
+	sprintf_s(str, "[스쿨보이] attackCount : %d, dashAttackCount : %d, elapsedTime : %f", _attackCount, _dashAttackCount, _elapsedTime);
 	TextOut(_hdc, 0, 20, str, strlen(str));
 	
 	
@@ -329,6 +347,26 @@ void SchoolBoy::aniPlay(ENEMY_STATE state, DIRECTION direction)
 		_ani->start();
 	}
 	break;
+	case ENEMY_STATE::DASHATTACK:
+	{
+		_ani = new Animation;
+		_enemyImg = IMAGE_MANAGER->findImage("schoolboy_runAttack");
+		_ani->init(_enemyImg->getWidth(), _enemyImg->getHeight(),
+			_enemyImg->getMaxFrameX(), _enemyImg->getMaxFrameY());
+		_ani->setFPS(10);
+		_ani->start();
+	}
+	break;
+	case ENEMY_STATE::JUMPATTACK:
+	{
+		_ani = new Animation;
+		_enemyImg = IMAGE_MANAGER->findImage("schoolboy_jumpAttack");
+		_ani->init(_enemyImg->getWidth(), _enemyImg->getHeight(),
+			_enemyImg->getMaxFrameX(), _enemyImg->getMaxFrameY());
+		_ani->setFPS(10);
+		_ani->start();
+	}
+	break;
 	case ENEMY_STATE::GUARD:
 	{
 		_ani = new Animation;
@@ -343,6 +381,46 @@ void SchoolBoy::aniPlay(ENEMY_STATE state, DIRECTION direction)
 	{
 		_ani = new Animation;
 		_enemyImg = IMAGE_MANAGER->findImage("schoolboy_getHit");
+		_ani->init(_enemyImg->getWidth(), _enemyImg->getHeight(),
+			_enemyImg->getMaxFrameX(), _enemyImg->getMaxFrameY());
+		_ani->setFPS(10);
+		_ani->start();
+	}
+	break;
+	case ENEMY_STATE::STUN:
+	{
+		_ani = new Animation;
+		_enemyImg = IMAGE_MANAGER->findImage("schoolboy_stun");
+		_ani->init(_enemyImg->getWidth(), _enemyImg->getHeight(),
+			_enemyImg->getMaxFrameX(), _enemyImg->getMaxFrameY());
+		_ani->setFPS(10);
+		_ani->start();
+	}
+	break;
+	case ENEMY_STATE::DOWN:
+	{
+		_ani = new Animation;
+		_enemyImg = IMAGE_MANAGER->findImage("schoolboy_groundDown");
+		_ani->init(_enemyImg->getWidth(), _enemyImg->getHeight(),
+			_enemyImg->getMaxFrameX(), _enemyImg->getMaxFrameY());
+		_ani->setFPS(10);
+		_ani->start();
+	}
+	break;
+	case ENEMY_STATE::SKILL:
+	{
+		_ani = new Animation;
+		_enemyImg = IMAGE_MANAGER->findImage("schoolboy_skill");
+		_ani->init(_enemyImg->getWidth(), _enemyImg->getHeight(),
+			_enemyImg->getMaxFrameX(), _enemyImg->getMaxFrameY());
+		_ani->setFPS(10);
+		_ani->start();
+	}
+	break;
+	case ENEMY_STATE::HELD:
+	{
+		_ani = new Animation;
+		_enemyImg = IMAGE_MANAGER->findImage("schoolboy_heldHit");
 		_ani->init(_enemyImg->getWidth(), _enemyImg->getHeight(),
 			_enemyImg->getMaxFrameX(), _enemyImg->getMaxFrameY());
 		_ani->setFPS(10);
