@@ -4,7 +4,7 @@
 DeskObject::DeskObject(Vector3 position, DIRECTION direction)
 {
 	_direction = direction;
-	_size = Vector3(120, 80, 80);
+	_size = Vector3(100, 80, 60);
 	_position = Vector3(position.x, -(_size.y / 2), position.z);
 
 	_img = IMAGE_MANAGER->findImage("OBJECT_DESK");
@@ -25,10 +25,10 @@ DeskObject::DeskObject(Vector3 position, DIRECTION direction)
 							{linePos[2][0], linePos[2][2], linePos[0][1], linePos[1][1]}, // аб 
 							{linePos[3][0], linePos[3][2], linePos[0][1], linePos[1][1]} }; // ©Л
 
-	_restrictRect = new RestrictMoveRect(Vector2(_position.x - (_size.x / 2) + (_size.z / 2), _position.z - (_size.z / 2)),		// LT
-										Vector2(_position.x + (_size.x / 2) + (_size.z / 2), _position.z - (_size.z / 2)),		// RT
-										Vector2(_position.x + (_size.x / 2) - (_size.z / 2), _position.z + (_size.z / 2)),		// RB
-										Vector2(_position.x - (_size.x / 2) - (_size.z / 2), _position.z + (_size.z / 2)));		// LB
+	_restrictRect = new RestrictMoveRect(Vector2(_position.x + _collisionOffsetX - (_size.x / 2) + (_size.z / 2), _position.z + _collisionOffsetZ - (_size.z / 2)),		// LT
+										Vector2(_position.x + _collisionOffsetX + (_size.x / 2) + (_size.z / 2), _position.z + _collisionOffsetZ - (_size.z / 2)),		// RT
+										Vector2(_position.x + _collisionOffsetX + (_size.x / 2) - (_size.z / 2), _position.z + _collisionOffsetZ + (_size.z / 2)),		// RB
+										Vector2(_position.x + _collisionOffsetX - (_size.x / 2) - (_size.z / 2), _position.z + _collisionOffsetZ + (_size.z / 2)));		// LB
 }
 
 
@@ -49,7 +49,7 @@ void DeskObject::render()
 	CAMERA_MANAGER->renderZ(_img, _position, _size, false);
 
 	_restrictRect->render();
-	CAMERA_MANAGER->drawLine(Vector2(_position.x, _position.z), Vector2(_position.x, _position.z - _size.y));
+	CAMERA_MANAGER->drawLine(Vector2(_position.x + _collisionOffsetX, _position.z + _collisionOffsetZ), Vector2(_position.x + _collisionOffsetX, _position.z + _collisionOffsetZ - _size.y));
 }
 
 void DeskObject::collision(Vector3 * newPoses, Vector3 size)

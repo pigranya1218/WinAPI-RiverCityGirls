@@ -37,9 +37,9 @@ void Stage::init(Image * background, float bgScale)
 	_objectManager->init();
 	_objectManager->spawnObject(OBJECT_TYPE::DESK, Vector3(680, 0, 495), DIRECTION::LEFT);
 
-	_enemyManager = new EnemyManager;
+	/*_enemyManager = new EnemyManager;
 	_enemyManager->setStage(this);
-	_enemyManager->init();
+	_enemyManager->init();*/
 }
 
 void Stage::enter()
@@ -49,7 +49,7 @@ void Stage::enter()
 void Stage::exit()
 {
 	_objectManager->release();
-	_enemyManager->release();
+	//_enemyManager->release();
 	for (int i = 0; i < _restrictLines.size(); i++)
 	{
 		delete _restrictLines[i];
@@ -60,7 +60,7 @@ void Stage::exit()
 Stage * Stage::update()
 {
 	_objectManager->update();
-	_enemyManager->update();
+	//_enemyManager->update();
 
 	CAMERA_MANAGER->setXY(CAMERA_MANAGER->convertV3ToV2(_player->getPosition()));
 
@@ -82,7 +82,7 @@ void Stage::render()
 	}
 
 	_objectManager->render();
-	_enemyManager->render();
+	//_enemyManager->render();
 }
 
 // 게임 오브젝트가 이동가능한 영역까지 이동할 수 있도록 하는 함수
@@ -111,29 +111,6 @@ void Stage::moveGameObject(GameObject & gameObject, Vector3 move)
 	for (int i = 0; i < _restrictLines.size(); i++)
 	{
 		_restrictLines[i]->checkCollision(newPoses, size);
-		//for (int j = 0; j < 4; j++) // 대각 점들에 대하여 비교
-		//{
-		//	Vector3 checkPos = newPoses[j];
-		//	LINEAR_VALUE_TYPE type = _linearFuncs[i].line.getValueType(checkPos.x, checkPos.z);
-		//	if (type == _linearFuncs[i].type) // 선을 넘어간 경우
-		//	{
-		//		if (_linearFuncs[i].line.a != 0) // 기울기가 0인 경우
-		//		{
-		//			checkPos.x = _linearFuncs[i].line.getX(checkPos.z); // x 좌표 변경은 z를 기준으로
-		//		}
-		//		else
-		//		{
-		//			checkPos.z = _linearFuncs[i].line.getY(checkPos.x); // z 좌표 변경은 x를 기준으로
-		//		}
-
-		//		// 바뀐 좌표를 기준으로 다시 그린다
-		//		newPos = Vector3(checkPos.x - dir[j][0] * width, newPos.y, checkPos.z - dir[j][1] * height);
-		//		for (int k = 0; k < 4; k++)
-		//		{
-		//			newPoses[k] = Vector3(newPos.x + dir[k][0] * width, newPos.y, newPos.z + dir[k][1] * height);
-		//		}
-		//	}
-		//}
 	}
 
 	// 물체와의 이동가능 비교는 x, y, z 비교, 물체를 올라탈 수도 있음

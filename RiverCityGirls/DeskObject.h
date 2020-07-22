@@ -6,7 +6,8 @@
 {
 private:
 	RestrictMoveRect* _restrictRect;
-	
+	int _collisionOffsetX = 20;
+	int _collisionOffsetZ = 10;
 
 public:
 	DeskObject(Vector3 position, DIRECTION direction);

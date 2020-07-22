@@ -20,7 +20,7 @@ void Player::move(Vector3 moveDir)
 void Player::init()
 {
 	setPosition(Vector3(500, -105, 500));
-	setSize(Vector3(130, 210, 30));
+	setSize(Vector3(120, 210, 30));
 
 	_state = new IdleState;
 	_state->enter(*this);
@@ -52,5 +52,7 @@ void Player::update()
 void Player::render()
 {
 	_state->render(*this);
+	FloatRect rc = FloatRect(Vector2(_position.x, _position.z), Vector2(_size.x, _size.z), Pivot::Center);
 	CAMERA_MANAGER->drawLine(Vector2(_position.x, _position.z), Vector2(_position.x, _position.z - _size.y));
+	CAMERA_MANAGER->rectangle(rc, D2D1::ColorF::Enum::Red, 1, 1);
 }
