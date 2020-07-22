@@ -7,14 +7,14 @@ class ObjectManager;
 class EnemyManager;
 class Player;
 
+struct tagDontMove // 이동 영역을 제한하기 위한 구조체
+{
+	LinearFunc line; // 선분
+	LINEAR_VALUE_TYPE type; // 이 선분 어디를 못지나가게 할 것인가?
+};
+
 class Stage
 {
-protected:
-	struct tagDontMove // 스테이지 이동 영역을 제한하기 위한 구조체
-	{
-		LinearFunc line; // 선분
-		LINEAR_VALUE_TYPE type; // 이 선분 어디를 못지나가게 할 것인가?
-	};
 protected:
 	StageManager* _stageManager; 
 	ObjectManager* _objectManager; 

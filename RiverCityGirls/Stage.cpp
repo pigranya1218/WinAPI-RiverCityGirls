@@ -39,6 +39,7 @@ void Stage::init(Image * background, float bgScale)
 
 	_objectManager = new ObjectManager;
 	_objectManager->init();
+	_objectManager->spawnObject(OBJECT_TYPE::DESK, Vector3(720, 0, 550), DIRECTION::LEFT);
 
 	_enemyManager = new EnemyManager;
 	_enemyManager->setStage(this);
@@ -126,8 +127,6 @@ void Stage::moveGameObject(GameObject & gameObject, Vector3 move)
 	}
 
 	// 물체와의 이동가능 비교는 x, y, z 비교, 물체를 올라탈 수도 있음
-
-
 	gameObject.setPosition(newPos);
 }
 

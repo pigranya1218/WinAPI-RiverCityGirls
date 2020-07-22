@@ -18,13 +18,20 @@ HRESULT playGround::init()
 {
 	GameNode::init(true);
 
+	// 모든 이미지 IMAGE_MANAGER에 등록
+	
+	// * Object
+	// ** DESK
+	IMAGE_MANAGER->addImage("OBJECT_DESK", L"resources/images/object/03_Detention_OBJ_Desks_01.png");
+
+	// * Player
 	IMAGE_MANAGER->addFrameImage("Kyoko_idle", L"Kyoko/Kyoko_idle.png", 12, 2);
 	IMAGE_MANAGER->addFrameImage("Kyoko_walk", L"Kyoko/Kyoko_walk.png",12,2);
 	IMAGE_MANAGER->addFrameImage("Kyoko_run", L"Kyoko/Kyoko_run.png", 16, 2);
 	IMAGE_MANAGER->addFrameImage("Kyoko_jump", L"Kyoko/Kyoko_jump.png", 3, 2);
 
-	//Enemy 이미지 
-    //schoolBoy
+	// * Enemy 
+    // ** schoolBoy
 	IMAGE_MANAGER->addFrameImage("schoolboy_attack1", L"images/enemy_schoolboy/SchoolBoyAttack1.png", 7, 2);
 	IMAGE_MANAGER->addFrameImage("schoolboy_attack2", L"images/enemy_schoolboy/SchoolBoyAttack2.png", 7, 2);
 	IMAGE_MANAGER->addFrameImage("schoolboy_attack3", L"images/enemy_schoolboy/SchoolBoyAttack3.png", 9, 2);
@@ -43,7 +50,7 @@ HRESULT playGround::init()
 	IMAGE_MANAGER->addFrameImage("schoolboy_stun", L"images/enemy_schoolboy/SchoolBoyStun.png", 4, 2);
 	IMAGE_MANAGER->addFrameImage("schoolboy_walk", L"images/enemy_schoolboy/SchoolBoyWalk.png", 12, 2);
 	IMAGE_MANAGER->addFrameImage("schoolboy_runAttack", L"images/enemy_schoolboy/SchoolDashAttack.png", 7, 2);
-	//schoolGirl
+	// ** schoolGirl
 	IMAGE_MANAGER->addFrameImage("schoolgirl_groundDown", L"images/enemy_schoolgirl/blowBack.png", 33, 2);
 	IMAGE_MANAGER->addFrameImage("schoolgirl_gethit", L"images/enemy_schoolgirl/getHit.png", 9, 2);
 	IMAGE_MANAGER->addFrameImage("schoolgirl_heldHit", L"images/enemy_schoolgirl/HeldHit.png", 4, 2);
@@ -60,7 +67,7 @@ HRESULT playGround::init()
 	IMAGE_MANAGER->addFrameImage("schoolgirl_skill", L"images/enemy_schoolgirl/회전킥.png", 12, 2);
 	IMAGE_MANAGER->addFrameImage("schoolgirl_jump", L"images/enemy_schoolgirl/점프.png", 3, 2);
 	IMAGE_MANAGER->addFrameImage("schoolgirl_begGing", L"images/enemy_schoolgirl/항복.png", 3, 2);
-	//치어걸
+	// ** 치어걸
 	IMAGE_MANAGER->addFrameImage("cheergirl_block", L"images/enemy_cheergirl/block.png", 3, 2);
 	IMAGE_MANAGER->addFrameImage("cheergirl_groundHit", L"images/enemy_cheergirl/groundhit.png", 4, 2);
 	IMAGE_MANAGER->addFrameImage("cheergirl_idle", L"images/enemy_cheergirl/idle.png", 12, 2);
@@ -80,12 +87,6 @@ HRESULT playGround::init()
 	IMAGE_MANAGER->addFrameImage("cheergirl_jumpAttack2", L"images/enemy_cheergirl/divekick_middle.png", 7, 2);
 	IMAGE_MANAGER->addFrameImage("cheergirl_jumpAttack3", L"images/enemy_cheergirl/divekick_end.png", 13, 2);
 
-
-
-
-	/*_enemyMg = new enemyManager;
-	_enemyMg->init();*/
-	// 모든 이미지 IMAGE_MANAGER에 등록
 	// * 스테이지
 	// ** 스테이지 배경 이미지 추가
 	IMAGE_MANAGER->addImage("STAGE_1", L"resources/images/stages/stage_1.png");
@@ -95,7 +96,7 @@ HRESULT playGround::init()
 	IMAGE_MANAGER->addImage("screenBorder", L"resources/images/UI/playBorder.png");				// 플레이화면 테두리
 
 
-	// UI 이미지입니다.
+	// * UI
 	IMAGE_MANAGER->addImage("blackScreen", L"resources/images/UI/blackScreen.png");				// 검은 화면입니다.
 
 	IMAGE_MANAGER->addImage("playerHPBackBar", L"resources/images/UI/kyoko_HP_backFrame.png");	// 플레이어 체력 뒤
@@ -110,7 +111,7 @@ HRESULT playGround::init()
 	IMAGE_MANAGER->addImage("unlockDoor", L"resources/images/UI/door_unlock.png");			// 열린 문
 	IMAGE_MANAGER->addImage("lockDoor"	, L"resources/images/UI/door_lock.png");			// 닫힌 문
 
-	// 다이얼로그 이미지입니다.
+	// * DIALOGUE
 	string file;
 	wstring fileW = L"";	
 	for (int i = 1; i <= 6; i++)

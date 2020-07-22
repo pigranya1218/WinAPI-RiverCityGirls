@@ -147,6 +147,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="AllObjects.h" />
     <ClInclude Include="AllPlayerState.h" />
     <ClInclude Include="Animation.h" />
     <ClInclude Include="BossStage.h" />
@@ -155,6 +156,7 @@
     <ClInclude Include="Collision.h" />
     <ClInclude Include="CommonMacroFunction.h" />
     <ClInclude Include="D2DRenderer.h" />
+    <ClInclude Include="DeskObject.h" />
     <ClInclude Include="DialogueManager.h" />
     <ClInclude Include="Effect.h" />
     <ClInclude Include="EffectManager.h" />
@@ -209,6 +211,7 @@
     <ClCompile Include="Collision.cpp" />
     <ClCompile Include="D2DRenderer+Draw.cpp" />
     <ClCompile Include="D2DRenderer.cpp" />
+    <ClCompile Include="DeskObject.cpp" />
     <ClCompile Include="DialogueManager.cpp" />
     <ClCompile Include="Effect.cpp" />
     <ClCompile Include="EffectManager.cpp" />

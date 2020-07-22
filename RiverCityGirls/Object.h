@@ -1,43 +1,31 @@
 #pragma once
 #include "GameObject.h"
+#include "Player.h"
 
-
-enum TagObjectType
+enum class OBJECT_STATE : int
 {
-	desk, deskChair, table, tableChair, pillar, snackMachine, box, mrRudis, schoolBoyA, schoolBoyB, schoolBoyE, schoolGirlA, schoolGirlB, schoolGirlE, workingFemaleA, workingMaleD
+	IDLE, // 기본 대기 상태
+	REACTION, // 반응중인 상태
+	BROKEN // 이미 깨져서 이제 반응 안하는 상태
 };
 
-enum tagImageState
+class Object :  public GameObject
 {
-	IDLE01, IDLE02, REACTION
-};
+protected:
+	OBJECT_STATE _state;					// object state
+	DIRECTION _direction;
 
-class Object :
-	public GameObject
-{
-private:
-	TagObjectType objectType;				//이미지 타입
-	tagImageState objectImgState;			//이미지 상태
+	Image* _img;								//image
+	Animation* _ani;
 
-	bool isPlayerReactionObject;			//true : ReactionObject, false : Non-ReacionObject
-	bool isObjectHuman;						//true : human			 false : Non-human
-	Image* objectImg;						//image
-	bool isObjectLeft;						//true : Left,			 false : Right
-	int frameX;								//프레임 x
-	float objectX, objectZ, objectY;		//좌표, 아마도 x,z를 통해 잡혀질듯
-	int stage;								//받아올 스테이지
-	float frameSizeWidth, frameSizeHeight;	//사이즈
-
-	int _frameMax;				//최대 프레임 x값	
-	int _count;					//시간
 public:
+	Object() {};
+	Object(Vector3 position, DIRECTION direction);
 
-	void init();
-	void update();
-	void release();
-	void render();
-
-	void setObject(TagObjectType _objectType, tagImageState _objectImgState, float _x, float _z); //오브젝트 생성 - 타입, 상태, 위치 x, z
-	//void getPlayerReaction() //플레이어와 충돌하면
+	virtual void update();
+	virtual void release();
+	virtual void render();
+	virtual void collision(Vector3** pos);
+	virtual void reaction();
 };
 

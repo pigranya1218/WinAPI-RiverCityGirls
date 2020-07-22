@@ -1,32 +1,45 @@
 #include "stdafx.h"
 #include "ObjectManager.h"
-#include "Object.h"
+#include "AllObjects.h"
 
 void ObjectManager::init()
 {
-	deskOb = new Object;
-	deskOb->setObject(desk, IDLE01, WINSIZEX / 2, WINSIZEY / 2);
-	deskOb->init();
-
-	shcoolBoy01 = new Object;
-	shcoolBoy01->setObject(schoolBoyE, IDLE01, WINSIZEX / 2 - 100, WINSIZEY / 2 - 100);
-	shcoolBoy01->init();
-
-	return;
 }
 
 void ObjectManager::release()
 {
+	for (int i = 0; i < _objects.size(); i++)
+	{
+		_objects[i]->release();
+		delete _objects[i];
+	}
+	_objects.clear();
 }
 
 void ObjectManager::update()
 {
-	deskOb->update();
-	shcoolBoy01->update();
+	for (int i = 0; i < _objects.size(); ++i)
+	{
+		_objects[i]->update();
+	}
 }
 
 void ObjectManager::render()
 {
-	deskOb->render();
-	//shcoolBoy01->render();
+	for (int i = 0; i < _objects.size(); i++)
+	{
+		_objects[i]->render();
+	}
+}
+
+void ObjectManager::spawnObject(OBJECT_TYPE type, Vector3 pos, DIRECTION direction)
+{
+	switch (type)
+	{
+	case OBJECT_TYPE::DESK:
+	{
+		_objects.push_back(new DeskObject(pos, direction));
+	}
+	break;
+	}
 }

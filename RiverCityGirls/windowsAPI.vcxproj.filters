@@ -243,6 +243,12 @@
     <ClInclude Include="CheerGirl.h">
       <Filter>PlayGround\Enemy</Filter>
     </ClInclude>
+    <ClInclude Include="DeskObject.h">
+      <Filter>PlayGround\Object</Filter>
+    </ClInclude>
+    <ClInclude Include="AllObjects.h">
+      <Filter>PlayGround\Object</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="windowsAPI.cpp">
@@ -385,6 +391,9 @@
     </ClCompile>
     <ClCompile Include="CheerGirl.cpp">
       <Filter>PlayGround\Enemy</Filter>
+    </ClCompile>
+    <ClCompile Include="DeskObject.cpp">
+      <Filter>PlayGround\Object</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
