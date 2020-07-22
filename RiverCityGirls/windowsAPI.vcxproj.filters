@@ -234,9 +234,6 @@
     <ClInclude Include="DialogueManager.h">
       <Filter>PlayGround\Dialogue</Filter>
     </ClInclude>
-    <ClInclude Include="JumpState.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
     <ClInclude Include="SchoolGirl.h">
       <Filter>PlayGround\Enemy</Filter>
     </ClInclude>
@@ -251,6 +248,12 @@
     </ClInclude>
     <ClInclude Include="RestrictMoveLine.h">
       <Filter>2DGameFramework\Utils</Filter>
+    </ClInclude>
+    <ClInclude Include="JumpState.h">
+      <Filter>PlayGround\Player\State</Filter>
+    </ClInclude>
+    <ClInclude Include="AttackState.h">
+      <Filter>PlayGround\Player\State</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -386,9 +389,6 @@
     <ClCompile Include="DialogueManager.cpp">
       <Filter>PlayGround\Dialogue</Filter>
     </ClCompile>
-    <ClCompile Include="JumpState.cpp">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
     <ClCompile Include="SchoolGirl.cpp">
       <Filter>PlayGround\Enemy</Filter>
     </ClCompile>
@@ -400,6 +400,12 @@
     </ClCompile>
     <ClCompile Include="RestrictMoveLine.cpp">
       <Filter>2DGameFramework\Utils</Filter>
+    </ClCompile>
+    <ClCompile Include="JumpState.cpp">
+      <Filter>PlayGround\Player\State</Filter>
+    </ClCompile>
+    <ClCompile Include="AttackState.cpp">
+      <Filter>PlayGround\Player\State</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

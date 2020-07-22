@@ -25,10 +25,11 @@ HRESULT playGround::init()
 	IMAGE_MANAGER->addImage("OBJECT_DESK", L"resources/images/object/03_Detention_OBJ_Desks_01.png");
 
 	// * Player
-	IMAGE_MANAGER->addFrameImage("Kyoko_idle", L"Kyoko/Kyoko_idle.png", 12, 2);
-	IMAGE_MANAGER->addFrameImage("Kyoko_walk", L"Kyoko/Kyoko_walk.png",12,2);
-	IMAGE_MANAGER->addFrameImage("Kyoko_run", L"Kyoko/Kyoko_run.png", 16, 2);
-	IMAGE_MANAGER->addFrameImage("Kyoko_jump", L"Kyoko/Kyoko_jump.png", 3, 2);
+	IMAGE_MANAGER->addFrameImage("Kyoko_idle", L"images/kyoko/Kyoko_idle.png", 12, 2);
+	IMAGE_MANAGER->addFrameImage("Kyoko_walk", L"images/kyoko/Kyoko_walk.png",12,2);
+	IMAGE_MANAGER->addFrameImage("Kyoko_run", L"images/kyoko/Kyoko_run.png", 16, 2);
+	IMAGE_MANAGER->addFrameImage("Kyoko_jump", L"images/kyoko/Kyoko_jump.png", 3, 2);
+	IMAGE_MANAGER->addFrameImage("Kyoko_walljump", L"images/kyoko/Kyoko_walljump.png", 2, 2);
 
 	// * Enemy 
     // ** schoolBoy
