@@ -41,9 +41,9 @@ void Stage::init(Image * background, float bgScale)
 	_objectManager->spawnObject(OBJECT_TYPE::DESK, Vector3(430, 0, 495), DIRECTION::LEFT);
 
 
-	/*_enemyManager = new EnemyManager;
+	_enemyManager = new EnemyManager;
 	_enemyManager->setStage(this);
-	_enemyManager->init();*/
+	_enemyManager->init();
 }
 
 void Stage::enter()
@@ -53,7 +53,7 @@ void Stage::enter()
 void Stage::exit()
 {
 	_objectManager->release();
-	//_enemyManager->release();
+	_enemyManager->release();
 	for (int i = 0; i < _restrictLines.size(); i++)
 	{
 		delete _restrictLines[i];
@@ -64,7 +64,7 @@ void Stage::exit()
 Stage * Stage::update()
 {
 	_objectManager->update();
-	//_enemyManager->update();
+	_enemyManager->update();
 
 	CAMERA_MANAGER->setXY(CAMERA_MANAGER->convertV3ToV2(_player->getPosition()));
 
@@ -86,7 +86,7 @@ void Stage::render()
 	}
 
 	_objectManager->render();
-	//_enemyManager->render();
+	_enemyManager->render();
 }
 
 // 게임 오브젝트가 이동가능한 영역까지 이동할 수 있도록 하는 함수

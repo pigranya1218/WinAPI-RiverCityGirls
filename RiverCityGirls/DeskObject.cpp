@@ -18,12 +18,6 @@ DeskObject::DeskObject(Vector3 position, DIRECTION direction)
 	linePos[3][0] = linePos[1][2]; // ©Л
 	linePos[3][1] = linePos[1][3];
 	linePos[3][2] = linePos[0][2];
-	linePos[3][3] = linePos[0][3];
-
-	int lineRange[4][4] = { {linePos[0][0], linePos[0][2], linePos[0][1], linePos[1][1]}, // ╩С
-							{linePos[1][0], linePos[1][2], linePos[0][1], linePos[1][1]}, // го
-							{linePos[2][0], linePos[2][2], linePos[0][1], linePos[1][1]}, // аб 
-							{linePos[3][0], linePos[3][2], linePos[0][1], linePos[1][1]} }; // ©Л
 
 	_restrictRect = new RestrictMoveRect(Vector2(_position.x + _collisionOffsetX - (_size.x / 2) + (_size.z / 2), _position.z + _collisionOffsetZ - (_size.z / 2)),		// LT
 										Vector2(_position.x + _collisionOffsetX + (_size.x / 2) + (_size.z / 2), _position.z + _collisionOffsetZ - (_size.z / 2)),		// RT
