@@ -13,6 +13,8 @@ private:
 	float _initTime;
 	WALK_STATE _state;
 
+	Vector3 moveDir;
+
 public:
 	virtual PlayerState* update(Player& player);
 	virtual void render(Player& player);

@@ -57,7 +57,7 @@ void IdleState::enter(Player & player)
 	_img->setScale(3);
 	_ani = new Animation;
 	_ani->init(_img->getWidth(), _img->getHeight(), _img->getMaxFrameX(), _img->getMaxFrameY());
-	_ani->setFPS(20);
+	_ani->setFPS(15);
 	if (player.getDirection() == DIRECTION::RIGHT)
 	{
 		_ani->setPlayFrame(0, 12, false, true); // 0 ~ 11

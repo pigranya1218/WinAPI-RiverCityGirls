@@ -9,40 +9,44 @@ PlayerState * JumpState::update(Player & player)
 	moveDir.z = 0;
 	moveDir.y = 0;
 
-	moveDir.y -= _jumpPower;
-	_jumpPower -= _gravity;
-	
+	moveDir.y -= player.getJumpPower();
+	player.setJumpPower((player.getJumpPower() - _gravity));
+	float lastPlayerY = player.getPosition().y;
 
 	if (player.getDirection() == DIRECTION:: RIGHT)
 	{
-		if (_jumpPower > 2)
+		if (player.getJumpPower() > 2)
 		{
 			_ani->setPlayFrame(0, 1, false, false);
 		}
-		if (_jumpPower < -1)
+		if (player.getJumpPower() < -1)
 		{
 			_ani->setPlayFrame(2, 1, false, false);
 		}
-		if (_jumpPower >= -1 && _jumpPower <= 2)
+		if (player.getJumpPower() >= -1 && player.getJumpPower() <= 2)
 		{
 			_ani->setPlayFrame(1, 2, false, false);
 		}
 	}
 	if (player.getDirection() == DIRECTION:: LEFT)
 	{
-		if (_jumpPower > 2)
+		if (player.getJumpPower() > 2)
 		{
 			_ani->setPlayFrame(3, 4, false, false);
 		}
-		if (_jumpPower < -1)
+		if (player.getJumpPower() < -1)
 		{
 			_ani->setPlayFrame(5, 4, false, false);
 		}
-		if (_jumpPower >= -1 && _jumpPower <= 2)
+		if (player.getJumpPower() >= -1 && player.getJumpPower() <= 2)
 		{
 			_ani->setPlayFrame(4, 5, false, false);
 		}
 	}
+
+	switch (_jumpType)
+	{
+	case JUMP_TYPE::DEFAULT_JUMP:
 
 	if (KEY_MANAGER->isStayKeyDown(VK_RIGHT))
 	{
@@ -70,14 +74,29 @@ PlayerState * JumpState::update(Player & player)
 	{
 		player.setDirection(DIRECTION::LEFT);
 	}
+	break;
+	case JUMP_TYPE::RUN_JUMP:
 
-	if (player.getPosition().getIntY() > _startY)
-	{
-		if (KEY_MANAGER->isStayKeyDown(VK_RIGHT) || KEY_MANAGER->isStayKeyDown(VK_LEFT)) return new WalkState;
-		else return new IdleState;
+
+		break;
 	}
 
 	player.move(moveDir);
+
+	float currentPlayerY = player.getPosition().y;
+
+	if (player.getJumpPower() < -0.4 && currentPlayerY == lastPlayerY)
+	{
+		if (KEY_MANAGER->isStayKeyDown(VK_RIGHT) || KEY_MANAGER->isStayKeyDown(VK_LEFT))
+		{
+			return new WalkState;
+		}
+		else
+		{
+			return new IdleState;
+		}
+	}
+
 
 	_ani->frameUpdate(TIME_MANAGER->getElapsedTime() * 10);
 
@@ -88,6 +107,10 @@ void JumpState::render(Player & player)
 {
 	_img->setScale(3);
 	CAMERA_MANAGER->aniRenderZ(_img, player.getPosition(), player.getSize(), _ani, true);
+
+	/*char str[254];
+	sprintf_s(str, "moveDir.x:%d,moveDir.y:%u,moveDir.z:%d ,direction:%d ", moveDir.x, moveDir.y, moveDir.z, player.getDirection());
+	TextOut(_hdc,0,100 ,str, strlen(str));*/
 }
 
 void JumpState::enter(Player & player)
@@ -97,10 +120,16 @@ void JumpState::enter(Player & player)
 	_ani = new Animation;
 	_ani->init(_img->getWidth(), _img->getHeight(), _img->getMaxFrameX(), _img->getMaxFrameY());
 	_ani->setDefPlayFrame(false, false);
-	_ani->setFPS(2);
+	_ani->setFPS(15);
 	_ani->start();
 
-	_jumpPower = 12;
 	_gravity = 0.3f;
-	_startY = player.getPosition().getIntY();
+	//_startY = player.getPosition().getIntY();
+}
+
+void JumpState::exit(Player & player)
+{
+	player.setJumpPower(12);
+	_ani->release();
+	SAFE_DELETE(_ani);
 }

@@ -91,6 +91,11 @@ void Stage::moveGameObject(GameObject & gameObject, Vector3 move)
 	float height = gameObject.getSize().z * 0.5; // 충돌 세로 길이
 
 	Vector3 newPos = gameObject.getPosition() + move;
+	Vector3 size = gameObject.getSize();
+	if (newPos.y + (size.y / 2) > 0)
+	{
+		newPos.y = -(size.y / 2);
+	}
 	Vector3 newPoses[4]; // 새로운 좌표를 기준으로 하는 대각 위치
 	for (int i = 0; i < 4; i++)
 	{
