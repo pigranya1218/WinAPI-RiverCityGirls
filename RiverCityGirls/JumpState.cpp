@@ -12,6 +12,8 @@ PlayerState * JumpState::update(Player & player)
 	moveDir.y -= player.getJumpPower();
 	player.setJumpPower((player.getJumpPower() - _gravity));
 	float lastPlayerY = player.getPosition().y;
+	
+
 
 	if (player.getDirection() == DIRECTION:: RIGHT)
 	{
@@ -76,7 +78,23 @@ PlayerState * JumpState::update(Player & player)
 	}
 	break;
 	case JUMP_TYPE::RUN_JUMP:
-
+		
+	if (_jumpDirection==0)
+	{
+		moveDir.x += player.getSpeed()*2;
+	}
+	if (_jumpDirection==1)
+	{
+		moveDir.x -= player.getSpeed()*2;
+	}
+	if (KEY_MANAGER->isOnceKeyDown(VK_RIGHT))
+	{
+		player.setDirection(DIRECTION::RIGHT);
+	}
+	if (KEY_MANAGER->isOnceKeyDown(VK_LEFT))
+	{
+		player.setDirection(DIRECTION::LEFT);
+	}
 
 		break;
 	}
@@ -124,6 +142,9 @@ void JumpState::enter(Player & player)
 	_ani->start();
 
 	_gravity = 0.3f;
+
+	_jumpDirection = (int)player.getDirection();
+
 	//_startY = player.getPosition().getIntY();
 }
 
