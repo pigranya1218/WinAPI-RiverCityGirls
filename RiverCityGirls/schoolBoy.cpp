@@ -243,7 +243,7 @@ void SchoolBoy::update()
 
 void SchoolBoy::render()
 {
-	/*
+	
 	_enemyImg->setScale(3.f);
 	
 	CAMERA_MANAGER->aniRenderZ(_enemyImg, _position, _size, _ani, true);

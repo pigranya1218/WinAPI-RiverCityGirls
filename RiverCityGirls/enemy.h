@@ -17,7 +17,7 @@ enum class ENEMY_STATE
 	DOWN,	 //DOWN상태에서 피격 -> GROUND_HIT
 	STUN,
 	SKILL,	 //BOY(SANDTOSS), GIRL(), CHEER_GIRL()
-	HELD	 //HELD상태에서 피격 -> HELD_HIT / 일정 시간 지나면 HELD_RELEASE
+	HELD//HELD상태에서 피격 -> HELD_HIT / 일정 시간 지나면 HELD_RELEASE
 };
 
 //좌우 디렉션은 플레이어 기준 setFrameY로 조정

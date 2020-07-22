@@ -243,6 +243,9 @@
     <ClInclude Include="CheerGirl.h">
       <Filter>PlayGround\Enemy</Filter>
     </ClInclude>
+    <ClInclude Include="Boss.h">
+      <Filter>PlayGround\Enemy</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="windowsAPI.cpp">
@@ -384,6 +387,9 @@
       <Filter>PlayGround\Enemy</Filter>
     </ClCompile>
     <ClCompile Include="CheerGirl.cpp">
+      <Filter>PlayGround\Enemy</Filter>
+    </ClCompile>
+    <ClCompile Include="Boss.cpp">
       <Filter>PlayGround\Enemy</Filter>
     </ClCompile>
   </ItemGroup>

@@ -3,6 +3,7 @@
 #include "SchoolBoy.h"
 #include "SchoolGirl.h"
 #include "CheerGirl.h"
+#include "Boss.h"
 #include "enemy.h"
 #include "stage.h"
 
@@ -21,6 +22,10 @@ HRESULT EnemyManager::init()
 	_cheerGirl->init();
 	_cheerGirl->setEnemyManager(this);
 
+	_boss = new Boss;
+	_boss->init();
+	_boss->setEnemyManager(this);
+
 	return S_OK;
 }
 
@@ -33,13 +38,17 @@ void EnemyManager::update()
 	_schoolBoy->update();
 	_schoolGirl->update();
 	_cheerGirl->update();
+	_boss->update();
 }
 
 void EnemyManager::render()
 {
-	_schoolBoy->render();
+
+//	_schoolBoy->render();
+	_cheerGirl->render();	
 	_schoolGirl->render();
-	_cheerGirl->render();
+	_boss->render();
+	
 }
 
 void EnemyManager::setEnemy()

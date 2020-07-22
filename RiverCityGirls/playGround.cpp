@@ -54,7 +54,7 @@ HRESULT playGround::init()
 	IMAGE_MANAGER->addFrameImage("schoolgirl_run", L"resources/images/characters/enemy_schoolgirl/run.png", 9, 2);
 	IMAGE_MANAGER->addFrameImage("schoolgirl_block", L"resources/images/characters/enemy_schoolgirl/가드.png", 3, 2);
 	IMAGE_MANAGER->addFrameImage("schoolgirl_groundHit", L"resources/images/characters/enemy_schoolgirl/그라운드 히트.png", 3, 2);
-	IMAGE_MANAGER->addFrameImage("schoolgirl_attack1", L"resources/images/characters/enemy_schoolgirl/잽.png", 8, 2);
+	IMAGE_MANAGER->addFrameImage("schoolgirl_attack1", L"resources/images/characters/enemy_schoolgirl/잽.png", 7, 2);
 	IMAGE_MANAGER->addFrameImage("schoolgirl_attack2", L"resources/images/characters/enemy_schoolgirl/니킥.png", 7, 2);
 	IMAGE_MANAGER->addFrameImage("schoolgirl_attack3", L"resources/images/characters/enemy_schoolgirl/발차기.png", 8, 2);
 	IMAGE_MANAGER->addFrameImage("schoolgirl_skill", L"resources/images/characters/enemy_schoolgirl/회전킥.png", 12, 2);
@@ -70,15 +70,35 @@ HRESULT playGround::init()
 	IMAGE_MANAGER->addFrameImage("cheergirl_attack2", L"resources/images/characters/enemy_cheergirl/spinpoom.png", 7, 2);
 	IMAGE_MANAGER->addFrameImage("cheergirl_begGing", L"resources/images/characters/enemy_cheergirl/begging.png", 2, 2);
 	IMAGE_MANAGER->addFrameImage("cheergirl_blownBack", L"resources/images/characters/enemy_cheergirl/blownback.png", 23, 2);
-	IMAGE_MANAGER->addFrameImage("cheergirl_skill", L"resources/images/characters/enemy_cheergirl/cartwheel.png", 15, 2); // 치어걸은 회피스킬
+	IMAGE_MANAGER->addFrameImage("cheergirl_walk1", L"resources/images/characters/enemy_cheergirl/cartwheel.png", 15, 2); // 치어걸은 회피스킬
 	IMAGE_MANAGER->addFrameImage("cheergirl_getHits", L"resources/images/characters/enemy_cheergirl/gethits.png", 9, 2);
 	IMAGE_MANAGER->addFrameImage("cheergirl_heldRelease", L"resources/images/characters/enemy_cheergirl/grab_release.png", 4, 2);
 	IMAGE_MANAGER->addFrameImage("cheergirl_groundUp", L"resources/images/characters/enemy_cheergirl/groundup.png", 11, 2);
 	IMAGE_MANAGER->addFrameImage("cheergirl_stun", L"resources/images/characters/enemy_cheergirl/stun.png", 5, 2);
-	IMAGE_MANAGER->addFrameImage("cheergirl_walk", L"resources/images/characters/enemy_cheergirl/walk.png", 12, 2);
+	IMAGE_MANAGER->addFrameImage("cheergirl_walk2", L"resources/images/characters/enemy_cheergirl/walk.png", 12, 2);
 	IMAGE_MANAGER->addFrameImage("cheergirl_jumpAttack1", L"resources/images/characters/enemy_cheergirl/divekick_start.png", 6, 2);
 	IMAGE_MANAGER->addFrameImage("cheergirl_jumpAttack2", L"resources/images/characters/enemy_cheergirl/divekick_middle.png", 7, 2);
 	IMAGE_MANAGER->addFrameImage("cheergirl_jumpAttack3", L"resources/images/characters/enemy_cheergirl/divekick_end.png", 13, 2);
+	//보스
+	IMAGE_MANAGER->addFrameImage("boss_block", L"resources/images/characters/boss_misuzu/Misuzu_block.png", 4, 2);
+	IMAGE_MANAGER->addFrameImage("boss_walk", L"resources/images/characters/boss_misuzu/MizusuWalk.png", 10, 2);
+	IMAGE_MANAGER->addFrameImage("boss_poewerAttack", L"resources/images/characters/boss_misuzu/MizusuWUPunch.png", 27, 2);
+	IMAGE_MANAGER->addFrameImage("boss_blownBack", L"resources/images/characters/boss_misuzu/RCG_Misuzu_blownback.png", 22, 2);
+	IMAGE_MANAGER->addFrameImage("boss_defeat", L"resources/images/characters/boss_misuzu/RCG_Misuzu_defeat.png", 13, 2);
+	IMAGE_MANAGER->addFrameImage("boss_dizzy", L"resources/images/characters/boss_misuzu/RCG_Misuzu_dizzy.png", 4, 2);
+	IMAGE_MANAGER->addFrameImage("boss_attack1", L"resources/images/characters/boss_misuzu/RCG_Misuzu_elbow.png", 11, 2);
+	IMAGE_MANAGER->addFrameImage("boss_getHit", L"resources/images/characters/boss_misuzu/RCG_Misuzu_GetHit.png", 9, 2);
+	IMAGE_MANAGER->addFrameImage("boss_getup", L"resources/images/characters/boss_misuzu/RCG_Misuzu_getup3.png", 15, 2);	
+	IMAGE_MANAGER->addFrameImage("boss_groundHit", L"resources/images/characters/boss_misuzu/RCG_Misuzu_groundhit.png", 4, 2);
+	IMAGE_MANAGER->addFrameImage("boss_idle", L"resources/images/characters/boss_misuzu/RCG_Misuzu_idle.png", 12, 2);
+	IMAGE_MANAGER->addFrameImage("boss_falling", L"resources/images/characters/boss_misuzu/RCG_Misuzu_meteor_falling.png", 2, 2);
+	IMAGE_MANAGER->addFrameImage("boss_fallingmiss", L"resources/images/characters/boss_misuzu/RCG_Misuzu_meteor_rubbutt.png", 6, 2);
+	IMAGE_MANAGER->addFrameImage("boss_jump", L"resources/images/characters/boss_misuzu/RCG_Misuzu_meteor_jump.png", 8, 2);
+	IMAGE_MANAGER->addFrameImage("boss_faseupdate", L"resources/images/characters/boss_misuzu/RCG_Misuzu_roar.png", 12, 2);
+	IMAGE_MANAGER->addFrameImage("boss_attack2", L"resources/images/characters/boss_misuzu/RCG_Misuzu_slap.png", 14, 2);
+	IMAGE_MANAGER->addFrameImage("boss_tackle1", L"resources/images/characters/boss_misuzu/RCG_Misuzu_tackle_initial.png", 5, 2);
+	IMAGE_MANAGER->addFrameImage("boss_tackle2", L"resources/images/characters/boss_misuzu/RCG_Misuzu_tackle_loop.png", 11, 2);
+
 
 
 
