@@ -27,8 +27,7 @@ private:
 	Vector2				_size;			
 	float				_scale;			
 	float				_angle;
-
-	// 황수현 추가
+	
 	Vector2				_skewPos, _skewAngle;	// 찌그러트릴 좌표, 각도
 
 	TagLoadedImageInfo	_loadInfo;		
@@ -60,7 +59,6 @@ public:
 	float getAngle() { return _angle; }
 	float getAlpha() { return _alpha; }
 	
-	// 황수현 추가
 	void setSkew(const Vector2& pos, const Vector2& angle) { this->_skewPos = pos; this->_skewAngle = angle; }
 
 	const int getMaxFrameX()const{ return _maxFrameX; }

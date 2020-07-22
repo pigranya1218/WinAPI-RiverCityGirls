@@ -19,6 +19,7 @@
 void D2DRenderer::renderText(const int x, const int y, const wstring& text, const int size,
 	const DefaultBrush& defaultBrush, const DWRITE_TEXT_ALIGNMENT& align,const wstring& font)
 {
+	locale::global(locale("kor"));
 	Vector2 pos(x, y);
 
 	IDWriteTextLayout* layout = nullptr;
