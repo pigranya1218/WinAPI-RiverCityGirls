@@ -54,7 +54,7 @@ HRESULT playGround::init()
 	IMAGE_MANAGER->addFrameImage("schoolgirl_run", L"images/enemy_schoolgirl/run.png", 9, 2);
 	IMAGE_MANAGER->addFrameImage("schoolgirl_block", L"images/enemy_schoolgirl/가드.png", 3, 2);
 	IMAGE_MANAGER->addFrameImage("schoolgirl_groundHit", L"images/enemy_schoolgirl/그라운드 히트.png", 3, 2);
-	IMAGE_MANAGER->addFrameImage("schoolgirl_attack1", L"images/enemy_schoolgirl/잽.png", 8, 2);
+	IMAGE_MANAGER->addFrameImage("schoolgirl_attack1", L"images/enemy_schoolgirl/잽.png", 7, 2);
 	IMAGE_MANAGER->addFrameImage("schoolgirl_attack2", L"images/enemy_schoolgirl/니킥.png", 7, 2);
 	IMAGE_MANAGER->addFrameImage("schoolgirl_attack3", L"images/enemy_schoolgirl/발차기.png", 8, 2);
 	IMAGE_MANAGER->addFrameImage("schoolgirl_skill", L"images/enemy_schoolgirl/회전킥.png", 12, 2);
