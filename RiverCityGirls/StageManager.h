@@ -21,7 +21,7 @@ public:
 
 	void render();
 
-	void moveGameObject(GameObject& gameObject, Vector3 moveDir) { _currStage->moveGameObject(gameObject, moveDir); }
+	void moveGameObject(GameObject* gameObject, Vector3 moveDir) { _currStage->moveGameObject(gameObject, moveDir); }
 	void setPlayer(Player* player) { _player = player; }
 	void setUIManager(UIManager* uiManager) { _uiManager = uiManager; }
 };

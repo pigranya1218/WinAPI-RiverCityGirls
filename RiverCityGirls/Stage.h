@@ -37,7 +37,7 @@ public:
 	void setPlayer(Player* player) { _player = player; }
 
 	// 게임 오브젝트를 가능한만큼 이동시킴
-	void moveGameObject(GameObject& gameObject, Vector3 move);
+	void moveGameObject(GameObject* gameObject, Vector3 move);
 
 	Vector3 getPlayerPosition();
 	

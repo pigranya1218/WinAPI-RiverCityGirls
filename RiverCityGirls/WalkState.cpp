@@ -169,7 +169,7 @@ PlayerState * WalkState::update(Player& player)
 void WalkState::render(Player& player)
 {
 	_img->setScale(3);
-	CAMERA_MANAGER->aniRenderZ(_img, player.getPosition(), player.getSize(), _ani, true);
+	CAMERA_MANAGER->aniRenderZ(_img, player.getPosition(), player.getSize(), _ani);
 
 	/*char str[254];
 	sprintf_s(str, "state:%d ,direction:%d ", _state, player.getDirection());

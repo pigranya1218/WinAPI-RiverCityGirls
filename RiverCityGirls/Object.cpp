@@ -19,9 +19,8 @@ void Object::render()
 {
 }
 
-void Object::collision(Vector3 * pos, const Vector3 size)
+void Object::collision(Vector3 * pos, GameObject* gameObject)
 {
-
 }
 
 void Object::reaction()

@@ -264,7 +264,7 @@ void SchoolBoy::render()
 {
 	_enemyImg->setScale(3.f);
 	
-	CAMERA_MANAGER->aniRenderZ(_enemyImg, _position, _size, _ani, true);
+	CAMERA_MANAGER->aniRenderZ(_enemyImg, _position, _size, _ani);
 	
 	//test
 	char str[255];

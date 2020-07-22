@@ -19,24 +19,37 @@ void CameraManager::merge(int s, int e) // merge sort
 	sort(s, e);
 }
 
-void CameraManager::sort(int s, int e)
+void CameraManager::sort(int s, int e) // z 를 기준으로 오름차순,(먼저 그려야 되는게 앞으로)
 {
-	int sIndex = s;
-	int eIndex = e;
 	int mid = (s + e) / 2;
+	int sIndex = s;
+	int eIndex = mid + 1;
 	vector<tagZImage> tempVector;
 
-	while (sIndex <= mid && mid + 1 <= eIndex)
+	while (sIndex <= mid && eIndex <= e)
 	{
-		if (_renderList[sIndex].pos.z <= _renderList[eIndex].pos.z)
+		if ((_renderList[sIndex].pos.z + _renderList[sIndex].offsetZ) < (_renderList[eIndex].pos.z + _renderList[eIndex].offsetZ))
 		{
 			tempVector.push_back(_renderList[sIndex]);
 			sIndex++;
 		}
+		else if ((_renderList[sIndex].pos.z + _renderList[sIndex].offsetZ) == (_renderList[eIndex].pos.z + _renderList[eIndex].offsetZ))
+		{
+			if (_renderList[sIndex].renderType == IMAGE_RENDER_TYPE::SHADOW)
+			{
+				tempVector.push_back(_renderList[sIndex]);
+				sIndex++;
+			}
+			else
+			{
+				tempVector.push_back(_renderList[eIndex]);
+				eIndex++;
+			}
+		}
 		else
 		{
 			tempVector.push_back(_renderList[eIndex]);
-			eIndex--;
+			eIndex++;
 		}
 	}
 	while (sIndex <= mid)
@@ -44,10 +57,10 @@ void CameraManager::sort(int s, int e)
 		tempVector.push_back(_renderList[sIndex]);
 		sIndex++;
 	}
-	while (mid + 1 <= eIndex)
+	while (eIndex <= e)
 	{
 		tempVector.push_back(_renderList[eIndex]);
-		eIndex--;
+		eIndex++;
 	}
 
 	for (int i = 0; i <= (e - s); i++) // 정렬
@@ -58,12 +71,6 @@ void CameraManager::sort(int s, int e)
 
 void CameraManager::render(tagZImage imageInfo)
 {
-	// 그림자 그리기
-	if (imageInfo.drawShadow)
-	{
-		drawShadow(imageInfo.pos, imageInfo.size);
-	}
-
 	imageInfo.img->setScale(imageInfo.scale);
 	imageInfo.img->setAngle(imageInfo.angle);
 	imageInfo.img->setAlpha(imageInfo.alpha);
@@ -71,6 +78,10 @@ void CameraManager::render(tagZImage imageInfo)
 	// 타입에 맞게 이미지 그리기
 	switch (imageInfo.renderType)
 	{
+	case IMAGE_RENDER_TYPE::SHADOW:
+	{
+		drawShadow(imageInfo.pos, imageInfo.size);
+	}
 	case IMAGE_RENDER_TYPE::RENDER:
 	{
 		render(imageInfo.img, convertV3ToV2(imageInfo.pos));
@@ -351,7 +362,18 @@ void CameraManager::aniRender(Image * img, Vector2 center, Animation * ani)
 	img->aniRender(drawPos, ani);
 }
 
-void CameraManager::renderZ(Image * img, Vector3 center, Vector3 size, bool drawShadow)
+void CameraManager::drawShadowZ(Vector3 pos, Vector3 size, float offsetZ)
+{
+	tagZImage zImage;
+	zImage.renderType = IMAGE_RENDER_TYPE::SHADOW;
+	zImage.offsetZ = offsetZ;
+	zImage.pos = pos;
+	zImage.size = size;
+
+	_renderList.push_back(zImage);
+}
+
+void CameraManager::renderZ(Image * img, Vector3 center, Vector3 size, float offsetZ)
 {
 	tagZImage zImage;
 	zImage.renderType = IMAGE_RENDER_TYPE::RENDER;
@@ -359,14 +381,14 @@ void CameraManager::renderZ(Image * img, Vector3 center, Vector3 size, bool draw
 	zImage.scale = img->getScale();
 	zImage.alpha = img->getAlpha();
 	zImage.angle = img->getAngle();
+	zImage.offsetZ = offsetZ;
 	zImage.pos = center;
 	zImage.size = size;
-	zImage.drawShadow = drawShadow;
 
 	_renderList.push_back(zImage);
 }
 
-void CameraManager::renderZ(Image * img, Vector3 center, Vector3 size, Vector2 sourLT, Vector2 sourSize, bool drawShadow)
+void CameraManager::renderZ(Image * img, Vector3 center, Vector3 size, Vector2 sourLT, Vector2 sourSize, float offsetZ)
 {
 	tagZImage zImage;
 	zImage.renderType = IMAGE_RENDER_TYPE::RENDER_WITH_SOURCE_POS;
@@ -374,16 +396,16 @@ void CameraManager::renderZ(Image * img, Vector3 center, Vector3 size, Vector2 s
 	zImage.scale = img->getScale();
 	zImage.alpha = img->getAlpha();
 	zImage.angle = img->getAngle(); 
+	zImage.offsetZ = offsetZ;
 	zImage.pos = center;
 	zImage.size = size;
 	zImage.sourPos = sourLT;
 	zImage.sourSize = sourSize;
-	zImage.drawShadow = drawShadow;
 	
 	_renderList.push_back(zImage);
 }
 
-void CameraManager::frameRenderZ(Image * img, Vector3 center, Vector3 size, int frameX, int frameY, bool drawShadow)
+void CameraManager::frameRenderZ(Image * img, Vector3 center, Vector3 size, int frameX, int frameY, float offsetZ)
 {
 	tagZImage zImage;
 	zImage.renderType = IMAGE_RENDER_TYPE::FRAME_RENDER;
@@ -391,16 +413,16 @@ void CameraManager::frameRenderZ(Image * img, Vector3 center, Vector3 size, int 
 	zImage.scale = img->getScale();
 	zImage.alpha = img->getAlpha();
 	zImage.angle = img->getAngle(); 
+	zImage.offsetZ = offsetZ;
 	zImage.pos = center;
 	zImage.size = size;
 	zImage.frameX = frameX;
 	zImage.frameY = frameY;
-	zImage.drawShadow = drawShadow;
 
 	_renderList.push_back(zImage);
 }
 
-void CameraManager::aniRenderZ(Image * img, Vector3 center, Vector3 size, Animation * ani, bool drawShadow)
+void CameraManager::aniRenderZ(Image * img, Vector3 center, Vector3 size, Animation * ani, float offsetZ)
 {
 	tagZImage zImage;
 	zImage.renderType = IMAGE_RENDER_TYPE::ANIMATION_RENDER;
@@ -408,10 +430,10 @@ void CameraManager::aniRenderZ(Image * img, Vector3 center, Vector3 size, Animat
 	zImage.scale = img->getScale();
 	zImage.alpha = img->getAlpha();
 	zImage.angle = img->getAngle(); 
+	zImage.offsetZ = offsetZ;
 	zImage.pos = center;
 	zImage.size = size;
 	zImage.ani = ani;
-	zImage.drawShadow = drawShadow;
 
 	_renderList.push_back(zImage);
 }

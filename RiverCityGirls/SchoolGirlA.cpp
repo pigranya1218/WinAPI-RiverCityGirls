@@ -34,7 +34,7 @@ void SchoolGirlA::release()
 void SchoolGirlA::render()
 {
 	_img->setScale(3);
-	CAMERA_MANAGER->aniRenderZ(_img, _position, _size, _idleAni, true);
+	CAMERA_MANAGER->aniRenderZ(_img, _position, _size, _idleAni);
 }
 
 void SchoolGirlA::collision(Vector3 ** pos)

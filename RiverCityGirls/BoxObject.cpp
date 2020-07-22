@@ -21,7 +21,7 @@ void BoxObject::release()
 void BoxObject::render()
 {
 	_img->setScale(2);
-	CAMERA_MANAGER->renderZ(_img, _position, _size, false);
+	CAMERA_MANAGER->renderZ(_img, _position, _size);
 }
 
 void BoxObject::collision(Vector3 ** pos)

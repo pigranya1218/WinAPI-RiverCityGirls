@@ -34,7 +34,7 @@ void MrRudis::release()
 void MrRudis::render()
 {
 	_img->setScale(3);
-	CAMERA_MANAGER->aniRenderZ(_img, _position, _size, _idleAni, true);
+	CAMERA_MANAGER->aniRenderZ(_img, _position, _size, _idleAni);
 }
 
 void MrRudis::collision(Vector3 ** pos)

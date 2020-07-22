@@ -20,7 +20,7 @@ public:
 	virtual void update();
 	virtual void render();
 
-	void collision(Vector3* pos, const Vector3 size);
+	void collision(Vector3* pos, GameObject* gameObject);
 
 	void spawnObject(OBJECT_TYPE type, Vector3 pos, DIRECTION direction);
 };

@@ -4,7 +4,7 @@
 DeskObject::DeskObject(Vector3 position, DIRECTION direction)
 {
 	_direction = direction;
-	_size = Vector3(100, 80, 60);
+	_size = Vector3(80, 80, 60);
 	_position = Vector3(position.x, -(_size.y / 2), position.z);
 
 	_img = IMAGE_MANAGER->findImage("OBJECT_DESK");
@@ -28,7 +28,8 @@ DeskObject::DeskObject(Vector3 position, DIRECTION direction)
 	_restrictRect = new RestrictMoveRect(Vector2(_position.x + _collisionOffsetX - (_size.x / 2) + (_size.z / 2), _position.z + _collisionOffsetZ - (_size.z / 2)),		// LT
 										Vector2(_position.x + _collisionOffsetX + (_size.x / 2) + (_size.z / 2), _position.z + _collisionOffsetZ - (_size.z / 2)),		// RT
 										Vector2(_position.x + _collisionOffsetX + (_size.x / 2) - (_size.z / 2), _position.z + _collisionOffsetZ + (_size.z / 2)),		// RB
-										Vector2(_position.x + _collisionOffsetX - (_size.x / 2) - (_size.z / 2), _position.z + _collisionOffsetZ + (_size.z / 2)));		// LB
+									Vector2(_position.x + _collisionOffsetX - (_size.x / 2) - (_size.z / 2), _position.z + _collisionOffsetZ + (_size.z / 2)),
+									_size.y);		// LB
 }
 
 
@@ -45,15 +46,15 @@ void DeskObject::release()
 void DeskObject::render()
 {
 	_img->setScale(3);
-	_img->setAlpha(0.5);
-	CAMERA_MANAGER->renderZ(_img, _position, _size, false);
+	_img->setAlpha(1);
+	CAMERA_MANAGER->renderZ(_img, _position, _size, -(_size.z / 2));
 
 	_restrictRect->render();
 	CAMERA_MANAGER->drawLine(Vector2(_position.x + _collisionOffsetX, _position.z + _collisionOffsetZ), Vector2(_position.x + _collisionOffsetX, _position.z + _collisionOffsetZ - _size.y));
 }
 
-void DeskObject::collision(Vector3 * newPoses, Vector3 size)
+void DeskObject::collision(Vector3 * newPoses, GameObject* gameObject)
 {
-	_restrictRect->checkCollision(newPoses, size);
+	_restrictRect->checkCollision(newPoses, gameObject);
 }
 

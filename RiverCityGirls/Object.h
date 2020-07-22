@@ -26,7 +26,7 @@ public:
 	virtual void update();
 	virtual void release();
 	virtual void render();
-	virtual void collision(Vector3* newPoses, const Vector3 size);
+	virtual void collision(Vector3* newPoses, GameObject* gameObject);
 	virtual void reaction();
 };
 

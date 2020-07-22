@@ -14,13 +14,13 @@ Player::~Player()
 
 void Player::move(Vector3 moveDir)
 {
-	_stageManager->moveGameObject(*this, moveDir);
+	_stageManager->moveGameObject(this, moveDir);
 }
 
 void Player::init()
 {
 	setPosition(Vector3(500, -105, 500));
-	setSize(Vector3(120, 210, 30));
+	setSize(Vector3(80, 210, 30));
 
 	_state = new IdleState;
 	_state->enter(*this);

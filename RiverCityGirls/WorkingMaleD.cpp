@@ -34,7 +34,7 @@ void WorkingMaleD::release()
 void WorkingMaleD::render()
 {
 	_img->setScale(3);
-	CAMERA_MANAGER->aniRenderZ(_img, _position, _size, _idleAni, true);
+	CAMERA_MANAGER->aniRenderZ(_img, _position, _size, _idleAni);
 }
 
 void WorkingMaleD::collision(Vector3 ** pos)

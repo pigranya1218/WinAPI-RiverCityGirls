@@ -243,7 +243,7 @@ void CheerGirl::render()
 	
 	_enemyImg->setScale(3.f);
 	//_enemyImg->FrameRender(Vector2(WINSIZEX / 2, WINSIZEY / 2), 0, 0);
-	CAMERA_MANAGER->aniRenderZ(_enemyImg, _position, _size, _ani, true);
+	CAMERA_MANAGER->aniRenderZ(_enemyImg, _position, _size, _ani);
 
 	//test
 	char str[255];

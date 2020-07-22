@@ -34,7 +34,7 @@ void SchoolBoyB::release()
 void SchoolBoyB::render()
 {
 	_img->setScale(3);
-	CAMERA_MANAGER->aniRenderZ(_img, _position, _size, _idleAni, true);
+	CAMERA_MANAGER->aniRenderZ(_img, _position, _size, _idleAni);
 }
 
 void SchoolBoyB::collision(Vector3 ** pos)

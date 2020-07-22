@@ -61,7 +61,7 @@ void EnemyManager::removeEnemy(int arrNum)
 
 void EnemyManager::moveEnemy(GameObject * enemy, Vector3 dir)
 {
-	_stage->moveGameObject(*enemy, dir);
+	_stage->moveGameObject(enemy, dir);
 }
 
 Vector3 EnemyManager::getPlayerPosition()

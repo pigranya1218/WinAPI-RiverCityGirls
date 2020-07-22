@@ -32,11 +32,11 @@ void ObjectManager::render()
 	}
 }
 
-void ObjectManager::collision(Vector3 * pos, const Vector3 size)
+void ObjectManager::collision(Vector3 * pos, GameObject* gameObject)
 {
 	for (int i = 0; i < _objects.size(); i++)
 	{
-		_objects[i]->collision(pos, size);
+		_objects[i]->collision(pos, gameObject);
 	}
 }
 

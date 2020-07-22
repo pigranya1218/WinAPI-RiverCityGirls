@@ -6,7 +6,7 @@
 {
 private:
 	RestrictMoveRect* _restrictRect;
-	int _collisionOffsetX = 20;
+	int _collisionOffsetX = 15;
 	int _collisionOffsetZ = 10;
 
 public:
@@ -15,6 +15,6 @@ public:
 	virtual void update();
 	virtual void release();
 	virtual void render();
-	virtual void collision(Vector3* newPoses, Vector3 size);
+	virtual void collision(Vector3* newPoses, GameObject* gameObject);
 };
 

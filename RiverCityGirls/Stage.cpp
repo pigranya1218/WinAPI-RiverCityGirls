@@ -35,7 +35,11 @@ void Stage::init(Image * background, float bgScale)
 
 	_objectManager = new ObjectManager;
 	_objectManager->init();
+	_objectManager->spawnObject(OBJECT_TYPE::DESK, Vector3(1200, 0, 495), DIRECTION::LEFT);
+	_objectManager->spawnObject(OBJECT_TYPE::DESK, Vector3(940, 0, 495), DIRECTION::LEFT); 
 	_objectManager->spawnObject(OBJECT_TYPE::DESK, Vector3(680, 0, 495), DIRECTION::LEFT);
+	_objectManager->spawnObject(OBJECT_TYPE::DESK, Vector3(430, 0, 495), DIRECTION::LEFT);
+
 
 	/*_enemyManager = new EnemyManager;
 	_enemyManager->setStage(this);
@@ -86,16 +90,16 @@ void Stage::render()
 }
 
 // 게임 오브젝트가 이동가능한 영역까지 이동할 수 있도록 하는 함수
-void Stage::moveGameObject(GameObject & gameObject, Vector3 move)
+void Stage::moveGameObject(GameObject* gameObject, Vector3 move)
 {
 	if (move.x == 0 && move.y == 0 && move.z == 0) return;
 
 	float dir[4][2] = { {-1.0, -1.0}, {-1.0, 1.0}, {1.0, -1.0}, {1.0, 1.0} }; // 각 대각 값
-	float width = gameObject.getSize().x * 0.5; // 충돌 가로 길이
-	float height = gameObject.getSize().z * 0.5; // 충돌 세로 길이
+	float width = gameObject->getSize().x * 0.5; // 충돌 가로 길이
+	float height = gameObject->getSize().z * 0.5; // 충돌 세로 길이
 
-	Vector3 newPos = gameObject.getPosition() + move;
-	Vector3 size = gameObject.getSize();
+	Vector3 newPos = gameObject->getPosition() + move;
+	Vector3 size = gameObject->getSize();
 	if (newPos.y + (size.y / 2) > 0)
 	{
 		newPos.y = -(size.y / 2);
@@ -114,7 +118,7 @@ void Stage::moveGameObject(GameObject & gameObject, Vector3 move)
 	}
 
 	// 물체와의 이동가능 비교는 x, y, z 비교, 물체를 올라탈 수도 있음
-	_objectManager->collision(newPoses, size);
+	_objectManager->collision(newPoses, gameObject);
 	
 	newPos = Vector3(0, 0, 0);
 	for (int i = 0; i < 4; i++)
@@ -127,7 +131,7 @@ void Stage::moveGameObject(GameObject & gameObject, Vector3 move)
 	newPos.y /= 4;
 	newPos.z /= 4;
 
-	gameObject.setPosition(newPos);
+	gameObject->setPosition(newPos);
 }
 
 Vector3 Stage::getPlayerPosition()

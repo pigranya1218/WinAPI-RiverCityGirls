@@ -6,6 +6,7 @@ class CameraManager : public SingletonBase<CameraManager>
 public:
 	enum class IMAGE_RENDER_TYPE : UINT
 	{
+		SHADOW,
 		RENDER,
 		RENDER_WITH_SOURCE_POS,
 		FRAME_RENDER,
@@ -18,13 +19,13 @@ public:
 		float scale;
 		float angle;
 		float alpha;
+		float offsetZ;
 		Vector3 pos;
 		Vector3 size;
 		Vector2 sourPos; // render with sour
 		Vector2 sourSize; // render with sour 
 		int frameX, frameY; // frameRender
 		Animation* ani; // aniRender
-		bool drawShadow;
 		IMAGE_RENDER_TYPE renderType;
 	};
 
@@ -109,12 +110,13 @@ public:
 	/*
 		Z ORDER 관련 함수	
 	*/
-	void renderZ(Image* img, Vector3 center, Vector3 size, bool drawShadow);
-	void renderZ(Image* img, Vector3 center, Vector3 size, Vector2 sourLT, Vector2 sourSize, bool drawShadow);
+	void drawShadowZ(Vector3 pos, Vector3 size, float offsetZ = 0.0);
+	void renderZ(Image* img, Vector3 center, Vector3 size, float offsetZ = 0.0);
+	void renderZ(Image* img, Vector3 center, Vector3 size, Vector2 sourLT, Vector2 sourSize, float offsetZ = 0.0);
 
-	void frameRenderZ(Image* img, Vector3 center, Vector3 size, int frameX, int frameY, bool drawShadow);
+	void frameRenderZ(Image* img, Vector3 center, Vector3 size, int frameX, int frameY, float offsetZ = 0.0);
 
-	void aniRenderZ(Image* img, Vector3 center, Vector3 size, Animation* ani, bool drawShadow);
+	void aniRenderZ(Image* img, Vector3 center, Vector3 size, Animation* ani, float offsetZ = 0.0);
 
 	// 정렬 및 그리기
 	void renderZList();
