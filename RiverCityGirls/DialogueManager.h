@@ -38,6 +38,7 @@ private:
 	float					_textSpeed;		// 출력할 텍스트 속도
 	float					_elapsedSec;	// 시간 계산용
 	int						_stringNum;		// 출력할 글자 위치
+	float					_textTerm;		// 텍스트 출력 완료 후 화면 넘어갈 속도
 
 	enum class curDialogue
 	{

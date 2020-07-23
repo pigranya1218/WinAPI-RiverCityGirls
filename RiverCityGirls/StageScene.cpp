@@ -17,15 +17,15 @@ HRESULT StageScene::init()
 
 	_stageManager->init();
 	_player->init();
-	_dgManager->init(0.8f);
+	_dgManager->init(1.0f);
 	_uiManager->init(_player);
 
 	// UI 테스트입니다
-	_uiManager->setPlayerHpActive(true);		
+	//_uiManager->setPlayerHpActive(true);		
 	//_uiManager->setShopUI(true);
 	
 	// 다이얼로그 테스티입니다.
-	//_dgManager->startChapter(BossChapter::BATTLE_AFTER);
+	_dgManager->startChapter(BossChapter::BATTLE_BEFORE);
 
 	return S_OK;
 }
@@ -43,7 +43,7 @@ void StageScene::update()
 	_uiManager->update();
 
 	//
-	//_dgManager->update();
+	_dgManager->update();
 
 	// UI 테스트입니다.
 	static float hp = 100.0f;
@@ -67,6 +67,6 @@ void StageScene::render()
 	CAMERA_MANAGER->renderZList();
 
 	_uiManager->render();
-	//_dgManager->render();
+	_dgManager->render();
 
 }
