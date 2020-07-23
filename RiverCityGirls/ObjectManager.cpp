@@ -99,3 +99,11 @@ void ObjectManager::spawnObject(OBJECT_TYPE type, OBJECT_STATE state, Vector3 po
 
 	}
 }
+
+void ObjectManager::getHit(GameObject* hitter, FloatRect attackRc, float damage, ATTACK_TYPE type)
+{
+	for (int i = 0; i < _objects.size(); i++)
+	{
+		_objects[i]->getHit(hitter, attackRc, damage, type);
+	}
+}

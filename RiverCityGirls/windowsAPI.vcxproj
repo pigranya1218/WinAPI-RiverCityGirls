@@ -147,6 +147,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="AllEnums.h" />
     <ClInclude Include="AllObjects.h" />
     <ClInclude Include="AllPlayerState.h" />
     <ClInclude Include="Animation.h" />

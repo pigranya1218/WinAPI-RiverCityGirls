@@ -24,6 +24,8 @@ private:
 	CheerGirl* _cheerGirl;
 	Boss* _boss;
 
+
+	vector<Enemy*> _enemies;
 	vector<POINT> _enemyRespawnPos;
 
 protected:
@@ -43,5 +45,7 @@ public:
 
 	void setStage(Stage* stage) { _stage = stage; }
 	Vector3 getPlayerPosition();
+
+	void getHit(GameObject* gameObject, FloatRect attackRc, float damage, ATTACK_TYPE type);
 };
 

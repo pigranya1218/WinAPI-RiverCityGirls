@@ -24,6 +24,8 @@ public:
 	void move(const Vector2& moveValue);
 
 	const FloatRect& operator=(const RECT& rc);
+
+	static bool intersect(FloatRect rc1, FloatRect rc2);
 };
 
 inline FloatRect rectMakePivot(const Vector2& pos, const Vector2& size, const Pivot& pivot)
@@ -52,3 +54,4 @@ inline FloatRect rectMakePivot(const Vector2& pos, const Vector2& size, const Pi
 	}
 	return result;
 }
+

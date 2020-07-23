@@ -85,6 +85,9 @@
     <Filter Include="PlayGround\Player\State\AttackState">
       <UniqueIdentifier>{74d002a6-5207-4ba7-89e2-1820213dbe79}</UniqueIdentifier>
     </Filter>
+    <Filter Include="PlayGround\Enum">
+      <UniqueIdentifier>{d93de7e9-5fd9-4a66-a114-35ee20e11354}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="stdafx.h">
@@ -302,6 +305,9 @@
     </ClInclude>
     <ClInclude Include="TeacherTable.h">
       <Filter>PlayGround\Object</Filter>
+    </ClInclude>
+    <ClInclude Include="AllEnums.h">
+      <Filter>PlayGround\Enum</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

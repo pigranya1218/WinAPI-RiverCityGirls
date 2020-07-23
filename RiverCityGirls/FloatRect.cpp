@@ -91,3 +91,15 @@ const FloatRect& ::FloatRect::operator=(const RECT& rc)
 	return *this;
 }
 
+bool FloatRect::intersect(FloatRect rc1, FloatRect rc2)
+{
+	if ((rc1.top < rc2.bottom) &&
+		(rc1.bottom > rc2.top) &&
+		(rc1.left < rc2.right) &&
+		(rc1.right > rc2.left))
+	{
+		return true;
+	}
+	return false;
+}
+
