@@ -29,5 +29,8 @@ public:
 	virtual void render();
 	virtual void collision(Vector3* newPoses, GameObject* gameObject);
 	virtual void reaction();
+
+	void getHit(GameObject* hitter, FloatRect attackRc, float damage, ATTACK_TYPE type); // 맞았는지 체크하기 위해 공통으로 사용되는 충돌 처리 함수
+	virtual void hitEffect(GameObject* hitter, FloatRect attackRc, float damage, ATTACK_TYPE type); // 맞았을 때 호출되는 함수, 각 오브젝트별로 구현하기
 };
 

@@ -106,6 +106,10 @@ HRESULT playGround::init()
 	IMAGE_MANAGER->addFrameImage("Kyoko_run", L"resources/images/characters/kyoko/Kyoko_run.png", 16, 2);
 	IMAGE_MANAGER->addFrameImage("Kyoko_jump", L"resources/images/characters/kyoko/Kyoko_jump.png", 3, 2);
 	IMAGE_MANAGER->addFrameImage("Kyoko_walljump", L"resources/images/characters/kyoko/Kyoko_walljump.png", 2, 2);
+	IMAGE_MANAGER->addFrameImage("Kyoko_attack1", L"resources/images/characters/kyoko/Kyoko_qc1.png", 6, 2);
+	IMAGE_MANAGER->addFrameImage("Kyoko_attack2", L"resources/images/characters/kyoko/Kyoko_qc2.png", 7, 2);
+	IMAGE_MANAGER->addFrameImage("Kyoko_attack3", L"resources/images/characters/kyoko/Kyoko_qc3.png", 9, 2);
+	IMAGE_MANAGER->addFrameImage("Kyoko_backelbow", L"resources/images/characters/kyoko/Kyoko_backelbow.png", 8, 2);
 
 	//Enemy 이미지 
     //schoolBoy
@@ -260,6 +264,7 @@ void playGround::release()
 //연산
 void playGround::update()
 {
+
 	GameNode::update();
 
 	SCENE_MANAGER->update();
@@ -270,7 +275,6 @@ void playGround::update()
 //그리기 전용
 void playGround::render()
 {	
-	//백버퍼 초기화
 	D2D_RENDERER->beginRender(D2D1::ColorF::Black);
 	{
 		// _kyoko->render();

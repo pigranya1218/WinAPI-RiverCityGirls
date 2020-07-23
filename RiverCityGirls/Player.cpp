@@ -68,3 +68,8 @@ void Player::render()
 	CAMERA_MANAGER->drawLine(Vector2(_position.x, _position.z), Vector2(_position.x, _position.z + _position.y));
 	CAMERA_MANAGER->rectangle(rc, D2D1::ColorF::Enum::Red, 1, 1);
 }
+
+void Player::attack(FloatRect attackRc, float damage, ATTACK_TYPE type)
+{
+	_stageManager->playerAttack(this, attackRc, damage, type);
+}

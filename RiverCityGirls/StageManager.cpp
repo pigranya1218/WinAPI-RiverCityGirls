@@ -35,3 +35,11 @@ void StageManager::render()
 	_currStage->render();
 	
 }
+
+void StageManager::playerAttack(GameObject* hitter, FloatRect attackRc, float damage, ATTACK_TYPE type)
+{
+	vector<OBJECT_TEAM> getAttack;
+	getAttack.push_back(OBJECT_TEAM::ENEMY);
+	getAttack.push_back(OBJECT_TEAM::OBJECT);
+	_currStage->attack(hitter, attackRc, damage, type, getAttack);
+}
