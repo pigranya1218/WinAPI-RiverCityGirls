@@ -22,7 +22,7 @@ HRESULT StageScene::init()
 
 	// UI 테스트입니다
 	_uiManager->setPlayerHpActive(true);		
-	
+	//_uiManager->setCloseUp(true);
 	// 다이얼로그 테스티입니다.
 	//_dgManager->startChapter(BossChapter::BATTLE_AFTER);
 

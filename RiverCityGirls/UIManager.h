@@ -90,8 +90,9 @@ struct tagLevelInfo
 	{
 		if (active)
 		{
+			pos = playerPos;
 			playerAni->frameUpdate(TIME_MANAGER->getElapsedTime() * 10);	
-
+			
 			if (!playerAni->isPlay())
 			{
 				active = false;
@@ -156,7 +157,8 @@ struct tagDoorInfo
 	{
 		doorState = state;
 		pos = doorPos;
-		scale = alpha = 1.0f;
+		scale = 0.7f;
+		alpha = 1.0f;
 
 		switch (doorState)
 		{
@@ -176,30 +178,95 @@ struct tagDoorInfo
 				break;
 			}			
 		}
-
+		
 		return S_OK;
 	}
-	void update(const Vector2& playerPos)
+	void update(const Vector3& playerPos)
 	{
-		const Vector2& doorPos = CAMERA_MANAGER->convertV3ToV2(pos);
+		float distance = Vector3::distance(pos, playerPos);
 
-		if (getDistance(doorPos.x, doorPos.y, playerPos.x, playerPos.y))
+		switch (distance < 200.0f)
 		{
+			case 0:	// 문과 멀다
+			{
+				// 스케일
+				if (scale > 0.6f)
+					scale -= 0.02f;
+				else
+					scale = 0.6f;
+				// 알파값
+				if (alpha < 0.3f)
+					alpha = 0.3f;
+				else
+					alpha -= 0.05f;
 
-		}
-		else
-		{
+				break;
+			}
+			case 1:	// 문과 가깝다
+			{
+				// 스케일
+				if (scale < 0.8f)
+					scale += 0.02f;
+				else
+					scale = 0.8f;
+				// 알파값
+				if (alpha > 1.0f)
+					alpha = 1.0f;
+				else
+					alpha += 0.05f;
 
-		}
+				break;
+			}
+		}		
 	}
 	void render()
 	{
+		img->setAlpha(alpha);
+		img->setScale(scale);
 		CAMERA_MANAGER->render(img, CAMERA_MANAGER->convertV3ToV2(pos));
 	}
+
 private:
 	Image*		img;		// 이미지
 	float		scale;		// 스케일
 	float		alpha;		// 알파값
+};
+
+struct tagClose
+{
+	bool	active;	// 출력 여부
+	HRESULT init()
+	{
+		img = IMAGE_MANAGER->findImage("closeUp");
+		active = 0;
+		scale = 1.0f;
+
+		return S_OK;
+	}
+	void update()
+	{
+		if (active)
+		{
+			scale -= 0.01f;
+			if (scale < 0)
+			{
+				active = false;
+				scale = 1.0f;
+			}
+		}		
+	}
+	void render(const Vector3& playerPos)
+	{
+		if (active)
+		{
+			img->setScale(scale);
+			img->render(CAMERA_MANAGER->convertV3ToV2(playerPos));
+		}
+	}
+
+private:
+	Image*	img;	// 하트
+	float	scale;	// 스케일	
 };
 
 struct tagCellPhone
@@ -217,6 +284,7 @@ private:
 	tagLevelInfo	_levelInfo;
 	tagBossInfo		_bossInfo;
 	tagCellPhone	_cellPhone;
+	tagClose		_close;
 
 	vector<tagDoorInfo> _vDoor;
 
@@ -236,6 +304,7 @@ public:
 	void setPlayerHp(float currentHp, float maxHp) { _playerInfo.currentHp = currentHp; _playerInfo.maxHp = maxHp; }
 	void setPlayerExp(float currentExp, float maxExp) { _playerInfo.currentExp = currentExp; _playerInfo.maxExp = maxExp; }
 
+	// 레벨업 출력
 	void setLevelUp(bool active);	
 
 	// 보스 체력
@@ -244,5 +313,7 @@ public:
 
 	// 문 세팅
 	void setDoor(vector<tagDoorInfo> doors);
+
+	void setCloseUp(bool active) { _close.active = active; }
 };
 
