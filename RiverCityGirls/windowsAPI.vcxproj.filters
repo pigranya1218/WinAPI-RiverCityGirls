@@ -312,6 +312,9 @@
     <ClInclude Include="MiddleStage.h">
       <Filter>PlayGround\StageManager\Stage</Filter>
     </ClInclude>
+    <ClInclude Include="DebugManager.h">
+      <Filter>2DGameFramework\Manager</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="windowsAPI.cpp">
@@ -511,6 +514,9 @@
     </ClCompile>
     <ClCompile Include="MiddleStage.cpp">
       <Filter>PlayGround\StageManager\Stage</Filter>
+    </ClCompile>
+    <ClCompile Include="DebugManager.cpp">
+      <Filter>2DGameFramework\Manager</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

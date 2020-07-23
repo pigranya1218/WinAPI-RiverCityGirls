@@ -159,6 +159,7 @@
     <ClInclude Include="Collision.h" />
     <ClInclude Include="CommonMacroFunction.h" />
     <ClInclude Include="D2DRenderer.h" />
+    <ClInclude Include="DebugManager.h" />
     <ClInclude Include="DeskChairObject.h" />
     <ClInclude Include="DeskObject.h" />
     <ClInclude Include="DialogueManager.h" />
@@ -232,6 +233,7 @@
     <ClCompile Include="Collision.cpp" />
     <ClCompile Include="D2DRenderer+Draw.cpp" />
     <ClCompile Include="D2DRenderer.cpp" />
+    <ClCompile Include="DebugManager.cpp" />
     <ClCompile Include="DeskChairObject.cpp" />
     <ClCompile Include="DeskObject.cpp" />
     <ClCompile Include="DialogueManager.cpp" />

@@ -18,6 +18,12 @@ void Object::release()
 
 void Object::render()
 {
+	_img->setScale(3);
+
+	if (DEBUG_MANAGER->isDebugMode(DEBUG_TYPE::OBJECT))
+	{
+		_img->setAlpha(0.5);
+	}
 }
 
 void Object::collision(Vector3 * pos, GameObject* gameObject)

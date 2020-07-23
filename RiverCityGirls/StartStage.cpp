@@ -86,10 +86,14 @@ void StartStage::render()
 	_background->setScale(_bgScale);
 	CAMERA_MANAGER->render(_background, bgCenter);
 
-	for (int i = 0; i < _restrictLines.size(); i++)
+	if (DEBUG_MANAGER->isDebugMode(DEBUG_TYPE::STAGE))
 	{
-		_restrictLines[i]->render();
+		for (int i = 0; i < _restrictLines.size(); i++)
+		{
+			_restrictLines[i]->render();
+		}
 	}
+	
 
 	_objectManager->render();
 	_enemyManager->render();

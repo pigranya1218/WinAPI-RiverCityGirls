@@ -64,9 +64,14 @@ void Player::update()
 void Player::render()
 {
 	_state->render(*this);
-	FloatRect rc = FloatRect(Vector2(_position.x, _position.z), Vector2(_size.x, _size.z), Pivot::Center);
-	CAMERA_MANAGER->drawLine(Vector2(_position.x, _position.z), Vector2(_position.x, _position.z + _position.y));
-	CAMERA_MANAGER->rectangle(rc, D2D1::ColorF::Enum::Red, 1, 1);
+
+	if (DEBUG_MANAGER->isDebugMode(DEBUG_TYPE::PLAYER))
+	{
+		FloatRect rc = FloatRect(Vector2(_position.x, _position.z + _position.y + (_size.y / 2)), Vector2(_size.x, _size.z), Pivot::Center);
+		CAMERA_MANAGER->drawLine(Vector2(_position.x, _position.z), Vector2(_position.x, _position.z + _position.y));
+		CAMERA_MANAGER->rectangle(rc, D2D1::ColorF::Enum::Red, 1, 1);
+	}
+	
 }
 
 void Player::attack(FloatRect attackRc, float damage, ATTACK_TYPE type)

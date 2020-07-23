@@ -260,7 +260,7 @@ void playGround::update()
 	GameNode::update();
 
 	SCENE_MANAGER->update();
-
+	DEBUG_MANAGER->update();
 	
 }
 

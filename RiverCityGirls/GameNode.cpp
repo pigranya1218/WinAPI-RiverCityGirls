@@ -35,6 +35,7 @@ HRESULT GameNode::init(bool managerInit)
 		SOUND_MANAGER->init();
 		SCENE_MANAGER->init();
 		TXTDATA->init();
+		DEBUG_MANAGER->init();
 	}
 
 
