@@ -1,6 +1,6 @@
 #include "stdafx.h"
 #include "DialogueManager.h"
-
+#include <string>
 
 
 DialogueManager::DialogueManager()
