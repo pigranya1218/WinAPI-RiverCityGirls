@@ -39,12 +39,16 @@ void StartStage::init(Image * background, float bgScale)
 	_objectManager->spawnObject(OBJECT_TYPE::schoolBoyB, OBJECT_STATE::IDLE01, Vector3(400, 0, 400), DIRECTION::LEFT);
 	_objectManager->spawnObject(OBJECT_TYPE::schoolGirlB, OBJECT_STATE::IDLE01, Vector3(550, 0, 400), DIRECTION::RIGHT);
 
-	_doorInfos.push_back({DOOR_STATE::UNLOCK, Vector3(500, 0, 500)});
-	_stageManager->setDoorInfo(_doorInfos);
+	tagDoorInfo door;
+	door.doorState = DOOR_STATE::UNLOCK;
+	door.pos = Vector3(500, 0, 500);
+	_doorInfos.push_back(door);
+	
 }
 
 void StartStage::enter()
 {
+	_stageManager->setDoorInfo(_doorInfos);
 }
 
 void StartStage::exit()
@@ -56,7 +60,7 @@ Stage * StartStage::update()
 {
 	for (int i = 0; i < _doorInfos.size(); i++)
 	{
-		if (_doorInfos[i].door == DOOR_STATE::LOCK) continue;
+		if (_doorInfos[i].doorState == DOOR_STATE::LOCK) continue;
 		if (Vector3::distance(_doorInfos[i].pos, _player->getPosition()) < 100)
 		{
 			if (KEY_MANAGER->isStayKeyDown('Z'))

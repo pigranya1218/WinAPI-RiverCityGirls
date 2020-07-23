@@ -16,7 +16,7 @@ HRESULT UIManager::init(GameObject* player)
 
 	_player = player;
 
-	_vDoor.clear();
+	//_vDoor.clear();
 
 	ZeroMemory(&_playerInfo, sizeof(_playerInfo));
 	ZeroMemory(&_bossInfo, sizeof(_bossInfo));

@@ -8,24 +8,26 @@
 void StageManager::init()
 {
 	Stage* Stage_1 = new StartStage;
-	Stage_1->init(IMAGE_MANAGER->findImage("STAGE_1"), 3);
 	Stage_1->setStageManager(this);
 	Stage_1->setPlayer(_player);
+	Stage_1->init(IMAGE_MANAGER->findImage("STAGE_1"), 3);
+
 	_stageMap["START_STAGE"] = Stage_1;
 
 	Stage* Stage_2 = new MiddleStage;
-	Stage_2->init(IMAGE_MANAGER->findImage("STAGE_1"), 3);
 	Stage_2->setStageManager(this);
 	Stage_2->setPlayer(_player);
+	Stage_2->init(IMAGE_MANAGER->findImage("STAGE_1"), 3);
 	_stageMap["MIDDLE_STAGE"] = Stage_2;
 
 	Stage* Stage_3 = new BossStage;
-	Stage_3->init(IMAGE_MANAGER->findImage("STAGE_1"), 3);
 	Stage_3->setStageManager(this);
 	Stage_3->setPlayer(_player);
+	Stage_3->init(IMAGE_MANAGER->findImage("STAGE_1"), 3);
 	_stageMap["BOSS_STAGE"] = Stage_3;
 
 	_currStage = _stageMap["START_STAGE"];
+	_currStage->enter();
 }
 
 void StageManager::release()
@@ -62,4 +64,5 @@ void StageManager::playerAttack(GameObject* hitter, FloatRect attackRc, float da
 
 void StageManager::setDoorInfo(vector<tagDoorInfo> doorInfos)
 {
+	_uiManager->setDoor(doorInfos);
 }
