@@ -95,6 +95,7 @@ HRESULT playGround::init()
 	IMAGE_MANAGER->addFrameImage("Kyoko_attack1", L"resources/images/characters/kyoko/Kyoko_qc1.png", 6, 2);
 	IMAGE_MANAGER->addFrameImage("Kyoko_attack2", L"resources/images/characters/kyoko/Kyoko_qc2.png", 7, 2);
 	IMAGE_MANAGER->addFrameImage("Kyoko_attack3", L"resources/images/characters/kyoko/Kyoko_qc3.png", 9, 2);
+	IMAGE_MANAGER->addFrameImage("Kyoko_backelbow", L"resources/images/characters/kyoko/Kyoko_backelbow.png", 8, 2);
 
 	//Enemy ÀÌ¹ÌÁö 
     //schoolBoy

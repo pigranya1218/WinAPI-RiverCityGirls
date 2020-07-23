@@ -22,6 +22,20 @@ void WeakAttack::enter(Player & player)
 		_ani->start();
 		break;
 	case ATTACK_SKILL::RUN_QC:
+		_img = IMAGE_MANAGER->findImage("Kyoko_backelbow");
+		_ani = new Animation;
+		_ani->init(_img->getWidth(), _img->getHeight(), _img->getMaxFrameX(), _img->getMaxFrameY());
+		if (player.getDirection() == DIRECTION::RIGHT)
+		{
+			_ani->setPlayFrame(0, 7, false, false);
+		}
+		else
+		{
+			_ani->setPlayFrame(7, 14, false, false);
+		}
+
+		_ani->setFPS(15);
+		_ani->start();
 		break;
 	case ATTACK_SKILL::JUMP_QC:
 		break;
@@ -126,8 +140,43 @@ PlayerState * WeakAttack::update(Player & player)
 					return new IdleState;
 				}
 			break;
+
+			case ATTACK_SKILL::RUN_QC:
+				_initTime += TIME_MANAGER->getElapsedTime();
+
+				if (2 <= _ani->getPlayIndex() && _ani->getPlayIndex() <= 3)
+				{
+					Vector3 position = player.getPosition();
+					attackRc = FloatRect(position.x + 50, position.y - 50,
+						position.x + 150, position.y + 50);
+					viewRc = FloatRect(attackRc.left, position.z + attackRc.top,
+						attackRc.right, position.z + attackRc.bottom);
+					player.attack(attackRc, 10, ATTACK_TYPE::HIT);
 				}
 
+				if (_initTime >= 0.2 &&KEY_MANAGER->isOnceKeyDown('Z'))
+				{
+					_img = IMAGE_MANAGER->findImage("Kyoko_attack2");
+
+					_ani->init(_img->getWidth(), _img->getHeight(), _img->getMaxFrameX(), _img->getMaxFrameY());
+					if (player.getDirection() == DIRECTION::RIGHT)
+					{
+						_ani->setPlayFrame(0, 7, false, false);
+					}
+					else
+					{
+						_ani->setPlayFrame(7, 14, false, false);
+					}
+					_ani->setFPS(15);
+					_ani->start();
+
+
+					_skill = ATTACK_SKILL::QC2;
+					_initTime = 0;
+				}
+				break;
+				}
+		
 			}
 			return nullptr;
 

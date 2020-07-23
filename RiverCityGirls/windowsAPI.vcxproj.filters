@@ -294,9 +294,6 @@
     <ClInclude Include="WeakAttack.h">
       <Filter>PlayGround\Player\State\AttackState</Filter>
     </ClInclude>
-    <ClInclude Include="AttackState.h">
-      <Filter>PlayGround\Player\State\AttackState</Filter>
-    </ClInclude>
     <ClInclude Include="TableObject.h">
       <Filter>PlayGround\Object</Filter>
     </ClInclude>
@@ -492,9 +489,6 @@
       <Filter>PlayGround\Player\State</Filter>
     </ClCompile>
     <ClCompile Include="WeakAttack.cpp">
-      <Filter>PlayGround\Player\State\AttackState</Filter>
-    </ClCompile>
-    <ClCompile Include="AttackState.cpp">
       <Filter>PlayGround\Player\State\AttackState</Filter>
     </ClCompile>
     <ClCompile Include="TableObject.cpp">
