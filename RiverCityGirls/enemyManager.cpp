@@ -77,10 +77,10 @@ Vector3 EnemyManager::getPlayerPosition()
 	return _stage->getPlayerPosition();
 }
 
-void EnemyManager::getHit(Vector3 position, FloatRect attackRc, float damage, ATTACK_TYPE type)
+void EnemyManager::getHit(GameObject* hitter, FloatRect attackRc, float damage, ATTACK_TYPE type)
 {
 	for (int i = 0; i < _enemies.size(); i++)
 	{
-		_enemies[i]->getHit(position, attackRc, damage, type);
+		_enemies[i]->getHit(hitter, attackRc, damage, type);
 	}
 }
