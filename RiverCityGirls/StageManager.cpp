@@ -7,24 +7,24 @@
 
 void StageManager::init()
 {
-	Stage* Stage_1 = new StartStage;
-	Stage_1->setStageManager(this);
-	Stage_1->setPlayer(_player);
-	Stage_1->init(IMAGE_MANAGER->findImage("STAGE_1"), 3);
+	Stage* stage_1 = new StartStage;
+	stage_1->setStageManager(this);
+	stage_1->setPlayer(_player);
+	stage_1->init(IMAGE_MANAGER->findImage("STAGE_1"), 3);
 
-	_stageMap["START_STAGE"] = Stage_1;
+	_stageMap["START_STAGE"] = stage_1;
 
-	Stage* Stage_2 = new MiddleStage;
-	Stage_2->setStageManager(this);
-	Stage_2->setPlayer(_player);
-	Stage_2->init(IMAGE_MANAGER->findImage("STAGE_1"), 3);
-	_stageMap["MIDDLE_STAGE"] = Stage_2;
+	Stage* stage_2 = new MiddleStage;
+	stage_2->setStageManager(this);
+	stage_2->setPlayer(_player);
+	stage_2->init(IMAGE_MANAGER->findImage("STAGE_2"), 3);
+	_stageMap["MIDDLE_STAGE"] = stage_2;
 
-	Stage* Stage_3 = new BossStage;
-	Stage_3->setStageManager(this);
-	Stage_3->setPlayer(_player);
-	Stage_3->init(IMAGE_MANAGER->findImage("STAGE_1"), 3);
-	_stageMap["BOSS_STAGE"] = Stage_3;
+	Stage* stage_3 = new BossStage;
+	stage_3->setStageManager(this);
+	stage_3->setPlayer(_player);
+	stage_3->init(IMAGE_MANAGER->findImage("STAGE_1"), 3);
+	_stageMap["BOSS_STAGE"] = stage_3;
 
 	_currStage = _stageMap["START_STAGE"];
 	_currStage->enter();
@@ -46,6 +46,7 @@ void StageManager::update()
 	if (newStage != nullptr)
 	{
 		_currStage = newStage;
+		_currStage->enter();
 	}
 }
 

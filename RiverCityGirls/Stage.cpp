@@ -10,15 +10,9 @@ void Stage::init(Image * background, float bgScale)
 {
 	_background = background;
 	_bgScale = bgScale;
-	float maxWidth = _background->getWidth() * _bgScale;
-	float maxHeight = _background->getHeight() * _bgScale;
-	CAMERA_MANAGER->setConfig(0, 0, WINSIZEX, WINSIZEY, 0, 0, maxWidth - WINSIZEX, maxHeight - WINSIZEY );
-
+	
 	_objectManager = new ObjectManager;
 	_objectManager->init();
-
-	//Object ¹èÄ¡
-	
 
 	_enemyManager = new EnemyManager;
 	_enemyManager->setStage(this);
@@ -27,6 +21,10 @@ void Stage::init(Image * background, float bgScale)
 
 void Stage::enter()
 {
+	float maxWidth = _background->getWidth() * _bgScale;
+	float maxHeight = _background->getHeight() * _bgScale;
+	CAMERA_MANAGER->setConfig(0, 0, WINSIZEX, WINSIZEY, 0, 0, maxWidth - WINSIZEX, maxHeight - WINSIZEY);
+	_stageManager->setDoorInfo(_doorInfos);
 }
 
 void Stage::exit()
