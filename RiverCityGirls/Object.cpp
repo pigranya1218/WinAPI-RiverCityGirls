@@ -27,3 +27,11 @@ void Object::collision(Vector3 * pos, GameObject* gameObject)
 void Object::reaction()
 {
 }
+
+void Object::getHit(Vector3 position, FloatRect attackRc, float damage, ATTACK_TYPE type)
+{
+}
+
+void Object::hitEffect(Vector3 position, FloatRect attackRc, float damage, ATTACK_TYPE type)
+{
+}

@@ -28,6 +28,7 @@ enum class Pivot : int
 #include "Vector2.h"
 #include "Vector3.h"
 #include "FloatRect.h"
+#include "AllEnums.h"
 
 #include "CommonMacroFunction.h"
 #include "RandomFunction.h"

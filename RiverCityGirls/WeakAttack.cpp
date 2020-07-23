@@ -36,19 +36,12 @@ PlayerState * WeakAttack::update(Player & player)
 		{
 		case WeakAttack::ATTACK_COMBO::QC1:
 		{
-			Vector3 position = player.getPosition();
-			FloatRect attackRc = FloatRect(position.x + 50, position.y - 50,
-				position.x + 150, position.y + 50);
-			FloatRect viewRc = FloatRect(attackRc.left, position.z + attackRc.top,
-				attackRc.right, position.z + attackRc.bottom);
-			CAMERA_MANAGER->rectangle(viewRc, D2D1::ColorF::Enum::Red, 1, 20);
-			CAMERA_MANAGER->rectangle(FloatRect(300, 300, 800, 800), D2D1::ColorF::Enum::Red, 1, 20);
-			/*CAMERA_MANAGER->rectangle(viewRc, D2D1::ColorF::Enum::Red, 1, 1);
-			CAMERA_MANAGER->drawShadow(player.getPosition(), player.getSize());*/
-			player.attack(attackRc, 10, ATTACK_TYPE::HIT);
 			if (2 <= _ani->getPlayIndex() && _ani->getPlayIndex() <= 3)
 			{
-				
+				Vector3 position = player.getPosition();
+				FloatRect attackRc = FloatRect(position.x + 50, position.y - 50,
+					position.x + 150, position.y + 50);
+				player.attack(attackRc, 10, ATTACK_TYPE::HIT);
 			}
 			if (KEY_MANAGER->isOnceKeyDown('Z'))
 			{

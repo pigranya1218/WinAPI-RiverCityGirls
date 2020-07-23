@@ -38,4 +38,8 @@ void StageManager::render()
 
 void StageManager::playerAttack(Vector3 position, FloatRect attackRc, float damage, ATTACK_TYPE type)
 {
+	vector<OBJECT_TEAM> getAttack;
+	getAttack.push_back(OBJECT_TEAM::ENEMY);
+	getAttack.push_back(OBJECT_TEAM::OBJECT);
+	_currStage->attack(position, attackRc, damage, type, getAttack);
 }

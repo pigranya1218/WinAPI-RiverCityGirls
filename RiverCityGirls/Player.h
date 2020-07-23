@@ -3,17 +3,7 @@
 
 class StageManager;
 
-enum class DIRECTION : int
-{
-	RIGHT,
-	LEFT
-};
 
-enum class ATTACK_TYPE : int
-{
-	HIT,
-	KNOCKDOWN
-};
 
 class PlayerState;
 //class AttackState;
