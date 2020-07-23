@@ -17,6 +17,17 @@ void Stage::init(Image * background, float bgScale)
 	_objectManager = new ObjectManager;
 	_objectManager->init();
 
+	//Object 배치
+	_objectManager->spawnObject(OBJECT_TYPE::DESK01, Vector3(460, 0, 510), DIRECTION::LEFT);
+	_objectManager->spawnObject(OBJECT_TYPE::DESK02, Vector3(710, 0, 510), DIRECTION::LEFT);
+	_objectManager->spawnObject(OBJECT_TYPE::DESK01, Vector3(970, 0, 510), DIRECTION::LEFT);
+	_objectManager->spawnObject(OBJECT_TYPE::DESK03, Vector3(1230, 0, 510), DIRECTION::LEFT);
+
+	_objectManager->spawnObject(OBJECT_TYPE::mrRudis, Vector3(1670, 0, 510), DIRECTION::LEFT);
+	_objectManager->spawnObject(OBJECT_TYPE::schoolBoyA_idle01, Vector3(600, 0, 400), DIRECTION::LEFT);
+	_objectManager->spawnObject(OBJECT_TYPE::schoolGirlB_idle02, Vector3(500, 0, 400), DIRECTION::RIGHT);
+	_objectManager->spawnObject(OBJECT_TYPE::SNACKMACHINE, Vector3(900, 0, 407), DIRECTION::LEFT);
+
 	_enemyManager = new EnemyManager;
 	_enemyManager->setStage(this);
 	_enemyManager->init();
@@ -61,12 +72,14 @@ void Stage::moveGameObject(GameObject* gameObject, Vector3 move)
 	{
 		newPos.y = -(size.y / 2);
 	}
-	
+
 	Vector3 newPoses[4]; // 새로운 좌표를 기준으로 하는 대각 위치
 	for (int i = 0; i < 4; i++)
 	{
 		newPoses[i] = Vector3(newPos.x + dir[i][0] * width, newPos.y, newPos.z + dir[i][1] * height);
 	}
+
+	_objectManager->collision(newPoses, gameObject);
 
 	// 선분과의 이동가능 비교는 x, z 비교
 	for (int i = 0; i < _restrictLines.size(); i++)
@@ -75,7 +88,6 @@ void Stage::moveGameObject(GameObject* gameObject, Vector3 move)
 	}
 
 	// 물체와의 이동가능 비교는 x, y, z 비교, 물체를 올라탈 수도 있음
-	_objectManager->collision(newPoses, gameObject);
 	
 	newPos = Vector3(0, 0, 0);
 	for (int i = 0; i < 4; i++)

@@ -294,10 +294,10 @@
     <ClInclude Include="TableObject.h">
       <Filter>PlayGround\Object</Filter>
     </ClInclude>
-    <ClInclude Include="DeskChairObject.h">
+    <ClInclude Include="TeacherTableObject.h">
       <Filter>PlayGround\Object</Filter>
     </ClInclude>
-    <ClInclude Include="TeacherTable.h">
+    <ClInclude Include="ChairObject.h">
       <Filter>PlayGround\Object</Filter>
     </ClInclude>
     <ClInclude Include="AllEnums.h">
@@ -314,6 +314,9 @@
     </ClInclude>
     <ClInclude Include="DebugManager.h">
       <Filter>2DGameFramework\Manager</Filter>
+    </ClInclude>
+    <ClInclude Include="SnackMachineObject.h">
+      <Filter>PlayGround\Object</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -500,10 +503,13 @@
     <ClCompile Include="TableObject.cpp">
       <Filter>PlayGround\Object</Filter>
     </ClCompile>
-    <ClCompile Include="DeskChairObject.cpp">
+    <ClCompile Include="TeacherTableObject.cpp">
       <Filter>PlayGround\Object</Filter>
     </ClCompile>
-    <ClCompile Include="TeacherTable.cpp">
+    <ClCompile Include="ChairObject.cpp">
+      <Filter>PlayGround\Object</Filter>
+    </ClCompile>
+    <ClCompile Include="SnackMachineObject.cpp">
       <Filter>PlayGround\Object</Filter>
     </ClCompile>
     <ClCompile Include="AttackState.cpp">

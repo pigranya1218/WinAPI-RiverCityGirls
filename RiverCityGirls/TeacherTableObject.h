@@ -1,10 +1,11 @@
 #pragma once
 #include "Object.h"
-class DeskChairObject :
+class TeacherTableObject :
 	public Object
 {
+private:
 public:
-	DeskChairObject(OBJECT_STATE state, Vector3 position, DIRECTION direction);
+	TeacherTableObject(Vector3 position, DIRECTION direction);
 
 	virtual void update();
 	virtual void release();

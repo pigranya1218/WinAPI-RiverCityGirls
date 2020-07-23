@@ -1,9 +1,8 @@
 #include "stdafx.h"
 #include "MrRudis.h"
 
-MrRudis::MrRudis(OBJECT_STATE state, Vector3 position, DIRECTION direction)
+MrRudis::MrRudis(Vector3 position, DIRECTION direction)
 {
-	_state = state;
 	_direction = direction;
 	_size = Vector3(100, 330, 30);
 	_position = Vector3(position.x, -(_size.y / 2), position.z);
@@ -27,12 +26,13 @@ void MrRudis::update()
 {
 	switch (_state)
 	{
-	case OBJECT_STATE::IDLE01:
+	case OBJECT_STATE::IDLE:
 	{
 	}
 	break;
 	case OBJECT_STATE::REACTION:
 	{
+
 		if (!_ani->isPlay())
 		{
 			_img = IMAGE_MANAGER->findImage("OBJECT_MrRudis_idle");
@@ -47,7 +47,7 @@ void MrRudis::update()
 			}
 			_ani->setFPS(10);
 			_ani->start();
-			_state = OBJECT_STATE::IDLE01;
+			_state = OBJECT_STATE::IDLE;
 		}
 	}
 	break;

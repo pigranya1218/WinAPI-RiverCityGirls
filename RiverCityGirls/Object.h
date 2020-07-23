@@ -4,10 +4,7 @@
 
 enum class OBJECT_STATE : int
 {
-	IDLE01, // 기본 대기 상태01
-	IDLE02, // 기본 대기 상태02
-	IDLE03, // 기본 대기 상태03
-	IDLE04, // 기본 대기 상태04
+	IDLE, // 기본 대기 상태
 	REACTION, // 반응중인 상태
 	BROKEN // 이미 깨져서 이제 반응 안하는 상태
 };
@@ -24,7 +21,8 @@ protected:
 
 public:
 	Object() {};
-	Object(OBJECT_STATE state, Vector3 position, DIRECTION direction);
+			//
+	Object(Vector3 position, DIRECTION direction, int imageType);
 
 	virtual void update();
 	virtual void release();

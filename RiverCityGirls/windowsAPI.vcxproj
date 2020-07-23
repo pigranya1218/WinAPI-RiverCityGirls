@@ -159,6 +159,7 @@
     <ClInclude Include="Collision.h" />
     <ClInclude Include="CommonMacroFunction.h" />
     <ClInclude Include="D2DRenderer.h" />
+    <ClInclude Include="ChairObject.h" />
     <ClInclude Include="DebugManager.h" />
     <ClInclude Include="DeskChairObject.h" />
     <ClInclude Include="DeskObject.h" />
@@ -201,6 +202,7 @@
     <ClInclude Include="SchoolGirlB.h" />
     <ClInclude Include="SchoolGirlE.h" />
     <ClInclude Include="SingletonBase.h" />
+    <ClInclude Include="SnackMachineObject.h" />
     <ClInclude Include="SoundManager.h" />
     <ClInclude Include="Stage.h" />
     <ClInclude Include="StageManager.h" />
@@ -209,7 +211,7 @@
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="TableObject.h" />
     <ClInclude Include="targetver.h" />
-    <ClInclude Include="TeacherTable.h" />
+    <ClInclude Include="TeacherTableObject.h" />
     <ClInclude Include="TimeManager.h" />
     <ClInclude Include="Timer.h" />
     <ClInclude Include="TxtData.h" />
@@ -233,6 +235,7 @@
     <ClCompile Include="Collision.cpp" />
     <ClCompile Include="D2DRenderer+Draw.cpp" />
     <ClCompile Include="D2DRenderer.cpp" />
+    <ClCompile Include="ChairObject.cpp" />
     <ClCompile Include="DebugManager.cpp" />
     <ClCompile Include="DeskChairObject.cpp" />
     <ClCompile Include="DeskObject.cpp" />
@@ -271,6 +274,7 @@
     <ClCompile Include="SchoolGirlA.cpp" />
     <ClCompile Include="SchoolGirlB.cpp" />
     <ClCompile Include="SchoolGirlE.cpp" />
+    <ClCompile Include="SnackMachineObject.cpp" />
     <ClCompile Include="SoundManager.cpp" />
     <ClCompile Include="Stage.cpp" />
     <ClCompile Include="StageManager.cpp" />
@@ -283,7 +287,7 @@
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
     </ClCompile>
     <ClCompile Include="TableObject.cpp" />
-    <ClCompile Include="TeacherTable.cpp" />
+    <ClCompile Include="TeacherTableObject.cpp" />
     <ClCompile Include="TimeManager.cpp" />
     <ClCompile Include="Timer.cpp" />
     <ClCompile Include="TxtData.cpp" />

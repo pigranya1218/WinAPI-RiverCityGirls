@@ -1,9 +1,8 @@
 #include "stdafx.h"
 #include "WorkingMaleD.h"
 
-WorkingMaleD::WorkingMaleD(OBJECT_STATE state, Vector3 position, DIRECTION direction)
+WorkingMaleD::WorkingMaleD(Vector3 position, DIRECTION direction)
 {
-	_state = state;
 	_direction = direction;
 	_size = Vector3(100, 330, 30);
 	_position = Vector3(position.x, -(_size.y / 2), position.z);
@@ -19,13 +18,13 @@ WorkingMaleD::WorkingMaleD(OBJECT_STATE state, Vector3 position, DIRECTION direc
 	{
 		_idleAni->setPlayFrame(12, 24, 0, 1);
 	}
-	_idleAni->setFPS(1);
+	_idleAni->setFPS(10);
 	_idleAni->start();
 }
 
 void WorkingMaleD::update()
 {
-	_idleAni->frameUpdate(TIME_MANAGER->getElapsedTime() * 2);
+	_idleAni->frameUpdate(TIME_MANAGER->getElapsedTime());
 }
 
 void WorkingMaleD::release()

@@ -1,9 +1,8 @@
 #include "stdafx.h"
 #include "SchoolGirlA.h"
 
-SchoolGirlA::SchoolGirlA(OBJECT_STATE state, Vector3 position, DIRECTION direction)
+SchoolGirlA::SchoolGirlA(Vector3 position, DIRECTION direction, int imageType)
 {
-	_state = state;
 	_direction = direction;
 	_size = Vector3(100, 330, 30);
 	_position = Vector3(position.x, -(_size.y / 2), position.z);
@@ -19,13 +18,13 @@ SchoolGirlA::SchoolGirlA(OBJECT_STATE state, Vector3 position, DIRECTION directi
 	{
 		_idleAni->setPlayFrame(4, 8, 0, 1);
 	}
-	_idleAni->setFPS(1);
+	_idleAni->setFPS(10);
 	_idleAni->start();
 }
 
 void SchoolGirlA::update()
 {
-	_idleAni->frameUpdate(TIME_MANAGER->getElapsedTime() * 2);
+	_idleAni->frameUpdate(TIME_MANAGER->getElapsedTime());
 }
 
 void SchoolGirlA::release()

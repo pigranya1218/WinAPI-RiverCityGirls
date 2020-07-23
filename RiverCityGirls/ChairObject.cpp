@@ -1,10 +1,9 @@
 #include "stdafx.h"
-#include "DeskChairObject.h"
+#include "ChairObject.h"
 
 
-DeskChairObject::DeskChairObject(OBJECT_STATE state, Vector3 position, DIRECTION direction)
+ChairObject::ChairObject(Vector3 position, DIRECTION direction, int imageType)
 {
-	_state = state;
 	_direction = direction;
 	_size = Vector3(150, 100, 90);
 	_position = Vector3(position.x, -(_size.y / 2), position.z);
@@ -12,20 +11,20 @@ DeskChairObject::DeskChairObject(OBJECT_STATE state, Vector3 position, DIRECTION
 	_img = IMAGE_MANAGER->findImage("OBJECT_TABLE01");
 }
 
-void DeskChairObject::update()
+void ChairObject::update()
 {
 }
 
-void DeskChairObject::release()
+void ChairObject::release()
 {
 }
 
-void DeskChairObject::render()
+void ChairObject::render()
 {
 	_img->setScale(2);
 	CAMERA_MANAGER->renderZ(_img, _position, _size, false);
 }
 
-void DeskChairObject::collision(Vector3 ** pos)
+void ChairObject::collision(Vector3 ** pos)
 {
 }

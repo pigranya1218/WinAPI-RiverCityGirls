@@ -5,12 +5,15 @@
  class DeskObject : public Object
 {
 private:
+	Animation* _frameAni;
 	RestrictMoveRect* _restrictRect;
 	int _collisionOffsetX = 15;
 	int _collisionOffsetZ = 10;
-
+	int _imageType;
+	int _frameX;
+	int _frameTime;
 public:
-	DeskObject(OBJECT_STATE state, Vector3 position, DIRECTION direction);
+	DeskObject(Vector3 position, DIRECTION direction, int imageType);
 
 	virtual void update();
 	virtual void release();
