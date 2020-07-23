@@ -200,6 +200,7 @@
     <ClInclude Include="SchoolGirlB.h" />
     <ClInclude Include="SchoolGirlE.h" />
     <ClInclude Include="SingletonBase.h" />
+    <ClInclude Include="SnackMachineObject.h" />
     <ClInclude Include="SoundManager.h" />
     <ClInclude Include="Stage.h" />
     <ClInclude Include="StageManager.h" />
@@ -268,6 +269,7 @@
     <ClCompile Include="SchoolGirlA.cpp" />
     <ClCompile Include="SchoolGirlB.cpp" />
     <ClCompile Include="SchoolGirlE.cpp" />
+    <ClCompile Include="SnackMachineObject.cpp" />
     <ClCompile Include="SoundManager.cpp" />
     <ClCompile Include="Stage.cpp" />
     <ClCompile Include="StageManager.cpp" />

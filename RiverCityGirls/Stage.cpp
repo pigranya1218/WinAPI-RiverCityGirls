@@ -37,21 +37,15 @@ void Stage::init(Image * background, float bgScale)
 	_objectManager->init();
 
 	//Object 배치
-	_objectManager->spawnObject(OBJECT_TYPE::DESK, Vector3(460, 0, 510), DIRECTION::LEFT, 1);
-	_objectManager->spawnObject(OBJECT_TYPE::DESK, Vector3(710, 0, 510), DIRECTION::LEFT, 2);
-	_objectManager->spawnObject(OBJECT_TYPE::DESK, Vector3(970, 0, 510), DIRECTION::LEFT, 3);
-	_objectManager->spawnObject(OBJECT_TYPE::DESK, Vector3(1230, 0, 510), DIRECTION::LEFT, 2);
+	_objectManager->spawnObject(OBJECT_TYPE::DESK01, Vector3(460, 0, 510), DIRECTION::LEFT);
+	_objectManager->spawnObject(OBJECT_TYPE::DESK02, Vector3(710, 0, 510), DIRECTION::LEFT);
+	_objectManager->spawnObject(OBJECT_TYPE::DESK01, Vector3(970, 0, 510), DIRECTION::LEFT);
+	_objectManager->spawnObject(OBJECT_TYPE::DESK03, Vector3(1230, 0, 510), DIRECTION::LEFT);
 
-	_objectManager->spawnObject(OBJECT_TYPE::DESK, Vector3(460, 0, 700), DIRECTION::LEFT, 4);
-	_objectManager->spawnObject(OBJECT_TYPE::DESK, Vector3(710, 0, 700), DIRECTION::LEFT, 5);
-	_objectManager->spawnObject(OBJECT_TYPE::DESK, Vector3(970, 0, 700), DIRECTION::LEFT, 6);
-	_objectManager->spawnObject(OBJECT_TYPE::DESK, Vector3(1230, 0, 700), DIRECTION::LEFT, 7);
-
-
-
-	_objectManager->spawnObject(OBJECT_TYPE::mrRudis, Vector3(1670, 0, 510), DIRECTION::LEFT, 1);
-	_objectManager->spawnObject(OBJECT_TYPE::schoolBoyB, Vector3(400, 0, 400), DIRECTION::LEFT, 1);
-	_objectManager->spawnObject(OBJECT_TYPE::schoolGirlB, Vector3(500, 0, 400), DIRECTION::RIGHT, 1);
+	_objectManager->spawnObject(OBJECT_TYPE::mrRudis, Vector3(1670, 0, 510), DIRECTION::LEFT);
+	_objectManager->spawnObject(OBJECT_TYPE::schoolBoyA_idle01, Vector3(600, 0, 400), DIRECTION::LEFT);
+	_objectManager->spawnObject(OBJECT_TYPE::schoolGirlB_idle02, Vector3(500, 0, 400), DIRECTION::RIGHT);
+	_objectManager->spawnObject(OBJECT_TYPE::SNACKMACHINE, Vector3(900, 0, 407), DIRECTION::LEFT);
 
 	_enemyManager = new EnemyManager;
 	_enemyManager->setStage(this);
@@ -98,7 +92,7 @@ void Stage::render()
 	}
 
 	_objectManager->render();
-	_enemyManager->render();
+	//_enemyManager->render();
 }
 
 // 게임 오브젝트가 이동가능한 영역까지 이동할 수 있도록 하는 함수
@@ -123,6 +117,8 @@ void Stage::moveGameObject(GameObject* gameObject, Vector3 move)
 		newPoses[i] = Vector3(newPos.x + dir[i][0] * width, newPos.y, newPos.z + dir[i][1] * height);
 	}
 
+	_objectManager->collision(newPoses, gameObject);
+
 	// 선분과의 이동가능 비교는 x, z 비교
 	for (int i = 0; i < _restrictLines.size(); i++)
 	{
@@ -130,8 +126,7 @@ void Stage::moveGameObject(GameObject* gameObject, Vector3 move)
 	}
 
 	// 물체와의 이동가능 비교는 x, y, z 비교, 물체를 올라탈 수도 있음
-	_objectManager->collision(newPoses, gameObject);
-
+	
 	newPos = Vector3(0, 0, 0);
 	for (int i = 0; i < 4; i++)
 	{

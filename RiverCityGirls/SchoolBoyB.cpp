@@ -8,7 +8,20 @@ SchoolBoyB::SchoolBoyB(Vector3 position, DIRECTION direction, int imageType)
 	_position = Vector3(position.x, -(_size.y / 2), position.z);
 
 	_idleAni = new Animation;
-	_img = IMAGE_MANAGER->findImage("OBJECT_schoolBoyB_idle01");
+
+	if (imageType > 2) {imageType = 2;}
+	if (imageType < 1) { imageType = 1; }
+
+	switch (imageType)
+	{
+		case 1:
+		{_img = IMAGE_MANAGER->findImage("OBJECT_schoolBoyB_idle01");}
+		break;
+
+		case 2:
+		{_img = IMAGE_MANAGER->findImage("OBJECT_schoolBoyB_idle02"); }
+		break;
+	}
 	_idleAni->init(_img->getWidth(), _img->getHeight(), _img->getMaxFrameX(), _img->getMaxFrameY());
 	if (_direction == DIRECTION::LEFT)
 	{
@@ -18,13 +31,13 @@ SchoolBoyB::SchoolBoyB(Vector3 position, DIRECTION direction, int imageType)
 	{
 		_idleAni->setPlayFrame(4, 8, 0, 1);
 	}
-	_idleAni->setFPS(1);
+	_idleAni->setFPS(10);
 	_idleAni->start();
 }
 
 void SchoolBoyB::update()
 {
-	_idleAni->frameUpdate(TIME_MANAGER->getElapsedTime() * 2);
+	_idleAni->frameUpdate(TIME_MANAGER->getElapsedTime());
 }
 
 void SchoolBoyB::release()

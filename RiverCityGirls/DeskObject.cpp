@@ -68,6 +68,7 @@ DeskObject::DeskObject(Vector3 position, DIRECTION direction, int imageType)
 		break;
 	}	
 
+	//높이 라인
 	int linePos[4][4] = { {_position.x - (_size.x / 2) + (_size.z / 2) , _position.z - (_size.z / 2), _position.x + (_size.x / 2) + (_size.z / 2), _position.z - (_size.z / 2)}, // 상
 						{_position.x - (_size.x / 2) - (_size.z / 2), _position.z + (_size.z / 2), _position.x + (_size.x / 2) - (_size.z / 2), _position.z + (_size.z / 2)}, }; // 하
 	linePos[2][0] = linePos[1][0]; // 좌
@@ -78,6 +79,7 @@ DeskObject::DeskObject(Vector3 position, DIRECTION direction, int imageType)
 	linePos[3][1] = linePos[1][3];
 	linePos[3][2] = linePos[0][2];
 
+	//오브젝트 충돌 평행사변형
 	_restrictRect = new RestrictMoveRect(Vector2(_position.x + _collisionOffsetX - (_size.x / 2) + (_size.z / 2), _position.z + _collisionOffsetZ - (_size.z / 2)),		// LT
 										Vector2(_position.x + _collisionOffsetX + (_size.x / 2) + (_size.z / 2), _position.z + _collisionOffsetZ - (_size.z / 2)),		// RT
 										Vector2(_position.x + _collisionOffsetX + (_size.x / 2) - (_size.z / 2), _position.z + _collisionOffsetZ + (_size.z / 2)),		// RB
@@ -102,7 +104,7 @@ void DeskObject::release()
 void DeskObject::render()
 {
 	_img->setScale(3);
-
+	_img->setAlpha(0.5);
 	if (_imageType == 4 || _imageType == 6)
 	{
 		CAMERA_MANAGER->aniRenderZ(_img, _position, _size, _frameAni);
@@ -111,7 +113,7 @@ void DeskObject::render()
 	{
 		CAMERA_MANAGER->renderZ(_img, _position, _size);
 	}
-	//_img->setAlpha(1);
+	
 
 	_restrictRect->render();
 	CAMERA_MANAGER->drawLine(Vector2(_position.x + _collisionOffsetX, _position.z + _collisionOffsetZ), Vector2(_position.x + _collisionOffsetX, _position.z + _collisionOffsetZ - _size.y));

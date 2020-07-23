@@ -15,3 +15,4 @@
 #include "TableObject.h"
 #include "ChairObject.h"
 #include "TeacherTableObject.h"
+#include "SnackMachineObject.h"

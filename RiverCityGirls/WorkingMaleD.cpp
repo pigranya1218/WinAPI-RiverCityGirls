@@ -18,13 +18,13 @@ WorkingMaleD::WorkingMaleD(Vector3 position, DIRECTION direction)
 	{
 		_idleAni->setPlayFrame(12, 24, 0, 1);
 	}
-	_idleAni->setFPS(1);
+	_idleAni->setFPS(10);
 	_idleAni->start();
 }
 
 void WorkingMaleD::update()
 {
-	_idleAni->frameUpdate(TIME_MANAGER->getElapsedTime() * 2);
+	_idleAni->frameUpdate(TIME_MANAGER->getElapsedTime());
 }
 
 void WorkingMaleD::release()

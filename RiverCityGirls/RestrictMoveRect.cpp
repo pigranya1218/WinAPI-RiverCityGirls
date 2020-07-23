@@ -166,5 +166,12 @@ void RestrictMoveRect::render()
 	for (int i = 0; i < 4; i++)
 	{
 		CAMERA_MANAGER->drawLine(_point[i], _point[(i + 1) % 4]);
+		Vector2 upPointS = _point[i];
+		upPointS.y += _height;
+		Vector2 upPointE = _point[(i + 1) % 4];
+		upPointE.y += _height;
+		CAMERA_MANAGER->drawLine(upPointS, upPointE);
+		CAMERA_MANAGER->drawLine(_point[i], upPointS);
+		CAMERA_MANAGER->drawLine(_point[(i + 1) % 4], upPointE);
 	}
 }

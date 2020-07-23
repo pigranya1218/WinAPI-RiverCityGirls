@@ -26,12 +26,13 @@ void MrRudis::update()
 {
 	switch (_state)
 	{
-	case OBJECT_STATE::IDLE01:
+	case OBJECT_STATE::IDLE:
 	{
 	}
 	break;
 	case OBJECT_STATE::REACTION:
 	{
+
 		if (!_ani->isPlay())
 		{
 			_img = IMAGE_MANAGER->findImage("OBJECT_MrRudis_idle");
@@ -46,7 +47,7 @@ void MrRudis::update()
 			}
 			_ani->setFPS(10);
 			_ani->start();
-			_state = OBJECT_STATE::IDLE01;
+			_state = OBJECT_STATE::IDLE;
 		}
 	}
 	break;

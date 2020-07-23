@@ -4,7 +4,7 @@
 
 enum class OBJECT_STATE : int
 {
-	IDLE, // 기본 대기 상태01
+	IDLE, // 기본 대기 상태
 	REACTION, // 반응중인 상태
 	BROKEN // 이미 깨져서 이제 반응 안하는 상태
 };

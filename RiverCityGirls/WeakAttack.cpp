@@ -65,7 +65,9 @@ PlayerState * WeakAttack::update(Player & player)
 			{
 				Vector3 position = player.getPosition();
 				FloatRect attackRc = FloatRect(position.x + 50, position.y - 50,
-					position.x + 150, position.y + 50);
+					position.x + 150, position.y + 50);			
+				viewRc = FloatRect(attackRc.left, position.z + attackRc.top,
+					attackRc.right, position.z + attackRc.bottom);
 				player.attack(attackRc, 10, ATTACK_TYPE::HIT);
 			}
 			
