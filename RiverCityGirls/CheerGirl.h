@@ -8,6 +8,7 @@ class CheerGirl :public Enemy
 
 private:
 	int _attackS, _attackE;
+	
 
 
 public:
