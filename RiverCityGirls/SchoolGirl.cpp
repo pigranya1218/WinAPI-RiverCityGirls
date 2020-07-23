@@ -3,9 +3,9 @@
 
 void SchoolGirl::init()
 {
-	_enemyImg = IMAGE_MANAGER->findImage("school_idle");
+	_enemyImg = IMAGE_MANAGER->findImage("schoolgirl_idle");
 	_position = Vector3(800, -100, 500);
-	_size = Vector3(80, 210, 30);
+	_size = Vector3(140, 200, 40);
 	_state = ENEMY_STATE::IDLE;
 	_direction = DIRECTION::RIGHT;
 	aniPlay(_state, _direction);
@@ -28,11 +28,11 @@ void SchoolGirl::update()
 {
 	
 Vector3 playerPos = _enemyManager->getPlayerPosition();
-	if (playerPos.x <= _position.x - 70)
+	if (playerPos.x <= _position.x -60)
 	{
 		_direction = DIRECTION::LEFT;
 	}
-	else if(playerPos.x >= _position.x + 70)
+	else if(playerPos.x >= _position.x +60)
 	{
 		_direction = DIRECTION::RIGHT;
 	}
@@ -41,12 +41,7 @@ Vector3 playerPos = _enemyManager->getPlayerPosition();
 	_position.y -= _jumpPower;
 	_jumpPower -= _gravity;
 
-
-	//테스트
-	if (KEY_MANAGER->isOnceKeyDown(VK_SPACE))
-	{
-		aniPlay(ENEMY_STATE::DASHATTACK, _direction);
-	}
+	
 
 	//float playerDistance = sqrt(pow(playerPos.x - _position.x, 2) + pow(playerPos.y - _position.y, 2) + pow(playerPos.z - _position.z , 2));
 	_playerDistance = sqrt(pow(playerPos.x - _position.x, 2) + pow(playerPos.y - _position.y, 2) + pow(playerPos.z - _position.z, 2));
@@ -83,12 +78,14 @@ Vector3 playerPos = _enemyManager->getPlayerPosition();
 			//피격 처리
 			if (_isGetHit)
 			{
-				if (_state != ENEMY_STATE::HIT)
+				if (_state != ENEMY_STATE::HIT )
 				{
-					if (_hitType == ATTACK_TYPE::HIT)
+					if (_hitType == ATTACK_TYPE::HIT )
 					{
+						if(_state != ENEMY_STATE::STUN){
 						aniPlay(ENEMY_STATE::HIT, _direction);
 						_state = ENEMY_STATE::HIT;
+						}
 					}
 					else
 					{
@@ -255,8 +252,32 @@ Vector3 playerPos = _enemyManager->getPlayerPosition();
 			aniPlay(ENEMY_STATE::IDLE, _direction);
 			_state = ENEMY_STATE::IDLE;
 		}
+		_elapsedTime++;
+		if (_elapsedTime > 150)
+		{
+			_elapsedTime = 0;
+			aniPlay(ENEMY_STATE::STUN, _direction);
+			_state = ENEMY_STATE::STUN;
+		}
 	}
 	break;
+	case ENEMY_STATE::KNOCKDOWN:
+	{
+		//_direction == DIRECTION::LEFT ? _position.x += 1 : _position.x -= 1;
+		_isGetHit = false;
+		if (!_ani->isPlay())
+		{
+			aniPlay(ENEMY_STATE::IDLE, _direction);
+			_state = ENEMY_STATE::IDLE;
+		}
+	}
+	break;
+	case ENEMY_STATE::STUN:
+	{
+		
+	}
+	break;
+
 	/*case GUARD:
 
 		break;
@@ -445,6 +466,26 @@ void SchoolGirl::aniPlay(ENEMY_STATE state, DIRECTION direction)
 	{
 		_ani = new Animation;
 		_enemyImg = IMAGE_MANAGER->findImage("schoolgirl_getHit");
+		_ani->init(_enemyImg->getWidth(), _enemyImg->getHeight(),
+			_enemyImg->getMaxFrameX(), _enemyImg->getMaxFrameY());
+		_ani->setFPS(10);
+		_ani->start();
+	}
+	break;
+	case ENEMY_STATE::KNOCKDOWN:
+	{
+		_ani = new Animation;
+		_enemyImg = IMAGE_MANAGER->findImage("schoolgirl_groundDown");
+		_ani->init(_enemyImg->getWidth(), _enemyImg->getHeight(),
+			_enemyImg->getMaxFrameX(), _enemyImg->getMaxFrameY());
+		_ani->setFPS(10);
+		_ani->start();
+	}
+	break;
+	case ENEMY_STATE::STUN:
+	{
+		_ani = new Animation;
+		_enemyImg = IMAGE_MANAGER->findImage("schoolgirl_stun");
 		_ani->init(_enemyImg->getWidth(), _enemyImg->getHeight(),
 			_enemyImg->getMaxFrameX(), _enemyImg->getMaxFrameY());
 		_ani->setFPS(10);

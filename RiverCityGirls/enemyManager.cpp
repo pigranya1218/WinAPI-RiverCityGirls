@@ -52,7 +52,8 @@ void EnemyManager::update()
 
 void EnemyManager::render()
 {
-	for (int i = 0; i < _enemies.size(); i++)
+
+	for (int i = 0; i < _enemies.size() ; i++)
 	{
 		_enemies[i]->render();
 	}
