@@ -24,6 +24,6 @@ public:
 
 	void spawnObject(OBJECT_TYPE type, OBJECT_STATE state, Vector3 pos, DIRECTION direction);
 
-	void getHit(Vector3 position, FloatRect attackRc, float damage, ATTACK_TYPE type);
+	void getHit(GameObject* hitter, FloatRect attackRc, float damage, ATTACK_TYPE type);
 };
 
