@@ -456,4 +456,7 @@ void CameraManager::renderZList()
 	}
 
 	_renderList.clear();
+
+	D2D_RENDERER->fillRectangle(FloatRect(0.0, 0.0, (float)WINSIZEX, _offsetT), D2D1::ColorF::Enum::Black, 1);
+	D2D_RENDERER->fillRectangle(FloatRect(0.0, _offsetT + _height, (float)WINSIZEX, (float)WINSIZEY), D2D1::ColorF::Enum::Black, 1);
 }

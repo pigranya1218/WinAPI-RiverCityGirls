@@ -19,7 +19,7 @@ void Player::move(Vector3 moveDir)
 
 void Player::init()
 {
-	setPosition(Vector3(500, -105, 500));
+	setPosition(Vector3(330, -105, 600));
 	setSize(Vector3(80, 210, 30));
 
 	_state = new IdleState;
@@ -38,7 +38,7 @@ void Player::release()
 	_state->exit(*this);
 	delete _state;
 
-	//_attackState->exit(*this);
+	//_attackState->exit(*this); 
 	//delete _attackState;
 }
 

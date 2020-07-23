@@ -45,6 +45,11 @@ void StartStage::init(Image * background, float bgScale)
 	door.doorState = DOOR_STATE::UNLOCK;
 	door.pos = Vector3(1430, -200, 420);
 	_doorInfos.push_back(door);
+
+	tagDoorDestination doorDest;
+	doorDest.destName = "MIDDLE_STAGE";
+	doorDest.destPos = Vector3(200, -(_player->getSize().y * 0.5), 670);
+	_doorDestination.push_back(doorDest);
 	
 }
 
@@ -65,16 +70,17 @@ Stage * StartStage::update()
 		if (_doorInfos[i].doorState == DOOR_STATE::LOCK) continue;
 		if (Vector3::distance(_doorInfos[i].pos, _player->getPosition()) < 150)
 		{
-			if (KEY_MANAGER->isStayKeyDown('Z'))
+			if (KEY_MANAGER->isOnceKeyDown('Z'))
 			{
-				_player->setPosition(Vector3(400, -(_player->getSize().y * 0.5), 400));
-				return _stageManager->getStage("MIDDLE_STAGE");
+				_player->setPosition(_doorDestination[i].destPos);
+				return _stageManager->getStage(_doorDestination[i].destName);
 			}
 		}
 	}
 
 	_objectManager->update();
 	_enemyManager->update();
+
 	CAMERA_MANAGER->setXY(CAMERA_MANAGER->convertV3ToV2(_player->getPosition()));
 
 	return nullptr;

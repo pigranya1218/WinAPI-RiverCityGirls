@@ -15,6 +15,12 @@ struct tagDontMove // 이동 영역을 제한하기 위한 구조체
 	LINEAR_VALUE_TYPE type; // 이 선분 어디를 못지나가게 할 것인가?
 };
 
+struct tagDoorDestination
+{
+	string destName;
+	Vector3 destPos;
+};
+
 class Stage
 {
 protected:
@@ -27,6 +33,7 @@ protected:
 	float _bgScale; // 배경이미지 배율
 	vector<RestrictMoveLine*> _restrictLines; // 스테이지의 이동 영역을 제한
 	vector<tagDoorInfo> _doorInfos; // 스테이지의 문
+	vector<tagDoorDestination> _doorDestination; // 스테이지의 문 목적지
 
 public:
 	virtual void init(Image* background, float bgScale);

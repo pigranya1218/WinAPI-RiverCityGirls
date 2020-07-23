@@ -64,7 +64,7 @@ public:
 
 	Vector2 convertV3ToV2(Vector3 v3);
 
-	void setConfig(float _offsetL, float _offsetT, float width, float height, float minL, float minT, float maxL, float maxT);
+	void setConfig(float offsetL, float offsetT, float width, float height, float minL, float minT, float maxL, float maxT);
 	void setConfigCenter(float x, float y, float width, float height, float minX, float minY, float maxX, float maxY);
 	float getL();
 	float getT();

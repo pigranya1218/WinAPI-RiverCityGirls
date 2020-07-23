@@ -23,7 +23,8 @@ void Stage::enter()
 {
 	float maxWidth = _background->getWidth() * _bgScale;
 	float maxHeight = _background->getHeight() * _bgScale;
-	CAMERA_MANAGER->setConfig(0, 0, WINSIZEX, WINSIZEY, 0, 0, maxWidth - WINSIZEX, maxHeight - WINSIZEY);
+	// 아래 위로 100만큼의 UI 공간 두기
+	CAMERA_MANAGER->setConfig(0, 100, WINSIZEX, (WINSIZEY - 200), 0, 0, maxWidth - WINSIZEX, maxHeight - (WINSIZEY - 200));
 	_stageManager->setDoorInfo(_doorInfos);
 }
 

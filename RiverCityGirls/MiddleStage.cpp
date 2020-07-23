@@ -7,32 +7,68 @@ void MiddleStage::init(Image * background, float bgScale)
 {
 	Stage::init(background, bgScale);
 
-	int linePos[4][4] = { {0, 670, _background->getWidth() * _bgScale, 670}, // 하
-							{0, 380, _background->getWidth() * _bgScale, 380}, // 상                                                                                                                                                                              
-						{_background->getWidth() * _bgScale, 770, _background->getWidth() * _bgScale - 770, 0}, // 우
-						{0, 740, 740, 0} }; // 좌
-	LINEAR_VALUE_TYPE lineTypes[4] = { LINEAR_VALUE_TYPE::DOWN,
+	int linePos[10][4] = { {0, 835, _background->getWidth() * _bgScale, 835}, // 하
+							{0, 490, _background->getWidth() * _bgScale, 490}, // 상 첫번째          
+						{920, 490, 921, 491}, // 상 두번째
+						{0, 545, 1, 545}, // 상 세번째
+						{1640, 545, 1641, 544}, // 상 네번째
+						{1745, 440, 1741, 440}, // 상 다섯번째
+						{_background->getWidth() * _bgScale - 1, 10, _background->getWidth() * _bgScale - 1, 100}, // 오른쪽 수직선
+						{1, 10, 1, 100}, // 왼쪽 수직선
+						{_background->getWidth() * _bgScale, 795, _background->getWidth() * _bgScale - 795, 0}, // 우
+						{0, 750, 750, 0} }; // 좌
+	LINEAR_VALUE_TYPE lineTypes[10] = { LINEAR_VALUE_TYPE::DOWN,
 										LINEAR_VALUE_TYPE::UP,
+										LINEAR_VALUE_TYPE::UP,
+										LINEAR_VALUE_TYPE::UP,
+										LINEAR_VALUE_TYPE::UP,
+										LINEAR_VALUE_TYPE::UP,
+										LINEAR_VALUE_TYPE::RIGHT,
+										LINEAR_VALUE_TYPE::LEFT,
 										LINEAR_VALUE_TYPE::UP,
 										LINEAR_VALUE_TYPE::UP };
-	float lineRange[4][4] = { {70, _background->getWidth() * _bgScale - 100} , // 하
-								{360, 1625}, // 상
-								{1625, _background->getWidth() * _bgScale - 100}, // 좌
-								{70, 360} }; // 우
-	for (int i = 0; i < 4; i++)
+	float lineRange[10][4] = { {0, _background->getWidth() * _bgScale} , // 하
+								{260, 920}, // 상 첫번째
+								{920, 975}, // 상 두번째
+								{975, 1640}, // 상 세번째
+								{1640, 1745}, // 상 네번째
+								{1745, 2505}, // 상 다섯번째
+								{795, 835}, // 오른쪽 수직선
+								{750, 835}, // 왼쪽 수직선
+								{2505, _background->getWidth() * _bgScale}, // 우
+								{0, 260} }; // 좌
+	for (int i = 0; i < 10; i++)
 	{
 		LinearFunc line = LinearFunc::getLinearFuncFromPoints(Vector2(linePos[i][0], linePos[i][1]), Vector2(linePos[i][2], linePos[i][3]));
 		_restrictLines.push_back(new RestrictMoveLine(line, lineTypes[i], lineRange[i][0], lineRange[i][1]));
 	}
 
 	//Object 배치
-	//_objectManager->spawnObject(OBJECT_TYPE::DESK, OBJECT_STATE::IDLE01, Vector3(710, 0, 510), DIRECTION::LEFT);
-	//_objectManager->spawnObject(OBJECT_TYPE::DESK, OBJECT_STATE::IDLE01, Vector3(990, 0, 510), DIRECTION::LEFT);
 
-	tagDoorInfo door;
-	door.doorState = DOOR_STATE::UNLOCK;
-	door.pos = Vector3(1430, -200, 420);
-	_doorInfos.push_back(door);
+
+	DOOR_STATE doorStates[3] = {DOOR_STATE::UNLOCK, DOOR_STATE::SHOP, DOOR_STATE::LOCK};
+	Vector3 doorPoses[3] = {Vector3(80, -200, 700),
+							Vector3(1165, -200, 560) ,
+							Vector3(2710, -200, 700) };
+	for (int i = 0; i < 3; i++)
+	{
+		tagDoorInfo door;
+		door.doorState = doorStates[i];
+		door.pos = doorPoses[i];
+		_doorInfos.push_back(door);
+	}
+
+	string destNames[3] = {"START_STAGE", "SHOP", "BOSS_STATE"};
+	Vector3 destPoses[3] = {Vector3(1250, -(_player->getSize().y * 0.5), 400),
+							Vector3() ,
+							Vector3(100, -(_player->getSize().y * 0.5), 700) };
+	for(int i = 0 ; i < 3 ; i++)
+	{ 
+		tagDoorDestination doorDest;
+		doorDest.destName = destNames[i];
+		doorDest.destPos = destPoses[i];
+		_doorDestination.push_back(doorDest);
+	}
 }
 
 void MiddleStage::enter()
@@ -52,16 +88,28 @@ Stage * MiddleStage::update()
 		if (_doorInfos[i].doorState == DOOR_STATE::LOCK) continue;
 		if (Vector3::distance(_doorInfos[i].pos, _player->getPosition()) < 150)
 		{
-			if (KEY_MANAGER->isStayKeyDown('Z'))
+			if (KEY_MANAGER->isOnceKeyDown('Z'))
 			{
-				_player->setPosition(Vector3(400, -(_player->getSize().y * 0.5), 400));
-				return _stageManager->getStage("MIDDLE_STAGE");
+				switch (_doorInfos[i].doorState)
+				{
+				case DOOR_STATE::SHOP:
+				{
+
+				}
+				break;
+				case DOOR_STATE::UNLOCK:
+				{
+					_player->setPosition(_doorDestination[i].destPos);
+					return _stageManager->getStage(_doorDestination[i].destName);
+				}
+				}
 			}
 		}
 	}
 
 	_objectManager->update();
 	_enemyManager->update();
+
 	CAMERA_MANAGER->setXY(CAMERA_MANAGER->convertV3ToV2(_player->getPosition()));
 
 	return nullptr;

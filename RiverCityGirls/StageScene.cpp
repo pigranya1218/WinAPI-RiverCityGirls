@@ -15,8 +15,8 @@ HRESULT StageScene::init()
 	_stageManager->setPlayer(_player);
 	_player->setStageManager(_stageManager);
 
-	_stageManager->init();
 	_player->init();
+	_stageManager->init();
 	_dgManager->init(0.8f);
 	_uiManager->init(_player);
 
