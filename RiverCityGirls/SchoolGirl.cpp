@@ -276,11 +276,11 @@ void SchoolGirl::update()
 
 	if (_direction == DIRECTION::LEFT)
 	{
-		_ani->setPlayFrame(_enemyImg->getMaxFrameX(), _enemyImg->getMaxFrameX() * 2 - 1, false, true);
+		_ani->setPlayFrame(_enemyImg->getMaxFrameX(), _enemyImg->getMaxFrameX() * 2, false, true);
 	}
 	else
 	{
-		_ani->setPlayFrame(0, _enemyImg->getMaxFrameX() - 1, false, true);
+		_ani->setPlayFrame(0, _enemyImg->getMaxFrameX(), false, true);
 	}
 	//항상 플레이어 z축따라감
 	if (_state != ENEMY_STATE::IDLE) {

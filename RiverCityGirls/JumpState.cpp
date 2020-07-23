@@ -139,7 +139,14 @@ PlayerState * JumpState::update(Player & player)
 		player.setDirection(DIRECTION::LEFT);
 	}
 
-	
+	if (KEY_MANAGER->isOnceKeyDown('Z'))
+	{
+		AttackState* jumpAttack = new AttackState;
+		jumpAttack->setSkill(ATTACK_SKILL::JUMP_QC);
+		jumpAttack->setCurrJumpPower(player.getJumpPower());
+		jumpAttack->setCurrMoveDirX(moveDir.x);
+		return jumpAttack;
+	}
 
 	
 
