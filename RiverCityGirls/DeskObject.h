@@ -10,7 +10,7 @@ private:
 	int _collisionOffsetZ = 10;
 
 public:
-	DeskObject(Vector3 position, DIRECTION direction);
+	DeskObject(Vector3 position, DIRECTION direction, int imageType);
 
 	virtual void update();
 	virtual void release();

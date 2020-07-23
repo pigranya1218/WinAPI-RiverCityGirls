@@ -37,11 +37,11 @@ void Stage::init(Image * background, float bgScale)
 	_objectManager->init();
 
 	//Object 배치
-	_objectManager->spawnObject(OBJECT_TYPE::DESK, Vector3(710, 0, 510), DIRECTION::LEFT);
-	_objectManager->spawnObject(OBJECT_TYPE::DESK, Vector3(990, 0, 510), DIRECTION::LEFT);
-	_objectManager->spawnObject(OBJECT_TYPE::mrRudis, Vector3(1670, 0, 510), DIRECTION::LEFT);
-	_objectManager->spawnObject(OBJECT_TYPE::schoolBoyB, Vector3(400, 0, 400), DIRECTION::LEFT);
-	_objectManager->spawnObject(OBJECT_TYPE::schoolGirlB, Vector3(500, 0, 400), DIRECTION::RIGHT);
+	_objectManager->spawnObject(OBJECT_TYPE::DESK, Vector3(710, 0, 510), DIRECTION::LEFT, 1);
+	_objectManager->spawnObject(OBJECT_TYPE::DESK, Vector3(990, 0, 510), DIRECTION::LEFT, 1);
+	_objectManager->spawnObject(OBJECT_TYPE::mrRudis, Vector3(1670, 0, 510), DIRECTION::LEFT, 1);
+	_objectManager->spawnObject(OBJECT_TYPE::schoolBoyB, Vector3(400, 0, 400), DIRECTION::LEFT, 1);
+	_objectManager->spawnObject(OBJECT_TYPE::schoolGirlB, Vector3(500, 0, 400), DIRECTION::RIGHT, 1);
 
 	_enemyManager = new EnemyManager;
 	_enemyManager->setStage(this);
@@ -92,7 +92,7 @@ void Stage::render()
 }
 
 // 게임 오브젝트가 이동가능한 영역까지 이동할 수 있도록 하는 함수
-void Stage::moveGameObject(GameObject & gameObject, Vector3 move)
+void Stage::moveGameObject(GameObject* gameObject, Vector3 move)
 {
 	if (move.x == 0 && move.y == 0 && move.z == 0) return;
 

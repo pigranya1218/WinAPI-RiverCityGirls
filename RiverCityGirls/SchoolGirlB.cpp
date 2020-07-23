@@ -1,7 +1,7 @@
 #include "stdafx.h"
 #include "SchoolGirlB.h"
 
-SchoolGirlB::SchoolGirlB(Vector3 position, DIRECTION direction)
+SchoolGirlB::SchoolGirlB(Vector3 position, DIRECTION direction, int imageType)
 {
 	_direction = direction;
 	_size = Vector3(100, 330, 30);

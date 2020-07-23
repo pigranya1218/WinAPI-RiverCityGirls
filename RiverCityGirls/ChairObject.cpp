@@ -2,7 +2,7 @@
 #include "ChairObject.h"
 
 
-ChairObject::ChairObject(Vector3 position, DIRECTION direction)
+ChairObject::ChairObject(Vector3 position, DIRECTION direction, int imageType)
 {
 	_direction = direction;
 	_size = Vector3(150, 100, 90);

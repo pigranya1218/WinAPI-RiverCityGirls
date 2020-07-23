@@ -1,7 +1,7 @@
 #include "stdafx.h"
 #include "SchoolBoyA.h"
 
-SchoolBoyA::SchoolBoyA(Vector3 position, DIRECTION direction)
+SchoolBoyA::SchoolBoyA(Vector3 position, DIRECTION direction, int imageType)
 {
 	_direction = direction;
 	_size = Vector3(100, 330, 30);

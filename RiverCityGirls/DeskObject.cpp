@@ -1,13 +1,38 @@
 #include "stdafx.h"
 #include "DeskObject.h"
 
-DeskObject::DeskObject(Vector3 position, DIRECTION direction)
+DeskObject::DeskObject(Vector3 position, DIRECTION direction, int imageType)
 {
 	_direction = direction;
 	_size = Vector3(80, 80, 60);
 	_position = Vector3(position.x, -(_size.y / 2), position.z);
 
-	_img = IMAGE_MANAGER->findImage("OBJECT_DESK");
+	if (imageType > 3)
+	{
+		imageType = 3;
+	}
+
+	switch (imageType)
+	{
+		case 1:
+		{
+			_img = IMAGE_MANAGER->findImage("OBJECT_DESK01");
+		}
+		break;
+
+		case 2:
+		{
+			_img = IMAGE_MANAGER->findImage("OBJECT_DESK02");
+		}
+		break;
+
+		case 3:
+		{
+			_img = IMAGE_MANAGER->findImage("OBJECT_DESK03");
+		}
+		break;
+	}
+	
 
 	int linePos[4][4] = { {_position.x - (_size.x / 2) + (_size.z / 2) , _position.z - (_size.z / 2), _position.x + (_size.x / 2) + (_size.z / 2), _position.z - (_size.z / 2)}, // ╩С
 						{_position.x - (_size.x / 2) - (_size.z / 2), _position.z + (_size.z / 2), _position.x + (_size.x / 2) - (_size.z / 2), _position.z + (_size.z / 2)}, }; // го

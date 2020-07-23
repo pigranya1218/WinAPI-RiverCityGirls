@@ -7,7 +7,7 @@ private:
 	Animation* _idleAni;
 	Animation* _reactionAni;
 public:
-	SchoolBoyE(Vector3 position, DIRECTION direction);
+	SchoolBoyE(Vector3 position, DIRECTION direction, int imageType);
 
 	virtual void update();
 	virtual void release();

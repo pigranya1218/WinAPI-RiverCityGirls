@@ -4,7 +4,7 @@ class ChairObject :
 	public Object
 {
 public:
-	ChairObject(Vector3 position, DIRECTION direction);
+	ChairObject(Vector3 position, DIRECTION direction, int imageType);
 
 	virtual void update();
 	virtual void release();

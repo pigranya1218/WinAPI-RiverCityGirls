@@ -49,15 +49,15 @@ void ObjectManager::spawnObject(OBJECT_TYPE type, Vector3 pos, DIRECTION directi
 		break;
 
 		case OBJECT_TYPE::BOX:	
-		{ _objects.push_back(new BoxObject(pos, direction, imageType));  }
+		{ _objects.push_back(new BoxObject(pos, direction));  }
 		break;
 
 		case OBJECT_TYPE::DESK_CHAIR:
-		{ _objects.push_back(new DeskChairObject(pos, direction, imageType));  }
+		{ _objects.push_back(new ChairObject(pos, direction, imageType));  }
 		break;
 
 		case OBJECT_TYPE::mrRudis: 
-		{ _objects.push_back(new MrRudis(pos, direction, imageType)); }
+		{ _objects.push_back(new MrRudis(pos, direction)); }
 		break;
 
 		case OBJECT_TYPE::schoolBoyA: 
@@ -85,11 +85,11 @@ void ObjectManager::spawnObject(OBJECT_TYPE type, Vector3 pos, DIRECTION directi
 		break;
 
 		case OBJECT_TYPE::workingFemaleA:
-		{ _objects.push_back(new WorkingFemaleA(pos, direction, imageType)); }
+		{ _objects.push_back(new WorkingFemaleA(pos, direction)); }
 		break;
 		
 		case OBJECT_TYPE::workingMaleD:
-		{ _objects.push_back(new WorkingMaleD(pos, direction, imageType)); }
+		{ _objects.push_back(new WorkingMaleD(pos, direction)); }
 		break;
 
 	}
