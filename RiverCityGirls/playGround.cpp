@@ -97,7 +97,7 @@ HRESULT playGround::init()
 	IMAGE_MANAGER->addFrameImage("Kyoko_attack3", L"resources/images/characters/kyoko/Kyoko_qc3.png", 9, 2);
 	IMAGE_MANAGER->addFrameImage("Kyoko_backelbow", L"resources/images/characters/kyoko/Kyoko_backelbow.png", 8, 2);
 	IMAGE_MANAGER->addFrameImage("Kyoko_buttbump", L"resources/images/characters/kyoko/Kyoko_buttbump.png", 10, 2);
-
+	IMAGE_MANAGER->addFrameImage("Kyoko_buttbump", L"resources/images/characters/kyoko/Kyoko_buttbump.png", 10, 2);
 
 
 

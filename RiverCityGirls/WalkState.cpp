@@ -9,6 +9,8 @@ PlayerState * WalkState::update(Player& player)
 	moveDir.y = 0;
 	moveDir.z = 0;
 
+
+
 	if (_initTime <= 0.08 && _state == WALK_STATE::IDLE)
 	{
 		_initTime += TIME_MANAGER->getElapsedTime();
@@ -37,6 +39,8 @@ PlayerState * WalkState::update(Player& player)
 	{
 		moveDir.z += player.getSpeed();
 	}
+
+	
 
 	if (moveDir.x > 0)
 	{
@@ -100,6 +104,8 @@ PlayerState * WalkState::update(Player& player)
 	{
 	case WALK_STATE::MOVE:
 	{
+		
+
 		if (player.getDirection() == DIRECTION::RIGHT)
 		{
 			_ani->setPlayFrame(0, 12, false, true); // 0 ~ 11
@@ -117,7 +123,12 @@ PlayerState * WalkState::update(Player& player)
 			return jumpState;
 		}
 
-		
+		if (KEY_MANAGER->isOnceKeyDown('Z'))
+		{
+			AttackState* attackState = new AttackState;
+			attackState->setSkill(ATTACK_SKILL::QC1);
+			return attackState;
+		}
 
 
 		moveDir = Vector3::normalize(&moveDir);
@@ -131,7 +142,7 @@ PlayerState * WalkState::update(Player& player)
 	break;
 	case WALK_STATE::IDLE:
 	{
-		
+
 		if (player.getDirection() == DIRECTION::RIGHT)
 		{
 			_ani->setPlayFrame(0, 12, false, false); // 0 ~ 11
@@ -149,7 +160,12 @@ PlayerState * WalkState::update(Player& player)
 			jumpState->setJumpType(JUMP_TYPE::DEFAULT_JUMP);
 			return jumpState;
 		}
-
+		if (KEY_MANAGER->isOnceKeyDown('Z'))
+		{
+			AttackState* attackState = new AttackState;
+			attackState->setSkill(ATTACK_SKILL::QC1);
+			return attackState;
+		}
 
 		if (!_ani->isPlay())
 		{
@@ -196,11 +212,15 @@ void WalkState::enter(Player& player)
 	_ani->start();
 
 	_initTime = 0;
+	
+	
+
 	_state = WALK_STATE::MOVE;
 }
 
 void WalkState::exit(Player& player)
 {
+	
 	_ani->release();
 	SAFE_DELETE(_ani);
 }

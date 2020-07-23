@@ -205,6 +205,8 @@ PlayerState * JumpState::update(Player & player)
 			_ani->start();
 
 			player.setJumpPower(6);
+			
+
 			_jumpType = JUMP_TYPE::RUN_JUMP;
 		}
 		
@@ -276,6 +278,7 @@ void JumpState::enter(Player & player)
 	_ani->setFPS(15);
 	_ani->start();
 
+	
 	
 
 	_jumpDirection = (int)player.getDirection();

@@ -82,7 +82,8 @@ PlayerState * AttackState::update(Player & player)
 			_initTime += TIME_MANAGER->getElapsedTime();
 			if (!_ani->isPlay())
 			{
-				return new IdleState;
+				if (KEY_MANAGER->isStayKeyDown(VK_RIGHT) || KEY_MANAGER->isStayKeyDown(VK_LEFT))return new WalkState;
+				else return new IdleState;
 			}
 			
 			/*CAMERA_MANAGER->rectangle(viewRc, D2D1::ColorF::Enum::Red, 1, 1);
@@ -98,8 +99,8 @@ PlayerState * AttackState::update(Player & player)
 				}
 				else
 				{
-					attackRc = FloatRect(position.x - 20, position.y - 45,
-						position.x - 130, position.y + 10);
+					attackRc = FloatRect(position.x - 130, position.y - 45,
+						position.x - 20, position.y + 10);
 				}
 				
 				viewRc = FloatRect(attackRc.left, position.z + attackRc.top,
@@ -135,7 +136,8 @@ PlayerState * AttackState::update(Player & player)
 			//CAMERA_MANAGER->rectangle(FloatRect(300, 300, 800, 800), D2D1::ColorF::Enum::Red, 1, 20);
 			if (!_ani->isPlay())
 			{
-				return new IdleState;
+				if (KEY_MANAGER->isStayKeyDown(VK_RIGHT) || KEY_MANAGER->isStayKeyDown(VK_LEFT))return new WalkState;
+				else return new IdleState;
 			}
 			else
 			{
@@ -149,8 +151,8 @@ PlayerState * AttackState::update(Player & player)
 					}
 					else
 					{
-						attackRc = FloatRect(position.x - 30, position.y - 60,
-							position.x - 140, position.y + 70);
+						attackRc = FloatRect(position.x - 140, position.y - 60,
+							position.x - 30, position.y + 70);
 					}
 
 					viewRc = FloatRect(attackRc.left, position.z + attackRc.top,
@@ -187,7 +189,9 @@ PlayerState * AttackState::update(Player & player)
 			case ATTACK_SKILL::QC3:
 			    if (!_ani->isPlay())
 				{
-					return new IdleState;
+					if (KEY_MANAGER->isStayKeyDown(VK_RIGHT) || KEY_MANAGER->isStayKeyDown(VK_LEFT))return new WalkState;
+					else return new IdleState;
+					
 				}
 				else
 				{
@@ -201,8 +205,8 @@ PlayerState * AttackState::update(Player & player)
 						}
 						else
 						{
-							attackRc = FloatRect(position.x - 30, position.y - 100,
-								position.x - 160, position.y + 100);
+							attackRc = FloatRect(position.x - 160, position.y - 100,
+								position.x - 30, position.y + 100);
 						}
 
 						viewRc = FloatRect(attackRc.left, position.z + attackRc.top,
@@ -216,7 +220,8 @@ PlayerState * AttackState::update(Player & player)
 			case ATTACK_SKILL::RUN_QC:
 				if (!_ani->isPlay())
 				{
-					return new IdleState;
+					if (KEY_MANAGER->isStayKeyDown(VK_RIGHT) || KEY_MANAGER->isStayKeyDown(VK_LEFT))return new WalkState;
+					else return new IdleState;
 				}
 				else {
 					_initTime += TIME_MANAGER->getElapsedTime();
@@ -240,8 +245,8 @@ PlayerState * AttackState::update(Player & player)
 						}
 						else
 						{
-							attackRc = FloatRect(position.x - 20, position.y - 45,
-								position.x - 130, position.y + 10);
+							attackRc = FloatRect(position.x - 130, position.y - 45,
+								position.x - 20, position.y + 10);
 						}
 
 
@@ -285,8 +290,8 @@ PlayerState * AttackState::update(Player & player)
 					}
 					else
 					{
-						attackRc = FloatRect(player.getPosition().x - 20, player.getPosition().y,
-							player.getPosition().x - 90, player.getPosition().y + 100);
+						attackRc = FloatRect(player.getPosition().x - 90, player.getPosition().y,
+							player.getPosition().x - 20, player.getPosition().y + 100);
 					}
 
 

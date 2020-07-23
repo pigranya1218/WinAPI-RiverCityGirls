@@ -27,7 +27,7 @@ void Player::init()
 
 	_direction = DIRECTION::RIGHT;
 	
-	_jumpPower = 12;
+	_jumpPower = 13;
 	_gravity = 0.3f;
 	_speed = 5;
 	_hp = 100;
@@ -44,6 +44,8 @@ void Player::release()
 
 void Player::update()
 {
+
+
 	PlayerState* _newState = _state->update(*this);
 	if (_newState != nullptr)
 	{
@@ -90,5 +92,14 @@ void Player::getHit(GameObject* hitter, FloatRect attackRc, float damage, ATTACK
 	FloatRect getHitRc = FloatRect(_position.x - _size.x / 2, _position.y - _size.y / 2, _position.x + _size.x / 2, _position.y + _size.y / 2);
 	if (FloatRect::intersect(getHitRc, attackRc))
 	{
-		
+		if (hitter->getPosition().x > _position.x)
+		{
+			_direction == DIRECTION::RIGHT;
+		}
+		else
+		{
+			_direction = DIRECTION::LEFT;
+		}
+		return;
 	}
+}

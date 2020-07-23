@@ -169,6 +169,7 @@
     <ClInclude Include="FloatRect.h" />
     <ClInclude Include="GameNode.h" />
     <ClInclude Include="GameObject.h" />
+    <ClInclude Include="getHitState.h" />
     <ClInclude Include="IdleState.h" />
     <ClInclude Include="Image.h" />
     <ClInclude Include="ImageManager.h" />
@@ -241,6 +242,7 @@
     <ClCompile Include="FloatRect.cpp" />
     <ClCompile Include="GameNode.cpp" />
     <ClCompile Include="GameObject.cpp" />
+    <ClCompile Include="getHitState.cpp" />
     <ClCompile Include="IdleState.cpp" />
     <ClCompile Include="Image.cpp" />
     <ClCompile Include="ImageManager.cpp" />

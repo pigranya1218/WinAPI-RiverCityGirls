@@ -309,6 +309,9 @@
     <ClInclude Include="AttackState.h">
       <Filter>PlayGround\Player\State\AttackState</Filter>
     </ClInclude>
+    <ClInclude Include="getHitState.h">
+      <Filter>PlayGround\Player\State</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="windowsAPI.cpp">
@@ -505,6 +508,9 @@
     </ClCompile>
     <ClCompile Include="AttackState.cpp">
       <Filter>PlayGround\Player\State\AttackState</Filter>
+    </ClCompile>
+    <ClCompile Include="getHitState.cpp">
+      <Filter>PlayGround\Player\State</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
