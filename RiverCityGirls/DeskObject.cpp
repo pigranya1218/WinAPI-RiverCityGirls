@@ -41,7 +41,7 @@ void DeskObject::render()
 {
 	_img->setScale(3);
 	_img->setAlpha(1);
-	CAMERA_MANAGER->renderZ(_img, _position, _size, -(_size.z / 2));
+	CAMERA_MANAGER->renderZ(_img, _position, _size);
 
 	_restrictRect->render();
 	CAMERA_MANAGER->drawLine(Vector2(_position.x + _collisionOffsetX, _position.z + _collisionOffsetZ), Vector2(_position.x + _collisionOffsetX, _position.z + _collisionOffsetZ - _size.y));

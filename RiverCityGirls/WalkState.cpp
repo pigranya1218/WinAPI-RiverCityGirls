@@ -169,6 +169,7 @@ PlayerState * WalkState::update(Player& player)
 void WalkState::render(Player& player)
 {
 	_img->setScale(3);
+	//CAMERA_MANAGER->aniRenderZ(_img, player.getPosition(), player.getSize(), _ani, -(player.getPosition().y + (player.getSize().y / 2)));
 	CAMERA_MANAGER->aniRenderZ(_img, player.getPosition(), player.getSize(), _ani);
 
 	/*char str[254];
