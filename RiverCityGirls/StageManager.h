@@ -26,5 +26,6 @@ public:
 	void setUIManager(UIManager* uiManager) { _uiManager = uiManager; }
 
 	void playerAttack(GameObject* hitter, FloatRect attackRc, float damage, ATTACK_TYPE type);
+
 };
 

@@ -309,6 +309,9 @@
     <ClInclude Include="AllEnums.h">
       <Filter>PlayGround\Enum</Filter>
     </ClInclude>
+    <ClInclude Include="StartStage.h">
+      <Filter>PlayGround\StageManager\Stage</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="windowsAPI.cpp">
@@ -505,6 +508,9 @@
     </ClCompile>
     <ClCompile Include="TeacherTable.cpp">
       <Filter>PlayGround\Object</Filter>
+    </ClCompile>
+    <ClCompile Include="StartStage.cpp">
+      <Filter>PlayGround\StageManager\Stage</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

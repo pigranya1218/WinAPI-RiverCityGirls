@@ -56,7 +56,7 @@ PlayerState * IdleState::update(Player & player)
 void IdleState::render(Player & player)
 {
 	_img->setScale(3);
-	CAMERA_MANAGER->aniRenderZ(_img, player.getPosition(), player.getSize(), _ani);
+	CAMERA_MANAGER->aniRenderZ(_img, player.getPosition(), player.getSize(), _ani, -(player.getPosition().y + (player.getSize().y / 2)));
 }
 
 void IdleState::enter(Player & player)

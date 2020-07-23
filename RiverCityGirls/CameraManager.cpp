@@ -28,12 +28,12 @@ void CameraManager::sort(int s, int e) // z 를 기준으로 오름차순,(먼저 그려야 되
 
 	while (sIndex <= mid && eIndex <= e)
 	{
-		if ((_renderList[sIndex].pos.z + _renderList[sIndex].offsetZ) < (_renderList[eIndex].pos.z + _renderList[eIndex].offsetZ))
+		if ((_renderList[sIndex].pos.z + (_renderList[sIndex].size.z / 2) + _renderList[sIndex].offsetZ) < (_renderList[eIndex].pos.z + (_renderList[eIndex].size.z / 2) + _renderList[eIndex].offsetZ))
 		{
 			tempVector.push_back(_renderList[sIndex]);
 			sIndex++;
 		}
-		else if ((_renderList[sIndex].pos.z + _renderList[sIndex].offsetZ) == (_renderList[eIndex].pos.z + _renderList[eIndex].offsetZ))
+		else if ((_renderList[sIndex].pos.z + (_renderList[sIndex].size.z / 2) + _renderList[sIndex].offsetZ) == (_renderList[eIndex].pos.z + (_renderList[eIndex].size.z / 2) + _renderList[eIndex].offsetZ))
 		{
 			if (_renderList[sIndex].renderType == IMAGE_RENDER_TYPE::SHADOW)
 			{
