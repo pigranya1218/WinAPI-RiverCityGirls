@@ -1,5 +1,4 @@
 #pragma once
-//#include "AttackState.h"
 #include "AllPlayerState.h"
 
 enum class ATTACK_SKILL
@@ -12,16 +11,19 @@ enum class ATTACK_SKILL
 	GRAB_QC
 };
 
-class WeakAttack : public PlayerState
+class AttackState : public PlayerState
 {
 private:
 	
 
 	Synthesize(ATTACK_SKILL,_skill,Skill)
-	
+	Synthesize(float, _currJumpPower,CurrJumpPower) //점프 공격을 할때 점프 상태의 점프 파워를 그대로 인계받기 위함  
+	Synthesize(float, _currMoveDirX, CurrMoveDirX)
+		
 	FloatRect attackRc;
 	FloatRect viewRc;
 	float _initTime;
+	float _lastPlayerY;
 
 public:
 	virtual void enter(Player&player);

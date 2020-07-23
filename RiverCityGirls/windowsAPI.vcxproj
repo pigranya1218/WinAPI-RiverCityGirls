@@ -216,7 +216,7 @@
     <ClInclude Include="Vector2.h" />
     <ClInclude Include="Vector3.h" />
     <ClInclude Include="WalkState.h" />
-    <ClInclude Include="WeakAttack.h" />
+    <ClInclude Include="AttackState.h" />
     <ClInclude Include="windowsAPI.h" />
     <ClInclude Include="WorkingFemaleA.h" />
     <ClInclude Include="WorkingMaleD.h" />
@@ -288,7 +288,7 @@
     <ClCompile Include="Vector2.cpp" />
     <ClCompile Include="Vector3.cpp" />
     <ClCompile Include="WalkState.cpp" />
-    <ClCompile Include="WeakAttack.cpp" />
+    <ClCompile Include="AttackState.cpp" />
     <ClCompile Include="windowsAPI.cpp" />
     <ClCompile Include="WorkingFemaleA.cpp" />
     <ClCompile Include="WorkingMaleD.cpp" />

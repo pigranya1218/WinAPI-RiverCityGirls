@@ -11,8 +11,9 @@ enum class JUMP_TYPE : int //
 class JumpState : public PlayerState
 {
 private:
-	float _gravity;
+	//float _gravity;
 	int _jumpDirection;
+
 
 	Synthesize(JUMP_TYPE, _jumpType, JumpType)
 
