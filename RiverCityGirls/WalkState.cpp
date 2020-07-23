@@ -104,6 +104,7 @@ PlayerState * WalkState::update(Player& player)
 	{
 	case WALK_STATE::MOVE:
 	{
+		moveDir.y = 0.01;
 		
 
 		if (player.getDirection() == DIRECTION::RIGHT)
@@ -140,7 +141,14 @@ PlayerState * WalkState::update(Player& player)
 
 		float currentPlayerY = player.getPosition().y;
 		
-		
+		if (_startY != lastPlayerY && moveDir.y != 0)
+		{
+
+			JumpState* jumpState = new JumpState;
+			jumpState->setJumpType(JUMP_TYPE::DEFAULT_JUMP);
+			player.setJumpPower(0);
+			return jumpState;
+		}
 
 	}
 	break;
@@ -217,7 +225,7 @@ void WalkState::enter(Player& player)
 
 	_initTime = 0;
 	
-	
+	_startY=player.getPosition().y;
 
 	_state = WALK_STATE::MOVE;
 }

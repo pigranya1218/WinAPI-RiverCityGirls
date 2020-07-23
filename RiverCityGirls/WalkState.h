@@ -16,7 +16,7 @@ private:
 	WALK_STATE _state;
 
 	Vector3 moveDir;
-
+	float _startY;
 public:
 	virtual PlayerState* update(Player& player);
 	virtual void render(Player& player);

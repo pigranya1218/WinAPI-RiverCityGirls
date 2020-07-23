@@ -31,6 +31,7 @@ void Player::init()
 	_gravity = 0.3f;
 	_speed = 5;
 	_hp = 100;
+	_onObject = false;
 }
 
 void Player::release()
