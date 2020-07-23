@@ -29,6 +29,7 @@ public:
 	static Vector3 normalize(const Vector3* const  pVector2);
 	static float toRadian(const Vector3* const pVector2);
 	static float length(const Vector3* const pVector2);
+	static float distance(Vector3 a, Vector3 b);
 	static float dot(const Vector3* const pVector2A, const Vector3* const pVector2B);
 	static float cross(const Vector3* const pvector2A, const Vector3* const pVector2B);
 };

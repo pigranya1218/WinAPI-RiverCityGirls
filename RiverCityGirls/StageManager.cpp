@@ -1,23 +1,41 @@
 #include "stdafx.h"
 #include "StageManager.h"
 #include "StartStage.h"
-#include "NormalStage.h"
+#include "MiddleStage.h"
 #include "BossStage.h"
 
 
 void StageManager::init()
 {
-	// 모든 스테이지들의 정보를 데이터 파일로부터 읽고 맵으로 관리
-	
-	// DEBUG
-	_currStage = new StartStage;
-	_currStage->init(IMAGE_MANAGER->findImage("STAGE_1"), 3);
-	_currStage->setStageManager(this);
-	_currStage->setPlayer(_player);
+	Stage* Stage_1 = new StartStage;
+	Stage_1->init(IMAGE_MANAGER->findImage("STAGE_1"), 3);
+	Stage_1->setStageManager(this);
+	Stage_1->setPlayer(_player);
+	_stageMap["START_STAGE"] = Stage_1;
+
+	Stage* Stage_2 = new MiddleStage;
+	Stage_2->init(IMAGE_MANAGER->findImage("STAGE_1"), 3);
+	Stage_2->setStageManager(this);
+	Stage_2->setPlayer(_player);
+	_stageMap["MIDDLE_STAGE"] = Stage_2;
+
+	Stage* Stage_3 = new BossStage;
+	Stage_3->init(IMAGE_MANAGER->findImage("STAGE_1"), 3);
+	Stage_3->setStageManager(this);
+	Stage_3->setPlayer(_player);
+	_stageMap["BOSS_STAGE"] = Stage_3;
+
+	_currStage = _stageMap["START_STAGE"];
 }
 
 void StageManager::release()
 {
+	for (auto iter = _stageMap.begin(); iter != _stageMap.end(); iter++)
+	{
+		iter->second->exit();
+		delete iter->second;
+	}
+	_stageMap.clear();
 }
  
 void StageManager::update()
@@ -25,16 +43,13 @@ void StageManager::update()
 	Stage* newStage = _currStage->update();
 	if (newStage != nullptr)
 	{
-		_currStage->exit();
 		_currStage = newStage;
-		_currStage->enter();
 	}
 }
 
 void StageManager::render()
 {
 	_currStage->render();
-	
 }
 
 void StageManager::playerAttack(GameObject* hitter, FloatRect attackRc, float damage, ATTACK_TYPE type)
@@ -43,4 +58,8 @@ void StageManager::playerAttack(GameObject* hitter, FloatRect attackRc, float da
 	getAttack.push_back(OBJECT_TEAM::ENEMY);
 	getAttack.push_back(OBJECT_TEAM::OBJECT);
 	_currStage->attack(hitter, attackRc, damage, type, getAttack);
+}
+
+void StageManager::setDoorInfo(vector<tagDoorInfo> doorInfos)
+{
 }

@@ -32,6 +32,8 @@ public:
 private:
 	vector<tagZImage> _renderList;
 
+	float _offsetL, _offsetT; // 카메라 LEFT, TOP을 그리기 시작할 윈도우 위치 
+	
 	float _L, _T; // 카메라 LEFT, TOP 절대 좌표이며 이를 기준으로 그려짐
 	float _x, _y; // 카메라 중점 좌표
 	float _width, _height; // 카메라 너비, 높이 값
@@ -62,7 +64,7 @@ public:
 
 	Vector2 convertV3ToV2(Vector3 v3);
 
-	void setConfig(float left, float top, float width, float height, float minL, float minT, float maxL, float maxT);
+	void setConfig(float _offsetL, float _offsetT, float width, float height, float minL, float minT, float maxL, float maxT);
 	void setConfigCenter(float x, float y, float width, float height, float minX, float minY, float maxX, float maxY);
 	float getL();
 	float getT();

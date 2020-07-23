@@ -195,9 +195,6 @@
     <ClInclude Include="BossStage.h">
       <Filter>PlayGround\StageManager\Stage</Filter>
     </ClInclude>
-    <ClInclude Include="NormalStage.h">
-      <Filter>PlayGround\StageManager\Stage</Filter>
-    </ClInclude>
     <ClInclude Include="Stage.h">
       <Filter>PlayGround\StageManager\Stage</Filter>
     </ClInclude>
@@ -312,6 +309,9 @@
     <ClInclude Include="StartStage.h">
       <Filter>PlayGround\StageManager\Stage</Filter>
     </ClInclude>
+    <ClInclude Include="MiddleStage.h">
+      <Filter>PlayGround\StageManager\Stage</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="windowsAPI.cpp">
@@ -399,9 +399,6 @@
       <Filter>PlayGround\StageManager</Filter>
     </ClCompile>
     <ClCompile Include="BossStage.cpp">
-      <Filter>PlayGround\StageManager\Stage</Filter>
-    </ClCompile>
-    <ClCompile Include="NormalStage.cpp">
       <Filter>PlayGround\StageManager\Stage</Filter>
     </ClCompile>
     <ClCompile Include="Stage.cpp">
@@ -510,6 +507,9 @@
       <Filter>PlayGround\Object</Filter>
     </ClCompile>
     <ClCompile Include="StartStage.cpp">
+      <Filter>PlayGround\StageManager\Stage</Filter>
+    </ClCompile>
+    <ClCompile Include="MiddleStage.cpp">
       <Filter>PlayGround\StageManager\Stage</Filter>
     </ClCompile>
   </ItemGroup>

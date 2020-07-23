@@ -1,6 +1,6 @@
 #pragma once
 #include "Stage.h"
-class NormalStage : public Stage
+class MiddleStage : public Stage
 {
 private:
 
