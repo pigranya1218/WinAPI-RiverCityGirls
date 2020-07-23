@@ -1,13 +1,10 @@
 #pragma once
 #include "Object.h"
-class SchoolBoyE :
+class DeskChairObject :
 	public Object
 {
-private:
-	Animation* _idleAni;
-	Animation* _reactionAni;
 public:
-	SchoolBoyE(OBJECT_STATE state, Vector3 position, DIRECTION direction);
+	DeskChairObject(OBJECT_STATE state, Vector3 position, DIRECTION direction);
 
 	virtual void update();
 	virtual void release();

@@ -7,7 +7,7 @@ private:
 	Animation* _idleAni;
 	Animation* _reactionAni;
 public:
-	WorkingFemaleA(Vector3 position, DIRECTION direction);
+	WorkingFemaleA(OBJECT_STATE state, Vector3 position, DIRECTION direction);
 
 	virtual void update();
 	virtual void release();

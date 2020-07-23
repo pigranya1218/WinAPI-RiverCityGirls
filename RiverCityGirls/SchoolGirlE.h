@@ -8,7 +8,7 @@ private:
 	Animation* _idleAni;
 	Animation* _reactionAni;
 public:
-	SchoolGirlE(Vector3 position, DIRECTION direction);
+	SchoolGirlE(OBJECT_STATE state, Vector3 position, DIRECTION direction);
 
 	virtual void update();
 	virtual void release();

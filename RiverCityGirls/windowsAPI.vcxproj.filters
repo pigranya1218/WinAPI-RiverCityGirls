@@ -279,9 +279,6 @@
     <ClInclude Include="WorkingMaleD.h">
       <Filter>PlayGround\Object</Filter>
     </ClInclude>
-    <ClInclude Include="Table.h">
-      <Filter>PlayGround\Object</Filter>
-    </ClInclude>
     <ClInclude Include="RestrictMoveLine.h">
       <Filter>2DGameFramework\Utils\RectrictMove</Filter>
     </ClInclude>
@@ -299,6 +296,15 @@
     </ClInclude>
     <ClInclude Include="AttackState.h">
       <Filter>PlayGround\Player\State\AttackState</Filter>
+    </ClInclude>
+    <ClInclude Include="TableObject.h">
+      <Filter>PlayGround\Object</Filter>
+    </ClInclude>
+    <ClInclude Include="DeskChairObject.h">
+      <Filter>PlayGround\Object</Filter>
+    </ClInclude>
+    <ClInclude Include="TeacherTable.h">
+      <Filter>PlayGround\Object</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -473,9 +479,6 @@
     <ClCompile Include="WorkingMaleD.cpp">
       <Filter>PlayGround\Object</Filter>
     </ClCompile>
-    <ClCompile Include="Table.cpp">
-      <Filter>PlayGround\Object</Filter>
-    </ClCompile>
     <ClCompile Include="RestrictMoveLine.cpp">
       <Filter>2DGameFramework\Utils\RectrictMove</Filter>
     </ClCompile>
@@ -493,6 +496,15 @@
     </ClCompile>
     <ClCompile Include="AttackState.cpp">
       <Filter>PlayGround\Player\State\AttackState</Filter>
+    </ClCompile>
+    <ClCompile Include="TableObject.cpp">
+      <Filter>PlayGround\Object</Filter>
+    </ClCompile>
+    <ClCompile Include="DeskChairObject.cpp">
+      <Filter>PlayGround\Object</Filter>
+    </ClCompile>
+    <ClCompile Include="TeacherTable.cpp">
+      <Filter>PlayGround\Object</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

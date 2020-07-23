@@ -12,4 +12,6 @@
 #include "SchoolGirlE.h"
 #include "WorkingFemaleA.h"
 #include "WorkingMaleD.h"
-#include "Table.h"
+#include "TableObject.h"
+#include "DeskChairObject.h"
+#include "TeacherTable.h"

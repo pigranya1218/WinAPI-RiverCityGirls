@@ -1,8 +1,9 @@
 #include "stdafx.h"
 #include "DeskObject.h"
 
-DeskObject::DeskObject(Vector3 position, DIRECTION direction)
+DeskObject::DeskObject(OBJECT_STATE state, Vector3 position, DIRECTION direction)
 {
+	_state = state;
 	_direction = direction;
 	_size = Vector3(80, 80, 60);
 	_position = Vector3(position.x, -(_size.y / 2), position.z);
@@ -29,7 +30,6 @@ DeskObject::DeskObject(Vector3 position, DIRECTION direction)
 
 void DeskObject::update()
 {
-	//_img->setScale(3);
 }
 
 void DeskObject::release()

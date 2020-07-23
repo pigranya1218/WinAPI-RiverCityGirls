@@ -1,8 +1,9 @@
 #include "stdafx.h"
 #include "Object.h"
 
-Object::Object(Vector3 position, DIRECTION direction)
+Object::Object(OBJECT_STATE state, Vector3 position, DIRECTION direction)
 {
+	_state = state;
 	_position = position;
 	_direction = direction;
 }

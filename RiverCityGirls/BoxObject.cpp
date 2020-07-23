@@ -1,8 +1,9 @@
 #include "stdafx.h"
 #include "BoxObject.h"
 
-BoxObject::BoxObject(Vector3 position, DIRECTION direction)
+BoxObject::BoxObject(OBJECT_STATE state, Vector3 position, DIRECTION direction)
 {
+	_state = state;
 	_direction = direction;
 	_size = Vector3(150, 100, 90);
 	_position = Vector3(position.x, -(_size.y / 2), position.z);

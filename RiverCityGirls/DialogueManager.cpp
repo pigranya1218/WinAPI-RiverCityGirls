@@ -219,16 +219,7 @@ wstring DialogueManager::strTowstr(string src)
 	USES_CONVERSION;	
 	wstring result = A2W(src.c_str());	
 
-	if (result.length() % 2 != 0)
-	{
-		return result;
-	}
-	else
-	{
-		string str = src.substr(0, result.length() - 2);
-
-		return A2W(str.c_str());
-	}
+	
 
 	return result;
 }
