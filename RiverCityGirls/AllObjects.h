@@ -13,5 +13,5 @@
 #include "WorkingFemaleA.h"
 #include "WorkingMaleD.h"
 #include "TableObject.h"
-#include "DeskChairObject.h"
-#include "TeacherTable.h"
+#include "ChairObject.h"
+#include "TeacherTableObject.h"

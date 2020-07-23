@@ -1,9 +1,8 @@
 #include "stdafx.h"
 #include "SchoolGirlA.h"
 
-SchoolGirlA::SchoolGirlA(OBJECT_STATE state, Vector3 position, DIRECTION direction)
+SchoolGirlA::SchoolGirlA(Vector3 position, DIRECTION direction)
 {
-	_state = state;
 	_direction = direction;
 	_size = Vector3(100, 330, 30);
 	_position = Vector3(position.x, -(_size.y / 2), position.z);

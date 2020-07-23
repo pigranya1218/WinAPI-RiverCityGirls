@@ -35,18 +35,13 @@ void Stage::init(Image * background, float bgScale)
 
 	_objectManager = new ObjectManager;
 	_objectManager->init();
-	_objectManager->spawnObject(OBJECT_TYPE::DESK, OBJECT_STATE::IDLE01, Vector3(1200, 0, 495), DIRECTION::LEFT);
-	_objectManager->spawnObject(OBJECT_TYPE::DESK, OBJECT_STATE::IDLE01, Vector3(940, 0, 495), DIRECTION::LEFT);
-	_objectManager->spawnObject(OBJECT_TYPE::DESK, OBJECT_STATE::IDLE01, Vector3(680, 0, 495), DIRECTION::LEFT);
-	_objectManager->spawnObject(OBJECT_TYPE::DESK, OBJECT_STATE::IDLE01, Vector3(430, 0, 495), DIRECTION::LEFT);
 
 	//Object 배치
-	//_objectManager->spawnObject(OBJECT_TYPE::DESK, OBJECT_STATE::IDLE01, Vector3(710, 0, 510), DIRECTION::LEFT);
-	//_objectManager->spawnObject(OBJECT_TYPE::DESK, OBJECT_STATE::IDLE01, Vector3(990, 0, 510), DIRECTION::LEFT);
-	_objectManager->spawnObject(OBJECT_TYPE::mrRudis, OBJECT_STATE::IDLE01, Vector3(1670, 0, 510), DIRECTION::LEFT);
-	_objectManager->spawnObject(OBJECT_TYPE::schoolBoyB, OBJECT_STATE::IDLE01, Vector3(400, 0, 400), DIRECTION::LEFT);
-	_objectManager->spawnObject(OBJECT_TYPE::schoolGirlB, OBJECT_STATE::IDLE01, Vector3(550, 0, 400), DIRECTION::RIGHT);
-
+	_objectManager->spawnObject(OBJECT_TYPE::DESK, Vector3(710, 0, 510), DIRECTION::LEFT);
+	_objectManager->spawnObject(OBJECT_TYPE::DESK, Vector3(990, 0, 510), DIRECTION::LEFT);
+	_objectManager->spawnObject(OBJECT_TYPE::mrRudis, Vector3(1670, 0, 510), DIRECTION::LEFT);
+	_objectManager->spawnObject(OBJECT_TYPE::schoolBoyB, Vector3(400, 0, 400), DIRECTION::LEFT);
+	_objectManager->spawnObject(OBJECT_TYPE::schoolGirlB, Vector3(500, 0, 400), DIRECTION::RIGHT);
 
 	_enemyManager = new EnemyManager;
 	_enemyManager->setStage(this);
@@ -97,16 +92,16 @@ void Stage::render()
 }
 
 // 게임 오브젝트가 이동가능한 영역까지 이동할 수 있도록 하는 함수
-void Stage::moveGameObject(GameObject* gameObject, Vector3 move)
+void Stage::moveGameObject(GameObject & gameObject, Vector3 move)
 {
 	if (move.x == 0 && move.y == 0 && move.z == 0) return;
 
 	float dir[4][2] = { {-1.0, -1.0}, {-1.0, 1.0}, {1.0, -1.0}, {1.0, 1.0} }; // 각 대각 값
-	float width = gameObject->getSize().x * 0.5; // 충돌 가로 길이
-	float height = gameObject->getSize().z * 0.5; // 충돌 세로 길이
+	float width = gameObject.getSize().x * 0.5; // 충돌 가로 길이
+	float height = gameObject.getSize().z * 0.5; // 충돌 세로 길이
 
-	Vector3 newPos = gameObject->getPosition() + move;
-	Vector3 size = gameObject->getSize();
+	Vector3 newPos = gameObject.getPosition() + move;
+	Vector3 size = gameObject.getSize();
 	if (newPos.y + (size.y / 2) > 0)
 	{
 		newPos.y = -(size.y / 2);
@@ -122,10 +117,33 @@ void Stage::moveGameObject(GameObject* gameObject, Vector3 move)
 	for (int i = 0; i < _restrictLines.size(); i++)
 	{
 		_restrictLines[i]->checkCollision(newPoses, size);
+		//for (int j = 0; j < 4; j++) // 대각 점들에 대하여 비교
+		//{
+		//	Vector3 checkPos = newPoses[j];
+		//	LINEAR_VALUE_TYPE type = _linearFuncs[i].line.getValueType(checkPos.x, checkPos.z);
+		//	if (type == _linearFuncs[i].type) // 선을 넘어간 경우
+		//	{
+		//		if (_linearFuncs[i].line.a != 0) // 기울기가 0인 경우
+		//		{
+		//			checkPos.x = _linearFuncs[i].line.getX(checkPos.z); // x 좌표 변경은 z를 기준으로
+		//		}
+		//		else
+		//		{
+		//			checkPos.z = _linearFuncs[i].line.getY(checkPos.x); // z 좌표 변경은 x를 기준으로
+		//		}
+
+		//		// 바뀐 좌표를 기준으로 다시 그린다
+		//		newPos = Vector3(checkPos.x - dir[j][0] * width, newPos.y, checkPos.z - dir[j][1] * height);
+		//		for (int k = 0; k < 4; k++)
+		//		{
+		//			newPoses[k] = Vector3(newPos.x + dir[k][0] * width, newPos.y, newPos.z + dir[k][1] * height);
+		//		}
+		//	}
+		//}
 	}
 
 	// 물체와의 이동가능 비교는 x, y, z 비교, 물체를 올라탈 수도 있음
-	_objectManager->collision(newPoses, gameObject);
+	_objectManager->collision(newPoses, size);
 	
 	newPos = Vector3(0, 0, 0);
 	for (int i = 0; i < 4; i++)
@@ -138,7 +156,7 @@ void Stage::moveGameObject(GameObject* gameObject, Vector3 move)
 	newPos.y /= 4;
 	newPos.z /= 4;
 
-	gameObject->setPosition(newPos);
+	gameObject.setPosition(newPos);
 }
 
 Vector3 Stage::getPlayerPosition()
