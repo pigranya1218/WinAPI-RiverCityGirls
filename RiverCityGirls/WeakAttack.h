@@ -2,19 +2,26 @@
 //#include "AttackState.h"
 #include "AllPlayerState.h"
 
+enum class ATTACK_SKILL
+{
+	QC1,
+	QC2,
+	QC3,
+	RUN_QC,
+	JUMP_QC,
+	GRAB_QC
+};
+
 class WeakAttack : public PlayerState
 {
 private:
-	enum class ATTACK_COMBO
-	{
-		QC1,
-		QC2,
-		QC3
-	};
-
-	ATTACK_COMBO _combo;
 	
-	 
+
+	Synthesize(ATTACK_SKILL,_skill,Skill)
+	
+	FloatRect attackRc;
+	FloatRect viewRc;
+	float _initTime;
 
 public:
 	virtual void enter(Player&player);
