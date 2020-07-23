@@ -119,10 +119,12 @@ void CameraManager::release()
 {
 }
 
-void CameraManager::setConfig(float L, float T, float width, float height, float minL, float minT, float maxL, float maxT)
+void CameraManager::setConfig(float offsetL, float offsetT, float width, float height, float minL, float minT, float maxL, float maxT)
 {
-	_L = L;
-	_T = T;
+	_offsetL = offsetL;
+	_offsetT = offsetT;
+	_L = minL;
+	_T = minT;
 	_width = width;
 	_height = height;
 	_originMinL = _minL = minL;
@@ -245,25 +247,25 @@ void CameraManager::movePivot(Vector2 offsetXY)
 
 float CameraManager::getRelativeX(float left)
 {
-	float newL = left - _L;
+	float newL = _offsetL + left - _L;
 	return newL;
 }
 
 LONG CameraManager::getRelativeX(LONG left)
 {
-	LONG newL = left - _L;
+	LONG newL = _offsetL + left - _L;
 	return newL;
 }
 
 float CameraManager::getRelativeY(float top)
 {
-	float newT = top - _T;
+	float newT = _offsetT + top - _T;
 	return  newT;
 }
 
 LONG CameraManager::getRelativeY(LONG top)
 {
-	LONG newT = top - _T;
+	LONG newT = _offsetT + top - _T;
 	return  newT;
 }
 
@@ -285,25 +287,25 @@ FloatRect CameraManager::getRelativeFR(FloatRect rc)
 
 float CameraManager::getAbsoluteX(float left)
 {
-	float newL = _L + left;
+	float newL = -_offsetL + _L + left;
 	return newL;
 }
 
 LONG CameraManager::getAbsoluteX(LONG left)
 {
-	LONG newL = _L + left;
+	LONG newL = -_offsetL + _L + left;
 	return newL;
 }
 
 float CameraManager::getAbsoluteY(float top)
 {
-	float newT = _T + top;
+	float newT = -_offsetT + _T + top;
 	return newT;
 }
 
 LONG CameraManager::getAbsoluteY(LONG top)
 {
-	LONG newT = _T + top;
+	LONG newT = -_offsetT + _T + top;
 	return newT;
 }
 

@@ -8,6 +8,7 @@
 class StageManager
 {
 private:
+	map<string, Stage*> _stageMap;
 	Stage* _currStage;
 	Player* _player;
 	UIManager* _uiManager;
@@ -27,5 +28,7 @@ public:
 
 	void playerAttack(GameObject* hitter, FloatRect attackRc, float damage, ATTACK_TYPE type);
 
+	Stage* getStage(string keyName) { return _stageMap[keyName]; }
+	void setDoorInfo(vector<tagDoorInfo> doorInfos);
 };
 

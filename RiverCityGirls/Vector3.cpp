@@ -126,6 +126,11 @@ float Vector3::length(const Vector3 * const pVector3)
 	return length;
 }
 
+float Vector3::distance(Vector3 a, Vector3 b)
+{
+	return sqrt(pow(a.x - b.x, 2) + pow(a.y - b.y, 2) + pow(a.z - b.z, 2));
+}
+
 float Vector3::dot(const Vector3 * const pVector2A, const Vector3 * const pVector2B)
 {
 	// TO DO

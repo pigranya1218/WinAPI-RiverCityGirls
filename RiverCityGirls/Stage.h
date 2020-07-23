@@ -2,6 +2,7 @@
 #include "linearFunc.h"
 #include "GameObject.h"
 #include "RestrictMoveLine.h"
+#include "UIManager.h"
 
 class StageManager;
 class ObjectManager;
@@ -25,6 +26,7 @@ protected:
 	Image* _background; // 배경 이미지
 	float _bgScale; // 배경이미지 배율
 	vector<RestrictMoveLine*> _restrictLines; // 스테이지의 이동 영역을 제한
+	vector<tagDoorInfo> _doorInfos; // 스테이지의 문
 
 public:
 	virtual void init(Image* background, float bgScale);
@@ -41,6 +43,4 @@ public:
 	void attack(GameObject* hitter, FloatRect rc, float damage, ATTACK_TYPE type, vector<OBJECT_TEAM> getAttack);
 
 	Vector3 getPlayerPosition();
-
-	
 };

@@ -8,6 +8,18 @@
 
 void Stage::init(Image * background, float bgScale)
 {
+	_background = background;
+	_bgScale = bgScale;
+	float maxWidth = _background->getWidth() * _bgScale;
+	float maxHeight = _background->getHeight() * _bgScale;
+	CAMERA_MANAGER->setConfig(0, 0, WINSIZEX, WINSIZEY, 0, 0, maxWidth - WINSIZEX, maxHeight - WINSIZEY );
+
+	_objectManager = new ObjectManager;
+	_objectManager->init();
+
+	_enemyManager = new EnemyManager;
+	_enemyManager->setStage(this);
+	_enemyManager->init();
 }
 
 void Stage::enter()
@@ -16,6 +28,13 @@ void Stage::enter()
 
 void Stage::exit()
 {
+	_objectManager->release();
+	_enemyManager->release();
+	for (int i = 0; i < _restrictLines.size(); i++)
+	{
+		delete _restrictLines[i];
+	}
+	_restrictLines.clear();
 }
 
 Stage * Stage::update()

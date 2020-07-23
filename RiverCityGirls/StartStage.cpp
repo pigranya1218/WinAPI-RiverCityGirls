@@ -1,16 +1,13 @@
 #include "stdafx.h"
 #include "StartStage.h"
+#include "MiddleStage.h"
 #include "ObjectManager.h"
 #include "EnemyManager.h"
+#include "StageManager.h"
 
 void StartStage::init(Image * background, float bgScale)
 {
-	_background = background;
-	_bgScale = bgScale;
-	float maxWidth = _background->getWidth() * _bgScale;
-	float maxHeight = _background->getHeight() * _bgScale;
-	//CAMERA_MANAGER->setConfig(0, 0, WINSIZEX, WINSIZEY, 0, 0, 1000, 1000);
-	CAMERA_MANAGER->setConfig(0, 0, WINSIZEX, WINSIZEY, 0, 0, maxWidth - WINSIZEX, maxHeight - WINSIZEY);
+	Stage::init(background, bgScale);
 
 	int linePos[4][4] = { {0, 670, _background->getWidth() * _bgScale, 670}, // го
 							{0, 380, _background->getWidth() * _bgScale, 380}, // ╩С
@@ -29,9 +26,7 @@ void StartStage::init(Image * background, float bgScale)
 		LinearFunc line = LinearFunc::getLinearFuncFromPoints(Vector2(linePos[i][0], linePos[i][1]), Vector2(linePos[i][2], linePos[i][3]));
 		_restrictLines.push_back(new RestrictMoveLine(line, lineTypes[i], lineRange[i][0], lineRange[i][1]));
 	}
-
-	_objectManager = new ObjectManager;
-	_objectManager->init();
+	
 	_objectManager->spawnObject(OBJECT_TYPE::DESK, OBJECT_STATE::IDLE01, Vector3(1200, 0, 495), DIRECTION::LEFT);
 	_objectManager->spawnObject(OBJECT_TYPE::DESK, OBJECT_STATE::IDLE01, Vector3(940, 0, 495), DIRECTION::LEFT);
 	_objectManager->spawnObject(OBJECT_TYPE::DESK, OBJECT_STATE::IDLE01, Vector3(680, 0, 495), DIRECTION::LEFT);
@@ -44,10 +39,8 @@ void StartStage::init(Image * background, float bgScale)
 	_objectManager->spawnObject(OBJECT_TYPE::schoolBoyB, OBJECT_STATE::IDLE01, Vector3(400, 0, 400), DIRECTION::LEFT);
 	_objectManager->spawnObject(OBJECT_TYPE::schoolGirlB, OBJECT_STATE::IDLE01, Vector3(550, 0, 400), DIRECTION::RIGHT);
 
-
-	_enemyManager = new EnemyManager;
-	_enemyManager->setStage(this);
-	_enemyManager->init();
+	_doorInfos.push_back({DOOR_STATE::UNLOCK, Vector3(500, 0, 500)});
+	_stageManager->setDoorInfo(_doorInfos);
 }
 
 void StartStage::enter()
@@ -56,20 +49,26 @@ void StartStage::enter()
 
 void StartStage::exit()
 {
-	_objectManager->release();
-	_enemyManager->release();
-	for (int i = 0; i < _restrictLines.size(); i++)
-	{
-		delete _restrictLines[i];
-	}
-	_restrictLines.clear();
+	Stage::exit();
 }
 
 Stage * StartStage::update()
 {
+	for (int i = 0; i < _doorInfos.size(); i++)
+	{
+		if (_doorInfos[i].door == DOOR_STATE::LOCK) continue;
+		if (Vector3::distance(_doorInfos[i].pos, _player->getPosition()) < 100)
+		{
+			if (KEY_MANAGER->isStayKeyDown('Z'))
+			{
+				_player->setPosition(Vector3(400, -(_player->getSize().y * 0.5), 400));
+				return _stageManager->getStage("MIDDLE_STAGE");
+			}
+		}
+	}
+
 	_objectManager->update();
 	_enemyManager->update();
-
 	CAMERA_MANAGER->setXY(CAMERA_MANAGER->convertV3ToV2(_player->getPosition()));
 
 	return nullptr;
