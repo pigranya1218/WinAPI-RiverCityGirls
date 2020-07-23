@@ -66,6 +66,12 @@ HRESULT playGround::init()
 	IMAGE_MANAGER->addImage("OBJECT_SNACKMACHINE_RIGHT_BROKEN", L"resources/images/object/cafeteria_snackmachine_right_broken.png");
 	IMAGE_MANAGER->addImage("OBJECT_SNACKMACHINE_LEFT", L"resources/images/object/cafeteria_snackmachine_left.png");
 	IMAGE_MANAGER->addImage("OBJECT_SNACKMACHINE_LEFT_BROKEN", L"resources/images/object/cafeteria_snackmachine_left_broken.png");
+	// *** SNACKMACHINE_PIECE
+	IMAGE_MANAGER->addImage("OBJECT_SNACKMACHINE_PIECE01", L"resources/images/object/breakMachine_piece01.png");
+	IMAGE_MANAGER->addImage("OBJECT_SNACKMACHINE_PIECE02", L"resources/images/object/breakMachine_piece02.png");
+	IMAGE_MANAGER->addImage("OBJECT_SNACKMACHINE_PIECE03", L"resources/images/object/breakMachine_piece03.png");
+	IMAGE_MANAGER->addImage("OBJECT_SNACKMACHINE_PIECE04", L"resources/images/object/breakMachine_piece04.png");
+
 	// ** MrRudis
 	IMAGE_MANAGER->addFrameImage("OBJECT_MrRudis_idle", L"resources/images/object/objectHuman_update/RCG_MrRudis_idle_update.png", 2, 2);
 	IMAGE_MANAGER->addFrameImage("OBJECT_MrRudis_reaction", L"resources/images/object/objectHuman_update/RCG_MrRudis_reaction_update.png", 5, 2);

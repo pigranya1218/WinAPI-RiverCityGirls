@@ -103,13 +103,13 @@ void SchoolBoyA::hitEffect(GameObject * hitter, FloatRect attackRc, float damage
 		_ani->init(_img->getWidth(), _img->getHeight(), _img->getMaxFrameX(), _img->getMaxFrameY());
 		if (_direction == DIRECTION::LEFT)
 		{
-			_ani->setPlayFrame(3, 6, false, false);
+			_ani->setPlayFrame(0, 3, false, false);
 		}
 		if (_direction == DIRECTION::RIGHT)
 		{
-			_ani->setPlayFrame(0, 3, false, false);
+			_ani->setPlayFrame(3, 6, false, false);
 		}
-		_ani->setFPS(8);
+		_ani->setFPS(6);
 		_ani->start();
 	}
 }

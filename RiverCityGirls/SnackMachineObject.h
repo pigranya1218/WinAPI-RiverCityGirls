@@ -9,6 +9,10 @@ private:
 	RestrictMoveRect* _restrictRect;
 	int _collisionOffsetX = 5;
 	int _collisionOffsetZ = 0;
+	Image* _pieceImg01;
+	Image* _pieceImg02;
+	Image* _pieceImg03;
+	Image* _pieceImg04;
 public:
 	SnackMachineObject(Vector3 position, DIRECTION direction);
 
