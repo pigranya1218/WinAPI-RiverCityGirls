@@ -36,7 +36,7 @@ void SchoolGirl::update()
 	//float _positionLasty = _position.y;
 
 	_playerDistance = sqrt(pow(playerPos.x - _position.x, 2) + pow(playerPos.y - _position.y, 2) + pow(playerPos.z - _position.z, 2));
-	if (_state != ENEMY_STATE::JUMP)
+	if (_state != ENEMY_STATE::JUMP && _state != ENEMY_STATE::HIT)
 	{
 		if (_playerDistance > 700)
 		{
@@ -55,13 +55,14 @@ void SchoolGirl::update()
 			}
 
 		}
-		else if (_playerDistance <= 300 && _playerDistance > 100 && _state != ENEMY_STATE::RUN)
-		{
-			if (_state != ENEMY_STATE::WALK)
-			{
-				aniPlay(ENEMY_STATE::WALK, _direction);
-				_state = ENEMY_STATE::WALK;
-			}
+		else if (_playerDistance <= 300 && _playerDistance > 1070 && _state != ENEMY_STATE::RUN)
+		{		
+			      if (_state != ENEMY_STATE::WALK)
+			      {
+				    aniPlay(ENEMY_STATE::WALK, _direction);
+				    _state = ENEMY_STATE::WALK;
+					
+			      }			
 		}
 		/*else
 		{
@@ -76,6 +77,16 @@ void SchoolGirl::update()
 
 	Vector3 moveDir = Vector3(0, 0, 0);
 
+	if (isHit)
+	{
+		aniPlay(ENEMY_STATE::HIT, _direction);
+		_state = ENEMY_STATE::HIT;
+	}
+	else if (!isHit && _state != ENEMY_STATE::HIT)
+	{
+		aniPlay(ENEMY_STATE::WALK, _direction);
+		_state = ENEMY_STATE::WALK;
+	}
 	
 
 	
@@ -84,6 +95,7 @@ void SchoolGirl::update()
 	{
 	case ENEMY_STATE::IDLE:
 	{
+		
 		if (_attackCount > 100)
 		{
 			aniPlay(ENEMY_STATE::WALK, _direction);
@@ -95,7 +107,7 @@ void SchoolGirl::update()
 			aniPlay(ENEMY_STATE::ATTACK, _direction);
 			_state = ENEMY_STATE::ATTACK;
 		}
-
+		
 	}
 	break;
 	case ENEMY_STATE::WALK:
@@ -118,19 +130,22 @@ void SchoolGirl::update()
 			_gravity = 0.3f;
 			_elapsedTime = 0;
 		}
-
-		//АјАн
-		if (_playerDistance <= 100 && _elapsedTime > 100)
+		
+		else if (_playerDistance <= 100 && _elapsedTime > 100)
 		{
-			if (_state != ENEMY_STATE::ATTACK)
+			if (_state != ENEMY_STATE::ATTACK && _state != ENEMY_STATE::SKILL)
 			{
+				
 				_elapsedTime = 0;
 				aniPlay(ENEMY_STATE::ATTACK, _direction);
 				_state = ENEMY_STATE::ATTACK;
 			}
-		}
+
+
+		}	
+	
 		
-		
+
 
 	}
 	break;
@@ -218,21 +233,42 @@ void SchoolGirl::update()
 		}
 	}
 	break;
+	case ENEMY_STATE::HIT:
+	{
+		if (_direction == DIRECTION::LEFT)
+		{
+			moveDir.x = moveDir.x +2;
+		}
+		else
+		{
+			moveDir.x = moveDir.x -2;
+		}
+		_elapsedTime++;
+
+		if (_elapsedTime > 30)
+		{
+			aniPlay(ENEMY_STATE::WALK, _direction);
+			_state = ENEMY_STATE::WALK;
+			_elapsedTime = 0;
+		}
+
+	}
+
+	break;
 	/*case GUARD:
 
 	break;
-	case HIT:
+	case ENEMY_STATE::SKILL:
 
 	break;
+	
 	case DOWN:
 
 	break;
 	case STUN:
 
 	break;
-	case SKILL:
-
-	break;
+	
 	case HELD:
 
 	break;*/
@@ -266,6 +302,7 @@ void SchoolGirl::update()
 	_ani->frameUpdate(TIME_MANAGER->getElapsedTime());
 
 	_enemyManager->moveEnemy(this, moveDir);
+
 }
 
 void SchoolGirl::render()
@@ -286,6 +323,40 @@ void SchoolGirl::render()
 	
 	
 }
+
+
+void SchoolGirl::hitEffect(GameObject * hitter, FloatRect attackRc, float damage, ATTACK_TYPE type)
+{
+
+	
+	Vector3 playerPos = _enemyManager->getPlayerPosition();
+	if (playerPos.x < _position.x)
+	{
+		_direction = DIRECTION::LEFT;
+
+	}
+	else if (playerPos.x > _position.x)
+	{
+		_direction = DIRECTION::RIGHT;
+	}
+	
+
+	if (_playerDistance <= 100 && damage > 0)
+	{
+		isHit = true;
+
+	}
+	else
+	{
+		isHit = false;
+
+	}
+
+	
+	
+
+}
+
 
 void SchoolGirl::aniPlay(ENEMY_STATE state, DIRECTION direction)
 {
@@ -355,6 +426,16 @@ void SchoolGirl::aniPlay(ENEMY_STATE state, DIRECTION direction)
 		_ani->setFPS(10);
 		_ani->start();
 		
+	}
+	break;
+	case ENEMY_STATE::SKILL:
+	{
+		_ani = new Animation;
+		_enemyImg = IMAGE_MANAGER->findImage("schoolgirl_skill");
+		_ani->init(_enemyImg->getWidth(), _enemyImg->getHeight(),
+			_enemyImg->getMaxFrameX(), _enemyImg->getMaxFrameY());
+		_ani->setFPS(10);
+		_ani->start();
 	}
 	break;
 	case ENEMY_STATE::DASHATTACK:
