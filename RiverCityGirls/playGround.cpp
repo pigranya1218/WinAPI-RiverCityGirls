@@ -180,35 +180,32 @@ HRESULT playGround::init()
 	IMAGE_MANAGER->addImage("STAGE_2", L"resources/images/stages/stage_2.png");
 	IMAGE_MANAGER->addImage("STAGE_BOSS_BEFORE", L"resources/images/stages/stage_boss_before.png");
 	IMAGE_MANAGER->addImage("STAGE_BOSS_AFTER", L"resources/images/stages/stage_boss_after.png");
-	IMAGE_MANAGER->addImage("screenBorder", L"resources/images/UI/playBorder.png");				// 플레이화면 테두리
+	IMAGE_MANAGER->addImage("screenBorder", L"resources/images/UI/blackBorder.png");			// 플레이화면 테두리
 
 
 	// * UI
 	IMAGE_MANAGER->addImage("blackScreen", L"resources/images/UI/blackScreen.png");				// 검은 화면입니다.
 
-	IMAGE_MANAGER->addImage("playerHPBackBar", L"resources/images/UI/kyoko_HP_backFrame.png");	// 플레이어 체력 뒤
-	IMAGE_MANAGER->addImage("playerDigit"	 , L"resources/images/UI/kyoko_hp_digit.png");		// 플레이어 체력 앞
-	IMAGE_MANAGER->addImage("playerHpFrame"	 , L"resources/images/UI/kyoko_frontFrame.png");	// 플레이어 체력 프레임	
-	IMAGE_MANAGER->addImage("bossBackBar"	, L"resources/images/UI/boss_HP_backBar.png");		// 보스 체력 뒤
-	IMAGE_MANAGER->addImage("bossFrontBar"	, L"resources/images/UI/boss_HP_frontBar.png");		// 보스 체력 앞
-	IMAGE_MANAGER->addImage("bossHpFrame"	, L"resources/images/UI/boss_HP_frame.png");		// 보스 체력 프레임
-
-	IMAGE_MANAGER->addImage("startMapPhone", L"resources/images/UI/startStage_phone.png");		// 핸드폰 이미지
-
-	IMAGE_MANAGER->addImage("unlockDoor", L"resources/images/UI/door_unlock.png");				// 열린 문
-	IMAGE_MANAGER->addImage("lockDoor"	, L"resources/images/UI/door_lock.png");				// 닫힌 문
-
+	IMAGE_MANAGER->addImage("playerBackBar"	, L"resources/images/UI/kyoko_HP_backFrame.png"	);	// 플레이어 프레임 뒤
+	IMAGE_MANAGER->addImage("playerDigit"	, L"resources/images/UI/kyoko_hp_digit.png"		);	// 플레이어 체력 앞
+	IMAGE_MANAGER->addImage("playerExpFront", L"resources/images/UI/kyoko_exp_frontBar.png"	);	// 플레이어 경험치 앞
+	IMAGE_MANAGER->addImage("playerExpBack"	, L"resources/images/UI/kyoko_exp_backBar.png"	);	// 플레이어 경험치 뒤
+	IMAGE_MANAGER->addImage("playerHpFrame"	, L"resources/images/UI/kyoko_frontFrame.png"	);	// 플레이어 체력 프레임	
+	IMAGE_MANAGER->addImage("bossBackBar"	, L"resources/images/UI/boss_HP_backBar.png"	);	// 보스 체력 뒤
+	IMAGE_MANAGER->addImage("bossFrontBar"	, L"resources/images/UI/boss_HP_frontBar.png"	);	// 보스 체력 앞
+	IMAGE_MANAGER->addImage("bossHpFrame"	, L"resources/images/UI/boss_HP_frame.png"		);	// 보스 체력 프레임
+	IMAGE_MANAGER->addImage("unlockDoor"	, L"resources/images/UI/door_unlock.png"		);	// 열린 문
+	IMAGE_MANAGER->addImage("lockDoor"		, L"resources/images/UI/door_lock.png"			);	// 닫힌 문
 	// 다이얼로그 이미지입니다.
-	IMAGE_MANAGER->addImage("kyokoName"	, L"resources/images/UI/dialogue/Kyoko_name.png");		// 쿄코 이름
-	IMAGE_MANAGER->addImage("misakoName", L"resources/images/UI/dialogue/Misako_name.png");		// 미사코 이름
-	IMAGE_MANAGER->addImage("misuzuName", L"resources/images/UI/dialogue/Misuzu_name.png");		// 미스즈 이름
-	IMAGE_MANAGER->addImage("skipFront"	, L"resources/images/UI/dialogue/skip_full.png");		// 스킵 막대 앞
-	IMAGE_MANAGER->addImage("skipBack"	, L"resources/images/UI/dialogue/skip_fill.png");		// 스킵 막대 뒤
-
-	string file;
-	wstring fileW = L"";	
+	IMAGE_MANAGER->addImage("kyokoName"		, L"resources/images/UI/dialogue/Kyoko_name.png"	);	// 쿄코 이름
+	IMAGE_MANAGER->addImage("misakoName"	, L"resources/images/UI/dialogue/Misako_name.png"	);	// 미사코 이름
+	IMAGE_MANAGER->addImage("misuzuName"	, L"resources/images/UI/dialogue/Misuzu_name.png"	);	// 미스즈 이름
+	IMAGE_MANAGER->addImage("skipFront"		, L"resources/images/UI/dialogue/skip_full.png"		);	// 스킵 막대 앞
+	IMAGE_MANAGER->addImage("skipBack"		, L"resources/images/UI/dialogue/skip_fill.png"		);	// 스킵 막대 뒤	
 	for (int i = 1; i <= 6; i++)
 	{
+		string file;
+		wstring fileW = L"";
 		// 쿄코
 		if (i <= 5)
 		{
@@ -229,6 +226,14 @@ HRESULT playGround::init()
 		fileW.assign(file.begin(), file.end());
 		IMAGE_MANAGER->addImage("misuzu_" + to_string(i), fileW);
 	}
+
+	IMAGE_MANAGER->addFrameImage("levelUp", L"resources/images/UI/level_up.png", 4, 1);	// 레벨업!!
+
+	
+
+	
+
+	IMAGE_MANAGER->addImage("startMapPhone", L"resources/images/UI/startStage_phone.png");		// 핸드폰 이미지
 
 	D2D_RENDERER->addTextFormat(L"메이플스토리");		// 폰트 갖고옴	
 	
