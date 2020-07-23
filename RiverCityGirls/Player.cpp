@@ -35,6 +35,9 @@ void Player::release()
 {
 	_state->exit(*this);
 	delete _state;
+
+	//_attackState->exit(*this);
+	//delete _attackState;
 }
 
 void Player::update()
@@ -47,6 +50,15 @@ void Player::update()
 		_state = _newState;
 		_state->enter(*this);
 	}
+
+	/*AttackState* _newAttackState = _attackState->update(*this);
+	if (_newAttackState != nullptr)
+	{
+		_attackState->exit(*this);
+		delete _attackState;
+		_attackState = _newAttackState;
+		_attackState->enter(*this);
+	}*/
 }
 
 void Player::render()

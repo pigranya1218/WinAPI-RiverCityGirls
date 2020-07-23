@@ -10,11 +10,13 @@ enum class DIRECTION : int
 };
 
 class PlayerState;
+//class AttackState;
 
 class Player : public GameObject
 {
 private:
 	StageManager* _stageManager;
+
 
 	RECT _hitRc; //타격판정렉트
 	
@@ -23,6 +25,8 @@ private:
 	Synthesize(float, _jumpPower, JumpPower)
 
 	PlayerState* _state;
+
+	//AttackState* _attackState;
 
 public:
 	Player();
