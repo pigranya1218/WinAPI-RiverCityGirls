@@ -44,7 +44,7 @@ void Player::release()
 
 void Player::update()
 {
-
+	
 
 	PlayerState* _newState = _state->update(*this);
 	if (_newState != nullptr)

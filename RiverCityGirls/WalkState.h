@@ -11,6 +11,8 @@ private:
 	};
 
 	float _initTime;
+	float _gravityTime;
+
 	WALK_STATE _state;
 
 	Vector3 moveDir;

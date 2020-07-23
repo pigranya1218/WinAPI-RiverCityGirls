@@ -280,8 +280,8 @@ void JumpState::enter(Player & player)
 
 	
 	
-
-	_jumpDirection = (int)player.getDirection();
+	if(_jumpType==JUMP_TYPE::RUN_JUMP)_jumpDirection = (int)player.getDirection();
+	
 
 	//_startY = player.getPosition().getIntY();
 }

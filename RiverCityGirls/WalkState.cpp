@@ -9,7 +9,7 @@ PlayerState * WalkState::update(Player& player)
 	moveDir.y = 0;
 	moveDir.z = 0;
 
-
+	float lastPlayerY = player.getPosition().y;
 
 	if (_initTime <= 0.08 && _state == WALK_STATE::IDLE)
 	{
@@ -52,7 +52,6 @@ PlayerState * WalkState::update(Player& player)
 	}
 	
 
-	
 
 	// TODO :: 움직임 대각석으로 움직일 때 보정하기
 
@@ -97,6 +96,7 @@ PlayerState * WalkState::update(Player& player)
 			_ani->setFPS(15);
 			_ani->start();
 			_initTime = 0;
+			
 		}
 	}
 
@@ -123,6 +123,8 @@ PlayerState * WalkState::update(Player& player)
 			return jumpState;
 		}
 
+		
+
 		if (KEY_MANAGER->isOnceKeyDown('Z'))
 		{
 			AttackState* attackState = new AttackState;
@@ -130,12 +132,14 @@ PlayerState * WalkState::update(Player& player)
 			return attackState;
 		}
 
+		
 
 		moveDir = Vector3::normalize(&moveDir);
 		moveDir = moveDir * player.getSpeed();
 		player.move(moveDir);
 
-
+		float currentPlayerY = player.getPosition().y;
+		
 		
 
 	}
