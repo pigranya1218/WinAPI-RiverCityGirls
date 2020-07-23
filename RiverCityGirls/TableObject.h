@@ -1,11 +1,12 @@
 #pragma once
 #include "Object.h"
-class Table :
+
+class TableObject :
 	public Object
 {
 private:
 public:
-	Table(Vector3 position, DIRECTION direction);
+	TableObject(OBJECT_STATE state, Vector3 position, DIRECTION direction);
 
 	virtual void update();
 	virtual void release();

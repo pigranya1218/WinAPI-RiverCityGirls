@@ -1,8 +1,9 @@
 #include "stdafx.h"
 #include "DeskObject.h"
 
-DeskObject::DeskObject(Vector3 position, DIRECTION direction)
+DeskObject::DeskObject(OBJECT_STATE state, Vector3 position, DIRECTION direction)
 {
+	_state = state;
 	_direction = direction;
 	_size = Vector3(120, 80, 80);
 	_position = Vector3(position.x, -(_size.y / 2), position.z);
@@ -20,11 +21,13 @@ DeskObject::DeskObject(Vector3 position, DIRECTION direction)
 	linePos[3][2] = linePos[0][2];
 	linePos[3][3] = linePos[0][3];
 
+	//라인?
 	int lineRange[4][4] = { {linePos[0][0], linePos[0][2], linePos[0][1], linePos[1][1]}, // 상
 							{linePos[1][0], linePos[1][2], linePos[0][1], linePos[1][1]}, // 하
 							{linePos[2][0], linePos[2][2], linePos[0][1], linePos[1][1]}, // 좌 
 							{linePos[3][0], linePos[3][2], linePos[0][1], linePos[1][1]} }; // 우
 
+	//평행사변형
 	_restrictRect = new RestrictMoveRect(Vector2(_position.x - (_size.x / 2) + (_size.z / 2), _position.z - (_size.z / 2)),		// LT
 										Vector2(_position.x + (_size.x / 2) + (_size.z / 2), _position.z - (_size.z / 2)),		// RT
 										Vector2(_position.x + (_size.x / 2) - (_size.z / 2), _position.z + (_size.z / 2)),		// RB
@@ -34,7 +37,6 @@ DeskObject::DeskObject(Vector3 position, DIRECTION direction)
 
 void DeskObject::update()
 {
-	//_img->setScale(3);
 }
 
 void DeskObject::release()

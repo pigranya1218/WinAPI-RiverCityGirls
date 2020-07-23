@@ -40,56 +40,61 @@ void ObjectManager::collision(Vector3 * pos, const Vector3 size)
 	}
 }
 
-void ObjectManager::spawnObject(OBJECT_TYPE type, Vector3 pos, DIRECTION direction)
+void ObjectManager::spawnObject(OBJECT_TYPE type, OBJECT_STATE state, Vector3 pos, DIRECTION direction)
 {
+	if (state == OBJECT_STATE::BROKEN || state == OBJECT_STATE::REACTION)
+	{
+		state = OBJECT_STATE::IDLE01;
+	}
+
 	switch (type)
 	{
 		case OBJECT_TYPE::DESK: 
-		{ _objects.push_back(new DeskObject(pos, direction)); }
+		{ _objects.push_back(new DeskObject(state, pos, direction)); }
 		break;
 
 		case OBJECT_TYPE::BOX:	
-		{ _objects.push_back(new BoxObject(pos, direction));  }
+		{ _objects.push_back(new BoxObject(state, pos, direction));  }
 		break;
 
 		case OBJECT_TYPE::DESK_CHAIR:
-		{		}
+		{ _objects.push_back(new DeskChairObject(state, pos, direction));  }
 		break;
 
 		case OBJECT_TYPE::mrRudis: 
-		{ _objects.push_back(new MrRudis(pos, direction)); }
+		{ _objects.push_back(new MrRudis(state, pos, direction)); }
 		break;
 
 		case OBJECT_TYPE::schoolBoyA: 
-		{ _objects.push_back(new SchoolBoyA(pos, direction)); }
+		{ _objects.push_back(new SchoolBoyA(state, pos, direction)); }
 		break;
 
 		case OBJECT_TYPE::schoolBoyB:
-		{ _objects.push_back(new SchoolBoyB(pos, direction)); }
+		{ _objects.push_back(new SchoolBoyB(state, pos, direction)); }
 		break;
 
 		case OBJECT_TYPE::schoolBoyE:
-		{ _objects.push_back(new SchoolBoyE(pos, direction)); }
+		{ _objects.push_back(new SchoolBoyE(state, pos, direction)); }
 		break;
 
 		case OBJECT_TYPE::schoolGirlA:
-		{ _objects.push_back(new SchoolGirlA(pos, direction)); }
+		{ _objects.push_back(new SchoolGirlA(state, pos, direction)); }
 		break;
 
 		case OBJECT_TYPE::schoolGirlB:
-		{ _objects.push_back(new SchoolGirlB(pos, direction)); }
+		{ _objects.push_back(new SchoolGirlB(state, pos, direction)); }
 		break;
 
 		case OBJECT_TYPE::schoolGirlE:
-		{ _objects.push_back(new SchoolGirlE(pos, direction)); }
+		{ _objects.push_back(new SchoolGirlE(state, pos, direction)); }
 		break;
 
 		case OBJECT_TYPE::workingFemaleA:
-		{ _objects.push_back(new WorkingFemaleA(pos, direction)); }
+		{ _objects.push_back(new WorkingFemaleA(state, pos, direction)); }
 		break;
 		
 		case OBJECT_TYPE::workingMaleD:
-		{ _objects.push_back(new WorkingMaleD(pos, direction)); }
+		{ _objects.push_back(new WorkingMaleD(state, pos, direction)); }
 		break;
 
 	}

@@ -1,8 +1,9 @@
 #include "stdafx.h"
 #include "WorkingMaleD.h"
 
-WorkingMaleD::WorkingMaleD(Vector3 position, DIRECTION direction)
+WorkingMaleD::WorkingMaleD(OBJECT_STATE state, Vector3 position, DIRECTION direction)
 {
+	_state = state;
 	_direction = direction;
 	_size = Vector3(100, 330, 30);
 	_position = Vector3(position.x, -(_size.y / 2), position.z);

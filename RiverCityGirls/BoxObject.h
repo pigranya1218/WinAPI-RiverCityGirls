@@ -4,7 +4,7 @@ class BoxObject :
 	public Object
 {
 public:
-	BoxObject(Vector3 position, DIRECTION direction);
+	BoxObject(OBJECT_STATE state, Vector3 position, DIRECTION direction);
 
 	virtual void update();
 	virtual void release();

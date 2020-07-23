@@ -233,13 +233,13 @@ PlayerState * JumpState::update(Player & player)
 			{
 				_ani->setPlayFrame(0, 2, false, false);
 			}
-			_ani->setFPS(1);
+			_ani->setFPS(10);
 			_ani->start();
 			
 		}
 	}
 
-	_ani->frameUpdate(TIME_MANAGER->getElapsedTime() * 10);
+	_ani->frameUpdate(TIME_MANAGER->getElapsedTime());
 
 	return nullptr;
 }

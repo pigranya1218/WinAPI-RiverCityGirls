@@ -22,6 +22,6 @@ public:
 
 	void collision(Vector3* pos, const Vector3 size);
 
-	void spawnObject(OBJECT_TYPE type, Vector3 pos, DIRECTION direction);
+	void spawnObject(OBJECT_TYPE type, OBJECT_STATE state, Vector3 pos, DIRECTION direction);
 };
 
