@@ -28,13 +28,16 @@ void CheerGirl::release()
 void CheerGirl::update()
 {
 	Vector3 playerPos = _enemyManager->getPlayerPosition();
-	if (playerPos.x <= _position.x - 50)
-	{
-		_direction = DIRECTION::LEFT;
-	}
-	else if (playerPos.x >= _position.x + 50)
-	{
-		_direction = DIRECTION::RIGHT;
+
+	if (_state != ENEMY_STATE::KNOCKDOWN && _state != ENEMY_STATE::STANDUP) {
+		if (playerPos.x <= _position.x - 50)
+		{
+			_direction = DIRECTION::LEFT;
+		}
+		else if (playerPos.x >= _position.x + 50)
+		{
+			_direction = DIRECTION::RIGHT;
+		}
 	}
 
 	//점프력
@@ -42,15 +45,11 @@ void CheerGirl::update()
 	_jumpPower -= _gravity;
 
 
-	//테스트
-	if (KEY_MANAGER->isOnceKeyDown(VK_SPACE))
-	{
-		aniPlay(ENEMY_STATE::DASHATTACK, _direction);
-	}
+	
 
 	//float playerDistance = sqrt(pow(playerPos.x - _position.x, 2) + pow(playerPos.y - _position.y, 2) + pow(playerPos.z - _position.z , 2));
 	_playerDistance = sqrt(pow(playerPos.x - _position.x, 2) + pow(playerPos.y - _position.y, 2) + pow(playerPos.z - _position.z, 2));
-	if (_state != ENEMY_STATE::JUMP && _state != ENEMY_STATE::DASHATTACK)
+	if (_state != ENEMY_STATE::JUMP && _state != ENEMY_STATE::DASHATTACK && _state != ENEMY_STATE::KNOCKDOWN && _state != ENEMY_STATE::STANDUP)
 	{
 		if (_playerDistance > 700)
 		{
@@ -60,7 +59,7 @@ void CheerGirl::update()
 				_state = ENEMY_STATE::IDLE;
 			}
 		}
-		else if (_playerDistance > 300)
+		else if (_playerDistance > 500)
 		{
 			if (_state != ENEMY_STATE::RUN)
 			{
@@ -83,7 +82,7 @@ void CheerGirl::update()
 			//피격 처리
 			if (_isGetHit)
 			{
-				if (_state != ENEMY_STATE::HIT)
+				if (_state != ENEMY_STATE::HIT && _state != ENEMY_STATE::KNOCKDOWN)
 				{
 					if (_hitType == ATTACK_TYPE::HIT)
 					{
@@ -94,6 +93,8 @@ void CheerGirl::update()
 					{
 						aniPlay(ENEMY_STATE::KNOCKDOWN, _direction);
 						_state = ENEMY_STATE::KNOCKDOWN;
+						_jumpPower = 9.0f;
+						_gravity = 0.3;
 					}
 				}
 			}
@@ -103,19 +104,21 @@ void CheerGirl::update()
 	Vector3 moveDir = Vector3(0, 0, 0);
 
 	//플레이어의 Z축 검사
-	if (playerPos.z - 1 > _position.z)
-	{
+	if(_state != ENEMY_STATE::KNOCKDOWN && _state != ENEMY_STATE::STANDUP && _state != ENEMY_STATE::IDLE){
+	 if (playerPos.z  >= _position.z)
+	 {
 		moveDir.z += 1;
-	}
-	else if (playerPos.z + 1 < _position.z)
-	{
+	 }
+	 else if (playerPos.z  <= _position.z)
+	 {
 		moveDir.z -= 1;
+	 }
 	}
 
 	//
 	//if (_state != ENEMY_STATE::ATTACK && _state != ENEMY_STATE::IDLE) _attackCount = 0;
 
-	//상태 패턴에 따른 디렉션 조정
+	//상태 패턴에 따른 스테이트 조정
 	switch (_state)
 	{
 	case ENEMY_STATE::IDLE:
@@ -257,11 +260,52 @@ void CheerGirl::update()
 		}
 	}
 	break;
+	case ENEMY_STATE::KNOCKDOWN:
+	{
+		if (-100 < _position.y)
+		{
+			_jumpPower = 0;
+			_gravity = 0;
+			_position.y = -100;		
+		}
+		_isGetHit = false;
+		if (_direction == DIRECTION::LEFT)
+		{
+			_position.x += 2;
+			
+		}
+		else
+		{
+			_position.x -= 2;
+			
+		}
+		if (_ani->isPlay())
+		{
+			//프레임에 따른 position.x 조정
+		}
+		//if (!_ani->isPlay())
+		else
+		{
+			
+			aniPlay(ENEMY_STATE::STANDUP, _direction);
+			_state = ENEMY_STATE::STANDUP;
+			_elapsedTime = 0;
+		}
+	}
+	break;
+	case ENEMY_STATE::STANDUP:
+	{
+		_elapsedTime++;
+		if (_elapsedTime > 50)
+		{
+			_elapsedTime = 0;
+			aniPlay(ENEMY_STATE::WALK, _direction);
+			_state = ENEMY_STATE::WALK;
+		}
+		
+	}
+	break;
 	/*case GUARD:
-
-		break;
-
-	case DOWN:
 
 		break;
 	case STUN:
@@ -275,6 +319,8 @@ void CheerGirl::update()
 		break;*/
 	}
 
+
+	//좌우에 따른 애니메이션 프레임 및 루프 조정
 	if (_direction == DIRECTION::LEFT)
 	{
 		bool loop;
@@ -284,13 +330,26 @@ void CheerGirl::update()
 			loop = false;
 			_ani->setPlayFrame(0, 2, false, loop);
 		}
+		else if (_state == ENEMY_STATE::KNOCKDOWN)
+		{
+			loop = false;
+			_ani->setPlayFrame(_enemyImg->getMaxFrameX(), _enemyImg->getMaxFrameX() * 2 - 1, false, loop);
+		}
 		else loop = true;
 		_ani->setPlayFrame(_enemyImg->getMaxFrameX(), _enemyImg->getMaxFrameX() * 2 - 1, false, loop);
 	}
 	else
 	{
 		bool loop;
-		if (_state == ENEMY_STATE::HIT) loop = false;
+		if (_state == ENEMY_STATE::HIT)
+		{
+			loop = false;
+		}
+		else if (_state == ENEMY_STATE::KNOCKDOWN)
+		{
+			loop = false;
+			_ani->setPlayFrame(0, _enemyImg->getMaxFrameX() - 1, false, loop);
+		}
 		else loop = true;
 		_ani->setPlayFrame(0, _enemyImg->getMaxFrameX() - 1, false, loop);
 	}
@@ -305,13 +364,17 @@ void CheerGirl::update()
 void CheerGirl::render()
 {
 	
+	FloatRect rc = FloatRect(Vector2(_position.x, _position.z), Vector2(_size.x, _size.z), Pivot::Center);
+	CAMERA_MANAGER->drawLine(Vector2(_position.x, _position.z), Vector2(_position.x, _position.z + _position.y));
+	CAMERA_MANAGER->rectangle(rc, D2D1::ColorF::Enum::Red, 1, 1);
+
 	_enemyImg->setScale(3.f);
 	//_enemyImg->FrameRender(Vector2(WINSIZEX / 2, WINSIZEY / 2), 0, 0);
 	CAMERA_MANAGER->aniRenderZ(_enemyImg, _position, _size, _ani);
 
 	//test
 	char str[255];
-	sprintf_s(str, "[치어리더] state : %d, jumpPower : %d", (int)_state, _jumpPower);
+	sprintf_s(str, "[치어리더] state : %d, _elapsedTime : %f", (int)_state, _elapsedTime);
 	TextOut(_hdc, 0, 80, str, strlen(str));
 }
 
@@ -450,6 +513,16 @@ void CheerGirl::aniPlay(ENEMY_STATE state, DIRECTION direction)
 	{
 		_ani = new Animation;
 		_enemyImg = IMAGE_MANAGER->findImage("cheergirl_blownBack");
+		_ani->init(_enemyImg->getWidth(), _enemyImg->getHeight(),
+			_enemyImg->getMaxFrameX(), _enemyImg->getMaxFrameY());
+		_ani->setFPS(15);
+		_ani->start();
+	}
+	break;
+	case ENEMY_STATE::STANDUP:
+	{
+		_ani = new Animation;
+		_enemyImg = IMAGE_MANAGER->findImage("cheergirl_groundUp");
 		_ani->init(_enemyImg->getWidth(), _enemyImg->getHeight(),
 			_enemyImg->getMaxFrameX(), _enemyImg->getMaxFrameY());
 		_ani->setFPS(10);

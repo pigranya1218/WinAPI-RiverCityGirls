@@ -89,6 +89,7 @@ void UIManager::update()
 
 void UIManager::render()
 {
+	/*
 	_playerInfo.render();
 	_bossInfo.render();
 	_levelInfo.render();
@@ -102,7 +103,7 @@ void UIManager::render()
 	}
 
 	_close.render(_player->getPosition());
-	
+	*/
 	/*if (_cellPhone.active)
 	{
 		_cellPhone.phoneImg->setSize(Vector2(_cellPhone.phoneImg->getWidth(), _cellPhone.height));

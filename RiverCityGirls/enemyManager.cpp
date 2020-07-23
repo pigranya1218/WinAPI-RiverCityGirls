@@ -13,16 +13,16 @@ HRESULT EnemyManager::init()
 	//_schoolBoy->init();
 	//_schoolBoy->setEnemyManager(this);
 	//_enemies.push_back(_schoolBoy);
-
+	//
 	//_schoolGirl = new SchoolGirl;
 	//_schoolGirl->init();
 	//_schoolGirl->setEnemyManager(this);
 	//_enemies.push_back(_schoolGirl);
 
-	//_cheerGirl = new CheerGirl;
-	//_cheerGirl->init();
-	//_cheerGirl->setEnemyManager(this);
-	//_enemies.push_back(_cheerGirl);
+	_cheerGirl = new CheerGirl;
+	_cheerGirl->init();
+	_cheerGirl->setEnemyManager(this);
+	_enemies.push_back(_cheerGirl);
 
 	//_boss = new Boss;
 	//_boss->init();

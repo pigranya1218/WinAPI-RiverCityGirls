@@ -46,7 +46,7 @@ Stage * Stage::update()
 }
 
 void Stage::render()
-{
+{	
 }
 
 // 게임 오브젝트가 이동가능한 영역까지 이동할 수 있도록 하는 함수
