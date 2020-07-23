@@ -16,6 +16,8 @@ HRESULT UIManager::init(GameObject* player)
 
 	_player = player;
 
+	_vDoor.clear();
+
 	ZeroMemory(&_playerInfo, sizeof(_playerInfo));
 	ZeroMemory(&_bossInfo, sizeof(_bossInfo));
 	ZeroMemory(&_cellPhone, sizeof(_cellPhone));
@@ -45,9 +47,16 @@ void UIManager::update()
 	// 보스 체력
 	_bossInfo.update();
 
-	//레벨업!!
-	_levelInfo.pos = _player->getPosition();
+	//레벨업!!	
 	_levelInfo.update(_player->getPosition());
+
+	if (!_vDoor.empty())
+	{
+		for (int i = 0; i < _vDoor.size(); i++)
+		{
+			_vDoor[i].update(CAMERA_MANAGER->convertV3ToV2(_player->getPosition()));
+		}
+	}
 
 	// 플레이어 체력이 트루면 현재 플레이 중 && 핸드폰 보기
 	/*if (KEY_MANAGER->isOnceKeyDown(VK_SPACE) && _playerHp.active)
@@ -86,13 +95,21 @@ void UIManager::render()
 	_playerInfo.render();
 	_bossInfo.render();
 	_levelInfo.render();
+
+	if (!_vDoor.empty())
+	{
+		for (int i = 0; i < _vDoor.size(); i++)
+		{
+			_vDoor[i].render();
+		}
+	}
 	
-	if (_cellPhone.active)
+	/*if (_cellPhone.active)
 	{
 		_cellPhone.phoneImg->setSize(Vector2(_cellPhone.phoneImg->getWidth(), _cellPhone.height));
 		_cellPhone.phoneImg->setScale(0.75f);
 		_cellPhone.phoneImg->render(Vector2(_cellPhone.x, _cellPhone.y));
-	}	
+	}	*/
 }
 
 void UIManager::setLevelUp(bool active)
@@ -102,4 +119,17 @@ void UIManager::setLevelUp(bool active)
 	_levelInfo.pos = _player->getPosition();
 
 	_levelInfo.playerAni->start();
+}
+
+void UIManager::setDoor(vector<tagDoorInfo> doors)
+{
+	_vDoor.clear();
+
+	for (int i = 0; i < doors.size(); i++)
+	{
+		tagDoorInfo door;
+		door.init(doors[i].doorState, doors[i].pos);
+
+		_vDoor.push_back(door);
+	}
 }

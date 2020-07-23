@@ -149,8 +149,57 @@ enum class DOOR_STATE
 
 struct tagDoorInfo
 {		
-	DOOR_STATE door;
-	Vector3 pos;
+	DOOR_STATE	doorState;	// 현재 문 상태
+	Vector3		pos;		// 좌표
+
+	HRESULT init(DOOR_STATE state, const Vector3& doorPos)
+	{
+		doorState = state;
+		pos = doorPos;
+		scale = alpha = 1.0f;
+
+		switch (doorState)
+		{
+			case DOOR_STATE::LOCK:
+			{
+				img = IMAGE_MANAGER->findImage("lockDoor"); 
+				break;
+			}
+			case DOOR_STATE::UNLOCK:
+			{
+				img = IMAGE_MANAGER->findImage("unlockDoor");
+				break;
+			}			
+			case DOOR_STATE::SHOP:
+			{
+				img = IMAGE_MANAGER->findImage("shopDoor");
+				break;
+			}			
+		}
+
+		return S_OK;
+	}
+	void update(const Vector2& playerPos)
+	{
+		const Vector2& doorPos = CAMERA_MANAGER->convertV3ToV2(pos);
+
+		if (getDistance(doorPos.x, doorPos.y, playerPos.x, playerPos.y))
+		{
+
+		}
+		else
+		{
+
+		}
+	}
+	void render()
+	{
+		CAMERA_MANAGER->render(img, CAMERA_MANAGER->convertV3ToV2(pos));
+	}
+private:
+	Image*		img;		// 이미지
+	float		scale;		// 스케일
+	float		alpha;		// 알파값
 };
 
 struct tagCellPhone
@@ -168,6 +217,8 @@ private:
 	tagLevelInfo	_levelInfo;
 	tagBossInfo		_bossInfo;
 	tagCellPhone	_cellPhone;
+
+	vector<tagDoorInfo> _vDoor;
 
 	class GameObject* _player;
 
@@ -190,5 +241,8 @@ public:
 	// 보스 체력
 	void setBossHpActive(bool active) { _bossInfo.active = active; }
 	void setBossHp(float currentHp, float maxHp) { _bossInfo.currentHp = currentHp; _bossInfo.maxHp = maxHp; }
+
+	// 문 세팅
+	void setDoor(vector<tagDoorInfo> doors);
 };
 

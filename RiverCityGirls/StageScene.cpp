@@ -21,14 +21,21 @@ HRESULT StageScene::init()
 	_uiManager->init(_player);
 
 	// UI 테스트입니다
-	_uiManager->setPlayerHpActive(true);
-	_uiManager->setPlayerHp(100.0f, 100.0f);
-
-	//_uiManager->setBossHpActive(true);
-	//_uiManager->setBossHp(100.0f, 100.0f);
+	_uiManager->setPlayerHpActive(true);		
 	
 	// 다이얼로그 테스티입니다.
 	//_dgManager->startChapter(BossChapter::BATTLE_AFTER);
+
+	vector<tagDoorInfo> vdoor;
+	for (int i = 0; i < 5; i++)
+	{
+		tagDoorInfo door;
+		door.doorState = DOOR_STATE::UNLOCK;
+		door.pos = Vector3(WINSIZEX / 2 + (i * 150), 0, WINSIZEY / 2);
+
+		vdoor.push_back(door);
+	}
+	_uiManager->setDoor(vdoor);
 
 	return S_OK;
 }
