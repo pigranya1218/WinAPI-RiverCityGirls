@@ -114,7 +114,6 @@ void DeskObject::render()
 		CAMERA_MANAGER->renderZ(_img, _position, _size);
 	}
 	
-	CAMERA_MANAGER->renderZ(_img, _position, _size);
 	if (DEBUG_MANAGER->isDebugMode(DEBUG_TYPE::OBJECT))
 	{
 		_restrictRect->render();

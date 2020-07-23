@@ -54,10 +54,14 @@ void SnackMachineObject::release()
 
 void SnackMachineObject::render()
 {
-	_img->setScale(3);
-	_restrictRect->render();
-	_img->setAlpha(1);
+	Object::render();
+
 	CAMERA_MANAGER->renderZ(_img, _position, _size);
+
+	if (DEBUG_MANAGER->isDebugMode(DEBUG_TYPE::OBJECT))
+	{
+		_restrictRect->render();
+	}
 }
 
 void SnackMachineObject::collision(Vector3 * newPoses, GameObject* gameObject)

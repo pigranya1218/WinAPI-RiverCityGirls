@@ -95,5 +95,6 @@ void Player::getHit(GameObject* hitter, FloatRect attackRc, float damage, ATTACK
 	FloatRect getHitRc = FloatRect(_position.x - _size.x / 2, _position.y - _size.y / 2, _position.x + _size.x / 2, _position.y + _size.y / 2);
 	if (FloatRect::intersect(getHitRc, attackRc))
 	{
-		
+
 	}
+}

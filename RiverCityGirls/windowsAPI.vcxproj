@@ -161,7 +161,6 @@
     <ClInclude Include="D2DRenderer.h" />
     <ClInclude Include="ChairObject.h" />
     <ClInclude Include="DebugManager.h" />
-    <ClInclude Include="DeskChairObject.h" />
     <ClInclude Include="DeskObject.h" />
     <ClInclude Include="DialogueManager.h" />
     <ClInclude Include="Effect.h" />
@@ -237,7 +236,6 @@
     <ClCompile Include="D2DRenderer.cpp" />
     <ClCompile Include="ChairObject.cpp" />
     <ClCompile Include="DebugManager.cpp" />
-    <ClCompile Include="DeskChairObject.cpp" />
     <ClCompile Include="DeskObject.cpp" />
     <ClCompile Include="DialogueManager.cpp" />
     <ClCompile Include="Effect.cpp" />
