@@ -38,6 +38,8 @@ protected:
 
 	float _playerDistance;	//플레이어와의 거리
 	
+	int _hp;				//체력
+
 	float _jumpPower;       //점프파워
 	float _gravity;         //중력값
 	float _elapsedTime;		// 상태 전환 계산 타이머

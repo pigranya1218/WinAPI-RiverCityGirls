@@ -21,10 +21,11 @@ void Enemy::render()
 
 void Enemy::getHit(Vector3 position, FloatRect attackRc, float damage, ATTACK_TYPE type)
 {
-
+	
 }
 
 void Enemy::hitEffect(Vector3 position, FloatRect attackRc, float damage, ATTACK_TYPE type)
 {
+
 }
 

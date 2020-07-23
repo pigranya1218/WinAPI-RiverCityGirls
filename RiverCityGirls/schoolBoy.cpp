@@ -13,6 +13,8 @@ void SchoolBoy::init()
 	_dashAttackCount = 0;
 	_gravity = 0;
 	_jumpPower = 0;
+	_hp = 100;
+	_damage = 10;
 	_playerDistance = 0;
 }
 
@@ -74,14 +76,12 @@ void SchoolBoy::update()
 				_state = ENEMY_STATE::WALK;
 			}
 		}
-		/*else
+		//플레이어와의 거리가 100 이하일 경우 
+		else
 		{
-			if (_state != ENEMY_STATE::ATTACK && _attackCount <= 0)
-			{
-				aniPlay(ENEMY_STATE::ATTACK, _direction);
-				_state = ENEMY_STATE::ATTACK;
-			}
-		}*/
+			//피격 처리
+			//if(getHit())
+		}
 	}
 	
 	Vector3 moveDir = Vector3(0, 0, 0);
@@ -281,6 +281,11 @@ void SchoolBoy::render()
 	sprintf_s(str, "[스쿨보이] attackCount : %d, dashAttackCount : %d, elapsedTime : %f", _attackCount, _dashAttackCount, _elapsedTime);
 	TextOut(_hdc, 0, 20, str, strlen(str));
 	
+	
+}
+
+void SchoolBoy::hitEffect(Vector3 position, FloatRect attackRc, float damage, ATTACK_TYPE type)
+{
 	
 }
 
