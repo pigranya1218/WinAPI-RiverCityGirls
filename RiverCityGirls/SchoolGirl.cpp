@@ -22,7 +22,7 @@ void SchoolGirl::release()
 
 void SchoolGirl::update()
 {
-	float _postionLastY = _position.y;
+	
 
 	Vector3 playerPos = _enemyManager->getPlayerPosition();
 	if (playerPos.x < _position.x -110)
@@ -33,6 +33,7 @@ void SchoolGirl::update()
 	{
 		_direction = DIRECTION::RIGHT;
 	}
+	//float _positionLasty = _position.y;
 
 	_playerDistance = sqrt(pow(playerPos.x - _position.x, 2) + pow(playerPos.y - _position.y, 2) + pow(playerPos.z - _position.z, 2));
 	if (_state != ENEMY_STATE::JUMP)
@@ -167,6 +168,7 @@ void SchoolGirl::update()
 	case ENEMY_STATE::JUMP:
 		_position.y -= _jumpPower;
 		_jumpPower -= _gravity;
+
 		if (_direction == DIRECTION::LEFT)
 		{
 			moveDir.x -= 2;
@@ -175,11 +177,18 @@ void SchoolGirl::update()
 		{
 			moveDir.x += 2;
 		}
-		
 
-		
 
-		
+		if ( _jumpPower < -14.0)
+		{
+			_jumpPower = 0;
+			_gravity = 0;		
+			aniPlay(ENEMY_STATE::WALK, _direction);
+			_state = ENEMY_STATE::WALK;
+			
+		}
+
+	
 	break;
 	case ENEMY_STATE::ATTACK:
 	{
@@ -248,8 +257,11 @@ void SchoolGirl::update()
 			moveDir.z += 1;
 		}
 	}
-	float currentY = _postionLastY;
+	
 
+
+	
+	
 
 	_ani->frameUpdate(TIME_MANAGER->getElapsedTime());
 
@@ -268,7 +280,7 @@ void SchoolGirl::render()
 
 	//test
 	char str[1000];
-	sprintf_s(str, "[½ºÄð°É] state : %d, _positionz : %f ,_positiony : %f ", (int)_state, _position.z , _position.y);
+	sprintf_s(str, "[½ºÄð°É] state : %d, _jumppower : %f ,_gravity : %f ", (int)_state,_jumpPower ,_gravity);
 	TextOut(_hdc, 0, 40, str, strlen(str));
 
 	

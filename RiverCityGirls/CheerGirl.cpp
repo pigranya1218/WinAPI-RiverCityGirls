@@ -175,13 +175,14 @@ void CheerGirl::update()
 		{
 			moveDir.x += 2;
 		}
-		
-		if (moveDir.y -100< _position.y) {
-			_jumpPower = 0.0f;
-			_gravity = 0.0f;
-			_position.y = moveDir.y-100;
+
+		if (_jumpPower < -14.0)
+		{
+			_jumpPower = 0;
+			_gravity = 0;
 			aniPlay(ENEMY_STATE::WALK, _direction);
 			_state = ENEMY_STATE::WALK;
+
 		}
 		break;
 	case ENEMY_STATE::ATTACK:
