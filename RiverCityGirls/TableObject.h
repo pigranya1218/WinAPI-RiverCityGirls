@@ -6,7 +6,7 @@ class TableObject :
 {
 private:
 public:
-	TableObject(OBJECT_STATE state, Vector3 position, DIRECTION direction);
+	TableObject(Vector3 position, DIRECTION direction);
 
 	virtual void update();
 	virtual void release();

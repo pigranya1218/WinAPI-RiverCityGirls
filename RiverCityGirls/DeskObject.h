@@ -9,7 +9,7 @@ private:
 	
 
 public:
-	DeskObject(OBJECT_STATE state, Vector3 position, DIRECTION direction);
+	DeskObject(Vector3 position, DIRECTION direction);
 
 	virtual void update();
 	virtual void release();
