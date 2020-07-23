@@ -97,11 +97,11 @@ void Stage::moveGameObject(GameObject* gameObject, Vector3 move)
 	if (move.x == 0 && move.y == 0 && move.z == 0) return;
 
 	float dir[4][2] = { {-1.0, -1.0}, {-1.0, 1.0}, {1.0, -1.0}, {1.0, 1.0} }; // 각 대각 값
-	float width = gameObject.getSize().x * 0.5; // 충돌 가로 길이
-	float height = gameObject.getSize().z * 0.5; // 충돌 세로 길이
+	float width = gameObject->getSize().x * 0.5; // 충돌 가로 길이
+	float height = gameObject->getSize().z * 0.5; // 충돌 세로 길이
 
-	Vector3 newPos = gameObject.getPosition() + move;
-	Vector3 size = gameObject.getSize();
+	Vector3 newPos = gameObject->getPosition() + move;
+	Vector3 size = gameObject->getSize();
 	if (newPos.y + (size.y / 2) > 0)
 	{
 		newPos.y = -(size.y / 2);
