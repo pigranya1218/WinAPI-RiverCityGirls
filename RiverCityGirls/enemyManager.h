@@ -46,6 +46,6 @@ public:
 	void setStage(Stage* stage) { _stage = stage; }
 	Vector3 getPlayerPosition();
 
-	void getHit(Vector3 position, FloatRect attackRc, float damage, ATTACK_TYPE type);
+	void getHit(GameObject* gameObject, FloatRect attackRc, float damage, ATTACK_TYPE type);
 };
 

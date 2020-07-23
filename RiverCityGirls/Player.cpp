@@ -71,5 +71,5 @@ void Player::render()
 
 void Player::attack(FloatRect attackRc, float damage, ATTACK_TYPE type)
 {
-	_stageManager->playerAttack(_position, attackRc, damage, type);
+	_stageManager->playerAttack(this, attackRc, damage, type);
 }
