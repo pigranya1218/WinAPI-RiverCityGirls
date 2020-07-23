@@ -40,6 +40,4 @@ public:
 	void moveGameObject(GameObject* gameObject, Vector3 move);
 
 	Vector3 getPlayerPosition();
-
-	
 };

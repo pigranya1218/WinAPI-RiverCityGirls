@@ -13,8 +13,8 @@ class Stage;
 class EnemyManager
 {
 private:
-	using vEnemy = vector<Enemy*>;
-	using viEnemy = vector<Enemy*>::iterator;
+	//using vEnemy = vector<Enemy*>;
+	//using viEnemy = vector<Enemy*>::iterator;
 
 private:
 	Stage* _stage;
@@ -24,7 +24,7 @@ private:
 	CheerGirl* _cheerGirl;
 	Boss* _boss;
 
-	vector<POINT> _enemyRespawnPos;
+	vector<Vector3> _enemyRespawnPos = { Vector3(700, 0, 700), Vector3(400, 0, 750), Vector3(1100, 0, 730) };
 
 protected:
 

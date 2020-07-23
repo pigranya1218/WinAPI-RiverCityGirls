@@ -7,7 +7,6 @@
 #include "enemy.h"
 #include "stage.h"
 
-
 HRESULT EnemyManager::init()
 {
 	_schoolBoy = new SchoolBoy;
@@ -31,6 +30,7 @@ HRESULT EnemyManager::init()
 
 void EnemyManager::release()
 {
+	
 }
 
 void EnemyManager::update()

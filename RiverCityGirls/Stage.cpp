@@ -145,3 +145,4 @@ Vector3 Stage::getPlayerPosition()
 {
 	return _player->getPosition();
 }
+

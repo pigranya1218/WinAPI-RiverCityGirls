@@ -3,7 +3,7 @@
 
 void WeakAttack::enter(Player & player)
 {
-	_img = IMAGE_MANAGER->findImage("Kyoko_chop");
+	_img = IMAGE_MANAGER->findImage("Kyoko_attack1");
 	_ani = new Animation;
 	_ani->init(_img->getWidth(), _img->getHeight(), _img->getMaxFrameX(), _img->getMaxFrameY());
 	if (player.getDirection() == DIRECTION::RIGHT)
@@ -38,7 +38,7 @@ PlayerState * WeakAttack::update(Player & player)
 		{
 			if (KEY_MANAGER->isOnceKeyDown('Z'))
 			{
-				_img = IMAGE_MANAGER->findImage("Kyoko_qc2");
+				_img = IMAGE_MANAGER->findImage("Kyoko_attack2");
 
 				_ani->init(_img->getWidth(), _img->getHeight(), _img->getMaxFrameX(), _img->getMaxFrameY());
 				if (player.getDirection() == DIRECTION::RIGHT)
@@ -65,7 +65,7 @@ PlayerState * WeakAttack::update(Player & player)
 			{
 				if (KEY_MANAGER->isOnceKeyDown('Z'))
 				{
-					_img = IMAGE_MANAGER->findImage("Kyoko_qc3");
+					_img = IMAGE_MANAGER->findImage("Kyoko_attack3");
 
 					_ani->init(_img->getWidth(), _img->getHeight(), _img->getMaxFrameX(), _img->getMaxFrameY());
 					if (player.getDirection() == DIRECTION::RIGHT)
