@@ -17,7 +17,7 @@ public:
 	virtual void update();
 	virtual void render();
 
-	virtual void hitEffect(Vector3 position, FloatRect attackRc, float damage, ATTACK_TYPE type);
+	virtual void hitEffect(GameObject* hitter, FloatRect attackRc, float damage, ATTACK_TYPE type);
 
 	void aniPlay(ENEMY_STATE state, DIRECTION direction);
 };
