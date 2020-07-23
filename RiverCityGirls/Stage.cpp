@@ -141,7 +141,9 @@ void Stage::moveGameObject(GameObject* gameObject, Vector3 move)
 	gameObject->setPosition(newPos);
 }
 
-Vector3 Stage::getPlayerPosition()
-{
+Vector3 Stage::getPlayerPosition(){
 	return _player->getPosition();
+	
+
 }
+

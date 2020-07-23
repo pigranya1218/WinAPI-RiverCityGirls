@@ -44,8 +44,8 @@ void EnemyManager::update()
 void EnemyManager::render()
 {
 
-	_schoolBoy->render();
-	_cheerGirl->render();	
+	//_schoolBoy->render();
+	//_cheerGirl->render();	
 	_schoolGirl->render();
 	_boss->render();
 	
@@ -68,3 +68,4 @@ Vector3 EnemyManager::getPlayerPosition()
 {
 	return _stage->getPlayerPosition();
 }
+

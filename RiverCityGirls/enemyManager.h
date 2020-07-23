@@ -23,6 +23,8 @@ private:
 	SchoolGirl* _schoolGirl;
 	CheerGirl* _cheerGirl;
 	Boss* _boss;
+	
+
 
 	vector<POINT> _enemyRespawnPos;
 
@@ -40,8 +42,9 @@ public:
 	void setEnemy();
 	void removeEnemy(int arrNum);
 	void moveEnemy(GameObject* enemy, Vector3 dir);
-
+	
 	void setStage(Stage* stage) { _stage = stage; }
 	Vector3 getPlayerPosition();
+
 };
 
