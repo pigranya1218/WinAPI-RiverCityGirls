@@ -24,5 +24,7 @@ public:
 	void moveGameObject(GameObject* gameObject, Vector3 moveDir) { _currStage->moveGameObject(gameObject, moveDir); }
 	void setPlayer(Player* player) { _player = player; }
 	void setUIManager(UIManager* uiManager) { _uiManager = uiManager; }
+
+	void playerAttack(Vector3 position, FloatRect attackRc, float damage, ATTACK_TYPE type);
 };
 

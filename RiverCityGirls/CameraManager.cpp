@@ -274,8 +274,13 @@ Vector2 CameraManager::getRelativeV2(Vector2 vec2)
 
 FloatRect CameraManager::getRelativeFR(FloatRect rc)
 {
-	return FloatRect(getRelativeX(rc.left), getRelativeY(rc.top),
-		getRelativeX(rc.right), getRelativeY(rc.bottom));
+	float left = getRelativeX(rc.left);
+	float top = getRelativeY(rc.top);
+	float right = getRelativeX(rc.right);
+	float bottom = getRelativeY(rc.bottom);
+
+	return FloatRect(left, top,
+		right, bottom);
 }
 
 float CameraManager::getAbsoluteX(float left)

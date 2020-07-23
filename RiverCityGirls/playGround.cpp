@@ -249,6 +249,7 @@ void playGround::release()
 //연산
 void playGround::update()
 {
+
 	GameNode::update();
 
 	SCENE_MANAGER->update();
@@ -259,7 +260,6 @@ void playGround::update()
 //그리기 전용
 void playGround::render()
 {	
-	//백버퍼 초기화
 	D2D_RENDERER->beginRender(D2D1::ColorF::Black);
 	{
 		// _kyoko->render();
