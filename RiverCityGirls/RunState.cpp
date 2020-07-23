@@ -35,6 +35,13 @@ PlayerState * RunState::update(Player & player)
 		return jumpState;
 	}
 
+	if (KEY_MANAGER->isOnceKeyDown('Z'))
+	{
+		AttackState* attackState = new AttackState;
+		attackState->setSkill(ATTACK_SKILL::RUN_QC);
+		return attackState;
+	}
+
 	if (moveDir.x > 0)
 	{
 		_ani->setPlayFrame(0, 16, false, true);

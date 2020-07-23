@@ -151,7 +151,6 @@
     <ClInclude Include="AllObjects.h" />
     <ClInclude Include="AllPlayerState.h" />
     <ClInclude Include="Animation.h" />
-    <ClInclude Include="AttackState.h" />
     <ClInclude Include="Boss.h" />
     <ClInclude Include="BossStage.h" />
     <ClInclude Include="BoxObject.h" />
@@ -217,14 +216,13 @@
     <ClInclude Include="Vector2.h" />
     <ClInclude Include="Vector3.h" />
     <ClInclude Include="WalkState.h" />
-    <ClInclude Include="WeakAttack.h" />
+    <ClInclude Include="AttackState.h" />
     <ClInclude Include="windowsAPI.h" />
     <ClInclude Include="WorkingFemaleA.h" />
     <ClInclude Include="WorkingMaleD.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Animation.cpp" />
-    <ClCompile Include="AttackState.cpp" />
     <ClCompile Include="Boss.cpp" />
     <ClCompile Include="BossStage.cpp" />
     <ClCompile Include="BoxObject.cpp" />
@@ -290,7 +288,7 @@
     <ClCompile Include="Vector2.cpp" />
     <ClCompile Include="Vector3.cpp" />
     <ClCompile Include="WalkState.cpp" />
-    <ClCompile Include="WeakAttack.cpp" />
+    <ClCompile Include="AttackState.cpp" />
     <ClCompile Include="windowsAPI.cpp" />
     <ClCompile Include="WorkingFemaleA.cpp" />
     <ClCompile Include="WorkingMaleD.cpp" />

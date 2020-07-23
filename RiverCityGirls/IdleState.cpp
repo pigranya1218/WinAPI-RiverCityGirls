@@ -18,7 +18,9 @@ PlayerState * IdleState::update(Player & player)
 	//}
 	if (KEY_MANAGER->isOnceKeyDown('Z'))
 	{
-		return new WeakAttack;
+		AttackState* attackState = new AttackState;
+		attackState->setSkill(ATTACK_SKILL::QC1);
+		return attackState;
 	}
 
 	if (KEY_MANAGER->isOnceKeyDown('X'))

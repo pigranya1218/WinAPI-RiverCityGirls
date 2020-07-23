@@ -1,18 +1,34 @@
 #pragma once
-#include "Player.h"
+#include "AllPlayerState.h"
 
-class AttackState
+enum class ATTACK_SKILL
 {
-protected:
-	Image* _img;
-	Animation* _ani;
-	RECT _hitRc;
+	QC1,
+	QC2,
+	QC3,
+	RUN_QC,
+	JUMP_QC,
+	GRAB_QC
+};
+
+class AttackState : public PlayerState
+{
+private:
+	
+
+	Synthesize(ATTACK_SKILL,_skill,Skill)
+	Synthesize(float, _currJumpPower,CurrJumpPower) //점프 공격을 할때 점프 상태의 점프 파워를 그대로 인계받기 위함  
+	Synthesize(float, _currMoveDirX, CurrMoveDirX)
+		
+	FloatRect attackRc;
+	FloatRect viewRc;
+	float _initTime;
+	float _lastPlayerY;
 
 public:
 	virtual void enter(Player&player);
-	virtual AttackState* update(Player& player);
+	virtual PlayerState* update(Player& player);
 	virtual void render(Player& player);
-	virtual void exit(Player& player);
-
+	virtual void exit(Player& paleyr);
 };
 
