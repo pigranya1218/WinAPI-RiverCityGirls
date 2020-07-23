@@ -35,6 +35,13 @@ PlayerState * RunState::update(Player & player)
 		return jumpState;
 	}
 
+	if (KEY_MANAGER->isOnceKeyDown('Z'))
+	{
+		WeakAttack* weakAttack = new WeakAttack;
+		weakAttack->setSkill(ATTACK_SKILL::RUN_QC);
+		return weakAttack;
+	}
+
 	if (moveDir.x > 0)
 	{
 		_ani->setPlayFrame(0, 16, false, true);

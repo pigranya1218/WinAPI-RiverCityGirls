@@ -151,7 +151,6 @@
     <ClInclude Include="AllObjects.h" />
     <ClInclude Include="AllPlayerState.h" />
     <ClInclude Include="Animation.h" />
-    <ClInclude Include="AttackState.h" />
     <ClInclude Include="Boss.h" />
     <ClInclude Include="BossStage.h" />
     <ClInclude Include="BoxObject.h" />
@@ -224,7 +223,6 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Animation.cpp" />
-    <ClCompile Include="AttackState.cpp" />
     <ClCompile Include="Boss.cpp" />
     <ClCompile Include="BossStage.cpp" />
     <ClCompile Include="BoxObject.cpp" />
