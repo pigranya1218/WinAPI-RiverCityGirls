@@ -3,7 +3,7 @@
 
 void WeakAttack::enter(Player & player)
 {
-	_img = IMAGE_MANAGER->findImage("Kyoko_chop");
+	_img = IMAGE_MANAGER->findImage("Kyoko_attack1");
 	_ani = new Animation;
 	_ani->init(_img->getWidth(), _img->getHeight(), _img->getMaxFrameX(), _img->getMaxFrameY());
 	if (player.getDirection() == DIRECTION::RIGHT)
@@ -36,9 +36,23 @@ PlayerState * WeakAttack::update(Player & player)
 		{
 		case WeakAttack::ATTACK_COMBO::QC1:
 		{
+			Vector3 position = player.getPosition();
+			FloatRect attackRc = FloatRect(position.x + 50, position.y - 50,
+				position.x + 150, position.y + 50);
+			FloatRect viewRc = FloatRect(attackRc.left, position.z + attackRc.top,
+				attackRc.right, position.z + attackRc.bottom);
+			CAMERA_MANAGER->rectangle(viewRc, D2D1::ColorF::Enum::Red, 1, 20);
+			CAMERA_MANAGER->rectangle(FloatRect(300, 300, 800, 800), D2D1::ColorF::Enum::Red, 1, 20);
+			/*CAMERA_MANAGER->rectangle(viewRc, D2D1::ColorF::Enum::Red, 1, 1);
+			CAMERA_MANAGER->drawShadow(player.getPosition(), player.getSize());*/
+			player.attack(attackRc, 10, ATTACK_TYPE::HIT);
+			if (2 <= _ani->getPlayIndex() && _ani->getPlayIndex() <= 3)
+			{
+				
+			}
 			if (KEY_MANAGER->isOnceKeyDown('Z'))
 			{
-				_img = IMAGE_MANAGER->findImage("Kyoko_qc2");
+				_img = IMAGE_MANAGER->findImage("Kyoko_attack2");
 
 				_ani->init(_img->getWidth(), _img->getHeight(), _img->getMaxFrameX(), _img->getMaxFrameY());
 				if (player.getDirection() == DIRECTION::RIGHT)
@@ -57,6 +71,7 @@ PlayerState * WeakAttack::update(Player & player)
 
 		break;
 		case WeakAttack::ATTACK_COMBO::QC2:
+			CAMERA_MANAGER->rectangle(FloatRect(300, 300, 800, 800), D2D1::ColorF::Enum::Red, 1, 20);
 			if (!_ani->isPlay())
 			{
 				return new IdleState;
@@ -65,7 +80,7 @@ PlayerState * WeakAttack::update(Player & player)
 			{
 				if (KEY_MANAGER->isOnceKeyDown('Z'))
 				{
-					_img = IMAGE_MANAGER->findImage("Kyoko_qc3");
+					_img = IMAGE_MANAGER->findImage("Kyoko_attack3");
 
 					_ani->init(_img->getWidth(), _img->getHeight(), _img->getMaxFrameX(), _img->getMaxFrameY());
 					if (player.getDirection() == DIRECTION::RIGHT)
@@ -102,7 +117,12 @@ PlayerState * WeakAttack::update(Player & player)
 void WeakAttack::render(Player & player)
 {
 	_img->setScale(3);
-	CAMERA_MANAGER->aniRenderZ(_img, player.getPosition(), player.getSize(), _ani, true);
+	Vector3 position = player.getPosition();
+	position.x += 35;
+	CAMERA_MANAGER->rectangle(FloatRect(300, 300, 800, 800), D2D1::ColorF::Enum::Red, 1, 20);
+
+	CAMERA_MANAGER->aniRenderZ(_img, position, player.getSize(), _ani);
+
 }
 
 void WeakAttack::exit(Player & paleyr)

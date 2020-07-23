@@ -35,3 +35,7 @@ void StageManager::render()
 	_currStage->render();
 	
 }
+
+void StageManager::playerAttack(Vector3 position, FloatRect attackRc, float damage, ATTACK_TYPE type)
+{
+}

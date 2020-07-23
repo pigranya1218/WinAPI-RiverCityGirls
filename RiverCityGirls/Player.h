@@ -9,6 +9,12 @@ enum class DIRECTION : int
 	LEFT
 };
 
+enum class ATTACK_TYPE : int
+{
+	HIT,
+	KNOCKDOWN
+};
+
 class PlayerState;
 //class AttackState;
 
@@ -16,7 +22,7 @@ class Player : public GameObject
 {
 private:
 	StageManager* _stageManager;
-	RECT _hitRc; //타격판정렉트
+	//RECT _hitRc; //타격판정렉트
 	
 	Synthesize(float, _speed, Speed)
 	Synthesize(DIRECTION, _direction, Direction)
@@ -38,6 +44,8 @@ public:
 	virtual void render();
 
 	void setStageManager(StageManager* stageManager) { _stageManager = stageManager; }
+	void attack(FloatRect attackRc, float damage, ATTACK_TYPE type);
+	void getHit(Vector3 position, FloatRect attackRc, float damage, ATTACK_TYPE type);
 	
 };
 
