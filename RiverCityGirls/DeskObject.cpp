@@ -3,14 +3,13 @@
 
 DeskObject::DeskObject(Vector3 position, DIRECTION direction, int imageType)
 {
+	_imageType = imageType;
 	_direction = direction;
 	_size = Vector3(80, 80, 60);
 	_position = Vector3(position.x, -(_size.y / 2), position.z);
 
-	if (imageType > 3)
-	{
-		imageType = 3;
-	}
+	if (imageType > 7) {imageType = 7;}
+	if (imageType <= 0)	{imageType = 1;}
 
 	switch (imageType)
 	{
@@ -31,8 +30,43 @@ DeskObject::DeskObject(Vector3 position, DIRECTION direction, int imageType)
 			_img = IMAGE_MANAGER->findImage("OBJECT_DESK03");
 		}
 		break;
-	}
-	
+
+		//sit boy
+		case 4:
+		{
+			_img = IMAGE_MANAGER->findImage("OBJECT_DESK_boy_idle01");
+			_frameAni = new Animation;
+			_frameAni->init(_img->getWidth(), _img->getHeight(), _img->getMaxFrameX(), _img->getMaxFrameY());
+			_frameAni->setPlayFrame(0, 4, 0, 1);
+			_frameAni->setFPS(1);
+			_frameAni->start();
+		}
+		break;
+
+		case 5:
+		{
+			_img = IMAGE_MANAGER->findImage("OBJECT_DESK_boy_idle02");
+		}
+		break;
+
+		//sit girl
+		case 6:
+		{
+			_img = IMAGE_MANAGER->findImage("OBJECT_DESK_girl_idle01");
+			_frameAni = new Animation;
+			_frameAni->init(_img->getWidth(), _img->getHeight(), _img->getMaxFrameX(), _img->getMaxFrameY());
+			_frameAni->setPlayFrame(0, 2, 0, 1);
+			_frameAni->setFPS(1);
+			_frameAni->start();
+		}
+		break;
+
+		case 7:
+		{
+			_img = IMAGE_MANAGER->findImage("OBJECT_DESK_girl_idle02");
+		}
+		break;
+	}	
 
 	int linePos[4][4] = { {_position.x - (_size.x / 2) + (_size.z / 2) , _position.z - (_size.z / 2), _position.x + (_size.x / 2) + (_size.z / 2), _position.z - (_size.z / 2)}, // ╩С
 						{_position.x - (_size.x / 2) - (_size.z / 2), _position.z + (_size.z / 2), _position.x + (_size.x / 2) - (_size.z / 2), _position.z + (_size.z / 2)}, }; // го
@@ -54,6 +88,10 @@ DeskObject::DeskObject(Vector3 position, DIRECTION direction, int imageType)
 
 void DeskObject::update()
 {
+	if (_imageType == 4 || _imageType == 6)
+	{
+		_frameAni->frameUpdate(TIME_MANAGER->getElapsedTime() * 2);
+	}
 }
 
 void DeskObject::release()
@@ -64,8 +102,16 @@ void DeskObject::release()
 void DeskObject::render()
 {
 	_img->setScale(3);
-	_img->setAlpha(1);
-	CAMERA_MANAGER->renderZ(_img, _position, _size);
+
+	if (_imageType == 4 || _imageType == 6)
+	{
+		CAMERA_MANAGER->aniRenderZ(_img, _position, _size, _frameAni);
+	}
+	if (_imageType != 4 && _imageType != 6)
+	{
+		CAMERA_MANAGER->renderZ(_img, _position, _size);
+	}
+	//_img->setAlpha(1);
 
 	_restrictRect->render();
 	CAMERA_MANAGER->drawLine(Vector2(_position.x + _collisionOffsetX, _position.z + _collisionOffsetZ), Vector2(_position.x + _collisionOffsetX, _position.z + _collisionOffsetZ - _size.y));

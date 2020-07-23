@@ -25,6 +25,13 @@ HRESULT playGround::init()
 	IMAGE_MANAGER->addImage("OBJECT_DESK01", L"resources/images/object/03_Detention_OBJ_Desks_01.png");
 	IMAGE_MANAGER->addImage("OBJECT_DESK02", L"resources/images/object/03_Detention_OBJ_Desks_02.png");
 	IMAGE_MANAGER->addImage("OBJECT_DESK03", L"resources/images/object/03_Detention_OBJ_Desks_03.png");
+	// *** DESK_ENEMY
+	IMAGE_MANAGER->addFrameImage("OBJECT_DESK_boy_idle01", L"resources/images/object/sit_enemy/boy_sit_idle01.png", 4, 1);
+	IMAGE_MANAGER->addImage("OBJECT_DESK_boy_idle02", L"resources/images/object/sit_enemy/boy_sit_idle02.png");
+	IMAGE_MANAGER->addFrameImage("OBJECT_DESK_boy_getUp", L"resources/images/object/sit_enemy/boy_desk_getup.png", 6, 1);
+	IMAGE_MANAGER->addFrameImage("OBJECT_DESK_girl_idle01", L"resources/images/object/sit_enemy/girl_sit_idle01.png", 2, 1);
+	IMAGE_MANAGER->addImage("OBJECT_DESK_girl_idle02", L"resources/images/object/sit_enemy/girl_sit_idle02.png");
+	IMAGE_MANAGER->addFrameImage("OBJECT_DESK_girl_getUp", L"resources/images/object/sit_enemy/girl_desk_getup.png", 5, 1);
 	// ** BOX
 	IMAGE_MANAGER->addImage("OBJECT_BOX", L"resources/images/object/wood_crate.png");
 	// *** BOX_PIECE

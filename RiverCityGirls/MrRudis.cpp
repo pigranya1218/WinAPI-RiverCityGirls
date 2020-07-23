@@ -18,13 +18,13 @@ MrRudis::MrRudis(Vector3 position, DIRECTION direction)
 	{
 		_idleAni->setPlayFrame(0, 2, 0, 1);
 	}
-	_idleAni->setFPS(1);
+	_idleAni->setFPS(10);
 	_idleAni->start();
 }
 
 void MrRudis::update()
 {
-	_idleAni->frameUpdate(TIME_MANAGER->getElapsedTime() * 10);
+	_idleAni->frameUpdate(TIME_MANAGER->getElapsedTime());
 }
 
 void MrRudis::release()
