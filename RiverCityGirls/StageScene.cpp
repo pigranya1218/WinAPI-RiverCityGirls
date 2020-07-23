@@ -22,7 +22,8 @@ HRESULT StageScene::init()
 
 	// UI 테스트입니다
 	_uiManager->setPlayerHpActive(true);		
-	//_uiManager->setCloseUp(true);
+	//_uiManager->setShopUI(true);
+	
 	// 다이얼로그 테스티입니다.
 	//_dgManager->startChapter(BossChapter::BATTLE_AFTER);
 
@@ -51,6 +52,7 @@ void StageScene::update()
 	{
 		hp = 100.0f;
 		_uiManager->setLevelUp(true);
+		//_uiManager->setCloseUp(true);
 	}
 	_uiManager->setPlayerHp(hp, 100.0f);
 	_uiManager->setBossHp(hp, 100.0f);	
@@ -67,5 +69,4 @@ void StageScene::render()
 	_uiManager->render();
 	//_dgManager->render();
 
-	
 }

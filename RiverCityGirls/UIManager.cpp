@@ -16,19 +16,22 @@ HRESULT UIManager::init(GameObject* player)
 
 	_player = player;	
 
-	ZeroMemory(&_playerInfo, sizeof(_playerInfo));
-	ZeroMemory(&_bossInfo, sizeof(_bossInfo));
-	ZeroMemory(&_cellPhone, sizeof(_cellPhone));
+	ZeroMemory(&_playerInfo,	sizeof(_playerInfo));
+	ZeroMemory(&_bossInfo,		sizeof(_bossInfo));
+	ZeroMemory(&_close,			sizeof(_close));
+	ZeroMemory(&_levelInfo,		sizeof(_levelInfo));
+	ZeroMemory(&_cellPhone,		sizeof(_cellPhone));
 
 	result = _playerInfo.init();
 	result = _bossInfo.init();
 	result = _levelInfo.init();
 	result = _close.init();
+	result = _shop.init();
 
-	_cellPhone.phoneImg = IMAGE_MANAGER->findImage("startMapPhone");
+	/*_cellPhone.phoneImg = IMAGE_MANAGER->findImage("startMapPhone");
 	_cellPhone.x = WINSIZEX / 2 - 200;
 	_cellPhone.y = WINSIZEY - 10;
-	_cellPhone.height = 0;
+	_cellPhone.height = 0;*/
 	
 	
 	return result;
@@ -58,6 +61,8 @@ void UIManager::update()
 	}
 
 	_close.update();
+
+	_shop.update();
 
 	// 플레이어 체력이 트루면 현재 플레이 중 && 핸드폰 보기
 	/*if (KEY_MANAGER->isOnceKeyDown(VK_SPACE) && _playerHp.active)
@@ -102,6 +107,8 @@ void UIManager::render()
 	}
 
 	_close.render(_player->getPosition());
+
+	_shop.render();
 	
 	/*if (_cellPhone.active)
 	{
