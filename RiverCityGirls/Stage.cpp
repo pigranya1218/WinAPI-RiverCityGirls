@@ -35,10 +35,10 @@ void Stage::init(Image * background, float bgScale)
 
 	_objectManager = new ObjectManager;
 	_objectManager->init();
-	_objectManager->spawnObject(OBJECT_TYPE::DESK, Vector3(1200, 0, 495), DIRECTION::LEFT);
-	_objectManager->spawnObject(OBJECT_TYPE::DESK, Vector3(940, 0, 495), DIRECTION::LEFT); 
-	_objectManager->spawnObject(OBJECT_TYPE::DESK, Vector3(680, 0, 495), DIRECTION::LEFT);
-	_objectManager->spawnObject(OBJECT_TYPE::DESK, Vector3(430, 0, 495), DIRECTION::LEFT);
+	_objectManager->spawnObject(OBJECT_TYPE::DESK, OBJECT_STATE::IDLE01, Vector3(1200, 0, 495), DIRECTION::LEFT);
+	_objectManager->spawnObject(OBJECT_TYPE::DESK, OBJECT_STATE::IDLE01, Vector3(940, 0, 495), DIRECTION::LEFT);
+	_objectManager->spawnObject(OBJECT_TYPE::DESK, OBJECT_STATE::IDLE01, Vector3(680, 0, 495), DIRECTION::LEFT);
+	_objectManager->spawnObject(OBJECT_TYPE::DESK, OBJECT_STATE::IDLE01, Vector3(430, 0, 495), DIRECTION::LEFT);
 
 	//Object ¹èÄ¡
 	//_objectManager->spawnObject(OBJECT_TYPE::DESK, OBJECT_STATE::IDLE01, Vector3(710, 0, 510), DIRECTION::LEFT);
