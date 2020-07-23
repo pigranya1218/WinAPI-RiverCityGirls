@@ -18,7 +18,7 @@ PlayerState * JumpState::update(Player & player)
 
 	case JUMP_TYPE::DEFAULT_JUMP:
 		moveDir.y -= player.getJumpPower();
-		player.setJumpPower((player.getJumpPower() - _gravity));
+		player.setJumpPower((player.getJumpPower() - player.getGravity()));
 
 		if (player.getDirection() == DIRECTION::RIGHT)
 		{
@@ -68,7 +68,14 @@ PlayerState * JumpState::update(Player & player)
 	{
 		moveDir.z += player.getSpeed()/2;
 	}
-	
+	if (KEY_MANAGER->isOnceKeyDown('Z'))
+	{
+		AttackState* jumpAttack = new AttackState;
+		jumpAttack->setSkill(ATTACK_SKILL::JUMP_QC);
+		jumpAttack->setCurrJumpPower(player.getJumpPower());
+		jumpAttack->setCurrMoveDirX(moveDir.x);
+		return jumpAttack;
+	}
 
 	if (moveDir.x > 0)
 	{
@@ -82,7 +89,7 @@ PlayerState * JumpState::update(Player & player)
 	break;
 	case JUMP_TYPE::RUN_JUMP:
 		moveDir.y -= player.getJumpPower();
-		player.setJumpPower((player.getJumpPower() - _gravity));
+		player.setJumpPower((player.getJumpPower() - player.getGravity()));
 
 		if (player.getDirection() == DIRECTION::RIGHT)
 		{
@@ -203,7 +210,7 @@ PlayerState * JumpState::update(Player & player)
 
 	float currentPlayerY = player.getPosition().y;
 
-	if (player.getJumpPower() < -1 && currentPlayerY == lastPlayerY&& _jumpType != JUMP_TYPE::WALL_JUMP)
+	if (player.getJumpPower() < -1 && currentPlayerY == lastPlayerY&&moveDir.y!=0 &&_jumpType != JUMP_TYPE::WALL_JUMP)
 	{
 		if (KEY_MANAGER->isStayKeyDown(VK_RIGHT) || KEY_MANAGER->isStayKeyDown(VK_LEFT))
 		{
@@ -263,7 +270,7 @@ void JumpState::enter(Player & player)
 	_ani->setFPS(15);
 	_ani->start();
 
-	_gravity = 0.3f;
+	
 
 	_jumpDirection = (int)player.getDirection();
 

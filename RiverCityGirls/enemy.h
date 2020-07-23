@@ -15,7 +15,7 @@ enum class ENEMY_STATE
 	JUMPATTACK,
 	GUARD,	 
 	HIT,
-	DOWN,	 //DOWN상태에서 피격 -> GROUND_HIT
+	KNOCKDOWN,	 //DOWN상태에서 피격 -> GROUND_HIT
 	STUN,
 	SKILL,	 //BOY(SANDTOSS), GIRL(), CHEER_GIRL()
 	HELD//HELD상태에서 피격 -> HELD_HIT / 일정 시간 지나면 HELD_RELEASE
@@ -35,15 +35,20 @@ protected:
 	Animation* _ani;		// 애니메이션
 	DIRECTION _direction;	// 애니메이션 좌우 재생
 	DIRECTION _moveTo;		// 현재 이동 방향
+	ATTACK_TYPE _hitType;	//플레이어에게 받은 피격 타입
 
 	float _playerDistance;	//플레이어와의 거리
 	
+	int _hp;				//체력
+
 	float _jumpPower;       //점프파워
 	float _gravity;         //중력값
 	float _elapsedTime;		// 상태 전환 계산 타이머
 
 	int _attackCount;		//공격 딜레이 카운트
 	int _dashAttackCount;	//대시 공격 딜레이 카운트
+
+	bool _isGetHit;			//피격 여부
 
 public:
 	Enemy() {};

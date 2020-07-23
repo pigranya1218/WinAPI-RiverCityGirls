@@ -13,8 +13,8 @@ class Stage;
 class EnemyManager
 {
 private:
-	using vEnemy = vector<Enemy*>;
-	using viEnemy = vector<Enemy*>::iterator;
+	//using vEnemy = vector<Enemy*>;
+	//using viEnemy = vector<Enemy*>::iterator;
 
 private:
 	Stage* _stage;
@@ -42,7 +42,7 @@ public:
 	void setEnemy();
 	void removeEnemy(int arrNum);
 	void moveEnemy(GameObject* enemy, Vector3 dir);
-
+	
 	void setStage(Stage* stage) { _stage = stage; }
 	Vector3 getPlayerPosition();
 

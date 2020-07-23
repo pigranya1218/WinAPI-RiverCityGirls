@@ -37,9 +37,9 @@ PlayerState * RunState::update(Player & player)
 
 	if (KEY_MANAGER->isOnceKeyDown('Z'))
 	{
-		WeakAttack* weakAttack = new WeakAttack;
-		weakAttack->setSkill(ATTACK_SKILL::RUN_QC);
-		return weakAttack;
+		AttackState* attackState = new AttackState;
+		attackState->setSkill(ATTACK_SKILL::RUN_QC);
+		return attackState;
 	}
 
 	if (moveDir.x > 0)

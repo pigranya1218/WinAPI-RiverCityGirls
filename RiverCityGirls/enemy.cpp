@@ -43,5 +43,6 @@ void Enemy::getHit(GameObject* hitter, FloatRect attackRc, float damage, ATTACK_
 
 void Enemy::hitEffect(GameObject* hitter, FloatRect attackRc, float damage, ATTACK_TYPE type)
 {
+
 }
 

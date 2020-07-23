@@ -119,4 +119,7 @@ void Stage::attack(GameObject* hitter, FloatRect rc, float damage, ATTACK_TYPE t
 Vector3 Stage::getPlayerPosition()
 {
 	return _player->getPosition();
+	
+
 }
+

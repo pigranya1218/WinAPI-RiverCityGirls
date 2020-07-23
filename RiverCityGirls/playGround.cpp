@@ -96,6 +96,10 @@ HRESULT playGround::init()
 	IMAGE_MANAGER->addFrameImage("Kyoko_attack2", L"resources/images/characters/kyoko/Kyoko_qc2.png", 7, 2);
 	IMAGE_MANAGER->addFrameImage("Kyoko_attack3", L"resources/images/characters/kyoko/Kyoko_qc3.png", 9, 2);
 	IMAGE_MANAGER->addFrameImage("Kyoko_backelbow", L"resources/images/characters/kyoko/Kyoko_backelbow.png", 8, 2);
+	IMAGE_MANAGER->addFrameImage("Kyoko_buttbump", L"resources/images/characters/kyoko/Kyoko_buttbump.png", 10, 2);
+
+
+
 
 	//Enemy 이미지 
     //schoolBoy
@@ -119,7 +123,7 @@ HRESULT playGround::init()
 	IMAGE_MANAGER->addFrameImage("schoolboy_runAttack", L"resources/images/characters/enemy_schoolboy/SchoolDashAttack.png", 7, 2);
 	//schoolGirl
 	IMAGE_MANAGER->addFrameImage("schoolgirl_groundDown", L"resources/images/characters/enemy_schoolgirl/blowBack.png", 33, 2);
-	IMAGE_MANAGER->addFrameImage("schoolgirl_gethit", L"resources/images/characters/enemy_schoolgirl/getHit.png", 9, 2);
+	IMAGE_MANAGER->addFrameImage("schoolgirl_getHit", L"resources/images/characters/enemy_schoolgirl/getHit.png", 9, 2);
 	IMAGE_MANAGER->addFrameImage("schoolgirl_heldHit", L"resources/images/characters/enemy_schoolgirl/HeldHit.png", 4, 2);
 	IMAGE_MANAGER->addFrameImage("schoolgirl_heldRelease", L"resources/images/characters/enemy_schoolgirl/잡기 풀기.png", 4, 2);
 	IMAGE_MANAGER->addFrameImage("schoolgirl_idle", L"resources/images/characters/enemy_schoolgirl/Idle.png", 10, 2);	
@@ -145,7 +149,7 @@ HRESULT playGround::init()
 	IMAGE_MANAGER->addFrameImage("cheergirl_begGing", L"resources/images/characters/enemy_cheergirl/begging.png", 2, 2);
 	IMAGE_MANAGER->addFrameImage("cheergirl_blownBack", L"resources/images/characters/enemy_cheergirl/blownback.png", 23, 2);
 	IMAGE_MANAGER->addFrameImage("cheergirl_walk1", L"resources/images/characters/enemy_cheergirl/cartwheel.png", 15, 2); // 치어걸은 회피스킬
-	IMAGE_MANAGER->addFrameImage("cheergirl_getHits", L"resources/images/characters/enemy_cheergirl/gethits.png", 9, 2);
+	IMAGE_MANAGER->addFrameImage("cheergirl_getHit", L"resources/images/characters/enemy_cheergirl/gethits.png", 9, 2);
 	IMAGE_MANAGER->addFrameImage("cheergirl_heldRelease", L"resources/images/characters/enemy_cheergirl/grab_release.png", 4, 2);
 	IMAGE_MANAGER->addFrameImage("cheergirl_groundUp", L"resources/images/characters/enemy_cheergirl/groundup.png", 11, 2);
 	IMAGE_MANAGER->addFrameImage("cheergirl_stun", L"resources/images/characters/enemy_cheergirl/stun.png", 5, 2);

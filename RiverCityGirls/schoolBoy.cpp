@@ -13,7 +13,9 @@ void SchoolBoy::init()
 	_dashAttackCount = 0;
 	_gravity = 0;
 	_jumpPower = 0;
+	_hp = 100;
 	_playerDistance = 0;
+	_isGetHit = false;
 }
 
 void SchoolBoy::release()
@@ -74,14 +76,27 @@ void SchoolBoy::update()
 				_state = ENEMY_STATE::WALK;
 			}
 		}
-		/*else
+		//플레이어와의 거리가 100 이하일 경우 
+		else
 		{
-			if (_state != ENEMY_STATE::ATTACK && _attackCount <= 0)
+			//피격 처리
+			if (_isGetHit)
 			{
-				aniPlay(ENEMY_STATE::ATTACK, _direction);
-				_state = ENEMY_STATE::ATTACK;
+				if (_state != ENEMY_STATE::HIT)
+				{
+					if (_hitType == ATTACK_TYPE::HIT)
+					{
+						aniPlay(ENEMY_STATE::HIT, _direction);
+						_state = ENEMY_STATE::HIT;
+					}
+					else
+					{
+						aniPlay(ENEMY_STATE::KNOCKDOWN, _direction);
+						_state = ENEMY_STATE::KNOCKDOWN;
+					}
+				}
 			}
-		}*/
+		}
 	}
 	
 	Vector3 moveDir = Vector3(0, 0, 0);
@@ -205,7 +220,7 @@ void SchoolBoy::update()
 			_ani->stop();
 			aniPlay(ENEMY_STATE::IDLE, _direction);
 			_state = ENEMY_STATE::IDLE;
-			//플레이어 피격 판정
+			//플레이어 공격 판정
 			//if (_attackS <= _ani->getPlayIndex() && _ani->getPlayIndex() <= _attackE)
 			//{
 			//	//if((playerPos.x - 50 >= _position.x)&&(playerPos.x<= _position.x+50) || ())
@@ -230,12 +245,21 @@ void SchoolBoy::update()
 		}
 	}
 	break;
+	case ENEMY_STATE::HIT:
+	{
+		//_direction == DIRECTION::LEFT ? _position.x += 1 : _position.x -= 1;
+		_isGetHit = false;
+		if (!_ani->isPlay())
+		{
+			aniPlay(ENEMY_STATE::IDLE, _direction);
+			_state = ENEMY_STATE::IDLE;
+		}
+	}
+	break;
 	/*case GUARD:
 
 		break;
-	case HIT:
-
-		break;
+	
 	case DOWN:
 
 		break;
@@ -252,11 +276,22 @@ void SchoolBoy::update()
 
 	if (_direction == DIRECTION::LEFT)
 	{
-		_ani->setPlayFrame(_enemyImg->getMaxFrameX(), _enemyImg->getMaxFrameX() * 2 - 1, false, true);
+		bool loop;
+		//피격 애니메이션 상태일 때
+		if (_state == ENEMY_STATE::HIT)
+		{
+			loop = false;
+			_ani->setPlayFrame(0, 2, false, loop);
+		}
+		else loop = true;
+		_ani->setPlayFrame(_enemyImg->getMaxFrameX(), _enemyImg->getMaxFrameX() * 2 - 1, false, loop);
 	}
 	else
 	{
-		_ani->setPlayFrame(0, _enemyImg->getMaxFrameX() - 1, false, true);
+		bool loop;
+		if (_state == ENEMY_STATE::HIT) loop = false;
+		else loop = true;
+		_ani->setPlayFrame(0, _enemyImg->getMaxFrameX() - 1, false, loop);
 	}
 	
 	
@@ -283,6 +318,20 @@ void SchoolBoy::render()
 	
 	
 }
+
+//피격
+void SchoolBoy::hitEffect(GameObject * hitter, FloatRect attackRc, float damage, ATTACK_TYPE type)
+{
+
+	//좌측을 바라보는
+	if (hitter->getPosition().x < _position.x) _direction = DIRECTION::LEFT;
+	//우측을 바라보는
+	else _direction = DIRECTION::RIGHT;
+
+	_hitType = type;
+	_isGetHit = true;
+}
+
 
 void SchoolBoy::aniPlay(ENEMY_STATE state, DIRECTION direction)
 {
@@ -404,7 +453,7 @@ void SchoolBoy::aniPlay(ENEMY_STATE state, DIRECTION direction)
 		_ani->start();
 	}
 	break;
-	case ENEMY_STATE::DOWN:
+	case ENEMY_STATE::KNOCKDOWN:
 	{
 		_ani = new Animation;
 		_enemyImg = IMAGE_MANAGER->findImage("schoolboy_groundDown");
