@@ -30,6 +30,7 @@ void Player::init()
 	_jumpPower = 12;
 	_gravity = 0.3f;
 	_speed = 5;
+	_hp = 100;
 }
 
 void Player::release()
@@ -79,3 +80,20 @@ void Player::attack(FloatRect attackRc, float damage, ATTACK_TYPE type)
 {
 	_stageManager->playerAttack(this, attackRc, damage, type);
 }
+
+void Player::getHit(GameObject* hitter, FloatRect attackRc, float damage, ATTACK_TYPE type)
+{
+	Vector3 enemyPos = hitter->getPosition();
+	Vector3 enemySize = hitter->getSize();
+	float hitterMinZ = enemyPos.z - enemySize.z / 2;
+	float hitterMaxZ = enemyPos.z + enemySize.z / 2;
+	float playerMinZ = _position.z - _size.z / 2;
+	float playerMaxZ = _position.z + _size.z / 2;
+
+	if (playerMaxZ<hitterMinZ || playerMinZ>hitterMaxZ)return;
+
+	FloatRect getHitRc = FloatRect(_position.x - _size.x / 2, _position.y - _size.y / 2, _position.x + _size.x / 2, _position.y + _size.y / 2);
+	if (FloatRect::intersect(getHitRc, attackRc))
+	{
+		
+	}
