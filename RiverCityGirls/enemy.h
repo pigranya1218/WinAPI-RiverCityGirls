@@ -16,6 +16,7 @@ enum class ENEMY_STATE
 	GUARD,	 
 	HIT,
 	KNOCKDOWN,	 //DOWN상태에서 피격 -> GROUND_HIT
+	STANDUP,
 	STUN,
 	SKILL,	 //BOY(SANDTOSS), GIRL(), CHEER_GIRL()
 	HELD//HELD상태에서 피격 -> HELD_HIT / 일정 시간 지나면 HELD_RELEASE
