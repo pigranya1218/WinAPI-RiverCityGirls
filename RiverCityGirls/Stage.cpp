@@ -141,7 +141,33 @@ void Stage::moveGameObject(GameObject* gameObject, Vector3 move)
 	gameObject->setPosition(newPos);
 }
 
-Vector3 Stage::getPlayerPosition(){
+void Stage::attack(Vector3 position, FloatRect rc, float damage, ATTACK_TYPE type, vector<OBJECT_TEAM> getAttack)
+{
+	for (int i = 0; i < getAttack.size(); i++)
+	{
+		switch (getAttack[i])
+		{
+		case OBJECT_TEAM::PLAYER:
+		{
+
+		}
+		break;
+		case OBJECT_TEAM::ENEMY:
+		{
+			
+		}
+		break;
+		case OBJECT_TEAM::OBJECT:
+		{
+
+		}
+		break;
+		}
+	}
+}
+
+Vector3 Stage::getPlayerPosition()
+{
 	return _player->getPosition();
 	
 

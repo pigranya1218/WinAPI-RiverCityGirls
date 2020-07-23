@@ -12,7 +12,8 @@ private:
 		QC3
 	};
 
-	Synthesize(ATTACK_COMBO, _combo, Combo)
+	ATTACK_COMBO _combo;
+	
 	 
 
 public:

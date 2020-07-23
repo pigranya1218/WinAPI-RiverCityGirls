@@ -16,7 +16,6 @@ PlayerState * IdleState::update(Player & player)
 	//{
 	//	_ani->setPlayFrame(12, 24, false, true); // 12 ~ 23
 	//}
-
 	if (KEY_MANAGER->isOnceKeyDown('Z'))
 	{
 		return new WeakAttack;
