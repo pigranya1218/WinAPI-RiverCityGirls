@@ -14,9 +14,7 @@ HRESULT UIManager::init(GameObject* player)
 {
 	HRESULT result;
 
-	_player = player;
-
-	//_vDoor.clear();
+	_player = player;	
 
 	ZeroMemory(&_playerInfo, sizeof(_playerInfo));
 	ZeroMemory(&_bossInfo, sizeof(_bossInfo));
@@ -25,6 +23,7 @@ HRESULT UIManager::init(GameObject* player)
 	result = _playerInfo.init();
 	result = _bossInfo.init();
 	result = _levelInfo.init();
+	result = _close.init();
 
 	_cellPhone.phoneImg = IMAGE_MANAGER->findImage("startMapPhone");
 	_cellPhone.x = WINSIZEX / 2 - 200;
@@ -53,10 +52,12 @@ void UIManager::update()
 	if (!_vDoor.empty())
 	{
 		for (int i = 0; i < _vDoor.size(); i++)
-		{
-			_vDoor[i].update(CAMERA_MANAGER->convertV3ToV2(_player->getPosition()));
+		{			
+			_vDoor[i].update(_player->getPosition());
 		}
 	}
+
+	_close.update();
 
 	// 플레이어 체력이 트루면 현재 플레이 중 && 핸드폰 보기
 	/*if (KEY_MANAGER->isOnceKeyDown(VK_SPACE) && _playerHp.active)
@@ -88,10 +89,6 @@ void UIManager::update()
 
 void UIManager::render()
 {
-	// 카메라 수정 후 필요없어질 것
-	//IMAGE_MANAGER->findImage("screenBorder")->setSize(Vector2(WINSIZEX, WINSIZEY));
-	//IMAGE_MANAGER->findImage("screenBorder")->render(Vector2(WINSIZEX / 2, WINSIZEY / 2));	
-
 	_playerInfo.render();
 	_bossInfo.render();
 	_levelInfo.render();
@@ -103,6 +100,8 @@ void UIManager::render()
 			_vDoor[i].render();
 		}
 	}
+
+	_close.render(_player->getPosition());
 	
 	/*if (_cellPhone.active)
 	{
