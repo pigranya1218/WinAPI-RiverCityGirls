@@ -78,12 +78,12 @@ void SnackMachineObject::hitEffect(GameObject * hitter, FloatRect attackRc, floa
 		if (_direction == DIRECTION::LEFT)
 		{
 			_img = IMAGE_MANAGER->findImage("OBJECT_SNACKMACHINE_LEFT_BROKEN");
-			_objectManager->makeParticle(PARTICLE_TYPE::PIECE_SNACKMACHINE, 10, 
-				Vector3(_position.x - (_size.x / 2), _position.y - (_size.y / 2), _position.z + (_size.z / 2)),
-				Vector3(_position.x + (_size.x / 2), _position.y - (_size.y / 2), _position.z + (_size.z / 2)),
+			_objectManager->makeParticle(PARTICLE_TYPE::PIECE_SNACKMACHINE, 30, 
+				Vector3(_position.x - (_size.x / 2), _position.y, _position.z),
+				Vector3(_position.x + (_size.x / 2), _position.y + (_size.y / 2), _position.z + (_size.z / 2)),
 				Vector2(0, 0), 
 				Vector2(PI2, PI), 
-				1, 2, 1, 2);
+				5, 10, 3, 5);
 			CAMERA_MANAGER->pushShakeEvent(-20, 0.06, 0.24);
 		}
 		if (_direction == DIRECTION::RIGHT)

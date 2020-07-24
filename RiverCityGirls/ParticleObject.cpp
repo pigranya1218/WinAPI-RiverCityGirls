@@ -4,6 +4,7 @@
 
 ParticleObject::ParticleObject(PARTICLE_TYPE type, Vector3 pos, Vector2 angle, float speed, float time)
 {
+	_type = type;
 	char buffer[50];
 	switch (_type)
 	{
@@ -25,25 +26,33 @@ ParticleObject::ParticleObject(PARTICLE_TYPE type, Vector3 pos, Vector2 angle, f
 	
 	_state = OBJECT_STATE::IDLE;
 	_position = pos;
-	_size = Vector3(2, 2, 2);
+	_size = Vector3(10, 10, 10);
 	_moveAngle = angle;
 	_speed = speed;
 	_remainTime = time;
 	_gravity = 0;
+	_isLand = false;
 }
 
 void ParticleObject::update()
 {
-	_gravity += 0.08f;
-	_rotateAngle += 3;
+	if (!_isLand) // 땅에 아직 착지하지 않은 경우
+	{
+		_gravity += 0.1f;
+		_rotateAngle += 14;
+		Vector3 moveDir = Vector3(0, 0, 0); // [0, 0, 0]
+		moveDir.x += cosf(_moveAngle.x) * _speed;
+		moveDir.z += -sinf(_moveAngle.x) * _speed;
+		moveDir.y += -sinf(_moveAngle.y) * _speed + _gravity;
 
-	Vector3 moveDir = Vector3(0, 0, 0); // [0, 0, 0]
-	moveDir.x += cosf(_moveAngle.x) * _speed;
-	moveDir.z += -sinf(_moveAngle.x) * _speed;
-	moveDir.y += -sinf(_moveAngle.y) * _speed + _gravity;
-	
-	_position += moveDir;
-	_position.y = max(-(_size.y / 2), _position.y);
+		float lastY = _position.y;
+		_objectManager->moveGameObject(this, moveDir);
+		if (lastY == _position.y)
+		{
+			_isLand = true;
+		}
+
+	}
 
 	_remainTime -= TIME_MANAGER->getElapsedTime();
 	if (_remainTime <= 0)
