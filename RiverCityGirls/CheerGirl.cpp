@@ -428,9 +428,10 @@ void CheerGirl::update()
 			_ani->setPlayFrame(0, _enemyImg->getMaxFrameX(), false, loop);
 		}
 
+	
 
-
-		_ani->frameUpdate(TIME_MANAGER->getElapsedTime());
+	
+	_ani->frameUpdate(TIME_MANAGER->getElapsedTime());
 
 		_enemyManager->moveEnemy(this, moveDir);
 	}

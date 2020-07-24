@@ -84,7 +84,7 @@ void AttackState::enter(Player & player)
 			_ani->setPlayFrame(21, 42, false, false);
 		}
 
-		_ani->setFPS(15);
+		_ani->setFPS(25);
 		_ani->start();
 		break;
 	case ATTACK_SKILL::JUMP_HC:
@@ -172,11 +172,29 @@ PlayerState * AttackState::update(Player & player)
 			_ani->start();
 
 				
-			_skill = ATTACK_SKILL::QC2;
-			_initTime = 0;
-		}
+				_skill = ATTACK_SKILL::QC2;
+				_initTime = 0;
+			}
+			else if (_initTime >= 0.2 &&KEY_MANAGER->isOnceKeyDown('S'))
+			{
+				_img = IMAGE_MANAGER->findImage("Kyoko_axekick");
+				_ani->init(_img->getWidth(), _img->getHeight(), _img->getMaxFrameX(), _img->getMaxFrameY());
+				if (player.getDirection() == DIRECTION::RIGHT)
+				{
+					_ani->setPlayFrame(0, 13, false, false);
+				}
+				else
+				{
+					_ani->setPlayFrame(13, 26, false, false);
+				}
 
-	}
+				_ani->setFPS(15);
+				_ani->start();
+
+				_skill = ATTACK_SKILL::HC;
+				_initTime = 0;
+			}
+		}
 
 	break;
 	case ATTACK_SKILL::QC2:
@@ -227,8 +245,26 @@ PlayerState * AttackState::update(Player & player)
 				_initTime = 0;
 				_skill = ATTACK_SKILL::QC3;
 
-			}
-				
+				}
+				else if (_initTime >= 0.15 &&KEY_MANAGER->isOnceKeyDown('S'))
+				{
+					_img = IMAGE_MANAGER->findImage("Kyoko_axekick");
+					_ani->init(_img->getWidth(), _img->getHeight(), _img->getMaxFrameX(), _img->getMaxFrameY());
+					if (player.getDirection() == DIRECTION::RIGHT)
+					{
+						_ani->setPlayFrame(0, 13, false, false);
+					}
+					else
+					{
+						_ani->setPlayFrame(13, 26, false, false);
+					}
+
+					_ani->setFPS(15);
+					_ani->start();
+
+					_skill = ATTACK_SKILL::HC;
+					_initTime = 0;
+				}
 					
 
 		}
@@ -256,13 +292,31 @@ PlayerState * AttackState::update(Player & player)
 							position.x - 30, position.y + 100);
 					}
 
-					_viewRc = FloatRect(_attackRc.left, position.z + _attackRc.top,
-						_attackRc.right, position.z + _attackRc.bottom);
-					player.attack(_attackRc, 10, ATTACK_TYPE::KNOCKDOWN);
+						viewRc = FloatRect(attackRc.left, position.z + attackRc.top,
+							attackRc.right, position.z + attackRc.bottom);
+						player.attack(attackRc, 10, ATTACK_TYPE::STUN);
+					}
+					else if (_initTime >= 0.2 &&KEY_MANAGER->isOnceKeyDown('S'))
+					{
+						_img = IMAGE_MANAGER->findImage("Kyoko_axekick");
+						_ani->init(_img->getWidth(), _img->getHeight(), _img->getMaxFrameX(), _img->getMaxFrameY());
+						if (player.getDirection() == DIRECTION::RIGHT)
+						{
+							_ani->setPlayFrame(0, 13, false, false);
+						}
+						else
+						{
+							_ani->setPlayFrame(13, 26, false, false);
+						}
+
+						_ani->setFPS(15);
+						_ani->start();
+
+						_skill = ATTACK_SKILL::HC;
+						_initTime = 0;
+					}
 				}
-					
-			}
-		break;
+			break;
 
 		case ATTACK_SKILL::RUN_QC:
 			if (!_ani->isPlay())
@@ -395,29 +449,33 @@ PlayerState * AttackState::update(Player & player)
 				}
 				else
 				{
+					moveDir.x += _currMoveDirX;
 					if (3 <= _ani->getPlayIndex() && _ani->getPlayIndex() <= 10)
 					{
 						Vector3 position = player.getPosition();
 						if (player.getDirection() == DIRECTION::RIGHT)
 						{
 							attackRc = FloatRect(position.x + 10, position.y - 40,
-								position.x + 140, position.y + 100);
-							moveDir.x += _currMoveDirX;
-							_currMoveDirX -= 0.02f;
+							position.x + 140, position.y + 100);
+							
+							//_currMoveDirX -= 0.02f;
 						}
 						else
 						{
 							attackRc = FloatRect(position.x - 140, position.y - 40,
 								position.x - 10, position.y + 100);
-							moveDir.x += _currMoveDirX;
-							_currMoveDirX += 0.02f;
+							//moveDir.x += _currMoveDirX;
+							//_currMoveDirX += 0.02f;
 						}
 
 						viewRc = FloatRect(attackRc.left, position.z + attackRc.top,
 							attackRc.right, position.z + attackRc.bottom);
 						player.attack(attackRc, 10, ATTACK_TYPE::KNOCKDOWN);
 					}
-
+					else if (_ani->getPlayIndex() > 10)
+					{
+						moveDir.x = 0;
+					}
 				}
 				
 				break;
@@ -523,6 +581,15 @@ void AttackState::render(Player & player)
 	{
 		position.y += 15;
 	}
+	else if (_skill == ATTACK_SKILL::QC3)
+	{
+		position.y -= 15;
+	}
+	else if (_skill == ATTACK_SKILL::RUN_HC)
+	{
+		position.y += 10;
+	}
+
 	//CAMERA_MANAGER->rectangle(FloatRect(300, 300, 800, 800), D2D1::ColorF::Enum::Red, 1, 20);
 	if (DEBUG_MANAGER->isDebugMode(DEBUG_TYPE::PLAYER))
 	{
