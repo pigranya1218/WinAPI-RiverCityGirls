@@ -38,8 +38,8 @@ void ParticleObject::update()
 {
 	if (!_isLand) // 땅에 아직 착지하지 않은 경우
 	{
-		_gravity += 0.1f;
-		_rotateAngle += 14;
+		_gravity += 0.16f;
+		_rotateAngle += (_moveAngle.y <= PI * 0.5)? 24: -24;
 		Vector3 moveDir = Vector3(0, 0, 0); // [0, 0, 0]
 		moveDir.x += cosf(_moveAngle.x) * _speed;
 		moveDir.z += -sinf(_moveAngle.x) * _speed;
@@ -67,7 +67,7 @@ void ParticleObject::release()
 
 void ParticleObject::render()
 {
-	_img->setScale(1);
+	_img->setScale(3);
 	_img->setAngle(_rotateAngle);
 
 	CAMERA_MANAGER->renderZ(_img, _position, _size);

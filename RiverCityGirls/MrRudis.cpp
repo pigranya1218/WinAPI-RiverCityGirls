@@ -64,7 +64,7 @@ void MrRudis::release()
 
 void MrRudis::render()
 {
-	_img->setScale(3);
+	Object::render();
 	CAMERA_MANAGER->aniRenderZ(_img, _position, _size, _ani);
 }
 

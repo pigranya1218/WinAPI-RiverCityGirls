@@ -18,12 +18,11 @@ private:
 	Synthesize(float, _speed, Speed)
 	Synthesize(DIRECTION, _direction, Direction)
 	Synthesize(float, _jumpPower, JumpPower)
-	Synthesize(float, _gravity,Gravity)
-    Synthesize(int, _hp,Hp)
-	Synthesize(bool, _onObject,OnObject)
+	Synthesize(float, _gravity, Gravity)
+    Synthesize(int, _hp, Hp)
+    Synthesize(int, _maxHp, MaxHp)
+	Synthesize(bool, _onObject, OnObject)
 	PlayerState* _state;
-
-	//AttackState* _attackState;
 
 public:
 	Player();

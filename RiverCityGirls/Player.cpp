@@ -26,11 +26,13 @@ void Player::init()
 	_state->enter(*this);
 
 	_direction = DIRECTION::RIGHT;
-	
+
+	_team = OBJECT_TEAM::PLAYER;
 	_jumpPower = 13;
 	_gravity = 0.3f;
 	_speed = 5;
-	_hp = 100;
+	_maxHp = 100;
+	_hp = _maxHp;
 	_onObject = false;
 }
 
