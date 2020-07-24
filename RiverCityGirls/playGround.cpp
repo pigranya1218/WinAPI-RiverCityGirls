@@ -138,8 +138,8 @@ HRESULT playGround::init()
 	IMAGE_MANAGER->addFrameImage("schoolboy_jump", L"resources/images/characters/enemy_schoolboy/SchoolBoyJump.png", 3, 2);
 	IMAGE_MANAGER->addFrameImage("schoolboy_jumpAttack", L"resources/images/characters/enemy_schoolboy/SchoolBoyJumpPunch.png", 6, 2);
 	//IMAGE_MANAGER->addFrameImage("schoolboy_groundDown", L"resources/images/characters/enemy_schoolboy/SchoolBoyKcockDown.png", 33, 2);
-	IMAGE_MANAGER->addFrameImage("schoolboy_knockDown", L"resources/images/characters/enemy_schoolboy/schoolBoyKnockDown.png", 25, 2);
-	IMAGE_MANAGER->addFrameImage("schoolboy_standUp", L"resources/images/characters/enemy_schoolboy/schoolBoyStandUp.png", 8, 2);
+	IMAGE_MANAGER->addFrameImage("schoolboy_knockDown", L"resources/images/characters/enemy_schoolboy/schoolBoyKnockDown2.png", 24, 2);
+	IMAGE_MANAGER->addFrameImage("schoolboy_standUp", L"resources/images/characters/enemy_schoolboy/schoolBoyStandUp2.png", 10, 2);
 	IMAGE_MANAGER->addFrameImage("schoolboy_run", L"resources/images/characters/enemy_schoolboy/SchoolBoyRun.png", 10, 2);
 	IMAGE_MANAGER->addFrameImage("schoolboy_skill", L"resources/images/characters/enemy_schoolboy/SchoolBoySandToss.png", 9, 2);
 	IMAGE_MANAGER->addFrameImage("schoolboy_stun", L"resources/images/characters/enemy_schoolboy/SchoolBoyStun.png", 4, 2);

@@ -10,7 +10,6 @@ void CheerGirl::init()
 	_direction = DIRECTION::RIGHT;
 	aniPlay(_state, _direction);
 	_attackCount = 0;
-	_dashAttackCount = 0;
 	_gravity = 0;
 	_jumpPower = 0;
 	_hp = 100;

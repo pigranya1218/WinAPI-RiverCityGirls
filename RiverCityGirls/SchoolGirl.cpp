@@ -308,10 +308,14 @@ Vector3 playerPos = _enemyManager->getPlayerPosition();
 		else loop = true;
 		_ani->setPlayFrame(_enemyImg->getMaxFrameX(), _enemyImg->getMaxFrameX() * 2 - 1, false, loop);
 	}
-	else
+	else // DIRECTION::RIGHT
 	{
 		bool loop;
-		if (_state == ENEMY_STATE::HIT) loop = false;
+		if (_state == ENEMY_STATE::HIT)
+		{
+			loop = false;
+			_ani->setPlayFrame(0, 2, false, loop);
+		}
 		else loop = true;
 		_ani->setPlayFrame(0, _enemyImg->getMaxFrameX() - 1, false, loop);
 	}
