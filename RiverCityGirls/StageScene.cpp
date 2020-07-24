@@ -21,9 +21,10 @@ HRESULT StageScene::init()
 	_dgManager->init(1);
 	_uiManager->init(_player);
 
+	//_uiManager->setShopUI(true);
+
 	// UI 테스트입니다
-	_uiManager->setPlayerHpActive(true);			
-	//_uiManager->setLock(LOCK_STATE::LOCK_4);
+	//_uiManager->setPlayerHpActive(true);				
 
 	return S_OK;
 }
@@ -42,10 +43,10 @@ void StageScene::update()
 	_uiManager->update();
 
 	//
-	//_dgManager->update();
+	_dgManager->update();
 
 	// UI 테스트입니다.
-	static float hp = 100.0f;	
+	/*static float hp = 100.0f;	
 	static int tt = 4;
 	hp -= 1.0f;
 	if (hp < 0)
@@ -54,7 +55,7 @@ void StageScene::update()
 		_uiManager->setLevelUp(true);	
 		_uiManager->setLock((LOCK_STATE)tt--);
 	}
-	_uiManager->setPlayerHp(hp, 100.0f);	
+	_uiManager->setPlayerHp(hp, 100.0f);	*/
 }
 
 void StageScene::render()
@@ -65,6 +66,6 @@ void StageScene::render()
 	CAMERA_MANAGER->renderZList();
 
 	_uiManager->render();
-	//_dgManager->render();
+	_dgManager->render();
 
 }
