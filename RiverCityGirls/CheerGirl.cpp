@@ -182,7 +182,7 @@ void CheerGirl::update()
 		_enemyManager->moveEnemy(this, moveDir);
 		float currY = _position.y;
 
-		if (lastY != currY) // ¶³¾îÁü
+		if (lastY != currY) // ¶³¾îÁö´Â Áß
 		{
 			setState(ENEMY_STATE::JUMP, _direction);
 		}
@@ -206,16 +206,11 @@ void CheerGirl::update()
 		_enemyManager->moveEnemy(this, moveDir);
 		float currY = _position.y;
 
-		if (lastY != currY) // ¶³¾îÁü
-		{
-		}
-		else // ¶³¾îÁöÁö ¾ÊÀ½
+		if (moveDir.y > 1 && lastY == currY) // ¶¥¿¡ ºÎµúÈû
 		{
 			_gravity = 0;
-			if (_elapsedTime > 1.5f)
-			{
-				setState(ENEMY_STATE::STANDUP, _direction);
-			}
+			setState(ENEMY_STATE::STANDUP, _direction);
+
 		}
 	}
 	break;
