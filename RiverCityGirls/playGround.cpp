@@ -214,6 +214,22 @@ HRESULT playGround::init()
 	// * UI
 	IMAGE_MANAGER->addImage("blackScreen", L"resources/images/UI/blackScreen.png");				// 검은 화면입니다.
 
+	IMAGE_MANAGER->addFrameImage("chainLock_top"	, L"resources/images/UI/lock/chain_top_lock.png"	, 1, 13);	// 위 사슬 잠금
+	IMAGE_MANAGER->addFrameImage("chainLock_bot"	, L"resources/images/UI/lock/chain_bot_lock.png"	, 1, 13);	// 밑 사슬 잠금
+	IMAGE_MANAGER->addFrameImage("chainLock_left"	, L"resources/images/UI/lock/chain_left_lock.png"	, 13, 1);	// 좌 사슬 잠금
+	IMAGE_MANAGER->addFrameImage("chainLock_right"	, L"resources/images/UI/lock/chain_right_lock.png"	, 13, 1);	// 우 사슬 잠금
+
+	IMAGE_MANAGER->addFrameImage("chainUnlock_top"	, L"resources/images/UI/lock/chain_top_unlock.png"	, 1, 3);	// 위 사슬 언락
+	IMAGE_MANAGER->addFrameImage("chainUnlock_bot"	, L"resources/images/UI/lock/chain_bot_unlock.png"	, 1, 3);	// 밑 사슬 언락
+	IMAGE_MANAGER->addFrameImage("chainUnlock_left"	, L"resources/images/UI/lock/chain_left_unlock.png"	, 3, 1);	// 좌 사슬 언락
+	IMAGE_MANAGER->addFrameImage("chainUnlock_right", L"resources/images/UI/lock/chain_right_unlock.png", 3, 1);	// 우 사슬 언락
+
+	IMAGE_MANAGER->addFrameImage("lock_4", L"resources/images/UI/lock/lock_1.png",  7, 1);	// 자물쇠 잠금 4단계
+	IMAGE_MANAGER->addFrameImage("lock_3", L"resources/images/UI/lock/lock_2.png",  7, 1);	// 자물쇠 잠금 3단계
+	IMAGE_MANAGER->addFrameImage("lock_2", L"resources/images/UI/lock/lock_3.png",  8, 1);	// 자물쇠 잠금 2단계
+	IMAGE_MANAGER->addFrameImage("lock_1", L"resources/images/UI/lock/lock_4.png", 10, 1);	// 자물쇠 잠금 1단계
+	IMAGE_MANAGER->addFrameImage("lock_0", L"resources/images/UI/lock/lock_5.png",  9, 1);	// 자물쇠 잠금 부서짐
+
 	IMAGE_MANAGER->addImage("playerBackBar"	, L"resources/images/UI/kyoko_HP_backFrame.png"	);	// 플레이어 프레임 뒤
 	IMAGE_MANAGER->addImage("playerDigit"	, L"resources/images/UI/kyoko_hp_digit.png"		);	// 플레이어 체력 앞
 	IMAGE_MANAGER->addImage("playerExpFront", L"resources/images/UI/kyoko_exp_frontBar.png"	);	// 플레이어 경험치 앞

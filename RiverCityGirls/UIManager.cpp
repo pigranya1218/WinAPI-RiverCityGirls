@@ -26,7 +26,7 @@ HRESULT UIManager::init(GameObject* player)
 	result = _bossInfo.init();
 	result = _levelInfo.init();
 	result = _close.init();
-	result = _shop.init();
+	result = _shop.init();	
 
 	/*_cellPhone.phoneImg = IMAGE_MANAGER->findImage("startMapPhone");
 	_cellPhone.x = WINSIZEX / 2 - 200;
@@ -64,6 +64,8 @@ void UIManager::update()
 
 	_shop.update();
 
+	_lock.update();
+
 	// 플레이어 체력이 트루면 현재 플레이 중 && 핸드폰 보기
 	/*if (KEY_MANAGER->isOnceKeyDown(VK_SPACE) && _playerHp.active)
 	{
@@ -94,6 +96,8 @@ void UIManager::update()
 
 void UIManager::render()
 {
+	_lock.render();
+
 	_playerInfo.render();
 	_bossInfo.render();
 	_levelInfo.render();
@@ -104,7 +108,7 @@ void UIManager::render()
 		{
 			_vDoor[i].render();
 		}
-	}
+	}		
 
 	// _close.render(_player->getPosition());
 
@@ -138,4 +142,9 @@ void UIManager::setDoor(vector<tagDoorInfo> doors)
 
 		_vDoor.push_back(door);
 	}
+}
+
+void UIManager::setLock(LOCK_STATE state)
+{	
+	_lock.init(state);
 }

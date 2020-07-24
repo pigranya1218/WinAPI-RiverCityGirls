@@ -121,9 +121,9 @@ void Image::frameRender(const Vector2& position, const int frameX, const int fra
 
 	//그릴 영역 세팅 
 	D2D1_RECT_F dxArea = D2D1::RectF(0.0f, 0.0f, _size.x, _size.y);
-	D2D1_RECT_F dxSrc = D2D1::RectF((float)_frameInfo[frame].x, (float)_frameInfo[frame].y,
-		(float)(_frameInfo[frame].x + _frameInfo[frame].width),
-		(float)(_frameInfo[frame].y + _frameInfo[frame].height));
+	D2D1_RECT_F dxSrc = D2D1::RectF((float)_frameInfo[frame].x * _scale, (float)_frameInfo[frame].y * _scale,
+		(float)(_frameInfo[frame].x + _frameInfo[frame].width) * _scale,
+		(float)(_frameInfo[frame].y + _frameInfo[frame].height) * _scale);
 	//최종행렬 세팅
 	D2D_RENDERER->getRenderTarget()->SetTransform(scaleMatrix * rotateMatrix * translateMatrix);
 	//렌더링 요청
