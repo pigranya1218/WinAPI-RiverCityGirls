@@ -94,6 +94,7 @@ void UIManager::update()
 
 void UIManager::render()
 {
+	/*
 	_playerInfo.render();
 	_bossInfo.render();
 	_levelInfo.render();
