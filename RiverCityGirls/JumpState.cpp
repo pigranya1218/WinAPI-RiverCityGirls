@@ -20,36 +20,7 @@ PlayerState * JumpState::update(Player & player)
 		moveDir.y -= player.getJumpPower();
 		player.setJumpPower((player.getJumpPower() - player.getGravity()));
 
-		if (player.getDirection() == DIRECTION::RIGHT)
-		{
-			if (player.getJumpPower() > 2)
-			{
-				_ani->setPlayFrame(0, 1, false, false);
-			}
-			if (player.getJumpPower() < -1)
-			{
-				_ani->setPlayFrame(2, 1, false, false);
-			}
-			if (player.getJumpPower() >= -1 && player.getJumpPower() <= 2)
-			{
-				_ani->setPlayFrame(1, 2, false, false);
-			}
-		}
-		if (player.getDirection() == DIRECTION::LEFT)
-		{
-			if (player.getJumpPower() > 2)
-			{
-				_ani->setPlayFrame(3, 4, false, false);
-			}
-			if (player.getJumpPower() < -1)
-			{
-				_ani->setPlayFrame(5, 4, false, false);
-			}
-			if (player.getJumpPower() >= -1 && player.getJumpPower() <= 2)
-			{
-				_ani->setPlayFrame(4, 5, false, false);
-			}
-		}
+		jumpMotion(player);
 
 	if (KEY_MANAGER->isStayKeyDown(VK_RIGHT))
 	{
@@ -99,36 +70,7 @@ PlayerState * JumpState::update(Player & player)
 		moveDir.y -= player.getJumpPower();
 		player.setJumpPower((player.getJumpPower() - player.getGravity()));
 
-		if (player.getDirection() == DIRECTION::RIGHT)
-		{
-			if (player.getJumpPower() > 2)
-			{
-				_ani->setPlayFrame(0, 1, false, false);
-			}
-			if (player.getJumpPower() < -1)
-			{
-				_ani->setPlayFrame(2, 1, false, false);
-			}
-			if (player.getJumpPower() >= -1 && player.getJumpPower() <= 2)
-			{
-				_ani->setPlayFrame(1, 2, false, false);
-			}
-		}
-		if (player.getDirection() == DIRECTION::LEFT)
-		{
-			if (player.getJumpPower() > 2)
-			{
-				_ani->setPlayFrame(3, 4, false, false);
-			}
-			if (player.getJumpPower() < -1)
-			{
-				_ani->setPlayFrame(5, 4, false, false);
-			}
-			if (player.getJumpPower() >= -1 && player.getJumpPower() <= 2)
-			{
-				_ani->setPlayFrame(4, 5, false, false);
-			}
-		}
+		jumpMotion(player);
 
 	if (_jumpDirection==0)
 	{
@@ -176,36 +118,9 @@ PlayerState * JumpState::update(Player & player)
 
 			_img = IMAGE_MANAGER->findImage("Kyoko_jump");
 			_ani->init(_img->getWidth(), _img->getHeight(), _img->getMaxFrameX(), _img->getMaxFrameY());
-			if (player.getDirection() == DIRECTION::LEFT)
-			{
-				if (player.getJumpPower() > 2)
-				{
-					_ani->setPlayFrame(0, 1, false, false);
-				}
-				if (player.getJumpPower() < -1)
-				{
-					_ani->setPlayFrame(2, 1, false, false);
-				}
-				if (player.getJumpPower() >= -1 && player.getJumpPower() <= 2)
-				{
-					_ani->setPlayFrame(1, 2, false, false);
-				}
-			}
-			if (player.getDirection() == DIRECTION::RIGHT)
-			{
-				if (player.getJumpPower() > 2)
-				{
-					_ani->setPlayFrame(3, 4, false, false);
-				}
-				if (player.getJumpPower() < -1)
-				{
-					_ani->setPlayFrame(5, 4, false, false);
-				}
-				if (player.getJumpPower() >= -1 && player.getJumpPower() <= 2)
-				{
-					_ani->setPlayFrame(4, 5, false, false);
-				}
-			}
+			
+			jumpMotion(player);
+
 			if (player.getDirection() == DIRECTION::LEFT)
 			{
 				_jumpDirection = 0;
@@ -219,10 +134,12 @@ PlayerState * JumpState::update(Player & player)
 			_ani->setFPS(15);
 			_ani->start();
 
+
+			
 			player.setJumpPower(6);
 			
-
 			_jumpType = JUMP_TYPE::RUN_JUMP;
+			
 		}
 		
 
@@ -308,4 +225,38 @@ void JumpState::exit(Player & player)
 	player.setJumpPower(12);
 	_ani->release();
 	SAFE_DELETE(_ani);
+}
+
+void JumpState::jumpMotion(Player & player)
+{
+	if (player.getDirection() == DIRECTION::RIGHT)
+	{
+		if (player.getJumpPower() > 2)
+		{
+			_ani->setPlayFrame(0, 1, false, false);
+		}
+		if (player.getJumpPower() < -1)
+		{
+			_ani->setPlayFrame(2, 1, false, false);
+		}
+		if (player.getJumpPower() >= -1 && player.getJumpPower() <= 2)
+		{
+			_ani->setPlayFrame(1, 2, false, false);
+		}
+	}
+	if (player.getDirection() == DIRECTION::LEFT)
+	{
+		if (player.getJumpPower() > 2)
+		{
+			_ani->setPlayFrame(3, 4, false, false);
+		}
+		if (player.getJumpPower() < -1)
+		{
+			_ani->setPlayFrame(5, 4, false, false);
+		}
+		if (player.getJumpPower() >= -1 && player.getJumpPower() <= 2)
+		{
+			_ani->setPlayFrame(4, 5, false, false);
+		}
+	}
 }

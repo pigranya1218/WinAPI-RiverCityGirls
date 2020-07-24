@@ -20,7 +20,10 @@ private:
 	Synthesize(float, _jumpPower, JumpPower)
 	Synthesize(float, _gravity,Gravity)
     Synthesize(int, _hp,Hp)
-	Synthesize(bool, _onObject,OnObject)
+	Synthesize(int,_exp,Exp)
+	Synthesize(int, _money,Money)
+	
+		
 	PlayerState* _state;
 
 	//AttackState* _attackState;
