@@ -97,7 +97,12 @@ void CheerGirl::update()
 						_gravity = 0.3;
 					}
 				}
+
+				
 			}
+
+
+
 		}
 	}
 
@@ -157,6 +162,11 @@ void CheerGirl::update()
 				aniPlay(ENEMY_STATE::ATTACK, _direction);
 				_state = ENEMY_STATE::ATTACK;
 			}
+		}
+		else if (_playerDistance <= 100 && _state != ENEMY_STATE::ATTACK && _state != ENEMY_STATE::HIT)
+		{
+			aniPlay(ENEMY_STATE::GUARD, _direction);
+			_state = ENEMY_STATE::GUARD;
 		}
 
 	}
@@ -305,9 +315,10 @@ void CheerGirl::update()
 		
 	}
 	break;
-	/*case GUARD:
+	case ENEMY_STATE::GUARD:
 
-		break;
+	break;
+	/*
 	case STUN:
 
 		break;
@@ -485,7 +496,7 @@ void CheerGirl::aniPlay(ENEMY_STATE state, DIRECTION direction)
 		_enemyImg = IMAGE_MANAGER->findImage("cheergirl_block");
 		_ani->init(_enemyImg->getWidth(), _enemyImg->getHeight(),
 			_enemyImg->getMaxFrameX(), _enemyImg->getMaxFrameY());
-		_ani->setFPS(10);
+		_ani->setFPS(1);
 		_ani->start();
 	}
 	break;
