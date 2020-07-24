@@ -66,6 +66,7 @@ using namespace TTYONE_UTIL;
 #define EFFECT_MANAGER EffectManager::getSingleton()
 #define SOUND_MANAGER SoundManager::getSingleton()
 #define SCENE_MANAGER SceneManager::getSingleton()
+//#define KEYANIMANAGER keyAniManager::getSingleton()
 #define TXTDATA TxtData::getSingleton()
 #define OBJECT_MANAGER ObjectManager::getSingleton()
 #define D2D_RENDERER D2DRenderer::getSingleton()
