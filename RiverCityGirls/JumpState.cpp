@@ -191,6 +191,9 @@ void JumpState::render(Player & player)
 	_img->setScale(3);
 	CAMERA_MANAGER->aniRenderZ(_img, player.getPosition(), player.getSize(), _ani, -(player.getPosition().y + (player.getSize().y / 2)));
 
+	Vector3 shadowPos = player.getPosition();
+	shadowPos.y = player.getCenterBottom();
+	CAMERA_MANAGER->drawShadowZ(shadowPos, Vector3(120.0, 0, 25.0), -shadowPos.y);
 
 	/*char str[254];
 	sprintf_s(str, "moveDir.x:%d,moveDir.y:%u,moveDir.z:%d ,direction:%d ", moveDir.x, moveDir.y, moveDir.z, player.getDirection());

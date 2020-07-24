@@ -95,3 +95,14 @@ void Object::getHit(GameObject* hitter, FloatRect attackRc, float damage, ATTACK
 void Object::hitEffect(GameObject* hitter, FloatRect attackRc, float damage, ATTACK_TYPE type)
 {
 }
+
+float Object::getCenterBottom(Vector2 pos)
+{
+	if (!_isCollision) return 0;
+	if (_position.x - (_size.x / 2) <= pos.x && pos.x <= _position.x + (_size.x / 2) &&
+		_position.z - (_size.z / 2) <= pos.y && pos.y <= _position.z + (_size.z / 2))
+	{
+		return -_size.y;
+	}
+	return 0.0f;
+}

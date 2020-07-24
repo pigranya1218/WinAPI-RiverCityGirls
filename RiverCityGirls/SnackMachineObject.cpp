@@ -7,7 +7,7 @@ SnackMachineObject::SnackMachineObject(Vector3 position, DIRECTION direction)
 	_direction = direction;
 	_size = Vector3(190, 190, 55);
 	_position = Vector3(position.x, -(_size.y / 2), position.z);
-
+	_isCollision = true;
 	if (_direction == DIRECTION::LEFT)
 	{
 		_img = IMAGE_MANAGER->findImage("OBJECT_SNACKMACHINE_LEFT");

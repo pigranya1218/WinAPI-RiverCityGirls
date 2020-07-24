@@ -72,37 +72,39 @@ void CameraManager::sort(int s, int e) // z 를 기준으로 오름차순,(먼저 그려야 되
 
 void CameraManager::render(tagZImage imageInfo)
 {
-	imageInfo.img->setScale(imageInfo.scale);
-	imageInfo.img->setAngle(imageInfo.angle);
-	imageInfo.img->setAlpha(imageInfo.alpha);
-
-	// 타입에 맞게 이미지 그리기
-	switch (imageInfo.renderType)
-	{
-	case IMAGE_RENDER_TYPE::SHADOW:
+	if (imageInfo.renderType == IMAGE_RENDER_TYPE::SHADOW)
 	{
 		drawShadow(imageInfo.pos, imageInfo.size);
 	}
-	case IMAGE_RENDER_TYPE::RENDER:
+	else
 	{
-		render(imageInfo.img, convertV3ToV2(imageInfo.pos));
-	}
-	break;
-	case IMAGE_RENDER_TYPE::RENDER_WITH_SOURCE_POS:
-	{
-		render(imageInfo.img, convertV3ToV2(imageInfo.pos), imageInfo.sourPos, imageInfo.sourSize);
-	}
-	break;
-	case IMAGE_RENDER_TYPE::FRAME_RENDER: 
-	{
-		frameRender(imageInfo.img, convertV3ToV2(imageInfo.pos), imageInfo.frameX, imageInfo.frameY);
-	}
-	break;
-	case IMAGE_RENDER_TYPE::ANIMATION_RENDER:
-	{
-		aniRender(imageInfo.img, convertV3ToV2(imageInfo.pos), imageInfo.ani);
-	}
-	break;
+		imageInfo.img->setScale(imageInfo.scale);
+		imageInfo.img->setAngle(imageInfo.angle);
+		imageInfo.img->setAlpha(imageInfo.alpha);
+		// 타입에 맞게 이미지 그리기
+		switch (imageInfo.renderType)
+		{
+		case IMAGE_RENDER_TYPE::RENDER:
+		{
+			render(imageInfo.img, convertV3ToV2(imageInfo.pos));
+		}
+		break;
+		case IMAGE_RENDER_TYPE::RENDER_WITH_SOURCE_POS:
+		{
+			render(imageInfo.img, convertV3ToV2(imageInfo.pos), imageInfo.sourPos, imageInfo.sourSize);
+		}
+		break;
+		case IMAGE_RENDER_TYPE::FRAME_RENDER:
+		{
+			frameRender(imageInfo.img, convertV3ToV2(imageInfo.pos), imageInfo.frameX, imageInfo.frameY);
+		}
+		break;
+		case IMAGE_RENDER_TYPE::ANIMATION_RENDER:
+		{
+			aniRender(imageInfo.img, convertV3ToV2(imageInfo.pos), imageInfo.ani);
+		}
+		break;
+		}
 	}
 }
 
@@ -352,7 +354,7 @@ void CameraManager::rectangle(FloatRect rect, D2D1::ColorF::Enum color, float al
 
 void CameraManager::drawShadow(Vector3 pos, Vector3 size)
 {
-	Vector2 drawPos = getRelativeV2(Vector2(pos.x, pos.z));
+	Vector2 drawPos = getRelativeV2(Vector2(pos.x, pos.z + pos.y + (size.y / 2)));
 	Vector2 drawSize = Vector2(size.x / 2, size.z / 2);
 	// D2D_RENDERER->drawEllipse(drawPos, drawSize, D2D1::ColorF::Enum::Black, 0.2);
 	D2D_RENDERER->fillEllipse(drawPos, drawSize, D2D1::ColorF::Enum::Black, 0.3);

@@ -7,6 +7,7 @@ DeskObject::DeskObject(Vector3 position, DIRECTION direction, int imageType)
 	_direction = direction;
 	_size = Vector3(80, 80, 60);
 	_position = Vector3(position.x, -(_size.y / 2), position.z);
+	_isCollision = true;
 
 	if (imageType > 7) {imageType = 7;}
 	if (imageType <= 0)	{imageType = 1;}

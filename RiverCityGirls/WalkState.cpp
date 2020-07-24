@@ -3,8 +3,6 @@
 
 PlayerState * WalkState::update(Player& player)
 {
-
-
 	moveDir.x = 0;
 	moveDir.y = 0;
 	moveDir.z = 0;
@@ -40,8 +38,6 @@ PlayerState * WalkState::update(Player& player)
 		moveDir.z += player.getSpeed();
 	}
 
-	
-
 	if (moveDir.x > 0)
 	{
 		player.setDirection(DIRECTION::RIGHT);
@@ -76,9 +72,6 @@ PlayerState * WalkState::update(Player& player)
 
 			_ani->setFPS(15);
 			_ani->start();
-			
-
-
 		}
 		
 
@@ -212,6 +205,7 @@ void WalkState::render(Player& player)
 {
 	_img->setScale(3);
 	CAMERA_MANAGER->aniRenderZ(_img, player.getPosition(), player.getSize(), _ani, -(player.getPosition().y + (player.getSize().y / 2)));
+	CAMERA_MANAGER->drawShadowZ(player.getPosition(), Vector3(120.0, player.getSize().y, 25.0), -(player.getPosition().y + (player.getSize().y / 2)));
 	//CAMERA_MANAGER->aniRenderZ(_img, player.getPosition(), player.getSize(), _ani);
 
 	/*char str[254];

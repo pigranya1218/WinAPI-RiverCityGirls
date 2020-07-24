@@ -597,6 +597,16 @@ void AttackState::render(Player & player)
 	}
 	CAMERA_MANAGER->aniRenderZ(_img, position, player.getSize(), _ani);
 
+	if (_skill == ATTACK_SKILL::JUMP_HC || _skill == ATTACK_SKILL::JUMP_QC)
+	{
+		Vector3 shadowPos = player.getPosition();
+		shadowPos.y = player.getCenterBottom();
+		CAMERA_MANAGER->drawShadowZ(shadowPos, Vector3(120.0, 0, 25.0), -shadowPos.y);
+	}
+	else
+	{
+		CAMERA_MANAGER->drawShadowZ(player.getPosition(), Vector3(120.0, player.getSize().y, 25.0), -(player.getPosition().y + (player.getSize().y / 2)));
+	}
 }
 
 void AttackState::exit(Player & paleyr)

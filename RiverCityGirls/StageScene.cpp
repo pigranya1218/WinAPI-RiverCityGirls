@@ -38,23 +38,14 @@ void StageScene::update()
 {
 	_stageManager->update();
 	CAMERA_MANAGER->processEvent();
+
 	// _player->update();
+	
 	_uiManager->update();
+	_dgManager->update();
 
-	//
-	//_dgManager->update();
-
-	// UI 테스트입니다.
-	static float hp = 100.0f;	
-	static int tt = 4;
-	hp -= 1.0f;
-	if (hp < 0)
-	{
-		hp = 100.0f;
-		_uiManager->setLevelUp(true);	
-		_uiManager->setLock((LOCK_STATE)tt--);
-	}
-	_uiManager->setPlayerHp(hp, 100.0f);	
+	//	_uiManager->setLevelUp(true);	
+	//	_uiManager->setLock((LOCK_STATE)tt--);
 }
 
 void StageScene::render()
@@ -65,6 +56,6 @@ void StageScene::render()
 	CAMERA_MANAGER->renderZList();
 
 	_uiManager->render();
-	//_dgManager->render();
+	_dgManager->render();
 
 }

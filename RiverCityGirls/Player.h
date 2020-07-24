@@ -39,6 +39,8 @@ public:
 	virtual void update();
 	virtual void render();
 
+	
+	float getCenterBottom();
 	void setStageManager(StageManager* stageManager) { _stageManager = stageManager; }
 	void attack(FloatRect attackRc, float damage, ATTACK_TYPE type);
 	void getHit(GameObject* hitter, FloatRect attackRc, float damage, ATTACK_TYPE type);

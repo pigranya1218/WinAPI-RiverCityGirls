@@ -235,6 +235,17 @@ void ObjectManager::getHit(GameObject* hitter, FloatRect attackRc, float damage,
 	}
 }
 
+float ObjectManager::getCenterBottom(Vector2 pos)
+{
+	float result = 0;
+	for (int i = 0; i < _objects.size(); i++)
+	{
+		result = min(result, _objects[i]->getCenterBottom(pos));
+	}
+
+	return result;
+}
+
 void ObjectManager::moveGameObject(GameObject * gameObject, Vector3 move)
 {
 	_stageManager->moveGameObject(gameObject, move);

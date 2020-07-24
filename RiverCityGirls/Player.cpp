@@ -81,6 +81,11 @@ void Player::render()
 	
 }
 
+float Player::getCenterBottom()
+{
+	return _stageManager->getCenterBottom(_position);
+}
+
 void Player::attack(FloatRect attackRc, float damage, ATTACK_TYPE type)
 {
 	_stageManager->playerAttack(this, attackRc, damage, type);

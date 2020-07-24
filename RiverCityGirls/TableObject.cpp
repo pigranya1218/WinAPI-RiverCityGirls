@@ -7,6 +7,7 @@ TableObject::TableObject(Vector3 position, DIRECTION direction, int type)
 	_direction = direction;
 	_size = Vector3(300, 75, 50);
 	_position = Vector3(position.x, -(_size.y / 2), position.z);
+	_isCollision = true;
 
 	switch (type)
 	{

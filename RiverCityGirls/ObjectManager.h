@@ -28,6 +28,8 @@ public:
 	void isEat(Player* player);
 	void getHit(GameObject* hitter, FloatRect attackRc, float damage, ATTACK_TYPE type);
 
+	float getCenterBottom(Vector2 pos);
+
 	void moveGameObject(GameObject* gameObject, Vector3 move);
 };
 
