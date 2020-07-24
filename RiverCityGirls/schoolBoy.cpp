@@ -51,7 +51,7 @@ void SchoolBoy::update()
 
 	//float playerDistance = sqrt(pow(playerPos.x - _position.x, 2) + pow(playerPos.y - _position.y, 2) + pow(playerPos.z - _position.z , 2));
 	_playerDistance = sqrt(pow(playerPos.x - _position.x, 2) + pow(playerPos.y - _position.y, 2) + pow(playerPos.z - _position.z, 2));
-	if (_state != ENEMY_STATE::JUMP && _state != ENEMY_STATE::DASHATTACK)
+	if (_state != ENEMY_STATE::JUMP && _state != ENEMY_STATE::DASHATTACK && _state != ENEMY_STATE::KNOCKDOWN && _state != ENEMY_STATE::STANDUP)
 	{
 		if (_playerDistance > 700)
 		{
@@ -104,14 +104,18 @@ void SchoolBoy::update()
 	Vector3 moveDir = Vector3(0, 0, 0);
 	
 	//플레이어의 Z축 검사
-	if (playerPos.z - 1 > _position.z)
+	if (_state == ENEMY_STATE::WALK || _state == ENEMY_STATE::RUN)
 	{
-		moveDir.z += 1;
+		if (playerPos.z - 1 > _position.z)
+		{
+			moveDir.z += 1;
+		}
+		else if (playerPos.z + 1 < _position.z)
+		{
+			moveDir.z -= 1;
+		}
 	}
-	else if(playerPos.z + 1 < _position.z)
-	{
-		moveDir.z -= 1;
-	}
+	
 	
 	//
 	//if (_state != ENEMY_STATE::ATTACK && _state != ENEMY_STATE::IDLE) _attackCount = 0;
@@ -261,20 +265,31 @@ void SchoolBoy::update()
 	case ENEMY_STATE::KNOCKDOWN:
 	{
 		_isGetHit = false;
-		if (_direction == DIRECTION::LEFT)
-		{
-			_position.x += 10;
-		}
-		else
-		{
-			_position.x -= 10;
-		}
+		
 		if (_ani->isPlay())
 		{
 			//프레임에 따른 position.x 조정
+
+			if (_direction == DIRECTION::LEFT)
+			{
+				_position.x += 1;
+			}
+			else
+			{
+				_position.x -= 1;
+			}
 		}
 		//if (!_ani->isPlay())
-		else
+		else if(!_ani->isPlay())
+		{
+			aniPlay(ENEMY_STATE::STANDUP, _direction);
+			_state = ENEMY_STATE::STANDUP;
+		}
+	}
+	break;
+	case ENEMY_STATE::STANDUP:
+	{
+		if (!_ani->isPlay())
 		{
 			aniPlay(ENEMY_STATE::IDLE, _direction);
 			_state = ENEMY_STATE::IDLE;
@@ -297,6 +312,7 @@ void SchoolBoy::update()
 
 
 	//좌우에 따른 애니메이션 프레임 및 루프 조정
+	
 	if (_direction == DIRECTION::LEFT)
 	{
 		bool loop;
@@ -304,32 +320,49 @@ void SchoolBoy::update()
 		if (_state == ENEMY_STATE::HIT)
 		{
 			loop = false;
-			_ani->setPlayFrame(0, 2, false, loop);
+			_ani->setPlayFrame(9, 11, false, loop);
 		}
 		else if (_state == ENEMY_STATE::KNOCKDOWN)
 		{
 			loop = false;
 			_ani->setPlayFrame(_enemyImg->getMaxFrameX(), _enemyImg->getMaxFrameX() * 2 - 1, false, loop);
 		}
-		else loop = true;
-		_ani->setPlayFrame(_enemyImg->getMaxFrameX(), _enemyImg->getMaxFrameX() * 2 - 1, false, loop);
+		else if (_state == ENEMY_STATE::STANDUP)
+		{
+			loop = false;
+			_ani->setPlayFrame(_enemyImg->getMaxFrameX(), _enemyImg->getMaxFrameX() * 2 - 1, false, loop);
+		}
+		else 
+		{
+			loop = true;
+			_ani->setPlayFrame(_enemyImg->getMaxFrameX(), _enemyImg->getMaxFrameX() * 2 - 1, false, loop);
+		}
 	}
-	else
+	else //(_direction == DIRECTION::RIGHT)
 	{
 		bool loop;
 		if (_state == ENEMY_STATE::HIT)
 		{
 			loop = false;
+			_ani->setPlayFrame(0, 2, false, loop);
 		}
+		//*****넉다운이랑 스탠드업 이미지파일 분리해서 별도로 관리할것****
 		else if (_state == ENEMY_STATE::KNOCKDOWN)
 		{
 			loop = false;
 			_ani->setPlayFrame(0, _enemyImg->getMaxFrameX() - 1, false, loop);
 		}
-		else loop = true;
-		_ani->setPlayFrame(0, _enemyImg->getMaxFrameX() - 1, false, loop);
+		else if (_state == ENEMY_STATE::STANDUP)
+		{
+			loop = false;
+			_ani->setPlayFrame(0, _enemyImg->getMaxFrameX() - 1, false, loop);
+		}
+		else if (_state != ENEMY_STATE::KNOCKDOWN && _state != ENEMY_STATE::STANDUP)
+		{
+			loop = true;
+			_ani->setPlayFrame(0, _enemyImg->getMaxFrameX() - 1, false, loop);
+		}
 	}
-	
 	
 
 	_ani->frameUpdate(TIME_MANAGER->getElapsedTime());
@@ -492,10 +525,24 @@ void SchoolBoy::aniPlay(ENEMY_STATE state, DIRECTION direction)
 	case ENEMY_STATE::KNOCKDOWN:
 	{
 		_ani = new Animation;
-		_enemyImg = IMAGE_MANAGER->findImage("schoolboy_groundDown");
+		_enemyImg = IMAGE_MANAGER->findImage("schoolboy_knockDown");
 		_ani->init(_enemyImg->getWidth(), _enemyImg->getHeight(),
 			_enemyImg->getMaxFrameX(), _enemyImg->getMaxFrameY());
-		_ani->setFPS(5);
+		//if(direction == DIRECTION::RIGHT) _ani->setPlayFrame(0, 24, false, false);
+		//else _ani->setPlayFrame(_enemyImg->getMaxFrameX(), 57, false, false);
+		_ani->setFPS(10);
+		_ani->start();
+	}
+	break;
+	case ENEMY_STATE::STANDUP:
+	{
+		_ani = new Animation;
+		_enemyImg = IMAGE_MANAGER->findImage("schoolboy_standUp");
+		_ani->init(_enemyImg->getWidth(), _enemyImg->getHeight(),
+			_enemyImg->getMaxFrameX(), _enemyImg->getMaxFrameY());
+		//if (direction == DIRECTION::RIGHT) _ani->setPlayFrame(25, _enemyImg->getMaxFrameX(), false, false);
+		//else _ani->setPlayFrame(58, _enemyImg->getMaxFrameX() * 2 - 1);
+		_ani->setFPS(10);
 		_ani->start();
 	}
 	break;
