@@ -13,7 +13,7 @@ class JumpState : public PlayerState
 private:
 	//float _gravity;
 	int _jumpDirection;
-
+	float _startY;
 
 	Synthesize(JUMP_TYPE, _jumpType, JumpType)
 

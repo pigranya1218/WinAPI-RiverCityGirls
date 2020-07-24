@@ -306,6 +306,9 @@
     <ClInclude Include="AttackState.h">
       <Filter>PlayGround\Player\State\AttackState</Filter>
     </ClInclude>
+    <ClInclude Include="getHitState.h">
+      <Filter>PlayGround\Player\State</Filter>
+    </ClInclude>
     <ClInclude Include="StartStage.h">
       <Filter>PlayGround\StageManager\Stage</Filter>
     </ClInclude>
@@ -514,6 +517,9 @@
     </ClCompile>
     <ClCompile Include="AttackState.cpp">
       <Filter>PlayGround\Player\State\AttackState</Filter>
+    </ClCompile>
+    <ClCompile Include="getHitState.cpp">
+      <Filter>PlayGround\Player\State</Filter>
     </ClCompile>
     <ClCompile Include="StartStage.cpp">
       <Filter>PlayGround\StageManager\Stage</Filter>

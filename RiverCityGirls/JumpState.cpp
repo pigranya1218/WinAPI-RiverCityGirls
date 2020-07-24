@@ -205,6 +205,8 @@ PlayerState * JumpState::update(Player & player)
 			_ani->start();
 
 			player.setJumpPower(6);
+			
+
 			_jumpType = JUMP_TYPE::RUN_JUMP;
 		}
 		
@@ -228,6 +230,7 @@ PlayerState * JumpState::update(Player & player)
 			return new IdleState;
 		}
 	}
+	
 
 	float currentPlayerX = player.getPosition().x;
 
@@ -277,9 +280,10 @@ void JumpState::enter(Player & player)
 	_ani->setFPS(15);
 	_ani->start();
 
+	_startY = player.getPosition().y;
 	
-
-	_jumpDirection = (int)player.getDirection();
+	if(_jumpType==JUMP_TYPE::RUN_JUMP)_jumpDirection = (int)player.getDirection();
+	
 
 	//_startY = player.getPosition().getIntY();
 }
