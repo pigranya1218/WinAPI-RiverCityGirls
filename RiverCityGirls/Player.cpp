@@ -27,8 +27,8 @@ void Player::init()
 
 	_direction = DIRECTION::RIGHT;
 	
-	_jumpPower = 13;
-	_gravity = 0.3f;
+	_jumpPower = 25;
+	_gravity = 1.0f;
 	_speed = 5;
 	_hp = 100;
 	

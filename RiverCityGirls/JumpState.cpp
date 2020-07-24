@@ -72,11 +72,11 @@ PlayerState * JumpState::update(Player & player)
 
 		jumpMotion(player);
 
-	if (_jumpDirection==0)
+	if (_jumpDirection==0)//점프방향이 오른쪽일때
 	{
 		moveDir.x += player.getSpeed()*2;
 	}
-	if (_jumpDirection==1)
+	if (_jumpDirection==1)//점프방향이 왼쪽일때
 	{
 		moveDir.x -= player.getSpeed()*2;
 	}
@@ -136,7 +136,7 @@ PlayerState * JumpState::update(Player & player)
 
 
 			
-			player.setJumpPower(6);
+			player.setJumpPower(16);
 			
 			_jumpType = JUMP_TYPE::RUN_JUMP;
 			
@@ -222,7 +222,7 @@ void JumpState::enter(Player & player)
 
 void JumpState::exit(Player & player)
 {
-	player.setJumpPower(12);
+	player.setJumpPower(23);
 	_ani->release();
 	SAFE_DELETE(_ani);
 }
