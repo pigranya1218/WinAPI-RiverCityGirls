@@ -69,6 +69,8 @@ void StageManager::playerAttack(GameObject* hitter, FloatRect attackRc, float da
 	_currStage->attack(hitter, attackRc, damage, type, getAttack);
 }
 
+
+
 void StageManager::setDoorInfo(vector<tagDoorInfo> doorInfos)
 {
 	_uiManager->setDoor(doorInfos);

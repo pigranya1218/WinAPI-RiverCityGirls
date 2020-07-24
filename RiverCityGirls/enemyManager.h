@@ -32,13 +32,11 @@ public:
 	EnemyManager() {};
 	~EnemyManager() {};
 
-	HRESULT init();
+	void init();
 	void release();
 	void update();
 	void render();
 
-	void setEnemy();
-	void removeEnemy(int arrNum);
 	void moveEnemy(GameObject* enemy, Vector3 dir);
 	void spawnEnemy(ENEMY_TYPE type, Vector2 pos);
 	void clearEnemy();
@@ -48,5 +46,6 @@ public:
 	Vector3 getPlayerPosition();
 
 	void getHit(GameObject* gameObject, FloatRect attackRc, float damage, ATTACK_TYPE type);
+	void enemyAttack(GameObject* hitter, FloatRect attackRc, float damage, ATTACK_TYPE type);
 };
 

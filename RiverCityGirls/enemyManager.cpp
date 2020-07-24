@@ -7,14 +7,9 @@
 #include "enemy.h"
 #include "stage.h"
 
-HRESULT EnemyManager::init()
+void EnemyManager::init()
 {
-	/*_boss = new Boss;
-	_boss->init();
-	_boss->setEnemyManager(this);
-	_enemies.push_back(_boss);*/
 
-	return S_OK;
 }
 
 void EnemyManager::release()
@@ -42,14 +37,6 @@ void EnemyManager::render()
 	{
 		_enemies[i]->render();
 	}
-}
-
-void EnemyManager::setEnemy()
-{
-}
-
-void EnemyManager::removeEnemy(int arrNum)
-{
 }
 
 void EnemyManager::moveEnemy(GameObject * enemy, Vector3 dir)
@@ -117,4 +104,12 @@ void EnemyManager::getHit(GameObject* hitter, FloatRect attackRc, float damage, 
 	{
 		_enemies[i]->getHit(hitter, attackRc, damage, type);
 	}
+}
+
+void EnemyManager::enemyAttack(GameObject* hitter, FloatRect attackRc, float damage, ATTACK_TYPE type)
+{
+	vector<OBJECT_TEAM> getAttack;
+	getAttack.push_back(OBJECT_TEAM::PLAYER);
+	getAttack.push_back(OBJECT_TEAM::OBJECT);
+	_stage->attack(hitter, attackRc, damage, type, getAttack);
 }
