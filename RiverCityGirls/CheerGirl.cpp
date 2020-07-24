@@ -3,11 +3,11 @@
 
 void CheerGirl::init()
 {
-	_enemyImg = IMAGE_MANAGER->findImage("cheer_idle");
 	_position = Vector3(1000, -105, 500);
 	_size = Vector3(80, 210, 30);
 	_state = ENEMY_STATE::IDLE;
 	_direction = DIRECTION::RIGHT;
+	_ani = new Animation;
 	setState(_state, _direction);
 
 	_attackCount = 0;
@@ -231,7 +231,7 @@ void CheerGirl::update()
 
 	case ENEMY_STATE::STUN: // 스턴 걸린 상태
 	{
-		if (_elapsedTime > 3.0f)
+		if (_elapsedTime > 5.0f)
 		{
 			setState(ENEMY_STATE::IDLE, _direction);
 		}
@@ -250,6 +250,7 @@ void CheerGirl::render()
 	case ENEMY_STATE::IDLE:
 	case ENEMY_STATE::WALK:
 	case ENEMY_STATE::RUN:
+	case ENEMY_STATE::STUN:
 	{
 		if (_direction == DIRECTION::LEFT)
 		{
@@ -357,7 +358,6 @@ void CheerGirl::setState(ENEMY_STATE state, DIRECTION direction)
 	{
 	case ENEMY_STATE::IDLE:
 	{
-		_ani = new Animation;
 		_enemyImg = IMAGE_MANAGER->findImage("cheergirl_idle");
 		_ani->init(_enemyImg->getWidth(), _enemyImg->getHeight(),
 			_enemyImg->getMaxFrameX(), _enemyImg->getMaxFrameY());
@@ -368,7 +368,6 @@ void CheerGirl::setState(ENEMY_STATE state, DIRECTION direction)
 	break;
 	case ENEMY_STATE::WALK:
 	{
-		_ani = new Animation;
 		_enemyImg = IMAGE_MANAGER->findImage("cheergirl_walk2");
 		_ani->init(_enemyImg->getWidth(), _enemyImg->getHeight(),
 			_enemyImg->getMaxFrameX(), _enemyImg->getMaxFrameY());
@@ -379,7 +378,6 @@ void CheerGirl::setState(ENEMY_STATE state, DIRECTION direction)
 	break;
 	case ENEMY_STATE::RUN:
 	{
-		_ani = new Animation;
 		_enemyImg = IMAGE_MANAGER->findImage("cheergirl_run");
 		_ani->init(_enemyImg->getWidth(), _enemyImg->getHeight(),
 			_enemyImg->getMaxFrameX(), _enemyImg->getMaxFrameY());
@@ -389,7 +387,6 @@ void CheerGirl::setState(ENEMY_STATE state, DIRECTION direction)
 	break;
 	case ENEMY_STATE::JUMP:
 	{
-		_ani = new Animation;
 		_enemyImg = IMAGE_MANAGER->findImage("cheergirl_jump");
 		_ani->init(_enemyImg->getWidth(), _enemyImg->getHeight(),
 			_enemyImg->getMaxFrameX(), _enemyImg->getMaxFrameY());
@@ -399,21 +396,9 @@ void CheerGirl::setState(ENEMY_STATE state, DIRECTION direction)
 	break;
 	case ENEMY_STATE::ATTACK:
 	{
-		_ani = new Animation;
-		int i = RANDOM->getFromIntTo(1, 3);
-		if (i == 2)
-		{
-			_attackS = 3;
-			_attackE = 5;
-		}
-		else
-		{
-			_attackS = 2;
-			_attackE = 4;
-		}
-		char imgNameNum[128];
-		sprintf_s(imgNameNum, "cheergirl_attack%d", i);
-		_enemyImg = IMAGE_MANAGER->findImage(imgNameNum);
+		_attackS = 2;
+		_attackE = 4;
+		_enemyImg = IMAGE_MANAGER->findImage("cheergirl_attack1");
 		_ani->init(_enemyImg->getWidth(), _enemyImg->getHeight(),
 			_enemyImg->getMaxFrameX(), _enemyImg->getMaxFrameY());
 		_ani->setFPS(10);
@@ -422,7 +407,8 @@ void CheerGirl::setState(ENEMY_STATE state, DIRECTION direction)
 	break;
 	case ENEMY_STATE::DASHATTACK:
 	{
-		_ani = new Animation;
+		_attackS = 1;
+		_attackE = 3;
 		_enemyImg = IMAGE_MANAGER->findImage("cheergirl_attack2");
 		_ani->init(_enemyImg->getWidth(), _enemyImg->getHeight(),
 			_enemyImg->getMaxFrameX(), _enemyImg->getMaxFrameY());
@@ -432,7 +418,6 @@ void CheerGirl::setState(ENEMY_STATE state, DIRECTION direction)
 	break;
 	case ENEMY_STATE::JUMPATTACK:
 	{
-		_ani = new Animation;
 		_enemyImg = IMAGE_MANAGER->findImage("cheergirl_jumpAttack2");
 		_ani->init(_enemyImg->getWidth(), _enemyImg->getHeight(),
 			_enemyImg->getMaxFrameX(), _enemyImg->getMaxFrameY());
@@ -442,7 +427,6 @@ void CheerGirl::setState(ENEMY_STATE state, DIRECTION direction)
 	break;
 	case ENEMY_STATE::HIT:
 	{
-		_ani = new Animation;
 		_enemyImg = IMAGE_MANAGER->findImage("cheergirl_getHit");
 		_ani->init(_enemyImg->getWidth(), _enemyImg->getHeight(),
 			_enemyImg->getMaxFrameX(), _enemyImg->getMaxFrameY());
@@ -452,7 +436,6 @@ void CheerGirl::setState(ENEMY_STATE state, DIRECTION direction)
 	break;
 	case ENEMY_STATE::STUN:
 	{
-		_ani = new Animation;
 		_enemyImg = IMAGE_MANAGER->findImage("cheergirl_stun");
 		_ani->init(_enemyImg->getWidth(), _enemyImg->getHeight(),
 			_enemyImg->getMaxFrameX(), _enemyImg->getMaxFrameY());
@@ -462,7 +445,6 @@ void CheerGirl::setState(ENEMY_STATE state, DIRECTION direction)
 	break;
 	case ENEMY_STATE::KNOCKDOWN:
 	{
-		_ani = new Animation;
 		_enemyImg = IMAGE_MANAGER->findImage("cheergirl_blownBack");
 		_ani->init(_enemyImg->getWidth(), _enemyImg->getHeight(),
 			_enemyImg->getMaxFrameX(), _enemyImg->getMaxFrameY());
@@ -472,7 +454,6 @@ void CheerGirl::setState(ENEMY_STATE state, DIRECTION direction)
 	break;
 	case ENEMY_STATE::STANDUP:
 	{
-		_ani = new Animation;
 		_enemyImg = IMAGE_MANAGER->findImage("cheergirl_groundUp");
 		_ani->init(_enemyImg->getWidth(), _enemyImg->getHeight(),
 			_enemyImg->getMaxFrameX(), _enemyImg->getMaxFrameY());
@@ -482,7 +463,6 @@ void CheerGirl::setState(ENEMY_STATE state, DIRECTION direction)
 	break;
 	case ENEMY_STATE::SKILL:
 	{
-		_ani = new Animation;
 		_enemyImg = IMAGE_MANAGER->findImage("cheergirl_walk2");
 		_ani->init(_enemyImg->getWidth(), _enemyImg->getHeight(),
 			_enemyImg->getMaxFrameX(), _enemyImg->getMaxFrameY());
