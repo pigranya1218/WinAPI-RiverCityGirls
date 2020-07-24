@@ -1,5 +1,7 @@
 #pragma once
 #include "Image.h"
+#include "CameraEvent.h"
+#include <queue>
 
 class CameraManager : public SingletonBase<CameraManager>
 {
@@ -31,6 +33,7 @@ public:
 
 private:
 	vector<tagZImage> _renderList;
+	queue<CameraEvent*> _eventQueue;
 
 	float _offsetL, _offsetT; // 카메라 LEFT, TOP을 그리기 시작할 윈도우 위치 
 	
@@ -61,6 +64,8 @@ public:
 
 	HRESULT init();
 	void release();
+	void processEvent();
+	void pushShakeEvent(float power, float shakePerTime, float remainTime);
 
 	Vector2 convertV3ToV2(Vector3 v3);
 

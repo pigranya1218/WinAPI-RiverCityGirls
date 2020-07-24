@@ -154,7 +154,9 @@
     <ClInclude Include="Boss.h" />
     <ClInclude Include="BossStage.h" />
     <ClInclude Include="BoxObject.h" />
+    <ClInclude Include="CameraEvent.h" />
     <ClInclude Include="CameraManager.h" />
+    <ClInclude Include="CameraShakeEvent.h" />
     <ClInclude Include="CheerGirl.h" />
     <ClInclude Include="Collision.h" />
     <ClInclude Include="CommonMacroFunction.h" />
@@ -228,7 +230,9 @@
     <ClCompile Include="Boss.cpp" />
     <ClCompile Include="BossStage.cpp" />
     <ClCompile Include="BoxObject.cpp" />
+    <ClCompile Include="CameraEvent.cpp" />
     <ClCompile Include="CameraManager.cpp" />
+    <ClCompile Include="CameraShakeEvent.cpp" />
     <ClCompile Include="CheerGirl.cpp" />
     <ClCompile Include="Collision.cpp" />
     <ClCompile Include="D2DRenderer+Draw.cpp" />

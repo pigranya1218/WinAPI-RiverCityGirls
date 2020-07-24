@@ -48,7 +48,7 @@ void MiddleStage::init(Image * background, float bgScale)
 	_objectManager->spawnObject(OBJECT_TYPE::PILLAR, Vector3(500, 0, 500), DIRECTION::LEFT);
 
 
-	DOOR_STATE doorStates[3] = {DOOR_STATE::UNLOCK, DOOR_STATE::SHOP, DOOR_STATE::LOCK};
+	DOOR_STATE doorStates[3] = {DOOR_STATE::UNLOCK, DOOR_STATE::SHOP, DOOR_STATE::UNLOCK};
 	Vector3 doorPoses[3] = {Vector3(80, -200, 700),
 							Vector3(1165, -200, 560) ,
 							Vector3(2710, -200, 700) };
@@ -60,10 +60,10 @@ void MiddleStage::init(Image * background, float bgScale)
 		_doorInfos.push_back(door);
 	}
 
-	string destNames[3] = {"START_STAGE", "SHOP", "BOSS_STATE"};
+	string destNames[3] = {"START_STAGE", "SHOP", "BOSS_STAGE"};
 	Vector3 destPoses[3] = {Vector3(1250, -(_player->getSize().y * 0.5), 400),
 							Vector3() ,
-							Vector3(100, -(_player->getSize().y * 0.5), 700) };
+							Vector3(400, -(_player->getSize().y * 0.5), 750) };
 	for(int i = 0 ; i < 3 ; i++)
 	{ 
 		tagDoorDestination doorDest;

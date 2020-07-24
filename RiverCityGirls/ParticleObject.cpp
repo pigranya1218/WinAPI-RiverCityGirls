@@ -37,13 +37,13 @@ void ParticleObject::update()
 	_gravity += 0.08f;
 	_rotateAngle += 3;
 
-	Vector3 moveDir = Vector3(); // [0, 0, 0]
-	// moveDir.x += cosf(_moveAngle.x) * _speed;
-	// moveDir.z += -sinf(_moveAngle.x) * _speed;
+	Vector3 moveDir = Vector3(0, 0, 0); // [0, 0, 0]
+	moveDir.x += cosf(_moveAngle.x) * _speed;
+	moveDir.z += -sinf(_moveAngle.x) * _speed;
 	moveDir.y += -sinf(_moveAngle.y) * _speed + _gravity;
 	
 	_position += moveDir;
-	_position.y = max(-_size.y, _position.y);
+	_position.y = max(-(_size.y / 2), _position.y);
 
 	_remainTime -= TIME_MANAGER->getElapsedTime();
 	if (_remainTime <= 0)
@@ -58,8 +58,8 @@ void ParticleObject::release()
 
 void ParticleObject::render()
 {
-	_img->setScale(0.5);
-	// _img->setAngle(_rotateAngle);
+	_img->setScale(1);
+	_img->setAngle(_rotateAngle);
 
 	CAMERA_MANAGER->renderZ(_img, _position, _size);
 }

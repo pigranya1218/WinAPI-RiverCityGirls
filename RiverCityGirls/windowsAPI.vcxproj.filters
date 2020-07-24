@@ -88,6 +88,9 @@
     <Filter Include="PlayGround\Enemy\Enum">
       <UniqueIdentifier>{d93de7e9-5fd9-4a66-a114-35ee20e11354}</UniqueIdentifier>
     </Filter>
+    <Filter Include="2DGameFramework\Manager\Camera">
+      <UniqueIdentifier>{f5bc6017-1256-4fe4-90e7-1c88bdb4fa5f}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="stdafx.h">
@@ -161,9 +164,6 @@
     </ClInclude>
     <ClInclude Include="Vector3.h">
       <Filter>2DGameFramework\Utils</Filter>
-    </ClInclude>
-    <ClInclude Include="CameraManager.h">
-      <Filter>2DGameFramework\Manager</Filter>
     </ClInclude>
     <ClInclude Include="Effect.h">
       <Filter>2DGameFramework\Effect</Filter>
@@ -312,6 +312,15 @@
     <ClInclude Include="ParticleObject.h">
       <Filter>PlayGround\Object</Filter>
     </ClInclude>
+    <ClInclude Include="CameraManager.h">
+      <Filter>2DGameFramework\Manager\Camera</Filter>
+    </ClInclude>
+    <ClInclude Include="CameraEvent.h">
+      <Filter>2DGameFramework\Manager\Camera</Filter>
+    </ClInclude>
+    <ClInclude Include="CameraShakeEvent.h">
+      <Filter>2DGameFramework\Manager\Camera</Filter>
+    </ClInclude>
     <ClInclude Include="FoodObject.h">
       <Filter>PlayGround\Object</Filter>
     </ClInclude>
@@ -376,9 +385,6 @@
     </ClCompile>
     <ClCompile Include="Vector3.cpp">
       <Filter>2DGameFramework\Utils</Filter>
-    </ClCompile>
-    <ClCompile Include="CameraManager.cpp">
-      <Filter>2DGameFramework\Manager</Filter>
     </ClCompile>
     <ClCompile Include="Effect.cpp">
       <Filter>2DGameFramework\Effect</Filter>
@@ -514,6 +520,15 @@
     </ClCompile>
     <ClCompile Include="ParticleObject.cpp">
       <Filter>PlayGround\Object</Filter>
+    </ClCompile>
+    <ClCompile Include="CameraManager.cpp">
+      <Filter>2DGameFramework\Manager\Camera</Filter>
+    </ClCompile>
+    <ClCompile Include="CameraEvent.cpp">
+      <Filter>2DGameFramework\Manager\Camera</Filter>
+    </ClCompile>
+    <ClCompile Include="CameraShakeEvent.cpp">
+      <Filter>2DGameFramework\Manager\Camera</Filter>
     </ClCompile>
     <ClCompile Include="FoodObject.cpp">
       <Filter>PlayGround\Object</Filter>
