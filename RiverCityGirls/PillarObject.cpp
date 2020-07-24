@@ -73,16 +73,16 @@ void PillarObject::collision(Vector3 * newPoses, GameObject* gameObject)
 
 void PillarObject::hitEffect(GameObject * hitter, FloatRect attackRc, float damage, ATTACK_TYPE type)
 {
-	if (hitter->getTeam() != OBJECT_TEAM::PLAYER) return; // 일단 플레이어가 때린 게 아니라면 패스
+	if (hitter->getTeam() != OBJECT_TEAM::BOSS) return; // 보스가 때린 게 아니라면 패스
 
 	if (_state != OBJECT_STATE::INACTIVE)
 	{
-		_objectManager->makeParticle(PARTICLE_TYPE::PIECE_PILLAR, 20,
+		_objectManager->makeParticle(PARTICLE_TYPE::PIECE_PILLAR, 30,
 			Vector3(_position.x - (_size.x / 2), _position.y, _position.z),
 			Vector3(_position.x + (_size.x / 2), _position.y + (_size.y / 2), _position.z + (_size.z / 2)),
 			Vector2(0, 0),
 			Vector2(PI2, PI),
-			5, 6, 1, 3);
+			5, 6, 3, 5);
 		_state = OBJECT_STATE::INACTIVE;
 
 	}
