@@ -4,7 +4,8 @@ enum class OBJECT_TEAM : int
 {
 	PLAYER,
 	ENEMY,
-	OBJECT
+	OBJECT,
+	BOSS
 };
 
 enum class DIRECTION : int
