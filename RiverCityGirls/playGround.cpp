@@ -67,7 +67,6 @@ HRESULT playGround::init()
 	IMAGE_MANAGER->addImage("OBJECT_FOOD_APPLE",					L"resources/images/object/RCG_Consumables_apple.png");
 	IMAGE_MANAGER->addImage("OBJECT_FOOD_CHILI",					L"resources/images/object/RCG_Consumables_chili.png");
 	IMAGE_MANAGER->addImage("OBJECT_FOOD_CHIKEN",					L"resources/images/object/RCG_Consumables_hen.png");
-
 	// ** SNACKMACHINE
 	IMAGE_MANAGER->addImage("OBJECT_SNACKMACHINE_RIGHT",			L"resources/images/object/cafeteria_snackmachine_right.png");
 	IMAGE_MANAGER->addImage("OBJECT_SNACKMACHINE_RIGHT_BROKEN",		L"resources/images/object/cafeteria_snackmachine_right_broken.png");
