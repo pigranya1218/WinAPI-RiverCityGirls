@@ -430,13 +430,7 @@ void CheerGirl::update()
 	}
 
 	
-	if (_jumpPower < -1 && _currentEnemyY == _lastEnemyY )
-	{
-		_jumpPower = 0;
-		_gravity = 0;
-		aniPlay(ENEMY_STATE::WALK, _direction);
-		_state = ENEMY_STATE::WALK;
-	}	
+
 	
 	_ani->frameUpdate(TIME_MANAGER->getElapsedTime());
 

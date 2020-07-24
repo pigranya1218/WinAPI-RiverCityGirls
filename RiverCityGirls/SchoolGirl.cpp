@@ -250,7 +250,7 @@ void SchoolGirl::update()
 			//플레이어 공격 판정
 			if (_attackS <= _ani->getPlayIndex() && _ani->getPlayIndex() <= _attackE)
 			{
-				/*if (_direction == DIRECTION::RIGHT)
+				if (_direction == DIRECTION::RIGHT)
 				{
 					_attackRc = FloatRect(_position.x + 20, _position.y - 45, 
 						_position.x + 130, _position.y + 10);
@@ -261,7 +261,7 @@ void SchoolGirl::update()
 						_position.x - 20, _position.y + 10);
 				}
 				_viewRc = FloatRect(_attackRc.left, _position.z + _attackRc.top,
-					_attackRc.right, _position.z + _attackRc.bottom);*/
+					_attackRc.right, _position.z + _attackRc.bottom);
 
 			}
 		}
@@ -495,6 +495,8 @@ void SchoolGirl::render()
 	//_enemyImg->FrameRender(Vector2(WINSIZEX / 2, WINSIZEY / 2), 0, 0);
 	CAMERA_MANAGER->aniRenderZ(_enemyImg, _position, _size, _ani);
 
+	
+
 	//test
 	char str[1000];
 	sprintf_s(str, "[스쿨걸] state : %d, _jumppower : %f ,_gravity : %f ", (int)_state,_jumpPower ,_gravity);
@@ -503,7 +505,7 @@ void SchoolGirl::render()
 	TextOut(_hdc, 0, 60, str, strlen(str));
 
 	
-	
+	CAMERA_MANAGER->rectangle(_viewRc, D2D1::ColorF::Enum::Red, 1, 1);
 }
 
 

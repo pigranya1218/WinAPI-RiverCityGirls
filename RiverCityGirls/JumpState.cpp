@@ -80,14 +80,14 @@ PlayerState * JumpState::update(Player & player)
 	{
 		moveDir.x -= player.getSpeed()*2;
 	}
-	if (KEY_MANAGER->isOnceKeyDown(VK_RIGHT))
+	/*if (KEY_MANAGER->isOnceKeyDown(VK_RIGHT))
 	{
 		player.setDirection(DIRECTION::RIGHT);
 	}
 	if (KEY_MANAGER->isOnceKeyDown(VK_LEFT))
 	{
 		player.setDirection(DIRECTION::LEFT);
-	}
+	}*/
 
 	if (KEY_MANAGER->isOnceKeyDown('Z'))
 	{
@@ -155,7 +155,8 @@ PlayerState * JumpState::update(Player & player)
 	{
 		if (KEY_MANAGER->isStayKeyDown(VK_RIGHT) || KEY_MANAGER->isStayKeyDown(VK_LEFT))
 		{
-			return new WalkState;
+			if(_jumpType == JUMP_TYPE::RUN_JUMP)return new RunState;
+			else return new WalkState;
 		}
 		else
 		{

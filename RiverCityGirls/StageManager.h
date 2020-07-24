@@ -28,6 +28,7 @@ public:
 
 	void playerAttack(GameObject* hitter, FloatRect attackRc, float damage, ATTACK_TYPE type);
 
+
 	Stage* getStage(string keyName) { return _stageMap[keyName]; }
 	void setDoorInfo(vector<tagDoorInfo> doorInfos);
 };
