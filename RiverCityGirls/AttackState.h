@@ -8,7 +8,10 @@ enum class ATTACK_SKILL
 	QC3,
 	RUN_QC,
 	JUMP_QC,
-	GRAB_QC
+	GRAB_QC,
+	HC,
+	RUN_HC,
+	JUMP_HC
 };
 
 class AttackState : public PlayerState

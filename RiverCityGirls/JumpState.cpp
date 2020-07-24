@@ -20,36 +20,7 @@ PlayerState * JumpState::update(Player & player)
 		moveDir.y -= player.getJumpPower();
 		player.setJumpPower((player.getJumpPower() - player.getGravity()));
 
-		if (player.getDirection() == DIRECTION::RIGHT)
-		{
-			if (player.getJumpPower() > 2)
-			{
-				_ani->setPlayFrame(0, 1, false, false);
-			}
-			if (player.getJumpPower() < -1)
-			{
-				_ani->setPlayFrame(2, 1, false, false);
-			}
-			if (player.getJumpPower() >= -1 && player.getJumpPower() <= 2)
-			{
-				_ani->setPlayFrame(1, 2, false, false);
-			}
-		}
-		if (player.getDirection() == DIRECTION::LEFT)
-		{
-			if (player.getJumpPower() > 2)
-			{
-				_ani->setPlayFrame(3, 4, false, false);
-			}
-			if (player.getJumpPower() < -1)
-			{
-				_ani->setPlayFrame(5, 4, false, false);
-			}
-			if (player.getJumpPower() >= -1 && player.getJumpPower() <= 2)
-			{
-				_ani->setPlayFrame(4, 5, false, false);
-			}
-		}
+		jumpMotion(player);
 
 	if (KEY_MANAGER->isStayKeyDown(VK_RIGHT))
 	{
@@ -76,6 +47,14 @@ PlayerState * JumpState::update(Player & player)
 		jumpAttack->setCurrMoveDirX(moveDir.x);
 		return jumpAttack;
 	}
+	if (KEY_MANAGER->isOnceKeyDown('S'))
+	{
+		AttackState* jumpAttack = new AttackState;
+		jumpAttack->setSkill(ATTACK_SKILL::JUMP_HC);
+		jumpAttack->setCurrJumpPower(player.getJumpPower());
+		jumpAttack->setCurrMoveDirX(moveDir.x/4);
+		return jumpAttack;
+	}
 
 	if (moveDir.x > 0)
 	{
@@ -91,42 +70,13 @@ PlayerState * JumpState::update(Player & player)
 		moveDir.y -= player.getJumpPower();
 		player.setJumpPower((player.getJumpPower() - player.getGravity()));
 
-		if (player.getDirection() == DIRECTION::RIGHT)
-		{
-			if (player.getJumpPower() > 2)
-			{
-				_ani->setPlayFrame(0, 1, false, false);
-			}
-			if (player.getJumpPower() < -1)
-			{
-				_ani->setPlayFrame(2, 1, false, false);
-			}
-			if (player.getJumpPower() >= -1 && player.getJumpPower() <= 2)
-			{
-				_ani->setPlayFrame(1, 2, false, false);
-			}
-		}
-		if (player.getDirection() == DIRECTION::LEFT)
-		{
-			if (player.getJumpPower() > 2)
-			{
-				_ani->setPlayFrame(3, 4, false, false);
-			}
-			if (player.getJumpPower() < -1)
-			{
-				_ani->setPlayFrame(5, 4, false, false);
-			}
-			if (player.getJumpPower() >= -1 && player.getJumpPower() <= 2)
-			{
-				_ani->setPlayFrame(4, 5, false, false);
-			}
-		}
+		jumpMotion(player);
 
-	if (_jumpDirection==0)
+	if (_jumpDirection==0)//점프방향이 오른쪽일때
 	{
 		moveDir.x += player.getSpeed()*2;
 	}
-	if (_jumpDirection==1)
+	if (_jumpDirection==1)//점프방향이 왼쪽일때
 	{
 		moveDir.x -= player.getSpeed()*2;
 	}
@@ -148,7 +98,14 @@ PlayerState * JumpState::update(Player & player)
 		return jumpAttack;
 	}
 
-	
+	if (KEY_MANAGER->isOnceKeyDown('S'))
+	{
+		AttackState* jumpAttack = new AttackState;
+		jumpAttack->setSkill(ATTACK_SKILL::JUMP_HC);
+		jumpAttack->setCurrJumpPower(player.getJumpPower());
+		jumpAttack->setCurrMoveDirX(moveDir.x/4);
+		return jumpAttack;
+	}
 
 		break;
 	case JUMP_TYPE::WALL_JUMP:
@@ -161,36 +118,9 @@ PlayerState * JumpState::update(Player & player)
 
 			_img = IMAGE_MANAGER->findImage("Kyoko_jump");
 			_ani->init(_img->getWidth(), _img->getHeight(), _img->getMaxFrameX(), _img->getMaxFrameY());
-			if (player.getDirection() == DIRECTION::LEFT)
-			{
-				if (player.getJumpPower() > 2)
-				{
-					_ani->setPlayFrame(0, 1, false, false);
-				}
-				if (player.getJumpPower() < -1)
-				{
-					_ani->setPlayFrame(2, 1, false, false);
-				}
-				if (player.getJumpPower() >= -1 && player.getJumpPower() <= 2)
-				{
-					_ani->setPlayFrame(1, 2, false, false);
-				}
-			}
-			if (player.getDirection() == DIRECTION::RIGHT)
-			{
-				if (player.getJumpPower() > 2)
-				{
-					_ani->setPlayFrame(3, 4, false, false);
-				}
-				if (player.getJumpPower() < -1)
-				{
-					_ani->setPlayFrame(5, 4, false, false);
-				}
-				if (player.getJumpPower() >= -1 && player.getJumpPower() <= 2)
-				{
-					_ani->setPlayFrame(4, 5, false, false);
-				}
-			}
+			
+			jumpMotion(player);
+
 			if (player.getDirection() == DIRECTION::LEFT)
 			{
 				_jumpDirection = 0;
@@ -204,10 +134,12 @@ PlayerState * JumpState::update(Player & player)
 			_ani->setFPS(15);
 			_ani->start();
 
-			player.setJumpPower(6);
-			
 
+			
+			player.setJumpPower(16);
+			
 			_jumpType = JUMP_TYPE::RUN_JUMP;
+			
 		}
 		
 
@@ -290,7 +222,41 @@ void JumpState::enter(Player & player)
 
 void JumpState::exit(Player & player)
 {
-	player.setJumpPower(12);
+	player.setJumpPower(23);
 	_ani->release();
 	SAFE_DELETE(_ani);
+}
+
+void JumpState::jumpMotion(Player & player)
+{
+	if (player.getDirection() == DIRECTION::RIGHT)
+	{
+		if (player.getJumpPower() > 2)
+		{
+			_ani->setPlayFrame(0, 1, false, false);
+		}
+		if (player.getJumpPower() < -1)
+		{
+			_ani->setPlayFrame(2, 1, false, false);
+		}
+		if (player.getJumpPower() >= -1 && player.getJumpPower() <= 2)
+		{
+			_ani->setPlayFrame(1, 2, false, false);
+		}
+	}
+	if (player.getDirection() == DIRECTION::LEFT)
+	{
+		if (player.getJumpPower() > 2)
+		{
+			_ani->setPlayFrame(3, 4, false, false);
+		}
+		if (player.getJumpPower() < -1)
+		{
+			_ani->setPlayFrame(5, 4, false, false);
+		}
+		if (player.getJumpPower() >= -1 && player.getJumpPower() <= 2)
+		{
+			_ani->setPlayFrame(4, 5, false, false);
+		}
+	}
 }

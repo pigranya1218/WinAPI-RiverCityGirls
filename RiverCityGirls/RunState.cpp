@@ -9,22 +9,27 @@ PlayerState * RunState::update(Player & player)
 	moveDir.y = 0;
 	moveDir.z = 0;
 
+	float lastPlayerY = player.getPosition().y;
+
 	if (KEY_MANAGER->isStayKeyDown(VK_RIGHT))
 	{
-		
+		moveDir.y = 0.01;
 		moveDir.x += player.getSpeed() * 2;
 	}
 	else if (KEY_MANAGER->isStayKeyDown(VK_LEFT))
 	{
+		moveDir.y = 0.01;
 		moveDir.x -= player.getSpeed() * 2;
 	}
 
 	if (KEY_MANAGER->isStayKeyDown(VK_UP))
 	{
+		moveDir.y = 0.01;
 		moveDir.z -= player.getSpeed();
 	}
 	else if (KEY_MANAGER->isStayKeyDown(VK_DOWN))
 	{
+		moveDir.y = 0.01;
 		moveDir.z += player.getSpeed();
 	}
 
@@ -39,6 +44,14 @@ PlayerState * RunState::update(Player & player)
 	{
 		AttackState* attackState = new AttackState;
 		attackState->setSkill(ATTACK_SKILL::RUN_QC);
+		return attackState;
+	}
+
+	if (KEY_MANAGER->isOnceKeyDown('S'))
+	{
+		AttackState* attackState = new AttackState;
+		attackState->setSkill(ATTACK_SKILL::RUN_HC);
+		attackState->setCurrMoveDirX(moveDir.x);
 		return attackState;
 	}
 
@@ -57,6 +70,18 @@ PlayerState * RunState::update(Player & player)
 	moveDir = Vector3::normalize(&moveDir);
 	moveDir = moveDir * player.getSpeed()*2;
 	player.move(moveDir);
+
+	float currentPlayerY = player.getPosition().y;
+
+	if (_startY != lastPlayerY && moveDir.y != 0)
+	{
+
+		JumpState* jumpState = new JumpState;
+		jumpState->setJumpType(JUMP_TYPE::DEFAULT_JUMP);
+		player.setJumpPower(0);
+		return jumpState;
+	}
+
 
 	_ani->frameUpdate(TIME_MANAGER->getElapsedTime());
 
@@ -86,6 +111,8 @@ void RunState::enter(Player & player)
 		_ani->setPlayFrame(16, 32, false, true); // 16 ~ 31
 	}
 	_ani->start();
+	_startY = player.getPosition().y;
+
 }
 
 void RunState::exit(Player & player)

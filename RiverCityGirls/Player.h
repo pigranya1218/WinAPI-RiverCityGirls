@@ -22,6 +22,11 @@ private:
     Synthesize(int, _hp, Hp)
     Synthesize(int, _maxHp, MaxHp)
 	Synthesize(bool, _onObject, OnObject)
+	Synthesize(float, _gravity,Gravity)
+	Synthesize(int,_exp,Exp)
+	Synthesize(int, _money,Money)
+	
+		
 	PlayerState* _state;
 
 public:
