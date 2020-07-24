@@ -18,16 +18,16 @@ HRESULT EnemyManager::init()
 	//_schoolGirl->init();
 	//_schoolGirl->setEnemyManager(this);
 	//_enemies.push_back(_schoolGirl);
-	//
-	//_cheerGirl = new CheerGirl;
-	//_cheerGirl->init();
-	//_cheerGirl->setEnemyManager(this);
-	//_enemies.push_back(_cheerGirl);
-	//
-	//_boss = new Boss;
-	//_boss->init();
-	//_boss->setEnemyManager(this);
-	//_enemies.push_back(_boss);
+
+	_cheerGirl = new CheerGirl;
+	_cheerGirl->init();
+	_cheerGirl->setEnemyManager(this);
+	_enemies.push_back(_cheerGirl);
+
+	_boss = new Boss;
+	_boss->init();
+	_boss->setEnemyManager(this);
+	_enemies.push_back(_boss);
 
 	return S_OK;
 }
@@ -52,7 +52,7 @@ void EnemyManager::update()
 
 void EnemyManager::render()
 {
-
+	
 	for (int i = 0; i < _enemies.size() ; i++)
 	{
 		_enemies[i]->render();
