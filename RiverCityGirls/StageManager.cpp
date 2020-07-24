@@ -42,18 +42,23 @@ void StageManager::release()
  
 void StageManager::update()
 {
-	if (_stageBuffer != nullptr)
+	if (!_dgManager->getIsPlay())
 	{
-		_currStage = _stageBuffer;
-		_currStage->enter();
-	}
+		if (_stageBuffer != nullptr)
+		{
+			_currStage = _stageBuffer;
+			_currStage->enter();
+		}
 
-	_stageBuffer = _currStage->update();
+		_stageBuffer = _currStage->update();
+		_player->update();
+	}
 }
 
 void StageManager::render()
 {
 	_currStage->render();
+	_player->render();
 }
 
 void StageManager::playerAttack(GameObject* hitter, FloatRect attackRc, float damage, ATTACK_TYPE type)
@@ -67,4 +72,9 @@ void StageManager::playerAttack(GameObject* hitter, FloatRect attackRc, float da
 void StageManager::setDoorInfo(vector<tagDoorInfo> doorInfos)
 {
 	_uiManager->setDoor(doorInfos);
+}
+
+void StageManager::startDialogue(BossChapter keyname)
+{
+	_dgManager->startChapter(keyname);
 }

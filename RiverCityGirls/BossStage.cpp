@@ -34,7 +34,6 @@ void BossStage::init(Image * background, float bgScale)
 
 	//Object ¹èÄ¡
 
-
 	DOOR_STATE doorStates[2] = { DOOR_STATE::UNLOCK, DOOR_STATE::LOCK};
 	Vector3 doorPoses[2] = { Vector3(280, -200, 820),
 							Vector3(1390, -200, 490)};
@@ -62,6 +61,7 @@ void BossStage::init(Image * background, float bgScale)
 void BossStage::enter()
 {
 	Stage::enter();
+	_stageManager->startDialogue(BossChapter::BATTLE_BEFORE);
 }
 
 void BossStage::exit()

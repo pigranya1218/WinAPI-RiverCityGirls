@@ -1,5 +1,6 @@
 #include "stdafx.h"
 #include "CameraManager.h"
+#include "CameraShakeEvent.h"
 
 CameraManager::CameraManager()
 {
@@ -117,6 +118,24 @@ HRESULT CameraManager::init()
 
 void CameraManager::release()
 {
+}
+
+void CameraManager::processEvent()
+{
+	if (_eventQueue.empty()) return;
+
+	_eventQueue.front()->processEvent();
+	if (_eventQueue.front()->getRemainTime() <= 0)
+	{
+		delete _eventQueue.front();
+		_eventQueue.pop();
+	}
+}
+
+void CameraManager::pushShakeEvent(float power, float shakePerTime, float remainTime)
+{
+	CameraShakeEvent* event = new CameraShakeEvent(power, shakePerTime, remainTime);
+	_eventQueue.push(event);
 }
 
 void CameraManager::setConfig(float offsetL, float offsetT, float width, float height, float minL, float minT, float maxL, float maxT)

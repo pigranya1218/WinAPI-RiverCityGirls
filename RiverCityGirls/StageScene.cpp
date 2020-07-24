@@ -12,17 +12,18 @@ HRESULT StageScene::init()
 	_dgManager = new DialogueManager;
 
 	_stageManager->setUIManager(_uiManager);
+	_stageManager->setDialogueManager(_dgManager);
 	_stageManager->setPlayer(_player);
 	_player->setStageManager(_stageManager);
 
 	_player->init();
 	_stageManager->init();
-	_dgManager->init(0.8f);
+	_dgManager->init(1);
 	_uiManager->init(_player);
 
 	// UI 테스트입니다
 	_uiManager->setPlayerHpActive(true);	
-	_uiManager->setBossHpActive(true);
+	// _uiManager->setBossHpActive(true);
 	//_uiManager->setShopUI(true);
 	
 	// 다이얼로그 테스티입니다.
@@ -40,7 +41,8 @@ void StageScene::release()
 void StageScene::update()
 {
 	_stageManager->update();
-	_player->update();
+	CAMERA_MANAGER->processEvent();
+	// _player->update();
 	_uiManager->update();
 
 	//
@@ -63,7 +65,7 @@ void StageScene::update()
 void StageScene::render()
 {
 	_stageManager->render();
-	_player->render();
+	// _player->render();
 
 	CAMERA_MANAGER->renderZList();
 
