@@ -4,6 +4,7 @@
 
 ParticleObject::ParticleObject(PARTICLE_TYPE type, Vector3 pos, Vector2 angle, float speed, float time)
 {
+	_type = type;
 	char buffer[50];
 	switch (_type)
 	{
@@ -58,7 +59,7 @@ void ParticleObject::release()
 
 void ParticleObject::render()
 {
-	_img->setScale(1);
+	_img->setScale(2);
 	_img->setAngle(_rotateAngle);
 
 	CAMERA_MANAGER->renderZ(_img, _position, _size);

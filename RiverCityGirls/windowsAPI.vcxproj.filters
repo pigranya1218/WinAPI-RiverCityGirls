@@ -312,6 +312,18 @@
     <ClInclude Include="ParticleObject.h">
       <Filter>PlayGround\Object</Filter>
     </ClInclude>
+    <ClInclude Include="CameraEvent.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="CameraManager.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="CameraShakeEvent.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="FoodObject.h">
+      <Filter>PlayGround\Object</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="windowsAPI.cpp">
@@ -507,6 +519,18 @@
       <Filter>PlayGround\Object</Filter>
     </ClCompile>
     <ClCompile Include="ParticleObject.cpp">
+      <Filter>PlayGround\Object</Filter>
+    </ClCompile>
+    <ClCompile Include="CameraEvent.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="CameraManager.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="CameraShakeEvent.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="FoodObject.cpp">
       <Filter>PlayGround\Object</Filter>
     </ClCompile>
   </ItemGroup>

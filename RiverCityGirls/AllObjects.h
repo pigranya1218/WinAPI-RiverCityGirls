@@ -13,3 +13,4 @@
 #include "TeacherTableObject.h"
 #include "SnackMachineObject.h"
 #include "ParticleObject.h"
+#include "FoodObject.h"
