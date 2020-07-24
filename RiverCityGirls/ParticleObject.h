@@ -8,6 +8,7 @@ private:
 	float _rotateAngle;			// 회전각도
 	float _gravity;					// 중력
 	float _remainTime;				// 보이는 시간
+	bool _isLand; // 착지하였음
 	PARTICLE_TYPE _type;			// 생성할 타입
 
 public:
