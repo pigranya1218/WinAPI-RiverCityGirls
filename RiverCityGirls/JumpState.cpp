@@ -144,7 +144,7 @@ PlayerState * JumpState::update(Player & player)
 
 	float currentPlayerY = player.getPosition().y;
 
-	if (player.getJumpPower() < -1 && currentPlayerY == lastPlayerY&&moveDir.y!=0 &&_jumpType != JUMP_TYPE::WALL_JUMP)
+	if (player.getJumpPower() < -1 && currentPlayerY == lastPlayerY && moveDir.y!=0 &&_jumpType != JUMP_TYPE::WALL_JUMP)
 	{
 		if (KEY_MANAGER->isStayKeyDown(VK_RIGHT) || KEY_MANAGER->isStayKeyDown(VK_LEFT))
 		{

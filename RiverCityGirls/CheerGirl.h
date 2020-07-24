@@ -21,5 +21,6 @@ public:
 	virtual void hitEffect(GameObject* hitter, FloatRect attackRc, float damage, ATTACK_TYPE type);
 
 	void setState(ENEMY_STATE state, DIRECTION direction);
+	void setDirectionToPlayer();
 };
 
