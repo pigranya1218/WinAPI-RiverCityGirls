@@ -80,14 +80,14 @@ PlayerState * JumpState::update(Player & player)
 	{
 		moveDir.x -= player.getSpeed()*2;
 	}
-	/*if (KEY_MANAGER->isOnceKeyDown(VK_RIGHT))
+	if (KEY_MANAGER->isOnceKeyDown(VK_RIGHT))
 	{
 		player.setDirection(DIRECTION::RIGHT);
 	}
 	if (KEY_MANAGER->isOnceKeyDown(VK_LEFT))
 	{
 		player.setDirection(DIRECTION::LEFT);
-	}*/
+	}
 
 	if (KEY_MANAGER->isOnceKeyDown('Z'))
 	{
@@ -109,9 +109,6 @@ PlayerState * JumpState::update(Player & player)
 
 		break;
 	case JUMP_TYPE::WALL_JUMP:
-
-		
-
 		if (!_ani->isPlay())
 		{
 			_ani->release();
@@ -133,15 +130,11 @@ PlayerState * JumpState::update(Player & player)
 			}
 			_ani->setFPS(15);
 			_ani->start();
-
-
 			
 			player.setJumpPower(16);
 			
 			_jumpType = JUMP_TYPE::RUN_JUMP;
-			
 		}
-		
 
 		break;
 	}
@@ -167,7 +160,8 @@ PlayerState * JumpState::update(Player & player)
 
 	float currentPlayerX = player.getPosition().x;
 
-	if (currentPlayerX == lastPlayerX&& moveDir.x != 0 && KEY_MANAGER->isOnceKeyDown('X'))
+	if (currentPlayerX == lastPlayerX &&  KEY_MANAGER->isOnceKeyDown('X') &&
+		((moveDir.x < 0 && player.getDirection() == DIRECTION::LEFT) || (moveDir.x > 0 && player.getDirection() == DIRECTION::RIGHT)))
 	{
 		if (_jumpType != JUMP_TYPE::WALL_JUMP)
 		{
