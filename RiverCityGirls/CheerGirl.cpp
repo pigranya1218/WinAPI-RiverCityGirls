@@ -87,7 +87,7 @@ void CheerGirl::update()
 			{
 				if (_state != ENEMY_STATE::HIT && _state != ENEMY_STATE::KNOCKDOWN)
 				{
-					if (_hitType == ATTACK_TYPE::HIT)
+					if (_hitType == ATTACK_TYPE::HIT1 || _hitType == ATTACK_TYPE::HIT2)
 					{
 						aniPlay(ENEMY_STATE::HIT, _direction);
 						_state = ENEMY_STATE::HIT;
@@ -363,7 +363,7 @@ void CheerGirl::update()
 			}
 			if (_state != ENEMY_STATE::HIT && _state != ENEMY_STATE::KNOCKDOWN)
 			{
-				if (_hitType == ATTACK_TYPE::HIT)
+				if (_hitType == ATTACK_TYPE::HIT1 || _hitType == ATTACK_TYPE::HIT2)
 				{
 					aniPlay(ENEMY_STATE::HIT, _direction);
 					_state = ENEMY_STATE::HIT;
@@ -381,8 +381,10 @@ void CheerGirl::update()
 		if (_elapsedTime > 4.0f)
 		{
 			_elapsedTime = 0;
+			_isGetHit = false;
 			aniPlay(ENEMY_STATE::WALK, _direction);
 			_state = ENEMY_STATE::WALK;
+
 		}
 		break;
 		/*
@@ -403,7 +405,8 @@ void CheerGirl::update()
 		if (_state == ENEMY_STATE::HIT)
 		{
 			loop = false;
-			_ani->setPlayFrame(0, 3, false, loop);
+			if (_hitType == ATTACK_TYPE::HIT1) _ani->setPlayFrame(9, 12, false, loop);
+			else if (_hitType == ATTACK_TYPE::HIT2) _ani->setPlayFrame(12, 15, false, loop);
 		}
 		else if (_state == ENEMY_STATE::KNOCKDOWN)
 		{
@@ -419,6 +422,8 @@ void CheerGirl::update()
 		if (_state == ENEMY_STATE::HIT)
 		{
 			loop = false;
+			if (_hitType == ATTACK_TYPE::HIT1) _ani->setPlayFrame(0, 3, false, loop);
+			else if (_hitType == ATTACK_TYPE::HIT2) _ani->setPlayFrame(3, 6, false, loop);
 		}
 		else if (_state == ENEMY_STATE::KNOCKDOWN)
 		{
@@ -430,13 +435,13 @@ void CheerGirl::update()
 	}
 
 	
-	if (_jumpPower < -1 && _currentEnemyY == _lastEnemyY )
+	/*if (_jumpPower < -1 && _currentEnemyY == _lastEnemyY )
 	{
 		_jumpPower = 0;
 		_gravity = 0;
 		aniPlay(ENEMY_STATE::WALK, _direction);
 		_state = ENEMY_STATE::WALK;
-	}	
+	}	*/
 	
 	_ani->frameUpdate(TIME_MANAGER->getElapsedTime());
 

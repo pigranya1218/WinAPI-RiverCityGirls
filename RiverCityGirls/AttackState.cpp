@@ -152,7 +152,7 @@ PlayerState * AttackState::update(Player & player)
 				
 				viewRc = FloatRect(attackRc.left, position.z + attackRc.top,
 					attackRc.right, position.z + attackRc.bottom);
-				player.attack(attackRc, 10, ATTACK_TYPE::HIT);
+				player.attack(attackRc, 10, ATTACK_TYPE::HIT1);
 			}
 			
 			if (_initTime>=0.2 &&KEY_MANAGER->isOnceKeyDown('Z'))
@@ -204,7 +204,7 @@ PlayerState * AttackState::update(Player & player)
 
 					viewRc = FloatRect(attackRc.left, position.z + attackRc.top,
 						attackRc.right, position.z + attackRc.bottom);
-					player.attack(attackRc, 10, ATTACK_TYPE::HIT);
+					player.attack(attackRc, 10, ATTACK_TYPE::HIT2);
 				}
 
 				_initTime += TIME_MANAGER->getElapsedTime();
@@ -299,7 +299,7 @@ PlayerState * AttackState::update(Player & player)
 
 						viewRc = FloatRect(attackRc.left, position.z + attackRc.top,
 							attackRc.right, position.z + attackRc.bottom);
-						player.attack(attackRc, 10, ATTACK_TYPE::HIT);
+						player.attack(attackRc, 10, ATTACK_TYPE::HIT2);
 					}
 
 					if (_initTime >= 0.2 &&KEY_MANAGER->isOnceKeyDown('Z'))

@@ -93,15 +93,17 @@ void SchoolBoy::update()
 			//피격 처리
 			if (_isGetHit)
 			{
-				if (_state != ENEMY_STATE::HIT && _state != ENEMY_STATE::KNOCKDOWN)
-				{
-					if (_hitType == ATTACK_TYPE::HIT)
+				//if (_state != ENEMY_STATE::HIT && _state != ENEMY_STATE::KNOCKDOWN)
+				//{
+					if (_hitType == ATTACK_TYPE::HIT1 || _hitType == ATTACK_TYPE::HIT2)
 					{
+						_isGetHit = false;
 						aniPlay(ENEMY_STATE::HIT, _direction);
 						_state = ENEMY_STATE::HIT;
 					}
 					else if(_hitType == ATTACK_TYPE::KNOCKDOWN)
 					{
+						_isGetHit = false;
 						_elapsedTime = 0;
 						_jumpPower = 8.f;
 						_gravity = 0.3f;
@@ -110,10 +112,11 @@ void SchoolBoy::update()
 					}
 					else
 					{
+						_isGetHit = false;
 						aniPlay(ENEMY_STATE::STUN, _direction);
 						_state = ENEMY_STATE::STUN;
 					}
-				}
+				//}
 			}
 		}
 	}
@@ -355,40 +358,50 @@ void SchoolBoy::update()
 	case ENEMY_STATE::STUN:
 	{
 		_elapsedTime += TIME_MANAGER->getElapsedTime();
-		//피격 처리
 		if (_isGetHit)
-		{
-			if (playerPos.x <= _position.x - 10)
-			{
-				_direction = DIRECTION::LEFT;
-			}
-			else if (playerPos.x >= _position.x + 10)
-			{
-				_direction = DIRECTION::RIGHT;
-			}
-			if (_state != ENEMY_STATE::HIT && _state != ENEMY_STATE::KNOCKDOWN)
-			{
-				if (_hitType == ATTACK_TYPE::HIT)
+        {
+            if (_hitType == ATTACK_TYPE::HIT1 || _hitType == ATTACK_TYPE::HIT2)
+            {
+				if (playerPos.x <= _position.x - 50)
 				{
-					aniPlay(ENEMY_STATE::HIT, _direction);
-					_state = ENEMY_STATE::HIT;
+					_direction = DIRECTION::LEFT;
 				}
-				else
+				else if (playerPos.x >= _position.x + 50)
 				{
-					_elapsedTime = 0;
-					aniPlay(ENEMY_STATE::KNOCKDOWN, _direction);
-					_state = ENEMY_STATE::KNOCKDOWN;
-					_jumpPower = 8.f;
-					_gravity = 0.3f;
+					_direction = DIRECTION::RIGHT;
 				}
-			}
-		}
-		if (_elapsedTime > 4.f)
-		{
-			_elapsedTime = 0;
-			aniPlay(ENEMY_STATE::WALK, _direction);
-			_state = ENEMY_STATE::WALK;
-		}
+				_isGetHit = false;
+				aniPlay(ENEMY_STATE::HIT, _direction);
+                _state = ENEMY_STATE::HIT;
+                
+            }
+            else if (_hitType == ATTACK_TYPE::KNOCKDOWN)
+            {
+                _elapsedTime = 0;
+				_isGetHit = false;
+                aniPlay(ENEMY_STATE::KNOCKDOWN, _direction);
+                _state = ENEMY_STATE::KNOCKDOWN;
+                _jumpPower = 9.0f;
+                _gravity = 0.3;
+                _lastEnemyX = _position.x;
+                _lastEnemyY = _position.y;
+                if (playerPos.x <= _position.x - 50)
+                {
+                    _direction = DIRECTION::LEFT;
+                }
+                else if (playerPos.x >= _position.x + 50)
+                {
+                    _direction = DIRECTION::RIGHT;
+                }
+            }
+        }
+        if (_elapsedTime > 4.0f)
+        {
+            _elapsedTime = 0;
+			_isGetHit = false;
+            aniPlay(ENEMY_STATE::WALK, _direction);
+            _state = ENEMY_STATE::WALK;
+        }
 	}
 	break;
 		/*
@@ -409,7 +422,8 @@ void SchoolBoy::update()
 		if (_state == ENEMY_STATE::HIT)
 		{
 			loop = false;
-			_ani->setPlayFrame(9, 11, false, loop);
+			if(_hitType == ATTACK_TYPE::HIT1) _ani->setPlayFrame(9, 12, false, loop);
+			else if (_hitType == ATTACK_TYPE::HIT2) _ani->setPlayFrame(12, 15, false, loop);
 		}
 		else if (_state == ENEMY_STATE::ATTACK)
 		{
@@ -443,7 +457,8 @@ void SchoolBoy::update()
 		if (_state == ENEMY_STATE::HIT)
 		{
 			loop = false;
-			_ani->setPlayFrame(0, 2, false, loop);
+			if (_hitType == ATTACK_TYPE::HIT1) _ani->setPlayFrame(0, 3, false, loop);
+			else if (_hitType == ATTACK_TYPE::HIT2) _ani->setPlayFrame(3, 6, false, loop);
 		}
 		else if (_state == ENEMY_STATE::ATTACK)
 		{
@@ -498,7 +513,7 @@ void SchoolBoy::render()
 	sprintf_s(str, "[스쿨보이] state : %d, jumpPower : %d, gravity : %d, playerDistance : %f", (int)_state, _jumpPower, _gravity, _playerDistance);
 	TextOut(_hdc, 0, 0, str, strlen(str));
 
-	sprintf_s(str, "[스쿨보이] attackCount : %d, elapsedTime : %f", _attackCount, _elapsedTime);
+	sprintf_s(str, "[스쿨보이] attackCount : %d, elapsedTime : %f, isGetHit : %d", _attackCount, _elapsedTime, (int) _isGetHit);
 	TextOut(_hdc, 0, 20, str, strlen(str));
 	
 	
