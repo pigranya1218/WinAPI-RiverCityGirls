@@ -312,6 +312,9 @@
     <ClInclude Include="ParticleObject.h">
       <Filter>PlayGround\Object</Filter>
     </ClInclude>
+    <ClInclude Include="FoodObject.h">
+      <Filter>PlayGround\Object</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="windowsAPI.cpp">
@@ -510,6 +513,9 @@
       <Filter>PlayGround\Object</Filter>
     </ClCompile>
     <ClCompile Include="ParticleObject.cpp">
+      <Filter>PlayGround\Object</Filter>
+    </ClCompile>
+    <ClCompile Include="FoodObject.cpp">
       <Filter>PlayGround\Object</Filter>
     </ClCompile>
   </ItemGroup>
