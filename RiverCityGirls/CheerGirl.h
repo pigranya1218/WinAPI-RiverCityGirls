@@ -8,8 +8,6 @@ class CheerGirl :public Enemy
 
 private:
 	int _attackS, _attackE;
-	
-
 
 public:
 	CheerGirl() {};
@@ -22,6 +20,6 @@ public:
 
 	virtual void hitEffect(GameObject* hitter, FloatRect attackRc, float damage, ATTACK_TYPE type);
 
-	void aniPlay(ENEMY_STATE state, DIRECTION direction);
+	void setState(ENEMY_STATE state, DIRECTION direction);
 };
 
