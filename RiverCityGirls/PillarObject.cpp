@@ -32,6 +32,11 @@ void PillarObject::render()
 	CAMERA_MANAGER->renderZ(_img, _position, _size);
 }
 
-void PillarObject::collision(Vector3 ** pos)
+void PillarObject::collision(Vector3 * newPoses, GameObject * gameObject)
 {
 }
+
+void PillarObject::hitEffect(GameObject * hitter, FloatRect attackRc, float damage, ATTACK_TYPE type)
+{
+}
+

@@ -45,7 +45,10 @@ void MiddleStage::init(Image * background, float bgScale)
 
 	//Object ¹èÄ¡
 	_objectManager->spawnObject(OBJECT_TYPE::SNACKMACHINE, Vector3(1813, 0, 470), DIRECTION::LEFT);
-	_objectManager->spawnObject(OBJECT_TYPE::PILLAR, Vector3(500, 0, 500), DIRECTION::LEFT);
+	_objectManager->spawnObject(OBJECT_TYPE::TABLE01, Vector3(700, 0, 750), DIRECTION::LEFT);
+	_objectManager->spawnObject(OBJECT_TYPE::TABLE03, Vector3(1200, 0, 750), DIRECTION::LEFT);
+	_objectManager->spawnObject(OBJECT_TYPE::TABLE07, Vector3(1700, 0, 750), DIRECTION::LEFT);
+	_objectManager->spawnObject(OBJECT_TYPE::TABLE08, Vector3(2200, 0, 750), DIRECTION::LEFT);
 
 
 	DOOR_STATE doorStates[3] = {DOOR_STATE::UNLOCK, DOOR_STATE::SHOP, DOOR_STATE::UNLOCK};

@@ -5,7 +5,7 @@ SchoolStudent::SchoolStudent(Vector3 position, DIRECTION direction, int imageTyp
 {
 	_imageType = imageType;
 	_direction = direction;
-	_size = Vector3(100, 330, 30);
+	_size = Vector3(100, 230, 30);
 	_position = Vector3(position.x, -(_size.y / 2), position.z);
 
 	_ani = new Animation;
@@ -71,7 +71,7 @@ SchoolStudent::SchoolStudent(Vector3 position, DIRECTION direction, int imageTyp
 	{
 		_ani->setPlayFrame(4, 8, 0, 1);
 	}
-	_ani->setFPS(2);
+	_ani->setFPS(5);
 	_ani->start();
 }
 
@@ -168,7 +168,9 @@ void SchoolStudent::render()
 {
 	Object::render();
 	//_img->setSize(Vector2(100, 100));
-	CAMERA_MANAGER->aniRenderZ(_img, _position, _size, _ani);
+	Vector3 renderPos = _position;
+	renderPos.y -= 50;
+	CAMERA_MANAGER->aniRenderZ(_img, renderPos, _size, _ani);
 }
 
 void SchoolStudent::collision(Vector3 ** pos)
@@ -222,9 +224,9 @@ void SchoolStudent::hitEffect(GameObject * hitter, FloatRect attackRc, float dam
 		}
 		if (_direction == DIRECTION::RIGHT)
 		{
-			_ani->setPlayFrame(3, 6, false, false);
+			_ani->setPlayFrame(4, 6, false, false);
 		}
-		_ani->setFPS(6);
+		_ani->setFPS(5);
 		_ani->start();
 	}
 }

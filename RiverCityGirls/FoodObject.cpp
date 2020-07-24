@@ -44,7 +44,7 @@ void FoodObject::render()
 {
 	_img->setScale(3);
 	
-	if (_remainTime <= 6.0f && _remainTime >= 2.0f)
+	if (_remainTime <= 4.0f && _remainTime >= 1.5f)
 	{
 		if (fmod(_remainTime, 0.2f) < 0.1f)
 		{
@@ -55,7 +55,7 @@ void FoodObject::render()
 			_img->setAlpha(0);
 		}
 	}
-	else if (_remainTime < 2.0f)
+	else if (_remainTime < 1.5f)
 	{
 		if (fmod(_remainTime, 0.1f) < 0.05f)
 		{

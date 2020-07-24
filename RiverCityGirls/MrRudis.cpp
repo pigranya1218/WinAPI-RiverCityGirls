@@ -4,7 +4,7 @@
 MrRudis::MrRudis(Vector3 position, DIRECTION direction)
 {
 	_direction = direction;
-	_size = Vector3(100, 330, 30);
+	_size = Vector3(100, 230, 30);
 	_position = Vector3(position.x, -(_size.y / 2), position.z);
 
 	_ani = new Animation;
@@ -65,7 +65,9 @@ void MrRudis::release()
 void MrRudis::render()
 {
 	Object::render();
-	CAMERA_MANAGER->aniRenderZ(_img, _position, _size, _ani);
+	Vector3 renderPos = _position;
+	renderPos.y -= 50;
+	CAMERA_MANAGER->aniRenderZ(_img, renderPos, _size, _ani);
 }
 
 void MrRudis::collision(Vector3 ** pos)
