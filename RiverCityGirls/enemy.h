@@ -42,6 +42,7 @@ protected:
 	float _playerDistance;	//플레이어와의 거리
 	
 	int _hp;				//체력
+	float _damage;			//데미지
 
 	float _jumpPower;       //점프파워
 	float _gravity;         //중력값
@@ -69,5 +70,6 @@ public:
 	void setEnemyManager(EnemyManager* enemyManager) { _enemyManager = enemyManager; }
 	void getHit(GameObject* hitter, FloatRect attackRc, float damage, ATTACK_TYPE type);
 	virtual void hitEffect(GameObject* hitter, FloatRect attackRc, float damage, ATTACK_TYPE type);
+	void attack(FloatRect attackRc, float damage, ATTACK_TYPE type);
 };
 
