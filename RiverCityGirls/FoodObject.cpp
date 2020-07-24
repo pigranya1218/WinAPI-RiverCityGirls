@@ -4,7 +4,8 @@
 FoodObject::FoodObject(Vector3 pos)
 {
 	_position = pos;
-	_size = Vector3(10, 10, 10);
+	_size = Vector3(30, 30, 30);
+	_position.y = -_size.y * 0.5;
 	_remainTime = 10.0f;
 
 	_randomSpawn = RANDOM->getInt(3);
@@ -13,15 +14,19 @@ FoodObject::FoodObject(Vector3 pos)
 	switch (_randomSpawn)
 	{
 		case 0:
-		{ _img = IMAGE_MANAGER->findImage("OBJECT_FOOD_APPLE"); }
+		{ 
+			_img = IMAGE_MANAGER->findImage("OBJECT_FOOD_APPLE"); 
+		}
 		break;
-
 		case 1:
-		{ _img = IMAGE_MANAGER->findImage("OBJECT_FOOD_CHIKEN"); }
+		{ 
+			_img = IMAGE_MANAGER->findImage("OBJECT_FOOD_CHIKEN"); 
+		}
 		break;
-
 		case 2:
-		{ _img = IMAGE_MANAGER->findImage("OBJECT_FOOD_CHILI"); }
+		{ 
+			_img = IMAGE_MANAGER->findImage("OBJECT_FOOD_CHILI"); 
+		}
 		break;
 	}
 }
@@ -42,7 +47,7 @@ void FoodObject::release()
 
 void FoodObject::render()
 {
-	_img->setScale(3);
+	Object::render();
 	
 	if (_remainTime <= 4.0f && _remainTime >= 1.5f)
 	{
@@ -69,27 +74,37 @@ void FoodObject::render()
 	CAMERA_MANAGER->renderZ(_img, _position, _size);
 }
 
-void FoodObject::eatEffect(Player * gameObject)
+void FoodObject::eatEffect(Player * player)
 {
-	_state = OBJECT_STATE::INACTIVE;
-	/*switch (_randomSpawn)
+	
+	switch (_randomSpawn)
 	{
 		case 0:
 		{ 
-			if (gameObject->getHp() > 90)
+			if (player->getHp() < player->getMaxHp())
 			{
-				gameObject->setHp(100);
+				_state = OBJECT_STATE::INACTIVE;
+				player->setHp(min(player->getHp() + 10, player->getMaxHp()));
 			}
-			gameObject->setHp(gameObject->getHp() + 10); 
 		}
 		break;
-
 		case 1:
-		{ gameObject->setHp(gameObject->getHp() + 30); }
+		{ 
+			if (player->getHp() < player->getMaxHp())
+			{
+				_state = OBJECT_STATE::INACTIVE;
+				player->setHp(min(player->getHp() + 30, player->getMaxHp()));
+			}
+		}
 		break;
-
 		case 2:
-		{ gameObject->setHp(gameObject->getHp() + 20); }
+		{ 
+			if (player->getHp() < player->getMaxHp())
+			{
+				_state = OBJECT_STATE::INACTIVE;
+				player->setHp(min(player->getHp() + 20, player->getMaxHp()));
+			}
+		}
 		break;
-	}*/
+	}
 }

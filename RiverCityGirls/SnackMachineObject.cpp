@@ -86,7 +86,7 @@ void SnackMachineObject::hitEffect(GameObject * hitter, FloatRect attackRc, floa
 				Vector2(PI2, PI), 
 				5, 6, 3, 5);
 			CAMERA_MANAGER->pushShakeEvent(-20, 0.06, 0.24);
-			_objectManager->spawnFood(Vector3(_position.x - 30, _position.y, _position.z + 120));
+			_objectManager->spawnFood(Vector3(_position.x, 25.0, _position.z + 60));
 		}
 		if (_direction == DIRECTION::RIGHT)
 		{
@@ -99,7 +99,7 @@ void SnackMachineObject::hitEffect(GameObject * hitter, FloatRect attackRc, floa
 				Vector2(0, 0),
 				Vector2(PI2, PI),
 				5, 6, 3, 5);
-			_objectManager->spawnFood(Vector3(_position.x - 30, _position.y, _position.z + 120));
+			_objectManager->spawnFood(Vector3(_position.x, 25.0, _position.z + 60));
 		}
 	}
 }

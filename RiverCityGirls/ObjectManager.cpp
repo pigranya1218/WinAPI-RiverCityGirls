@@ -219,6 +219,14 @@ void ObjectManager::spawnFood(Vector3 pos)
 	_objects.push_back(food);
 }
 
+void ObjectManager::isEat(Player* player)
+{
+	for (int i = 0; i < _objects.size(); i++)
+	{
+		_objects[i]->isEat(player);
+	}
+}
+
 void ObjectManager::getHit(GameObject* hitter, FloatRect attackRc, float damage, ATTACK_TYPE type)
 {
 	for (int i = 0; i < _objects.size(); i++)

@@ -101,6 +101,7 @@ Stage * BossStage::update()
 	}
 
 	_objectManager->update();
+	_objectManager->isEat(_player);
 	_enemyManager->update();
 
 	CAMERA_MANAGER->setXY(CAMERA_MANAGER->convertV3ToV2(_player->getPosition()));

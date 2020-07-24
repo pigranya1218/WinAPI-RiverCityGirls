@@ -23,7 +23,7 @@ void Object::render()
 	{
 		_img->setAlpha(0.5);
 		
-		/*Vector2 point[4] = {Vector2(_position.x - (_size.x / 2), _position.z - (_size.z / 2)),
+		Vector2 point[4] = {Vector2(_position.x - (_size.x / 2), _position.z - (_size.z / 2)),
 		Vector2(_position.x + (_size.x / 2), _position.z - (_size.z / 2)), 
 		Vector2(_position.x + (_size.x / 2), _position.z + (_size.z / 2)), 
 		Vector2(_position.x - (_size.x / 2), _position.z + (_size.z / 2))};
@@ -31,7 +31,7 @@ void Object::render()
 		for (int i = 0; i < 4; i++)
 		{
 			CAMERA_MANAGER->drawLine(point[i], point[(i + 1) % 4]);
-		}*/
+		}
 		CAMERA_MANAGER->drawLine(Vector2(_position.x, _position.z), Vector2(_position.x, _position.z - _size.y));
 	}
 }
@@ -44,10 +44,10 @@ void Object::reaction()
 {
 }
 
-void Object::isEat(Player * gameObject)
+void Object::isEat(Player * player)
 {
-	Vector3 playerPos = gameObject->getPosition();
-	Vector3 playerSize = gameObject->getSize();
+	Vector3 playerPos = player->getPosition();
+	Vector3 playerSize = player->getSize();
 	float playerMinZ = playerPos.z - (playerSize.z / 2);
 	float playerMaxZ = playerPos.z + (playerSize.z / 2);
 	float objectMinZ = _position.z - (_size.z / 2);
@@ -62,7 +62,7 @@ void Object::isEat(Player * gameObject)
 	FloatRect objectRc = FloatRect(_position.x - (_size.x / 2), _position.y - (_size.y / 2), _position.x + (_size.x / 2), _position.y + (_size.y / 2));
 	if (FloatRect::intersect(playerRc, objectRc))
 	{
-		eatEffect(gameObject);
+		eatEffect(player);
 	}
 }
 
