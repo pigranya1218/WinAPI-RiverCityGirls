@@ -13,6 +13,7 @@ void Stage::init(Image * background, float bgScale)
 	
 	_objectManager = new ObjectManager;
 	_objectManager->init();
+	_objectManager->setStageManager(_stageManager);
 
 	_enemyManager = new EnemyManager;
 	_enemyManager->setStage(this);

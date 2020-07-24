@@ -183,6 +183,8 @@
     <ClInclude Include="MiddleStage.h" />
     <ClInclude Include="Object.h" />
     <ClInclude Include="ObjectManager.h" />
+    <ClInclude Include="ParticleObject.h" />
+    <ClInclude Include="PillarObject.h" />
     <ClInclude Include="Player.h" />
     <ClInclude Include="PlayerState.h" />
     <ClInclude Include="PlayGround.h" />
@@ -194,13 +196,8 @@
     <ClInclude Include="RunState.h" />
     <ClInclude Include="SceneManager.h" />
     <ClInclude Include="SchoolBoy.h" />
-    <ClInclude Include="SchoolBoyA.h" />
-    <ClInclude Include="SchoolBoyB.h" />
-    <ClInclude Include="SchoolBoyE.h" />
+    <ClInclude Include="SchoolStudent.h" />
     <ClInclude Include="SchoolGirl.h" />
-    <ClInclude Include="SchoolGirlA.h" />
-    <ClInclude Include="SchoolGirlB.h" />
-    <ClInclude Include="SchoolGirlE.h" />
     <ClInclude Include="SingletonBase.h" />
     <ClInclude Include="SnackMachineObject.h" />
     <ClInclude Include="SoundManager.h" />
@@ -258,6 +255,8 @@
     <ClCompile Include="MiddleStage.cpp" />
     <ClCompile Include="Object.cpp" />
     <ClCompile Include="ObjectManager.cpp" />
+    <ClCompile Include="ParticleObject.cpp" />
+    <ClCompile Include="PillarObject.cpp" />
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="PlayerState.cpp" />
     <ClCompile Include="PlayGround.cpp" />
@@ -267,13 +266,8 @@
     <ClCompile Include="RunState.cpp" />
     <ClCompile Include="SceneManager.cpp" />
     <ClCompile Include="SchoolBoy.cpp" />
-    <ClCompile Include="SchoolBoyA.cpp" />
-    <ClCompile Include="SchoolBoyB.cpp" />
-    <ClCompile Include="SchoolBoyE.cpp" />
+    <ClCompile Include="SchoolStudent.cpp" />
     <ClCompile Include="SchoolGirl.cpp" />
-    <ClCompile Include="SchoolGirlA.cpp" />
-    <ClCompile Include="SchoolGirlB.cpp" />
-    <ClCompile Include="SchoolGirlE.cpp" />
     <ClCompile Include="SnackMachineObject.cpp" />
     <ClCompile Include="SoundManager.cpp" />
     <ClCompile Include="Stage.cpp" />

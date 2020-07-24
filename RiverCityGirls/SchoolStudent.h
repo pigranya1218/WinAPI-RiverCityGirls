@@ -1,6 +1,6 @@
 #pragma once
 #include "Object.h"
-class SchoolBoyA :
+class SchoolStudent :
 	public Object
 {
 private:
@@ -8,7 +8,7 @@ private:
 	Animation* _reactionAni;
 	int _imageType;
 public:
-	SchoolBoyA(Vector3 position, DIRECTION direction, int imageType);
+	SchoolStudent(Vector3 position, DIRECTION direction, int imageType);
 
 	virtual void update();
 	virtual void release();

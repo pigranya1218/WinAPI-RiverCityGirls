@@ -255,24 +255,6 @@
     <ClInclude Include="MrRudis.h">
       <Filter>PlayGround\Object</Filter>
     </ClInclude>
-    <ClInclude Include="SchoolBoyE.h">
-      <Filter>PlayGround\Object</Filter>
-    </ClInclude>
-    <ClInclude Include="SchoolBoyA.h">
-      <Filter>PlayGround\Object</Filter>
-    </ClInclude>
-    <ClInclude Include="SchoolBoyB.h">
-      <Filter>PlayGround\Object</Filter>
-    </ClInclude>
-    <ClInclude Include="SchoolGirlA.h">
-      <Filter>PlayGround\Object</Filter>
-    </ClInclude>
-    <ClInclude Include="SchoolGirlB.h">
-      <Filter>PlayGround\Object</Filter>
-    </ClInclude>
-    <ClInclude Include="SchoolGirlE.h">
-      <Filter>PlayGround\Object</Filter>
-    </ClInclude>
     <ClInclude Include="WorkingFemaleA.h">
       <Filter>PlayGround\Object</Filter>
     </ClInclude>
@@ -319,6 +301,15 @@
       <Filter>2DGameFramework\Manager</Filter>
     </ClInclude>
     <ClInclude Include="SnackMachineObject.h">
+      <Filter>PlayGround\Object</Filter>
+    </ClInclude>
+    <ClInclude Include="SchoolStudent.h">
+      <Filter>PlayGround\Object</Filter>
+    </ClInclude>
+    <ClInclude Include="PillarObject.h">
+      <Filter>PlayGround\Object</Filter>
+    </ClInclude>
+    <ClInclude Include="ParticleObject.h">
       <Filter>PlayGround\Object</Filter>
     </ClInclude>
   </ItemGroup>
@@ -467,24 +458,6 @@
     <ClCompile Include="MrRudis.cpp">
       <Filter>PlayGround\Object</Filter>
     </ClCompile>
-    <ClCompile Include="SchoolBoyE.cpp">
-      <Filter>PlayGround\Object</Filter>
-    </ClCompile>
-    <ClCompile Include="SchoolBoyA.cpp">
-      <Filter>PlayGround\Object</Filter>
-    </ClCompile>
-    <ClCompile Include="SchoolBoyB.cpp">
-      <Filter>PlayGround\Object</Filter>
-    </ClCompile>
-    <ClCompile Include="SchoolGirlA.cpp">
-      <Filter>PlayGround\Object</Filter>
-    </ClCompile>
-    <ClCompile Include="SchoolGirlB.cpp">
-      <Filter>PlayGround\Object</Filter>
-    </ClCompile>
-    <ClCompile Include="SchoolGirlE.cpp">
-      <Filter>PlayGround\Object</Filter>
-    </ClCompile>
     <ClCompile Include="WorkingFemaleA.cpp">
       <Filter>PlayGround\Object</Filter>
     </ClCompile>
@@ -529,6 +502,15 @@
     </ClCompile>
     <ClCompile Include="DebugManager.cpp">
       <Filter>2DGameFramework\Manager</Filter>
+    </ClCompile>
+    <ClCompile Include="SchoolStudent.cpp">
+      <Filter>PlayGround\Object</Filter>
+    </ClCompile>
+    <ClCompile Include="PillarObject.cpp">
+      <Filter>PlayGround\Object</Filter>
+    </ClCompile>
+    <ClCompile Include="ParticleObject.cpp">
+      <Filter>PlayGround\Object</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

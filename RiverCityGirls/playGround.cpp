@@ -24,89 +24,98 @@ HRESULT playGround::init()
 	
 	// * Object
 	// ** DESK
-	IMAGE_MANAGER->addImage("OBJECT_DESK01", L"resources/images/object/03_Detention_OBJ_Desks_01.png");
-	IMAGE_MANAGER->addImage("OBJECT_DESK02", L"resources/images/object/03_Detention_OBJ_Desks_02.png");
-	IMAGE_MANAGER->addImage("OBJECT_DESK03", L"resources/images/object/03_Detention_OBJ_Desks_03.png");
+	IMAGE_MANAGER->addImage("OBJECT_DESK01",						L"resources/images/object/03_Detention_OBJ_Desks_01.png");
+	IMAGE_MANAGER->addImage("OBJECT_DESK02",						L"resources/images/object/03_Detention_OBJ_Desks_02.png");
+	IMAGE_MANAGER->addImage("OBJECT_DESK03",						L"resources/images/object/03_Detention_OBJ_Desks_03.png");
 	// *** DESK_ENEMY
-	IMAGE_MANAGER->addFrameImage("OBJECT_DESK_boy_idle01", L"resources/images/object/sit_enemy/boy_sit_idle01.png", 4, 1);
-	IMAGE_MANAGER->addImage("OBJECT_DESK_boy_idle02", L"resources/images/object/sit_enemy/boy_sit_idle02.png");
-	IMAGE_MANAGER->addFrameImage("OBJECT_DESK_boy_getUp", L"resources/images/object/sit_enemy/boy_desk_getup.png", 6, 1);
-	IMAGE_MANAGER->addFrameImage("OBJECT_DESK_girl_idle01", L"resources/images/object/sit_enemy/girl_sit_idle01.png", 2, 1);
-	IMAGE_MANAGER->addImage("OBJECT_DESK_girl_idle02", L"resources/images/object/sit_enemy/girl_sit_idle02.png");
-	IMAGE_MANAGER->addFrameImage("OBJECT_DESK_girl_getUp", L"resources/images/object/sit_enemy/girl_desk_getup.png", 5, 1);
+	IMAGE_MANAGER->addFrameImage("OBJECT_DESK_boy_idle01",			L"resources/images/object/sit_enemy/boy_sit_idle01.png", 4, 1);
+	IMAGE_MANAGER->addImage("OBJECT_DESK_boy_idle02",				L"resources/images/object/sit_enemy/boy_sit_idle02.png");
+	IMAGE_MANAGER->addFrameImage("OBJECT_DESK_boy_getUp",			L"resources/images/object/sit_enemy/boy_desk_getup.png", 6, 1);
+	IMAGE_MANAGER->addFrameImage("OBJECT_DESK_girl_idle01",			L"resources/images/object/sit_enemy/girl_sit_idle01.png", 2, 1);
+	IMAGE_MANAGER->addImage("OBJECT_DESK_girl_idle02",				L"resources/images/object/sit_enemy/girl_sit_idle02.png");
+	IMAGE_MANAGER->addFrameImage("OBJECT_DESK_girl_getUp",			L"resources/images/object/sit_enemy/girl_desk_getup.png", 5, 1);
 	// ** BOX
-	IMAGE_MANAGER->addImage("OBJECT_BOX", L"resources/images/object/wood_crate.png");
+	IMAGE_MANAGER->addImage("OBJECT_BOX",							L"resources/images/object/wood_crate.png");
 	// *** BOX_PIECE
-	IMAGE_MANAGER->addImage("OBJECT_BOX_PIECE01", L"resources/images/object/wood_crate_piece0001.png");
-	IMAGE_MANAGER->addImage("OBJECT_BOX_PIECE02", L"resources/images/object/wood_crate_piece0002.png");
-	IMAGE_MANAGER->addImage("OBJECT_BOX_PIECE03", L"resources/images/object/wood_crate_piece0003.png");
-	IMAGE_MANAGER->addImage("OBJECT_BOX_PIECE04", L"resources/images/object/wood_crate_piece0004.png");
-	IMAGE_MANAGER->addImage("OBJECT_BOX_PIECE05", L"resources/images/object/wood_crate_piece0005.png");
-	IMAGE_MANAGER->addImage("OBJECT_BOX_PIECE06", L"resources/images/object/wood_crate_piece0006.png");
-	IMAGE_MANAGER->addImage("OBJECT_BOX_PIECE07", L"resources/images/object/wood_crate_piece0007.png");
-	IMAGE_MANAGER->addImage("OBJECT_BOX_PIECE08", L"resources/images/object/wood_crate_piece0008.png");
-	IMAGE_MANAGER->addImage("OBJECT_BOX_PIECE09", L"resources/images/object/wood_crate_piece0009.png");
-	IMAGE_MANAGER->addImage("OBJECT_BOX_PIECE10", L"resources/images/object/wood_crate_piece0010.png");
+	IMAGE_MANAGER->addImage("OBJECT_BOX_PIECE01",					L"resources/images/object/wood_crate_piece0001.png");
+	IMAGE_MANAGER->addImage("OBJECT_BOX_PIECE02",					L"resources/images/object/wood_crate_piece0002.png");
+	IMAGE_MANAGER->addImage("OBJECT_BOX_PIECE03",					L"resources/images/object/wood_crate_piece0003.png");
+	IMAGE_MANAGER->addImage("OBJECT_BOX_PIECE04",					L"resources/images/object/wood_crate_piece0004.png");
+	IMAGE_MANAGER->addImage("OBJECT_BOX_PIECE05",					L"resources/images/object/wood_crate_piece0005.png");
+	IMAGE_MANAGER->addImage("OBJECT_BOX_PIECE06",					L"resources/images/object/wood_crate_piece0006.png");
+	IMAGE_MANAGER->addImage("OBJECT_BOX_PIECE07",					L"resources/images/object/wood_crate_piece0007.png");
+	IMAGE_MANAGER->addImage("OBJECT_BOX_PIECE08",					L"resources/images/object/wood_crate_piece0008.png");
+	IMAGE_MANAGER->addImage("OBJECT_BOX_PIECE09",					L"resources/images/object/wood_crate_piece0009.png");
+	IMAGE_MANAGER->addImage("OBJECT_BOX_PIECE10",					L"resources/images/object/wood_crate_piece0010.png");
 	// ** TEACHER_TABLE
-	IMAGE_MANAGER->addImage("OBJECT_TEACHER_TABLE", L"resources/images/object/L3_teacher_table.png");
+	IMAGE_MANAGER->addImage("OBJECT_TEACHER_TABLE",					L"resources/images/object/L3_teacher_table.png");
 	// ** TABLE
-	IMAGE_MANAGER->addImage("OBJECT_TABLE01", L"resources/images/object/cafeteria_l3_table_1.png");
-	IMAGE_MANAGER->addImage("OBJECT_TABLE02", L"resources/images/object/cafeteria_l3_table_2.png");
-	IMAGE_MANAGER->addImage("OBJECT_TABLE03", L"resources/images/object/cafeteria_l3_table_3.png");
-	IMAGE_MANAGER->addImage("OBJECT_TABLE04", L"resources/images/object/cafeteria_l3_table_4.png");
-	IMAGE_MANAGER->addImage("OBJECT_TABLE05", L"resources/images/object/cafeteria_table1.png");
-	IMAGE_MANAGER->addImage("OBJECT_TABLE06", L"resources/images/object/cafeteria_table2.png");
-	IMAGE_MANAGER->addImage("OBJECT_TABLE07", L"resources/images/object/cafeteria_table3.png");
-	IMAGE_MANAGER->addImage("OBJECT_TABLE08", L"resources/images/object/cafeteria_table4.png");
+	IMAGE_MANAGER->addImage("OBJECT_TABLE01",						L"resources/images/object/cafeteria_l3_table_1.png");
+	IMAGE_MANAGER->addImage("OBJECT_TABLE02",						L"resources/images/object/cafeteria_l3_table_2.png");
+	IMAGE_MANAGER->addImage("OBJECT_TABLE03",						L"resources/images/object/cafeteria_l3_table_3.png");
+	IMAGE_MANAGER->addImage("OBJECT_TABLE04",						L"resources/images/object/cafeteria_l3_table_4.png");
+	IMAGE_MANAGER->addImage("OBJECT_TABLE05",						L"resources/images/object/cafeteria_table1.png");
+	IMAGE_MANAGER->addImage("OBJECT_TABLE06",						L"resources/images/object/cafeteria_table2.png");
+	IMAGE_MANAGER->addImage("OBJECT_TABLE07",						L"resources/images/object/cafeteria_table3.png");
+	IMAGE_MANAGER->addImage("OBJECT_TABLE08",						L"resources/images/object/cafeteria_table4.png");
 	// ** CHAIR
-	IMAGE_MANAGER->addImage("OBJECT_CHAIR01", L"resources/images/object/05_Detention_Chair_2.png");
-	IMAGE_MANAGER->addImage("OBJECT_CHAIR02", L"resources/images/object/05_Detention_Chair_3.png");
-	IMAGE_MANAGER->addImage("OBJECT_CHAIR03", L"resources/images/object/cafeteria_l3_chair_1.png");
-	IMAGE_MANAGER->addImage("OBJECT_CHAIR04", L"resources/images/object/cafeteria_l3_chair_2.png");
+	IMAGE_MANAGER->addImage("OBJECT_CHAIR01",						L"resources/images/object/05_Detention_Chair_2.png");
+	IMAGE_MANAGER->addImage("OBJECT_CHAIR02",						L"resources/images/object/05_Detention_Chair_3.png");
+	IMAGE_MANAGER->addImage("OBJECT_CHAIR03",						L"resources/images/object/cafeteria_l3_chair_1.png");
+	IMAGE_MANAGER->addImage("OBJECT_CHAIR04",						L"resources/images/object/cafeteria_l3_chair_2.png");
 	// ** SNACKMACHINE
-	IMAGE_MANAGER->addImage("OBJECT_SNACKMACHINE_RIGHT", L"resources/images/object/cafeteria_snackmachine_right.png");
-	IMAGE_MANAGER->addImage("OBJECT_SNACKMACHINE_RIGHT_BROKEN", L"resources/images/object/cafeteria_snackmachine_right_broken.png");
-	IMAGE_MANAGER->addImage("OBJECT_SNACKMACHINE_LEFT", L"resources/images/object/cafeteria_snackmachine_left.png");
-	IMAGE_MANAGER->addImage("OBJECT_SNACKMACHINE_LEFT_BROKEN", L"resources/images/object/cafeteria_snackmachine_left_broken.png");
+	IMAGE_MANAGER->addImage("OBJECT_SNACKMACHINE_RIGHT",			L"resources/images/object/cafeteria_snackmachine_right.png");
+	IMAGE_MANAGER->addImage("OBJECT_SNACKMACHINE_RIGHT_BROKEN",		L"resources/images/object/cafeteria_snackmachine_right_broken.png");
+	IMAGE_MANAGER->addImage("OBJECT_SNACKMACHINE_LEFT",				L"resources/images/object/cafeteria_snackmachine_left.png");
+	IMAGE_MANAGER->addImage("OBJECT_SNACKMACHINE_LEFT_BROKEN",		L"resources/images/object/cafeteria_snackmachine_left_broken.png");
 	// *** SNACKMACHINE_PIECE
-	IMAGE_MANAGER->addImage("OBJECT_SNACKMACHINE_PIECE01", L"resources/images/object/breakMachine_piece01.png");
-	IMAGE_MANAGER->addImage("OBJECT_SNACKMACHINE_PIECE02", L"resources/images/object/breakMachine_piece02.png");
-	IMAGE_MANAGER->addImage("OBJECT_SNACKMACHINE_PIECE03", L"resources/images/object/breakMachine_piece03.png");
-	IMAGE_MANAGER->addImage("OBJECT_SNACKMACHINE_PIECE04", L"resources/images/object/breakMachine_piece04.png");
-
+	IMAGE_MANAGER->addImage("OBJECT_SNACKMACHINE_PIECE01",			L"resources/images/object/breakMachine_piece01.png");
+	IMAGE_MANAGER->addImage("OBJECT_SNACKMACHINE_PIECE02",			L"resources/images/object/breakMachine_piece02.png");
+	IMAGE_MANAGER->addImage("OBJECT_SNACKMACHINE_PIECE03",			L"resources/images/object/breakMachine_piece03.png");
+	IMAGE_MANAGER->addImage("OBJECT_SNACKMACHINE_PIECE04",			L"resources/images/object/breakMachine_piece04.png");
+	// ** PILLAR
+	IMAGE_MANAGER->addImage("OBJECT_PILLAR_RIGHT",					L"resources/images/object/lobby_l3_pillar_3.png");
+	IMAGE_MANAGER->addImage("OBJECT_PILLAR_LEFT",					L"resources/images/object/lobby_l3_pillar_1.png");
+	// *** PILLAR_INVISIBLE
+	IMAGE_MANAGER->addImage("OBJECT_PILLAR_INVISIBLE_RIGHT",		L"resources/images/object/L3_pillar4 #318076.png");
+	IMAGE_MANAGER->addImage("OBJECT_PILLAR_INVISIBLE_LEFT",			L"resources/images/object/L3_pillar4 #317999.png");
+	// *** PILLAR_PIECE
+	IMAGE_MANAGER->addImage("OBJECT_PILLAR_PIECE01",				L"resources/images/object/fx_rock_for_pillar_01.png");
+	IMAGE_MANAGER->addImage("OBJECT_PILLAR_PIECE02",				L"resources/images/object/fx_rock_for_pillar_02.png");
+	IMAGE_MANAGER->addImage("OBJECT_PILLAR_PIECE03",				L"resources/images/object/fx_rock_for_pillar_03.png");
 	// ** MrRudis
-	IMAGE_MANAGER->addFrameImage("OBJECT_MrRudis_idle", L"resources/images/object/objectHuman_update/RCG_MrRudis_idle_update.png", 2, 2);
-	IMAGE_MANAGER->addFrameImage("OBJECT_MrRudis_reaction", L"resources/images/object/objectHuman_update/RCG_MrRudis_reaction_update.png", 5, 2);
+	IMAGE_MANAGER->addFrameImage("OBJECT_MrRudis_idle",				L"resources/images/object/objectHuman_update/RCG_MrRudis_idle_update.png", 2, 2);
+	IMAGE_MANAGER->addFrameImage("OBJECT_MrRudis_reaction",			L"resources/images/object/objectHuman_update/RCG_MrRudis_reaction_update.png", 5, 2);
 	// ** schoolBoyA
-	IMAGE_MANAGER->addFrameImage("OBJECT_schoolBoyA_idle01", L"resources/images/object/objectHuman_update/schoolBoyA_idle.png", 4, 2);
-	IMAGE_MANAGER->addFrameImage("OBJECT_schoolBoyA_idle02", L"resources/images/object/objectHuman_update/schoolBoyA_idle02.png", 4, 2);
-	IMAGE_MANAGER->addFrameImage("OBJECT_schoolBoyA_reaction", L"resources/images/object/objectHuman_update/schoolboyA_react.png", 3, 2);
+	IMAGE_MANAGER->addFrameImage("OBJECT_schoolBoyA_idle01",		L"resources/images/object/objectHuman_update/schoolBoyA_idle.png", 4, 2);
+	IMAGE_MANAGER->addFrameImage("OBJECT_schoolBoyA_idle02",		L"resources/images/object/objectHuman_update/schoolBoyA_idle02.png", 4, 2);
+	IMAGE_MANAGER->addFrameImage("OBJECT_schoolBoyA_reaction",		L"resources/images/object/objectHuman_update/schoolboyA_react.png", 3, 2);
 	// ** schoolBoyB
-	IMAGE_MANAGER->addFrameImage("OBJECT_schoolBoyB_idle01", L"resources/images/object/objectHuman_update/schoolBoyB_idleA.png", 4, 2);
-	IMAGE_MANAGER->addFrameImage("OBJECT_schoolBoyB_idle02", L"resources/images/object/objectHuman_update/schoolBoyB_idleB.png", 4, 2);
-	IMAGE_MANAGER->addFrameImage("OBJECT_schoolBoyB_reaction", L"resources/images/object/objectHuman_update/schoolboyB_react.png", 3, 2);
+	IMAGE_MANAGER->addFrameImage("OBJECT_schoolBoyB_idle01",		L"resources/images/object/objectHuman_update/schoolBoyB_idleA.png", 4, 2);
+	IMAGE_MANAGER->addFrameImage("OBJECT_schoolBoyB_idle02",		L"resources/images/object/objectHuman_update/schoolBoyB_idleB.png", 4, 2);
+	IMAGE_MANAGER->addFrameImage("OBJECT_schoolBoyB_reaction",		L"resources/images/object/objectHuman_update/schoolboyB_react.png", 3, 2);
 	// ** schoolBoyE
-	IMAGE_MANAGER->addFrameImage("OBJECT_schoolBoyE_idle01", L"resources/images/object/objectHuman_update/schoolBoyE_idleA.png", 4, 2);
-	IMAGE_MANAGER->addFrameImage("OBJECT_schoolBoyE_idle02", L"resources/images/object/objectHuman_update/schoolBoyE_idleB.png", 4, 2);
-	IMAGE_MANAGER->addFrameImage("OBJECT_schoolBoyE_reaction", L"resources/images/object/objectHuman_update/schoolboyE_react.png", 3, 2);
+	IMAGE_MANAGER->addFrameImage("OBJECT_schoolBoyE_idle01",		L"resources/images/object/objectHuman_update/schoolBoyE_idleA.png", 4, 2);
+	IMAGE_MANAGER->addFrameImage("OBJECT_schoolBoyE_idle02",		L"resources/images/object/objectHuman_update/schoolBoyE_idleB.png", 4, 2);
+	IMAGE_MANAGER->addFrameImage("OBJECT_schoolBoyE_reaction",		L"resources/images/object/objectHuman_update/schoolboyE_react.png", 3, 2);
 	// ** schoolGirlA
-	IMAGE_MANAGER->addFrameImage("OBJECT_schoolGirlA_idle01", L"resources/images/object/objectHuman_update/schoolgirlA_idleA.png", 4, 2);
-	IMAGE_MANAGER->addFrameImage("OBJECT_schoolGirlA_idle02", L"resources/images/object/objectHuman_update/schoolgirlA_idleB.png", 4, 2);
-	IMAGE_MANAGER->addFrameImage("OBJECT_schoolGirlA_reaction", L"resources/images/object/objectHuman_update/schoolgirlA_react.png", 3, 2);
+	IMAGE_MANAGER->addFrameImage("OBJECT_schoolGirlA_idle01",	 	L"resources/images/object/objectHuman_update/schoolgirlA_idleA.png", 4, 2);
+	IMAGE_MANAGER->addFrameImage("OBJECT_schoolGirlA_idle02",		L"resources/images/object/objectHuman_update/schoolgirlA_idleB.png", 4, 2);
+	IMAGE_MANAGER->addFrameImage("OBJECT_schoolGirlA_reaction",	 	L"resources/images/object/objectHuman_update/schoolgirlA_react.png", 3, 2);
 	// ** schoolGirlB
-	IMAGE_MANAGER->addFrameImage("OBJECT_schoolGirlB_idle01", L"resources/images/object/objectHuman_update/schoolgirlB_idleA.png", 4, 2);
-	IMAGE_MANAGER->addFrameImage("OBJECT_schoolGirlB_idle02", L"resources/images/object/objectHuman_update/schoolgirlB_idleB.png", 4, 2);
-	IMAGE_MANAGER->addFrameImage("OBJECT_schoolGirlB_reaction", L"resources/images/object/objectHuman_update/schoolgirlB_react.png", 3, 2);
+	IMAGE_MANAGER->addFrameImage("OBJECT_schoolGirlB_idle01",		L"resources/images/object/objectHuman_update/schoolgirlB_idleA.png", 4, 2);
+	IMAGE_MANAGER->addFrameImage("OBJECT_schoolGirlB_idle02",	    L"resources/images/object/objectHuman_update/schoolgirlB_idleB.png", 4, 2);
+	IMAGE_MANAGER->addFrameImage("OBJECT_schoolGirlB_reaction",     L"resources/images/object/objectHuman_update/schoolgirlB_react.png", 3, 2);
 	// ** schoolGirlE
-	IMAGE_MANAGER->addFrameImage("OBJECT_schoolGirlE_idle01", L"resources/images/object/objectHuman_update/schoolgirlE_idleA.png", 4, 2);
-	IMAGE_MANAGER->addFrameImage("OBJECT_schoolGirlE_idle02", L"resources/images/object/objectHuman_update/schoolgirlE_idleB.png", 4, 2);
-	IMAGE_MANAGER->addFrameImage("OBJECT_schoolGirlE_reaction", L"resources/images/object/objectHuman_update/schoolgirlE_react.png", 3, 2);
+	IMAGE_MANAGER->addFrameImage("OBJECT_schoolGirlE_idle01",       L"resources/images/object/objectHuman_update/schoolgirlE_idleA.png", 4, 2);
+	IMAGE_MANAGER->addFrameImage("OBJECT_schoolGirlE_idle02",       L"resources/images/object/objectHuman_update/schoolgirlE_idleB.png", 4, 2);
+	IMAGE_MANAGER->addFrameImage("OBJECT_schoolGirlE_reaction",     L"resources/images/object/objectHuman_update/schoolgirlE_react.png", 3, 2);
 	// ** workingFemaleA
-	IMAGE_MANAGER->addFrameImage("OBJECT_workingFemaleA_idle01", L"resources/images/object/objectHuman_update/WorkingFemaleA_idle.png", 4, 2);
-	IMAGE_MANAGER->addFrameImage("OBJECT_workingFemaleA_reaction", L"resources/images/object/objectHuman_update/WorkingFemaleA_react.png", 3, 2);
+	IMAGE_MANAGER->addFrameImage("OBJECT_workingFemaleA_idle01",    L"resources/images/object/objectHuman_update/WorkingFemaleA_idle.png", 4, 2);
+	IMAGE_MANAGER->addFrameImage("OBJECT_workingFemaleA_reaction",	L"resources/images/object/objectHuman_update/WorkingFemaleA_react.png", 3, 2);
 	// ** workingMaleD
-	IMAGE_MANAGER->addFrameImage("OBJECT_workingMaleD_idle01", L"resources/images/object/objectHuman_update/WorkingMaleD_idle.png", 12, 2);
-	IMAGE_MANAGER->addFrameImage("OBJECT_workingMaleD_reaction", L"resources/images/object/objectHuman_update/WorkingMaleD_react.png", 3, 2);
+	IMAGE_MANAGER->addFrameImage("OBJECT_workingMaleD_idle01",		L"resources/images/object/objectHuman_update/WorkingMaleD_idle.png", 12, 2);
+	IMAGE_MANAGER->addFrameImage("OBJECT_workingMaleD_reaction",	L"resources/images/object/objectHuman_update/WorkingMaleD_react.png", 3, 2);
 
 	// * Player
 	IMAGE_MANAGER->addFrameImage("Kyoko_idle", L"resources/images/characters/kyoko/Kyoko_idle.png", 12, 2);

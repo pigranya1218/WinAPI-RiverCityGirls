@@ -1,5 +1,6 @@
 #include "stdafx.h"
 #include "SnackMachineObject.h"
+#include "ObjectManager.h"
 
 SnackMachineObject::SnackMachineObject(Vector3 position, DIRECTION direction)
 {
@@ -38,7 +39,7 @@ SnackMachineObject::SnackMachineObject(Vector3 position, DIRECTION direction)
 	//	_restrictRect = new RestrictMoveRect(Vector2(_position.x + _collisionOffsetX - (_size.x / 2) + (_size.z / 2), _position.z + _collisionOffsetZ - (_size.z / 2)),		// LT
 	//		Vector2(_position.x + _collisionOffsetX + (_size.x / 2) + (_size.z / 2), _position.z + _collisionOffsetZ - (_size.z / 2)),		// RT
 	//		Vector2(_position.x + _collisionOffsetX + (_size.x / 2) + (_size.z * 2), _position.z + _collisionOffsetZ + (_size.z / 2)),		//RB
-	//		Vector2(_position.x + _collisionOffsetX + (_size.x / 2) - (_size.z / 2), _position.z + _collisionOffsetZ + (_size.z / 2)), _size.y);		// LB
+	//		Vector2(_position.x + _collisionOffsetX + (_size.x / 2) - (_size.z), _position.z + _collisionOffsetZ + (_size.z / 2)), _size.y);		// LB
 	//		//Vector2(_position.x + _collisionOffsetX - (_size.x / 2) - (_size.z / 2), _position.z + _collisionOffsetZ + (_size.z / 2)), _size.y);		// 
 	//}
 }
@@ -73,10 +74,16 @@ void SnackMachineObject::hitEffect(GameObject * hitter, FloatRect attackRc, floa
 {
 	if (_state != OBJECT_STATE::BROKEN)
 	{
-		_state = OBJECT_STATE::BROKEN;
+		//_state = OBJECT_STATE::BROKEN;
 		if (_direction == DIRECTION::LEFT)
 		{
 			_img = IMAGE_MANAGER->findImage("OBJECT_SNACKMACHINE_LEFT_BROKEN");
+			_objectManager->makeParticle(PARTICLE_TYPE::PIECE_SNACKMACHINE, 1, 
+				Vector3(_position.x - (_size.x / 2), _position.y - (_size.y / 2), _position.z - (_size.z / 2)),
+				Vector3(_position.x + (_size.x / 2), _position.y + (_size.y / 2), _position.z + (_size.z / 2)),
+				Vector2(0, 0), 
+				Vector2(PI2, PI), 
+				3, 6, 5, 5);
 		}
 		if (_direction == DIRECTION::RIGHT)
 		{
