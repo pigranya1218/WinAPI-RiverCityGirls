@@ -9,7 +9,7 @@
 
 HRESULT EnemyManager::init()
 {
-	_schoolBoy = new SchoolBoy;
+	/*_schoolBoy = new SchoolBoy;
 	_schoolBoy->init();
 	_schoolBoy->setEnemyManager(this);
 	_enemies.push_back(_schoolBoy);
@@ -17,7 +17,7 @@ HRESULT EnemyManager::init()
 	_schoolGirl = new SchoolGirl;
 	_schoolGirl->init();
 	_schoolGirl->setEnemyManager(this);
-	_enemies.push_back(_schoolGirl);
+	_enemies.push_back(_schoolGirl);*/
 
 	//_cheerGirl = new CheerGirl;
 	//_cheerGirl->init();

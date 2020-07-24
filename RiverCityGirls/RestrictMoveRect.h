@@ -2,13 +2,20 @@
 #include "LinearFunc.h"
 #include "GameObject.h"
 
+enum class RECT_TYPE : int
+{
+	LEFT,
+	MIDDLE, // 직사각형
+	RIGHT
+};
+
 class RestrictMoveRect
 {
 private:
 	Vector2 _point[4]; // LT, RT, RB, LB
-	LinearFunc* _lines[4]; // L T R B
+	LinearFunc _lines[4]; // L T R B
 	float _height;
-	DIRECTION _direction;
+	RECT_TYPE _type;
 
 public:
 	RestrictMoveRect(Vector2 LT, Vector2 RT, Vector2 RB, Vector2 LB, float height)
@@ -18,18 +25,22 @@ public:
 		_point[2] = RB;
 		_point[3] = LB;
 
-		_lines[0] = new LinearFunc(LB, LT); // LEFT
-		_lines[1] = new LinearFunc(LT, RT); // TOP
-		_lines[2] = new LinearFunc(RB, RT); // RIGHT
-		_lines[3] = new LinearFunc(LB, RB); // BOTTOM
+		_lines[0] = LinearFunc::getLinearFuncFromPoints(LB, LT); // LEFT
+		_lines[1] = LinearFunc::getLinearFuncFromPoints(LT, RT); // TOP
+		_lines[2] = LinearFunc::getLinearFuncFromPoints(RB, RT); // RIGHT
+		_lines[3] = LinearFunc::getLinearFuncFromPoints(LB, RB); // BOTTOM
 
-		if (_lines[0]->a < 0)
+		if (_lines[0].a == LinearFunc::INF_A)
 		{
-			_direction = DIRECTION::RIGHT;
+			_type = RECT_TYPE::MIDDLE;
+		}
+		else if (_lines[0].a < 0)
+		{
+			_type = RECT_TYPE::RIGHT;
 		}
 		else
 		{
-			_direction = DIRECTION::LEFT;
+			_type = RECT_TYPE::LEFT;
 		}
 
 		_height = -height;
@@ -49,10 +60,6 @@ public:
 
 	~RestrictMoveRect()
 	{
-		for (int i = 0; i < 4; i++)
-		{
-			delete _lines[i];
-		}
 	}
 
 	void checkCollision(Vector3* poses, GameObject* gameObject);

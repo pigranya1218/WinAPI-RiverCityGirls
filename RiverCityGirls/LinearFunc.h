@@ -18,10 +18,8 @@ public:
 	SynthesizePublic(float, a, A); // x 기울기
 	SynthesizePublic(float, b, B); // y 절편
 
-private:
-	LinearFunc() {}
-	
 public:
+	LinearFunc() {}
 	LinearFunc(float a, float b) :a(a), b(b) {}
 	LinearFunc(Vector2 start, Vector2 end);
 
