@@ -27,7 +27,7 @@ HRESULT EnemyManager::init()
 	/*_boss = new Boss;
 	_boss->init();
 	_boss->setEnemyManager(this);
-	_enemies.push_back(_boss);
+	_enemies.push_back(_boss);*/
 
 	return S_OK;
 }

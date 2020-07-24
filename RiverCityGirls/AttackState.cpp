@@ -152,7 +152,7 @@ PlayerState * AttackState::update(Player & player)
 				
 			_viewRc = FloatRect(_attackRc.left, position.z + _attackRc.top,
 				_attackRc.right, position.z + _attackRc.bottom);
-			player.attack(_attackRc, 10, ATTACK_TYPE::HIT);
+			player.attack(_attackRc, 10, ATTACK_TYPE::HIT1);
 		}
 			
 		if (_initTime>=0.2 &&KEY_MANAGER->isOnceKeyDown('Z'))
@@ -222,7 +222,7 @@ PlayerState * AttackState::update(Player & player)
 
 				_viewRc = FloatRect(_attackRc.left, position.z + _attackRc.top,
 					_attackRc.right, position.z + _attackRc.bottom);
-				player.attack(_attackRc, 10, ATTACK_TYPE::HIT);
+				player.attack(_attackRc, 10, ATTACK_TYPE::HIT2);
 			}
 
 			_initTime += TIME_MANAGER->getElapsedTime();
@@ -292,9 +292,9 @@ PlayerState * AttackState::update(Player & player)
 							position.x - 30, position.y + 100);
 					}
 
-						viewRc = FloatRect(attackRc.left, position.z + attackRc.top,
-							attackRc.right, position.z + attackRc.bottom);
-						player.attack(attackRc, 10, ATTACK_TYPE::STUN);
+					_viewRc = FloatRect(_attackRc.left, position.z + _attackRc.top,
+							_attackRc.right, position.z + _attackRc.bottom);
+						player.attack(_attackRc, 10, ATTACK_TYPE::KNOCKDOWN);
 					}
 					else if (_initTime >= 0.2 &&KEY_MANAGER->isOnceKeyDown('S'))
 					{
@@ -353,7 +353,7 @@ PlayerState * AttackState::update(Player & player)
 
 					_viewRc = FloatRect(_attackRc.left, position.z + _attackRc.top,
 						_attackRc.right, position.z + _attackRc.bottom);
-					player.attack(_attackRc, 10, ATTACK_TYPE::HIT);
+					player.attack(_attackRc, 10, ATTACK_TYPE::HIT1);
 				}
 
 				if (_initTime >= 0.2 &&KEY_MANAGER->isOnceKeyDown('Z'))
@@ -423,18 +423,18 @@ PlayerState * AttackState::update(Player & player)
 						Vector3 position = player.getPosition();
 						if (player.getDirection() == DIRECTION::RIGHT)
 						{
-							attackRc = FloatRect(position.x + 10, position.y - 100,
+							_attackRc = FloatRect(position.x + 10, position.y - 100,
 								position.x + 140, position.y + 100);
 						}
 						else
 						{
-							attackRc = FloatRect(position.x - 140, position.y - 100,
+							_attackRc = FloatRect(position.x - 140, position.y - 100,
 								position.x - 10, position.y + 100);
 						}
 
-						viewRc = FloatRect(attackRc.left, position.z + attackRc.top,
-							attackRc.right, position.z + attackRc.bottom);
-						player.attack(attackRc, 10, ATTACK_TYPE::KNOCKDOWN);
+						_viewRc = FloatRect(_attackRc.left, position.z + _attackRc.top,
+							_attackRc.right, position.z + _attackRc.bottom);
+						player.attack(_attackRc, 10, ATTACK_TYPE::KNOCKDOWN);
 					}
 
 				}
@@ -455,22 +455,22 @@ PlayerState * AttackState::update(Player & player)
 						Vector3 position = player.getPosition();
 						if (player.getDirection() == DIRECTION::RIGHT)
 						{
-							attackRc = FloatRect(position.x + 10, position.y - 40,
+							_attackRc = FloatRect(position.x + 10, position.y - 40,
 							position.x + 140, position.y + 100);
 							
 							//_currMoveDirX -= 0.02f;
 						}
 						else
 						{
-							attackRc = FloatRect(position.x - 140, position.y - 40,
+							_attackRc = FloatRect(position.x - 140, position.y - 40,
 								position.x - 10, position.y + 100);
 							//moveDir.x += _currMoveDirX;
 							//_currMoveDirX += 0.02f;
 						}
 
-						viewRc = FloatRect(attackRc.left, position.z + attackRc.top,
-							attackRc.right, position.z + attackRc.bottom);
-						player.attack(attackRc, 10, ATTACK_TYPE::KNOCKDOWN);
+						_viewRc = FloatRect(_attackRc.left, position.z + _attackRc.top,
+							_attackRc.right, position.z + _attackRc.bottom);
+						player.attack(_attackRc, 10, ATTACK_TYPE::KNOCKDOWN);
 					}
 					else if (_ani->getPlayIndex() > 10)
 					{
@@ -487,21 +487,21 @@ PlayerState * AttackState::update(Player & player)
 					//Vector3 position = player.getPosition();
 					if (player.getDirection() == DIRECTION::RIGHT)
 					{
-						attackRc = FloatRect(player.getPosition().x , player.getPosition().y+90,
+						_attackRc = FloatRect(player.getPosition().x , player.getPosition().y+90,
 							player.getPosition().x + 60, player.getPosition().y + 150);
 						
 					}
 					else
 					{
-						attackRc = FloatRect(player.getPosition().x - 60, player.getPosition().y+90,
+						_attackRc = FloatRect(player.getPosition().x - 60, player.getPosition().y+90,
 							player.getPosition().x , player.getPosition().y + 150);
 						
 					}
 
 
-					viewRc = FloatRect(attackRc.left, player.getPosition().z + attackRc.top,
-						attackRc.right, player.getPosition().z + attackRc.bottom);
-					player.attack(attackRc, 10, ATTACK_TYPE::KNOCKDOWN);
+					_viewRc = FloatRect(_attackRc.left, player.getPosition().z + _attackRc.top,
+						_attackRc.right, player.getPosition().z + _attackRc.bottom);
+					player.attack(_attackRc, 10, ATTACK_TYPE::KNOCKDOWN);
 				}
 
 				moveDir.x += _currMoveDirX;
