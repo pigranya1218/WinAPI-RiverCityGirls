@@ -94,7 +94,6 @@ void UIManager::update()
 
 void UIManager::render()
 {
-	/*
 	_playerInfo.render();
 	_bossInfo.render();
 	_levelInfo.render();
@@ -107,9 +106,9 @@ void UIManager::render()
 		}
 	}
 
-	_close.render(_player->getPosition());
+	// _close.render(_player->getPosition());
 
-	_shop.render();
+	// _shop.render();
 	
 	/*if (_cellPhone.active)
 	{

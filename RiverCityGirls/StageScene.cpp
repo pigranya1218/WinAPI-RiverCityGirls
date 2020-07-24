@@ -25,7 +25,7 @@ HRESULT StageScene::init()
 	//_uiManager->setShopUI(true);
 	
 	// 다이얼로그 테스티입니다.
-	_dgManager->startChapter(BossChapter::BATTLE_BEFORE);
+	//_dgManager->startChapter(BossChapter::BATTLE_BEFORE);
 
 	return S_OK;
 }
