@@ -10,7 +10,7 @@ UIManager::~UIManager()
 {
 }
 
-HRESULT UIManager::init(GameObject* player)
+HRESULT UIManager::init(Player* player)
 {
 	HRESULT result;
 
@@ -44,7 +44,7 @@ void UIManager::release()
 void UIManager::update()
 {
 	// 플레이어 컨트롤
-	_playerInfo.update();
+	_playerInfo.update(_player);
 	
 	// 보스 체력
 	_bossInfo.update();

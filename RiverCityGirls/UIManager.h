@@ -1,8 +1,11 @@
 #pragma once
 #include "ProgressBar.h"
+#include "Player.h"
 
 #define PLAYERHPMAX 23
 #define DOORMAX 3
+
+
 
 struct tagPlayerInfo
 {	
@@ -29,14 +32,14 @@ struct tagPlayerInfo
 
 		return S_OK;
 	}
-	void update()
+	void update(Player* player)
 	{
 		if (active)
 		{
-			digitNum = (int)((currentHp / maxHp) * PLAYERHPMAX);	// 체력바 갯수 설정
+			digitNum = (int)(((float) player->getHp() / player->getMaxHp()) * PLAYERHPMAX);	// 체력바 갯수 설정
 
 			// 체력바는 0개인데 체력은 아직 남아있는 경우
-			if (!digitNum && currentHp)
+			if (!digitNum && player->getHp() > 0)
 			{
 				digitNum = 1;	// 체력바는 1로 만들어줌
 			}
@@ -487,13 +490,13 @@ private:
 
 	vector<tagDoorInfo> _vDoor;
 
-	class GameObject* _player;
+	class Player* _player;
 
 public:
 	UIManager();
 	~UIManager();
 
-	HRESULT init(class GameObject* player);
+	HRESULT init(class Player* player);
 	void release();
 	void update();
 	void render();	
