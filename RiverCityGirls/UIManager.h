@@ -91,6 +91,8 @@ struct tagLevelInfo
 		if (active)
 		{
 			pos = playerPos;
+			
+
 			playerAni->frameUpdate(TIME_MANAGER->getElapsedTime() * 10);	
 			
 			if (!playerAni->isPlay())
@@ -232,14 +234,14 @@ private:
 	float		alpha;		// 알파값
 };
 
-struct tagClose
+struct tagCloseInfo
 {
 	bool	active;	// 출력 여부
 	HRESULT init()
 	{
 		img = IMAGE_MANAGER->findImage("closeUp");
 		active = 0;
-		scale = 1.0f;
+		scale = 2.0f;
 
 		return S_OK;
 	}
@@ -248,10 +250,10 @@ struct tagClose
 		if (active)
 		{
 			scale -= 0.01f;
-			if (scale < 0)
+			if (scale < 0.2f)
 			{
 				active = false;
-				scale = 1.0f;
+				scale = 2.0f;
 			}
 		}		
 	}
@@ -260,13 +262,42 @@ struct tagClose
 		if (active)
 		{
 			img->setScale(scale);
-			img->render(CAMERA_MANAGER->convertV3ToV2(playerPos));
+			img->render(CAMERA_MANAGER->getRelativeV2(CAMERA_MANAGER->convertV3ToV2(playerPos)));
 		}
 	}
 
 private:
 	Image*	img;	// 하트
 	float	scale;	// 스케일	
+};
+
+struct tagShopInfo
+{
+	float money;
+	bool active;
+	int currentList;
+	FloatRect itemPos;
+
+	HRESULT init()
+	{
+		currentList = 0;
+		return S_OK;
+	}
+	void update()
+	{
+		if (active)
+		{
+			
+		}
+	}
+	void render()
+	{
+		if (active)
+		{
+			IMAGE_MANAGER->findImage("shopFrame")->setSize(Vector2(WINSIZEX, WINSIZEY));
+			IMAGE_MANAGER->findImage("shopFrame")->render(Vector2(WINSIZEX / 2, WINSIZEY / 2));
+		}
+	}
 };
 
 struct tagCellPhone
@@ -284,7 +315,8 @@ private:
 	tagLevelInfo	_levelInfo;
 	tagBossInfo		_bossInfo;
 	tagCellPhone	_cellPhone;
-	tagClose		_close;
+	tagCloseInfo	_close;
+	tagShopInfo		_shop;
 
 	vector<tagDoorInfo> _vDoor;
 
@@ -315,5 +347,7 @@ public:
 	void setDoor(vector<tagDoorInfo> doors);
 
 	void setCloseUp(bool active) { _close.active = active; }
+
+	void setShopUI(bool active) { _shop.active = active; }
 };
 

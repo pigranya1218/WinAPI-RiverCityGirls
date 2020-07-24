@@ -226,6 +226,7 @@ HRESULT playGround::init()
 	IMAGE_MANAGER->addImage("lockDoor"		, L"resources/images/UI/door_lock.png"			);	// 닫힌 문
 	IMAGE_MANAGER->addImage("shopDoor"		, L"resources/images/UI/door_shop.png"			);	// 상점 문
 	IMAGE_MANAGER->addImage("closeUp"		, L"resources/images/UI/closeHeart.png"			);	// 마무리 하트
+	IMAGE_MANAGER->addImage("shopFrame"		, L"resources/images/UI/shop_frame.png"			);	// 상점 프레임
 	// 다이얼로그 이미지입니다.
 	IMAGE_MANAGER->addImage("kyokoName"		, L"resources/images/UI/dialogue/Kyoko_name.png"	);	// 쿄코 이름
 	IMAGE_MANAGER->addImage("misakoName"	, L"resources/images/UI/dialogue/Misako_name.png"	);	// 미사코 이름

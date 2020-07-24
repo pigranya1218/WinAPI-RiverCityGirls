@@ -22,6 +22,7 @@ HRESULT DialogueManager::init(float textSpeed)
 	_textSpeed = 1.0f / textSpeed;	// 대화 출력 속도
 	_writeText.clear();				// 스트링 초기화
 	_speed = 30.0f;					// 이미지 움직일 속도
+	_textTerm = 2.5f;
 	_isPlay = _stringNum = _elapsedSec = 0;
 
 	return S_OK;
@@ -34,7 +35,7 @@ void DialogueManager::release()
 void DialogueManager::update()
 {
 	if (!_isPlay) return;	
-
+	
 	switch (_curDialog)
 	{
 		case DialogueManager::curDialogue::ENTER:	// 이미지 화면 안으로 가져옴
@@ -53,31 +54,41 @@ void DialogueManager::update()
 			else
 			{
 				pos = _qCharacterImg.front().target;
+				_textTerm = 2.5f;	// 속도는 항상 기본 값으로 초기화
 				_curDialog = curDialogue::WRITE;
 			}
 			break;
 		}		
 		case DialogueManager::curDialogue::WRITE:	// 대화 출력
-		{
-			float term = 2.5f;
+		{			
 			if (KEY_MANAGER->isOnceKeyDown(VK_SPACE))
 			{
 				_writeText = _qCharacterMsg.front();
-				_stringNum = _writeText.length();
-				term = 0.1f;
-				_elapsedSec = 0;
-			}
+				_stringNum = _qCharacterMsg.front().length();
+				_textTerm = 0.8f;	// 자동 완성 시 속도를 약간 느리게
+			}			
 			if (_stringNum < _qCharacterMsg.front().length())
 			{				
 				if (textUpdate(TIME_MANAGER->getElapsedTime() * 10))
 				{
-					_writeText += _qCharacterMsg.front().substr(_stringNum, 1);
-					_stringNum++;
-				}				
+					// 한글은 아스키 값이 음수로 나옴
+					if (static_cast<int>(_qCharacterMsg.front().at(_stringNum)) < 0)
+					{
+						// 한글은 2바이트 문자이기에 2개를 한 번에 가져옴
+						for (int i = 0; i < 2; i++)
+						{
+							_writeText.push_back(_qCharacterMsg.front().at(_stringNum++));
+						}						
+					}
+					else
+					{
+						_writeText.push_back(_qCharacterMsg.front().at(_stringNum++));
+					}					
+				}						
 			}			
 			else
 			{
-				if (textUpdate(TIME_MANAGER->getElapsedTime() * term))
+				if (textUpdate(TIME_MANAGER->getElapsedTime() * _textTerm))
 				{
 					_curDialog = curDialogue::EXIT;
 					_stringNum = 0;
@@ -87,7 +98,7 @@ void DialogueManager::update()
 			break;
 		}		
 		case DialogueManager::curDialogue::EXIT:	// 이미지를 화면 바깥으로 밀어냄
-		{			
+		{						
 			Vector2& pos = _qCharacterImg.front().pos;
 
 			// 다시 화면 밖으로 나갈 좌표
@@ -115,10 +126,10 @@ void DialogueManager::update()
 				_stringNum = 0;
 
 				if (_qCharacterImg.empty() && _qCharacterMsg.empty()) _isPlay = false;
-			}						
+			}				
 			break;
-		}	
-	}	
+		}
+	}
 	keyReaction();
 }
 
@@ -200,8 +211,15 @@ void DialogueManager::startChapter(BossChapter chapter)
 				characterImg.target = Vector2((float)(WINSIZEX - characterImg.portrait->getWidth() / 1.5f), (float)(WINSIZEY - characterImg.portrait->getHeight() / 2));
 				characterImg.pos = Vector2((float)(WINSIZEX + characterImg.portrait->getWidth() / 2), characterImg.target.y);
 			}							
-			
-			string characterMsg = str.substr(atPos + 1, str.length());			
+								
+			string characterMsg(str.substr(atPos + 1, str.length()));
+			int enterCh = characterMsg.find("/");
+			// "/"를 찾으면 >> 대화가 너무 길면 다이얼로그에 넣어놈
+			if (enterCh != string::npos)
+			{
+				// 개행 문자로 변경
+				characterMsg.replace(enterCh, 1, "\n");
+			}
 
 			_qCharacterImg.push(characterImg);
 			_qCharacterMsg.push(characterMsg);			
@@ -217,11 +235,7 @@ void DialogueManager::startChapter(BossChapter chapter)
 wstring DialogueManager::strTowstr(string src)
 {
 	USES_CONVERSION;	
-	wstring result = A2W(src.c_str());	
-
-	
-
-	return result;
+	return A2W(src.c_str());
 }
 
 bool DialogueManager::textUpdate(float elapsedTime)
@@ -247,9 +261,7 @@ bool DialogueManager::findNameImg(string src, string name)
 
 void DialogueManager::keyReaction()
 {
-	if (KEY_MANAGER->isOnceKeyDown(VK_SPACE))
-	{		
-	}
+	
 	if (KEY_MANAGER->isStayKeyDown(VK_SPACE))
 	{
 		_skip.bar->update();
