@@ -166,7 +166,7 @@ void SchoolStudent::release()
 
 void SchoolStudent::render()
 {
-	_img->setScale(3);
+	Object::render();
 	//_img->setSize(Vector2(100, 100));
 	CAMERA_MANAGER->aniRenderZ(_img, _position, _size, _ani);
 }

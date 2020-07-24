@@ -34,14 +34,13 @@ SnackMachineObject::SnackMachineObject(Vector3 position, DIRECTION direction)
 			Vector2(_position.x + _collisionOffsetX + (_size.x / 2) - (_size.z / 2), _position.z + _collisionOffsetZ + (_size.z / 2)),		// RB
 			Vector2(_position.x + _collisionOffsetX - (_size.x / 2) - (_size.z / 2), _position.z + _collisionOffsetZ + (_size.z / 2)), _size.y);		// LB
 	}
-	//if (_direction == DIRECTION::RIGHT)
-	//{
-	//	_restrictRect = new RestrictMoveRect(Vector2(_position.x + _collisionOffsetX - (_size.x / 2) + (_size.z / 2), _position.z + _collisionOffsetZ - (_size.z / 2)),		// LT
-	//		Vector2(_position.x + _collisionOffsetX + (_size.x / 2) + (_size.z / 2), _position.z + _collisionOffsetZ - (_size.z / 2)),		// RT
-	//		Vector2(_position.x + _collisionOffsetX + (_size.x / 2) + (_size.z * 2), _position.z + _collisionOffsetZ + (_size.z / 2)),		//RB
-	//		Vector2(_position.x + _collisionOffsetX + (_size.x / 2) - (_size.z), _position.z + _collisionOffsetZ + (_size.z / 2)), _size.y);		// LB
-	//		//Vector2(_position.x + _collisionOffsetX - (_size.x / 2) - (_size.z / 2), _position.z + _collisionOffsetZ + (_size.z / 2)), _size.y);		// 
-	//}
+	else if (_direction == DIRECTION::RIGHT)
+	{
+		_restrictRect = new RestrictMoveRect(Vector2(_position.x - _collisionOffsetX - (_size.x / 2) - (_size.z / 2), _position.z + _collisionOffsetZ - (_size.z / 2)),		// LT
+			Vector2(_position.x - _collisionOffsetX + (_size.x / 2) - (_size.z / 2), _position.z + _collisionOffsetZ - (_size.z / 2)),		// RT
+			Vector2(_position.x - _collisionOffsetX + (_size.x / 2) + (_size.z / 2), _position.z + _collisionOffsetZ + (_size.z / 2)),		//RB
+			Vector2(_position.x - _collisionOffsetX - (_size.x / 2) + (_size.z / 2), _position.z + _collisionOffsetZ + (_size.z / 2)), _size.y);		// LB
+	}
 }
 
 void SnackMachineObject::update()
@@ -72,6 +71,8 @@ void SnackMachineObject::collision(Vector3 * newPoses, GameObject* gameObject)
 
 void SnackMachineObject::hitEffect(GameObject * hitter, FloatRect attackRc, float damage, ATTACK_TYPE type)
 {
+	if (hitter->getTeam() != OBJECT_TEAM::PLAYER) return; // 플레이어가 때린 게 아니라면 패스
+
 	if (_state != OBJECT_STATE::BROKEN)
 	{
 		_state = OBJECT_STATE::BROKEN;

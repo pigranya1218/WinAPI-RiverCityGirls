@@ -49,9 +49,9 @@ void MiddleStage::init(Image * background, float bgScale)
 
 
 	DOOR_STATE doorStates[3] = {DOOR_STATE::UNLOCK, DOOR_STATE::SHOP, DOOR_STATE::UNLOCK};
-	Vector3 doorPoses[3] = {Vector3(80, -200, 700),
-							Vector3(1165, -200, 560) ,
-							Vector3(2710, -200, 700) };
+	Vector3 doorPoses[3] = {Vector3(80, 0, 500),
+							Vector3(1165, 0, 360) ,
+							Vector3(2710, 0, 500) };
 	for (int i = 0; i < 3; i++)
 	{
 		tagDoorInfo door;
@@ -88,7 +88,7 @@ Stage * MiddleStage::update()
 	for (int i = 0; i < _doorInfos.size(); i++)
 	{
 		if (_doorInfos[i].doorState == DOOR_STATE::LOCK) continue;
-		if (Vector3::distance(_doorInfos[i].pos, _player->getPosition()) < 150)
+		if (Vector3::distance(_doorInfos[i].pos, _player->getPosition()) < 250.0f)
 		{
 			if (KEY_MANAGER->isOnceKeyDown('Z'))
 			{

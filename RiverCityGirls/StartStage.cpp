@@ -42,7 +42,7 @@ void StartStage::init(Image * background, float bgScale)
 
 	tagDoorInfo door;
 	door.doorState = DOOR_STATE::UNLOCK;
-	door.pos = Vector3(1430, -200, 420);
+	door.pos = Vector3(1430, 0, 220);
 	_doorInfos.push_back(door);
 
 	tagDoorDestination doorDest;
@@ -67,7 +67,7 @@ Stage * StartStage::update()
 	for (int i = 0; i < _doorInfos.size(); i++)
 	{
 		if (_doorInfos[i].doorState == DOOR_STATE::LOCK) continue;
-		if (Vector3::distance(_doorInfos[i].pos, _player->getPosition()) < 150)
+		if (Vector3::distance(_doorInfos[i].pos, _player->getPosition()) < 250.0f)
 		{
 			if (KEY_MANAGER->isOnceKeyDown('Z'))
 			{

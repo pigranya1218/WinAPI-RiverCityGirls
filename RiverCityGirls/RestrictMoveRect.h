@@ -8,6 +8,7 @@ private:
 	Vector2 _point[4]; // LT, RT, RB, LB
 	LinearFunc* _lines[4]; // L T R B
 	float _height;
+	DIRECTION _direction;
 
 public:
 	RestrictMoveRect(Vector2 LT, Vector2 RT, Vector2 RB, Vector2 LB, float height)
@@ -21,6 +22,15 @@ public:
 		_lines[1] = new LinearFunc(LT, RT); // TOP
 		_lines[2] = new LinearFunc(RB, RT); // RIGHT
 		_lines[3] = new LinearFunc(LB, RB); // BOTTOM
+
+		if (_lines[0]->a < 0)
+		{
+			_direction = DIRECTION::RIGHT;
+		}
+		else
+		{
+			_direction = DIRECTION::LEFT;
+		}
 
 		_height = -height;
 	}

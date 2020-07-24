@@ -4,7 +4,7 @@
 class GameObject
 {
 protected:
-	Synthesize(string, _name, Name)
+	Synthesize(OBJECT_TEAM, _team, Team)
 	/*
 	protected: string mName;
 	public: inline string GetName()const{return mName;}

@@ -35,8 +35,8 @@ void BossStage::init(Image * background, float bgScale)
 	//Object ¹èÄ¡
 
 	DOOR_STATE doorStates[2] = { DOOR_STATE::UNLOCK, DOOR_STATE::LOCK};
-	Vector3 doorPoses[2] = { Vector3(280, -200, 820),
-							Vector3(1390, -200, 490)};
+	Vector3 doorPoses[2] = { Vector3(280, 0, 620),
+							Vector3(1390, 0, 290)};
 	for (int i = 0; i < 2; i++)
 	{
 		tagDoorInfo door;
@@ -74,7 +74,7 @@ Stage * BossStage::update()
 	for (int i = 0; i < _doorInfos.size(); i++)
 	{
 		if (_doorInfos[i].doorState == DOOR_STATE::LOCK) continue;
-		if (Vector3::distance(_doorInfos[i].pos, _player->getPosition()) < 150)
+		if (Vector3::distance(_doorInfos[i].pos, _player->getPosition()) < 250.0f)
 		{
 			if (KEY_MANAGER->isOnceKeyDown('Z'))
 			{

@@ -187,7 +187,7 @@ struct tagDoorInfo
 	{
 		float distance = Vector3::distance(pos, playerPos);
 
-		switch (distance < 150.0f)
+		switch (distance < 250.0f)
 		{
 			case 0:	// 문과 멀다
 			{
