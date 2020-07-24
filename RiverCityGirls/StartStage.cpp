@@ -39,7 +39,6 @@ void StartStage::init(Image * background, float bgScale)
 	_objectManager->spawnObject(OBJECT_TYPE::mrRudis, Vector3(1670, 0, 510), DIRECTION::LEFT);
 	_objectManager->spawnObject(OBJECT_TYPE::schoolBoyA_idle01, Vector3(600, 0, 400), DIRECTION::LEFT);
 	_objectManager->spawnObject(OBJECT_TYPE::schoolGirlB_idle02, Vector3(500, 0, 400), DIRECTION::RIGHT);
-	_objectManager->spawnObject(OBJECT_TYPE::SNACKMACHINE, Vector3(900, 0, 407), DIRECTION::LEFT);
 
 	tagDoorInfo door;
 	door.doorState = DOOR_STATE::UNLOCK;

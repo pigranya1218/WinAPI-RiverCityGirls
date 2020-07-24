@@ -33,6 +33,32 @@ void Object::reaction()
 {
 }
 
+void Object::isEat(Player * gameObject)
+{
+	Vector3 playerPos = gameObject->getPosition();
+	Vector3 playerSize = gameObject->getSize();
+	float playerMinZ = playerPos.z - (playerSize.z / 2);
+	float playerMaxZ = playerPos.z + (playerSize.z / 2);
+	float objectMinZ = _position.z - (_size.z / 2);
+	float objectMaxZ = _position.z + (_size.z / 2);
+	if (objectMaxZ < playerMinZ || playerMaxZ < objectMinZ) // Z 축 좌표가 공유되지 않는 경우 종료
+	{
+		return;
+	}
+
+	// 2. X, Y 검사 (IntersectRect)
+	FloatRect playerRc = FloatRect(playerPos.x - (playerSize.x / 2), playerPos.y - (playerSize.y / 2), playerPos.x + (playerSize.x / 2), playerPos.y + (playerSize.y / 2));
+	FloatRect objectRc = FloatRect(_position.x - (_size.x / 2), _position.y - (_size.y / 2), _position.x + (_size.x / 2), _position.y + (_size.y / 2));
+	if (FloatRect::intersect(playerRc, objectRc))
+	{
+		eatEffect(gameObject);
+	}
+}
+
+void Object::eatEffect(Player * gameObject)
+{
+}
+
 void Object::getHit(GameObject* hitter, FloatRect attackRc, float damage, ATTACK_TYPE type)
 {
 	// 1. Z축 검사
