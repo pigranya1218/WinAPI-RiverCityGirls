@@ -300,6 +300,172 @@ struct tagShopInfo
 	}
 };
 
+// 숫자가 작을 수록 자물쇠가 부서짐
+enum class LOCK_STATE : int
+{
+	LOCK_4 = 4,		
+	LOCK_3 = 3,
+	LOCK_2 = 2,
+	LOCK_1 = 1,
+	LOCK_0 = 0,
+	NORMAL = -1
+};
+
+struct tagLockInfo
+{	
+private:
+	struct tagChainInfo
+	{	
+	private:
+		Image*		img;
+		Vector2		pos;
+		Vector2		size;
+		Animation*	ani;
+
+		float fps;
+
+	public:
+		HRESULT init(const string imageName, const Vector2& position, const Vector2& setSize)
+		{
+			img = IMAGE_MANAGER->findImage(imageName);
+
+			pos = position;
+			size = setSize;
+
+			ani = new Animation;
+			ani->init(img->getWidth(), img->getHeight(), img->getMaxFrameX(), img->getMaxFrameY());
+			ani->setDefPlayFrame();
+			ani->setFPS(1);
+			ani->start();
+
+			return S_OK;
+		}
+		void update()
+		{
+			ani->frameUpdate(TIME_MANAGER->getElapsedTime() * 10);
+		}
+		void render()
+		{
+			img->setSize(size);
+			img->aniRender(pos, ani);
+		}
+	};
+	
+	tagChainInfo chainLeft, chainRight;
+	tagChainInfo chainTop, chainBottom;
+
+	Image*		img;
+	Animation*	ani;
+	Vector2		pos;
+
+	LOCK_STATE	curState;
+
+	bool active;
+
+	void chainSetting(string lockSt)
+	{
+		chainTop.init(
+			lockSt + "_top",
+			Vector2(WINSIZEX / 2.0f, 100 + IMAGE_MANAGER->findImage(lockSt + "_top")->getFrameSize().y / 2),
+			Vector2((float)WINSIZEX, IMAGE_MANAGER->findImage(lockSt + "_top")->getFrameSize().y)
+		);
+
+		chainBottom.init(
+			lockSt + "_bot",
+			Vector2(WINSIZEX / 2.0f, WINSIZEY - (100 + (IMAGE_MANAGER->findImage(lockSt + "_bot")->getFrameSize().y / 2))),
+			Vector2((float)WINSIZEX, IMAGE_MANAGER->findImage(lockSt + "_bot")->getFrameSize().y)
+		);
+
+		chainLeft.init(
+			lockSt + "_left",
+			Vector2(IMAGE_MANAGER->findImage(lockSt + "_left")->getFrameSize().x / 2, WINSIZEY / 2.0f),
+			Vector2(IMAGE_MANAGER->findImage(lockSt + "_left")->getFrameSize().x, (float)WINSIZEY - 200)
+		);
+
+		chainRight.init(
+			lockSt + "_right",
+			Vector2(WINSIZEX - (IMAGE_MANAGER->findImage(lockSt + "_right")->getFrameSize().x / 2), (WINSIZEY) / 2.0f),
+			Vector2(IMAGE_MANAGER->findImage(lockSt + "_right")->getFrameSize().x, (float)WINSIZEY - 200)
+		);
+	}
+
+public:	
+
+	void init(LOCK_STATE state)
+	{		
+		if (state == LOCK_STATE::NORMAL) return;
+
+		else if (state == curState) return;
+		switch (state)
+		{
+			case LOCK_STATE::LOCK_4: case LOCK_STATE::LOCK_3: 
+			case LOCK_STATE::LOCK_2: case LOCK_STATE::LOCK_1:
+			{
+				if(active) break;
+
+				active = true;
+				chainSetting("chainLock");
+				break;
+			}
+			case LOCK_STATE::LOCK_0:
+			{								
+				chainSetting("chainUnlock");
+				break;
+			}			
+		}		
+		
+		switch (state)
+		{
+			case LOCK_STATE::LOCK_4: img = IMAGE_MANAGER->findImage("lock_4"); break;
+			case LOCK_STATE::LOCK_3: img = IMAGE_MANAGER->findImage("lock_3"); break;
+			case LOCK_STATE::LOCK_2: img = IMAGE_MANAGER->findImage("lock_2"); break;
+			case LOCK_STATE::LOCK_1: img = IMAGE_MANAGER->findImage("lock_1"); break;
+			case LOCK_STATE::LOCK_0: img = IMAGE_MANAGER->findImage("lock_0"); break;
+		}
+		
+		ani = new Animation;
+		ani->init(img->getWidth(), img->getHeight(), img->getMaxFrameX(), img->getMaxFrameY());
+		ani->setDefPlayFrame();
+		ani->setFPS(1);
+		ani->start();
+		
+
+		curState = state;
+
+		pos = Vector2(WINSIZEX / 2.0f, 120 + img->getFrameSize().x / 2);		
+	}
+	void update()
+	{
+		if (active)
+		{
+			chainLeft.update(); 
+			chainRight.update();
+			chainTop.update(); 
+			chainBottom.update();	
+
+			ani->frameUpdate(TIME_MANAGER->getElapsedTime() * 10);
+
+			if (curState == LOCK_STATE::LOCK_0 && !ani->isPlay())
+			{
+				curState = LOCK_STATE::NORMAL;
+				active = false;
+			}
+		}
+	}
+	void render()
+	{
+		if (active)
+		{
+			chainLeft.render(); 
+			chainRight.render();
+			chainTop.render(); 
+			chainBottom.render();
+
+			img->aniRender(pos, ani);
+		}
+	}
+};
+
 struct tagCellPhone
 {
 	Image* phoneImg;
@@ -316,7 +482,8 @@ private:
 	tagBossInfo		_bossInfo;
 	tagCellPhone	_cellPhone;
 	tagCloseInfo	_close;
-	tagShopInfo		_shop;
+	tagShopInfo		_shop;	
+	tagLockInfo		_lock;
 
 	vector<tagDoorInfo> _vDoor;
 
@@ -349,5 +516,7 @@ public:
 	void setCloseUp(bool active) { _close.active = active; }
 
 	void setShopUI(bool active) { _shop.active = active; }
+
+	void setLock(LOCK_STATE state);
 };
 
