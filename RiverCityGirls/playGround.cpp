@@ -146,7 +146,9 @@ HRESULT playGround::init()
 	IMAGE_MANAGER->addFrameImage("schoolboy_walk", L"resources/images/characters/enemy_schoolboy/SchoolBoyWalk.png", 12, 2);
 	IMAGE_MANAGER->addFrameImage("schoolboy_runAttack", L"resources/images/characters/enemy_schoolboy/SchoolDashAttack.png", 7, 2);
 	//schoolGirl
-	IMAGE_MANAGER->addFrameImage("schoolgirl_groundDown", L"resources/images/characters/enemy_schoolgirl/blowBack.png", 33, 2);
+	//IMAGE_MANAGER->addFrameImage("schoolgirl_groundDown", L"resources/images/characters/enemy_schoolgirl/blowBack.png", 33, 2);
+	IMAGE_MANAGER->addFrameImage("schoolgirl_knockDown", L"resources/images/characters/enemy_schoolgirl/knockDown.png", 23, 2);
+	IMAGE_MANAGER->addFrameImage("schoolgirl_standUp", L"resources/images/characters/enemy_schoolgirl/standUP.png", 10, 2);
 	IMAGE_MANAGER->addFrameImage("schoolgirl_getHit", L"resources/images/characters/enemy_schoolgirl/getHit.png", 9, 2);
 	IMAGE_MANAGER->addFrameImage("schoolgirl_heldHit", L"resources/images/characters/enemy_schoolgirl/HeldHit.png", 4, 2);
 	IMAGE_MANAGER->addFrameImage("schoolgirl_heldRelease", L"resources/images/characters/enemy_schoolgirl/잡기 풀기.png", 4, 2);

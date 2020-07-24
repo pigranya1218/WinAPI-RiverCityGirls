@@ -56,6 +56,7 @@ void SchoolBoy::update()
 		//_state = ENEMY_STATE::KNOCKDOWN;
 	}
 
+	//플레이어와의 거리차를 계산해서 상태 취하기
 	//float playerDistance = sqrt(pow(playerPos.x - _position.x, 2) + pow(playerPos.y - _position.y, 2) + pow(playerPos.z - _position.z , 2));
 	_playerDistance = sqrt(pow(playerPos.x - _position.x, 2) + pow(playerPos.y - _position.y, 2) + pow(playerPos.z - _position.z, 2));
 	if (_state != ENEMY_STATE::JUMP && _state != ENEMY_STATE::DASHATTACK && 
@@ -99,13 +100,18 @@ void SchoolBoy::update()
 						aniPlay(ENEMY_STATE::HIT, _direction);
 						_state = ENEMY_STATE::HIT;
 					}
-					else
+					else if(_hitType == ATTACK_TYPE::KNOCKDOWN)
 					{
 						_elapsedTime = 0;
-						aniPlay(ENEMY_STATE::KNOCKDOWN, _direction);
-						_state = ENEMY_STATE::KNOCKDOWN;
 						_jumpPower = 8.f;
 						_gravity = 0.3f;
+						aniPlay(ENEMY_STATE::KNOCKDOWN, _direction);
+						_state = ENEMY_STATE::KNOCKDOWN;
+					}
+					else
+					{
+						aniPlay(ENEMY_STATE::STUN, _direction);
+						_state = ENEMY_STATE::STUN;
 					}
 				}
 			}
@@ -127,8 +133,6 @@ void SchoolBoy::update()
 		}
 	}
 	
-	
-	//
 	//if (_state != ENEMY_STATE::ATTACK && _state != ENEMY_STATE::IDLE) _attackCount = 0;
 
 	//상태 패턴에 따른 스테이트 조정
@@ -178,8 +182,7 @@ void SchoolBoy::update()
 			_elapsedTime = 0;
 			aniPlay(ENEMY_STATE::GUARD, _direction);
 			_state = ENEMY_STATE::GUARD;
-		}
-		
+		}	
 	}
 	break;
 	case ENEMY_STATE::RUN:
@@ -481,10 +484,11 @@ void SchoolBoy::render()
 	if (DEBUG_MANAGER->isDebugMode(DEBUG_TYPE::ENEMY))
 	{
 		_enemyImg->setAlpha(0.5);
+		FloatRect rc = FloatRect(Vector2(_position.x, _position.z), Vector2(_size.x, _size.z), Pivot::Center);
+		CAMERA_MANAGER->drawLine(Vector2(_position.x, _position.z), Vector2(_position.x, _position.z + _position.y));
+		CAMERA_MANAGER->rectangle(rc, D2D1::ColorF::Enum::Red, 1, 1);
 	}
-	FloatRect rc = FloatRect(Vector2(_position.x, _position.z), Vector2(_size.x, _size.z), Pivot::Center);
-	CAMERA_MANAGER->drawLine(Vector2(_position.x, _position.z), Vector2(_position.x, _position.z + _position.y));
-	CAMERA_MANAGER->rectangle(rc, D2D1::ColorF::Enum::Red, 1, 1);
+	
 
 	_enemyImg->setScale(3.f);
 	CAMERA_MANAGER->aniRenderZ(_enemyImg, _position, _size, _ani);

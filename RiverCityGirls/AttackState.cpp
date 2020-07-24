@@ -211,7 +211,7 @@ PlayerState * AttackState::update(Player & player)
 
 						viewRc = FloatRect(attackRc.left, position.z + attackRc.top,
 							attackRc.right, position.z + attackRc.bottom);
-						player.attack(attackRc, 10, ATTACK_TYPE::KNOCKDOWN);
+						player.attack(attackRc, 10, ATTACK_TYPE::STUN);
 					}
 					
 				}
@@ -297,7 +297,7 @@ PlayerState * AttackState::update(Player & player)
 
 					viewRc = FloatRect(attackRc.left, player.getPosition().z + attackRc.top,
 						attackRc.right, player.getPosition().z + attackRc.bottom);
-					player.attack(attackRc, 10, ATTACK_TYPE::HIT);
+					player.attack(attackRc, 10, ATTACK_TYPE::KNOCKDOWN);
 				}
 
 				moveDir.y -= _currJumpPower;

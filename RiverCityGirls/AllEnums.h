@@ -16,6 +16,7 @@ enum class DIRECTION : int
 enum class ATTACK_TYPE : int
 {
 	HIT,
+	STUN,
 	KNOCKDOWN
 };
 

@@ -30,6 +30,7 @@ protected:
 	EnemyManager* _enemyManager;
 
 	FloatRect _attackRc;	// 공격 판정 렉트
+	FloatRect _viewRc;		
 	ENEMY_STATE _state;		// 상태
 
 	Image* _enemyImg;
