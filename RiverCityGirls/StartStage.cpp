@@ -50,6 +50,11 @@ void StartStage::init(Image * background, float bgScale)
 	doorDest.destPos = Vector3(200, -(_player->getSize().y * 0.5), 670);
 	_doorDestination.push_back(doorDest);
 	
+	_respawnPos[0] = Vector2(400, 600);
+	_respawnPos[1] = Vector2(600, 600);
+	_respawnPos[2] = Vector2(800, 600);
+	_respawnPos[3] = Vector2(1000, 600);
+	_respawnCool = 2;
 }
 
 void StartStage::enter()
@@ -71,9 +76,37 @@ Stage * StartStage::update()
 		{
 			if (KEY_MANAGER->isOnceKeyDown('Z'))
 			{
+				_enemyManager->clearEnemy();
 				_player->setPosition(_doorDestination[i].destPos);
 				return _stageManager->getStage(_doorDestination[i].destName);
 			}
+		}
+	}
+
+	_respawnCool -= TIME_MANAGER->getElapsedTime();
+
+	if (_enemyManager->getEnemyCount() < 3 && _respawnCool <= 0) // 적 수가 3 이하라면 소환
+	{
+		_respawnCool = 2;
+		int randomType = RANDOM->getInt(3);
+		int randomRespawn = RANDOM->getInt(4);
+		switch (randomType)
+		{
+		case 0:
+		{
+			_enemyManager->spawnEnemy(ENEMY_TYPE::SCHOOL_BOY, _respawnPos[randomRespawn]);
+		}
+		break;
+		case 1:
+		{
+			_enemyManager->spawnEnemy(ENEMY_TYPE::SCHOOL_GIRL, _respawnPos[randomRespawn]);
+		}
+		break;
+		case 2:
+		{
+			_enemyManager->spawnEnemy(ENEMY_TYPE::CHEER_GIRL, _respawnPos[randomRespawn]);
+		}
+		break;
 		}
 	}
 

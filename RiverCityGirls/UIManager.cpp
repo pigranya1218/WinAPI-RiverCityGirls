@@ -109,7 +109,6 @@ void UIManager::render()
 			_vDoor[i].render();
 		}
 	}		
-
 	// _close.render(_player->getPosition());
 
 	// _shop.render();
