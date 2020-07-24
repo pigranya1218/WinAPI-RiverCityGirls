@@ -44,7 +44,7 @@ void MiddleStage::init(Image * background, float bgScale)
 	}
 
 	//Object ¹èÄ¡
-	_objectManager->spawnObject(OBJECT_TYPE::SNACKMACHINE, Vector3(2200, 0, 470), DIRECTION::LEFT);
+	_objectManager->spawnObject(OBJECT_TYPE::SNACKMACHINE, Vector3(1813, 0, 470), DIRECTION::LEFT);
 	_objectManager->spawnObject(OBJECT_TYPE::PILLAR, Vector3(500, 0, 500), DIRECTION::LEFT);
 
 

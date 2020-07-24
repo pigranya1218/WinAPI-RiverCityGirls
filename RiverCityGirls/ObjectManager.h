@@ -23,6 +23,7 @@ public:
 
 	void spawnObject(OBJECT_TYPE type, Vector3 pos, DIRECTION direction);
 	void makeParticle(PARTICLE_TYPE type, int num, Vector3 minPos, Vector3 maxPos, Vector2 minAngle, Vector2 maxAngle, float minSpeed, float maxSpeed, float minTime, float maxTime);
+	void spawnFood(Vector3 pos);
 
 	void getHit(GameObject* hitter, FloatRect attackRc, float damage, ATTACK_TYPE type);
 

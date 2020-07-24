@@ -180,6 +180,13 @@ void ObjectManager::makeParticle(PARTICLE_TYPE type, int num, Vector3 minPos, Ve
 	
 }
 
+void ObjectManager::spawnFood(Vector3 pos)
+{
+	FoodObject* food = new FoodObject(pos);
+	food->setObjectManager(this);
+	_objects.push_back(food);
+}
+
 void ObjectManager::getHit(GameObject* hitter, FloatRect attackRc, float damage, ATTACK_TYPE type)
 {
 	for (int i = 0; i < _objects.size(); i++)

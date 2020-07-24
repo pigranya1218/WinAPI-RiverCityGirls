@@ -51,9 +51,7 @@ void ParticleObject::update()
 		{
 			_isLand = true;
 		}
-
 	}
-
 	_remainTime -= TIME_MANAGER->getElapsedTime();
 	if (_remainTime <= 0)
 	{
@@ -70,5 +68,27 @@ void ParticleObject::render()
 	_img->setScale(2);
 	_img->setAngle(_rotateAngle);
 
+	if (_remainTime <= 2.0f && _remainTime >= 0.7f)
+	{
+		if (fmod(_remainTime, 0.2f) < 0.1f)
+		{
+			_img->setAlpha(1);
+		}
+		if (fmod(_remainTime, 0.2f) > 0.1f)
+		{
+			_img->setAlpha(0);
+		}
+	}
+	else if (_remainTime < 0.7f)
+	{
+		if (fmod(_remainTime, 0.1f) < 0.05f)
+		{
+			_img->setAlpha(1);
+		}
+		if (fmod(_remainTime, 0.1f) > 0.05f)
+		{
+			_img->setAlpha(0);
+		}
+	}
 	CAMERA_MANAGER->renderZ(_img, _position, _size);
 }
