@@ -103,7 +103,7 @@ void Stage::attack(GameObject* hitter, FloatRect rc, float damage, ATTACK_TYPE t
 		{
 		case OBJECT_TEAM::PLAYER:
 		{
-			
+			_player->getHit(hitter, rc, damage, type);
 		}
 		break;
 		case OBJECT_TEAM::ENEMY:
