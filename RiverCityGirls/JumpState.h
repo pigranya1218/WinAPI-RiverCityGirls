@@ -25,5 +25,6 @@ public:
 	virtual void render(Player& player);
 	virtual void enter(Player& player);
 	virtual void exit(Player& player);
+	void jumpMotion(Player& player);
 };
 

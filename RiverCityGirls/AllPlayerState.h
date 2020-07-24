@@ -6,3 +6,4 @@
 #include "RunState.h"
 #include "JumpState.h"
 #include "AttackState.h"
+#include "GetHitState.h"

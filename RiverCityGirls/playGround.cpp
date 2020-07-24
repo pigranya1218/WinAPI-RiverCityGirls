@@ -119,9 +119,11 @@ HRESULT playGround::init()
 	IMAGE_MANAGER->addFrameImage("Kyoko_attack3", L"resources/images/characters/kyoko/Kyoko_qc3.png", 9, 2);
 	IMAGE_MANAGER->addFrameImage("Kyoko_backelbow", L"resources/images/characters/kyoko/Kyoko_backelbow.png", 8, 2);
 	IMAGE_MANAGER->addFrameImage("Kyoko_buttbump", L"resources/images/characters/kyoko/Kyoko_buttbump.png", 10, 2);
-	IMAGE_MANAGER->addFrameImage("Kyoko_buttbump", L"resources/images/characters/kyoko/Kyoko_buttbump.png", 10, 2);
-
-
+	IMAGE_MANAGER->addFrameImage("Kyoko_gethit", L"resources/images/characters/kyoko/Kyoko_gethits.png", 12, 2);
+	IMAGE_MANAGER->addFrameImage("Kyoko_axekick", L"resources/images/characters/kyoko/Kyoko_axekick.png", 13, 2);
+	IMAGE_MANAGER->addFrameImage("Kyoko_dive", L"resources/images/characters/kyoko/Kyoko_dive.png", 21, 2);
+	IMAGE_MANAGER->addFrameImage("Kyoko_airstep", L"resources/images/characters/kyoko/Kyoko_airstep.png", 11, 2);
+	
 
 	//Enemy ÀÌ¹ÌÁö 
     //schoolBoy

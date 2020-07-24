@@ -3,6 +3,9 @@
 
 class RunState : public PlayerState
 {
+private:
+	float _startY;
+
 public:
 	virtual PlayerState* update(Player& player);
 	virtual void render(Player& player);
