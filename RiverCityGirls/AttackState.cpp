@@ -55,7 +55,54 @@ void AttackState::enter(Player & player)
 		_ani->start();
 		
 		break;
-	
+	case ATTACK_SKILL::HC:
+		_img = IMAGE_MANAGER->findImage("Kyoko_axekick");
+		_ani = new Animation;
+		_ani->init(_img->getWidth(), _img->getHeight(), _img->getMaxFrameX(), _img->getMaxFrameY());
+		if (player.getDirection() == DIRECTION::RIGHT)
+		{
+			_ani->setPlayFrame(0, 13, false, false);
+		}
+		else
+		{
+			_ani->setPlayFrame(13, 26, false, false);
+		}
+
+		_ani->setFPS(15);
+		_ani->start();
+		break;
+	case ATTACK_SKILL::RUN_HC:
+		_img = IMAGE_MANAGER->findImage("Kyoko_dive");
+		_ani = new Animation;
+		_ani->init(_img->getWidth(), _img->getHeight(), _img->getMaxFrameX(), _img->getMaxFrameY());
+		if (player.getDirection() == DIRECTION::RIGHT)
+		{
+			_ani->setPlayFrame(0, 21, false, false);
+		}
+		else
+		{
+			_ani->setPlayFrame(21, 42, false, false);
+		}
+
+		_ani->setFPS(15);
+		_ani->start();
+		break;
+	case ATTACK_SKILL::JUMP_HC:
+		_img = IMAGE_MANAGER->findImage("Kyoko_airstep");
+		_ani = new Animation;
+		_ani->init(_img->getWidth(), _img->getHeight(), _img->getMaxFrameX(), _img->getMaxFrameY());
+		if (player.getDirection() == DIRECTION::RIGHT)
+		{
+			_ani->setPlayFrame(0, 11, false, false);
+		}
+		else
+		{
+			_ani->setPlayFrame(11, 22, false, false);
+		}
+
+		_ani->setFPS(15);
+		_ani->start();
+		break;
 	}
 	
 
@@ -308,6 +355,111 @@ PlayerState * AttackState::update(Player & player)
 
 
 				break;
+			case ATTACK_SKILL::HC:
+				if (!_ani->isPlay())
+				{
+					if (KEY_MANAGER->isStayKeyDown(VK_RIGHT) || KEY_MANAGER->isStayKeyDown(VK_LEFT))return new WalkState;
+					else return new IdleState;
+
+				}
+				else
+				{
+					if (5 <= _ani->getPlayIndex() && _ani->getPlayIndex() <= 7)
+					{
+						Vector3 position = player.getPosition();
+						if (player.getDirection() == DIRECTION::RIGHT)
+						{
+							attackRc = FloatRect(position.x + 10, position.y - 100,
+								position.x + 140, position.y + 100);
+						}
+						else
+						{
+							attackRc = FloatRect(position.x - 140, position.y - 100,
+								position.x - 10, position.y + 100);
+						}
+
+						viewRc = FloatRect(attackRc.left, position.z + attackRc.top,
+							attackRc.right, position.z + attackRc.bottom);
+						player.attack(attackRc, 10, ATTACK_TYPE::KNOCKDOWN);
+					}
+
+				}
+
+				break;
+			case ATTACK_SKILL::RUN_HC:
+				if (!_ani->isPlay())
+				{
+					if (KEY_MANAGER->isStayKeyDown(VK_RIGHT) || KEY_MANAGER->isStayKeyDown(VK_LEFT))return new WalkState;
+					else return new IdleState;
+
+				}
+				else
+				{
+					if (3 <= _ani->getPlayIndex() && _ani->getPlayIndex() <= 10)
+					{
+						Vector3 position = player.getPosition();
+						if (player.getDirection() == DIRECTION::RIGHT)
+						{
+							attackRc = FloatRect(position.x + 10, position.y - 40,
+								position.x + 140, position.y + 100);
+							moveDir.x += _currMoveDirX;
+							_currMoveDirX -= 0.02f;
+						}
+						else
+						{
+							attackRc = FloatRect(position.x - 140, position.y - 40,
+								position.x - 10, position.y + 100);
+							moveDir.x += _currMoveDirX;
+							_currMoveDirX += 0.02f;
+						}
+
+						viewRc = FloatRect(attackRc.left, position.z + attackRc.top,
+							attackRc.right, position.z + attackRc.bottom);
+						player.attack(attackRc, 10, ATTACK_TYPE::KNOCKDOWN);
+					}
+
+				}
+				
+				break;
+			case ATTACK_SKILL::JUMP_HC:
+				
+
+				if (5 <= _ani->getPlayIndex() && _ani->getPlayIndex() <= 11)
+				{
+					//Vector3 position = player.getPosition();
+					if (player.getDirection() == DIRECTION::RIGHT)
+					{
+						attackRc = FloatRect(player.getPosition().x , player.getPosition().y+90,
+							player.getPosition().x + 60, player.getPosition().y + 150);
+						
+					}
+					else
+					{
+						attackRc = FloatRect(player.getPosition().x - 60, player.getPosition().y+90,
+							player.getPosition().x , player.getPosition().y + 150);
+						
+					}
+
+
+					viewRc = FloatRect(attackRc.left, player.getPosition().z + attackRc.top,
+						attackRc.right, player.getPosition().z + attackRc.bottom);
+					player.attack(attackRc, 10, ATTACK_TYPE::KNOCKDOWN);
+				}
+
+				moveDir.x += _currMoveDirX;
+				moveDir.y -= _currJumpPower;
+				_currJumpPower -= player.getGravity();
+
+				if (KEY_MANAGER->isStayKeyDown(VK_RIGHT))
+				{
+					moveDir.x += player.getSpeed();
+				}
+				if (KEY_MANAGER->isStayKeyDown(VK_LEFT))
+				{
+					moveDir.x -= player.getSpeed();
+				}
+				
+				break;
 
 				}
 		
@@ -318,7 +470,8 @@ PlayerState * AttackState::update(Player & player)
 			
 				float currentPlayerY = player.getPosition().y;
 
-				if (_currJumpPower < -1 && currentPlayerY == lastPlayerY && moveDir.y != 0 && _skill == ATTACK_SKILL::JUMP_QC)
+				if (_currJumpPower < -1 && currentPlayerY == lastPlayerY && moveDir.y != 0 
+					&& (_skill == ATTACK_SKILL::JUMP_QC|| _skill == ATTACK_SKILL::JUMP_HC))
 				{
 					if (KEY_MANAGER->isStayKeyDown(VK_RIGHT) || KEY_MANAGER->isStayKeyDown(VK_LEFT))
 					{
@@ -342,16 +495,34 @@ void AttackState::render(Player & player)
 {
 	_img->setScale(3);
 	Vector3 position = player.getPosition();
-	if (player.getDirection() == DIRECTION::RIGHT)
+	
+	if (_skill == ATTACK_SKILL::JUMP_HC)
 	{
-		position.x += 35;
+		if (player.getDirection() == DIRECTION::RIGHT)
+		{
+			position.x += 25;
+		}
+		else
+		{
+			position.x -= 25;
+		}
 	}
 	else
 	{
-		position.x -= 35;
+		if (player.getDirection() == DIRECTION::RIGHT)
+		{
+			position.x += 35;
+		}
+		else
+		{
+			position.x -= 35;
+		}
 	}
 
-	
+	if (_skill == ATTACK_SKILL::HC)
+	{
+		position.y += 15;
+	}
 	//CAMERA_MANAGER->rectangle(FloatRect(300, 300, 800, 800), D2D1::ColorF::Enum::Red, 1, 20);
 	CAMERA_MANAGER->rectangle(viewRc, D2D1::ColorF::Enum::Red, 1, 1);
 	CAMERA_MANAGER->aniRenderZ(_img, position, player.getSize(), _ani);

@@ -93,7 +93,7 @@ void Player::getHit(GameObject* hitter, FloatRect attackRc, float damage, ATTACK
 	float playerMinZ = _position.z - _size.z / 2;
 	float playerMaxZ = _position.z + _size.z / 2;
 
-	if (playerMaxZ<hitterMinZ || playerMinZ>hitterMaxZ)return;
+	if (playerMaxZ<hitterMinZ || playerMinZ>hitterMaxZ) return;
 
 	FloatRect getHitRc = FloatRect(_position.x - _size.x / 2, _position.y - _size.y / 2, _position.x + _size.x / 2, _position.y + _size.y / 2);
 	if (FloatRect::intersect(getHitRc, attackRc))
@@ -106,6 +106,11 @@ void Player::getHit(GameObject* hitter, FloatRect attackRc, float damage, ATTACK
 		{
 			_direction = DIRECTION::LEFT;
 		}
+
+		PlayerState* state = new getHitState;
+		_state->exit(*this);
+		delete _state;
+		state->enter(*this);
 		return;
 	}
 }

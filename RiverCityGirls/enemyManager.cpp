@@ -9,10 +9,10 @@
 
 HRESULT EnemyManager::init()
 {
-	//_schoolBoy = new SchoolBoy;
-	//_schoolBoy->init();
-	//_schoolBoy->setEnemyManager(this);
-	//_enemies.push_back(_schoolBoy);
+	/*_schoolBoy = new SchoolBoy;
+	_schoolBoy->init();
+	_schoolBoy->setEnemyManager(this);
+	_enemies.push_back(_schoolBoy);*/
 	//
 	//_schoolGirl = new SchoolGirl;
 	//_schoolGirl->init();

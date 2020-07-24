@@ -133,7 +133,14 @@ PlayerState * WalkState::update(Player& player)
 			return attackState;
 		}
 
-		
+		if (KEY_MANAGER->isOnceKeyDown('S'))
+		{
+			AttackState* attackState = new AttackState;
+			attackState->setSkill(ATTACK_SKILL::HC);
+			return attackState;
+		}
+
+
 
 		moveDir = Vector3::normalize(&moveDir);
 		moveDir = moveDir * player.getSpeed();

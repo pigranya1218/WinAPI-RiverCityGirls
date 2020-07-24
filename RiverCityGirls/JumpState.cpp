@@ -76,6 +76,14 @@ PlayerState * JumpState::update(Player & player)
 		jumpAttack->setCurrMoveDirX(moveDir.x);
 		return jumpAttack;
 	}
+	if (KEY_MANAGER->isOnceKeyDown('S'))
+	{
+		AttackState* jumpAttack = new AttackState;
+		jumpAttack->setSkill(ATTACK_SKILL::JUMP_HC);
+		jumpAttack->setCurrJumpPower(player.getJumpPower());
+		jumpAttack->setCurrMoveDirX(moveDir.x/4);
+		return jumpAttack;
+	}
 
 	if (moveDir.x > 0)
 	{
@@ -148,7 +156,14 @@ PlayerState * JumpState::update(Player & player)
 		return jumpAttack;
 	}
 
-	
+	if (KEY_MANAGER->isOnceKeyDown('S'))
+	{
+		AttackState* jumpAttack = new AttackState;
+		jumpAttack->setSkill(ATTACK_SKILL::JUMP_HC);
+		jumpAttack->setCurrJumpPower(player.getJumpPower());
+		jumpAttack->setCurrMoveDirX(moveDir.x/4);
+		return jumpAttack;
+	}
 
 		break;
 	case JUMP_TYPE::WALL_JUMP:
