@@ -10,6 +10,7 @@ class StageManager
 private:
 	map<string, Stage*> _stageMap;
 	Stage* _currStage;
+	Stage* _stageBuffer = nullptr;
 	Player* _player;
 	UIManager* _uiManager;
 

@@ -20,8 +20,8 @@ private:
 	Synthesize(float, _currJumpPower,CurrJumpPower) //점프 공격을 할때 점프 상태의 점프 파워를 그대로 인계받기 위함  
 	Synthesize(float, _currMoveDirX, CurrMoveDirX)
 		
-	FloatRect attackRc;
-	FloatRect viewRc;
+	FloatRect _attackRc;
+	FloatRect _viewRc;
 	float _initTime;
 	float _lastPlayerY;
 
