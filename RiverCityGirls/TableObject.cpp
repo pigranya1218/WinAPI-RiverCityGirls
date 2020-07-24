@@ -2,13 +2,71 @@
 #include "TableObject.h"
 
 
-TableObject::TableObject(Vector3 position, DIRECTION direction)
+TableObject::TableObject(Vector3 position, DIRECTION direction, int type)
 {
 	_direction = direction;
-	_size = Vector3(150, 100, 90);
+	_size = Vector3(300, 75, 50);
 	_position = Vector3(position.x, -(_size.y / 2), position.z);
 
-	_img = IMAGE_MANAGER->findImage("OBJECT_TABLE01");
+	switch (type)
+	{
+		case 1:
+		{_img = IMAGE_MANAGER->findImage("OBJECT_TABLE01"); }
+		break;
+
+		case 2:
+		{_img = IMAGE_MANAGER->findImage("OBJECT_TABLE02"); }
+		break;
+
+		case 3:
+		{_img = IMAGE_MANAGER->findImage("OBJECT_TABLE03"); }
+		break;
+
+		case 4:
+		{_img = IMAGE_MANAGER->findImage("OBJECT_TABLE04"); }
+		break;
+
+		case 5:
+		{_img = IMAGE_MANAGER->findImage("OBJECT_TABLE05"); }
+		break;
+
+		case 6:
+		{_img = IMAGE_MANAGER->findImage("OBJECT_TABLE06"); }
+		break;
+
+		case 7:
+		{_img = IMAGE_MANAGER->findImage("OBJECT_TABLE07"); }
+		break;
+
+		case 8:
+		{_img = IMAGE_MANAGER->findImage("OBJECT_TABLE08"); }
+		break;
+	}
+
+	int linePos[4][4] = { {_position.x - (_size.x / 2) + (_size.z / 2) , _position.z - (_size.z / 2), _position.x + (_size.x / 2) + (_size.z / 2), _position.z - (_size.z / 2)}, // ╩С
+						{_position.x - (_size.x / 2) - (_size.z / 2), _position.z + (_size.z / 2), _position.x + (_size.x / 2) - (_size.z / 2), _position.z + (_size.z / 2)}, }; // го
+	linePos[2][0] = linePos[1][0]; // аб
+	linePos[2][1] = linePos[1][1];
+	linePos[2][2] = linePos[0][0];
+	linePos[2][3] = linePos[0][1];
+	linePos[3][0] = linePos[1][2]; // ©Л
+	linePos[3][1] = linePos[1][3];
+	linePos[3][2] = linePos[0][2];
+
+	if (_direction == DIRECTION::LEFT)
+	{
+		_restrictRect = new RestrictMoveRect(Vector2(_position.x + _collisionOffsetX - (_size.x / 2) + (_size.z / 2), _position.z + _collisionOffsetZ - (_size.z / 2)),		// LT
+			Vector2(_position.x + _collisionOffsetX + (_size.x / 2) + (_size.z / 2), _position.z + _collisionOffsetZ - (_size.z / 2)),		// RT
+			Vector2(_position.x + _collisionOffsetX + (_size.x / 2) - (_size.z / 2), _position.z + _collisionOffsetZ + (_size.z / 2)),		// RB
+			Vector2(_position.x + _collisionOffsetX - (_size.x / 2) - (_size.z / 2), _position.z + _collisionOffsetZ + (_size.z / 2)), _size.y);		// LB
+	}
+	else if (_direction == DIRECTION::RIGHT)
+	{
+		_restrictRect = new RestrictMoveRect(Vector2(_position.x - _collisionOffsetX - (_size.x / 2) - (_size.z / 2), _position.z + _collisionOffsetZ - (_size.z / 2)),		// LT
+			Vector2(_position.x - _collisionOffsetX + (_size.x / 2) - (_size.z / 2), _position.z + _collisionOffsetZ - (_size.z / 2)),		// RT
+			Vector2(_position.x - _collisionOffsetX + (_size.x / 2) + (_size.z / 2), _position.z + _collisionOffsetZ + (_size.z / 2)),		//RB
+			Vector2(_position.x - _collisionOffsetX - (_size.x / 2) + (_size.z / 2), _position.z + _collisionOffsetZ + (_size.z / 2)), _size.y);		// LB
+	}
 }
 
 void TableObject::update()
@@ -17,14 +75,23 @@ void TableObject::update()
 
 void TableObject::release()
 {
+	delete _restrictRect;
 }
 
 void TableObject::render()
 {
-	_img->setScale(2);
+	Object::render();
+
+	_img->setScale(3);
 	CAMERA_MANAGER->renderZ(_img, _position, _size, false);
+
+	if (DEBUG_MANAGER->isDebugMode(DEBUG_TYPE::OBJECT))
+	{
+		_restrictRect->render();
+	}
 }
 
-void TableObject::collision(Vector3 ** pos)
+void TableObject::collision(Vector3 * newPoses, GameObject* gameObject)
 {
+	_restrictRect->checkCollision(newPoses, gameObject);
 }

@@ -67,6 +67,38 @@ void ObjectManager::spawnObject(OBJECT_TYPE type, Vector3 pos, DIRECTION directi
 		{ _objects.push_back(new DeskObject(pos, direction, 3)); }
 		break;
 
+		case OBJECT_TYPE::TABLE01:
+		{ _objects.push_back(new TableObject(pos, direction, 1)); }
+		break;
+
+		case OBJECT_TYPE::TABLE02:
+		{ _objects.push_back(new TableObject(pos, direction, 2)); }
+		break;
+
+		case OBJECT_TYPE::TABLE03:
+		{ _objects.push_back(new TableObject(pos, direction, 3)); }
+		break;
+
+		case OBJECT_TYPE::TABLE04:
+		{ _objects.push_back(new TableObject(pos, direction, 4)); }
+		break;
+
+		case OBJECT_TYPE::TABLE05:
+		{ _objects.push_back(new TableObject(pos, direction, 5)); }
+		break;
+
+		case OBJECT_TYPE::TABLE06:
+		{ _objects.push_back(new TableObject(pos, direction, 6)); }
+		break;
+
+		case OBJECT_TYPE::TABLE07:
+		{ _objects.push_back(new TableObject(pos, direction, 7)); }
+		break;
+
+		case OBJECT_TYPE::TABLE08:
+		{ _objects.push_back(new TableObject(pos, direction, 8)); }
+		break;
+
 		case OBJECT_TYPE::BOX:	
 		{ _objects.push_back(new BoxObject(pos, direction));  }
 		break;
