@@ -94,6 +94,7 @@ void UIManager::update()
 
 void UIManager::render()
 {
+	/*
 	_playerInfo.render();
 	_bossInfo.render();
 	_levelInfo.render();
@@ -105,7 +106,7 @@ void UIManager::render()
 			_vDoor[i].render();
 		}
 	}
-
+	*/
 	// _close.render(_player->getPosition());
 
 	// _shop.render();
