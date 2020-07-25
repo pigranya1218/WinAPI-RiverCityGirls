@@ -644,6 +644,7 @@ public:
 	void setCloseUp(bool active) { _close.active = active; }
 
 	void setShopUI(bool active) { _shop.active = active; }
+	bool getShopUI() { return _shop.active; }
 
 	void setLock(LOCK_STATE state);
 };

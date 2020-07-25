@@ -42,7 +42,7 @@ void StageManager::release()
  
 void StageManager::update()
 {
-	if (!_dgManager->getIsPlay())
+	if (!_dgManager->getIsPlay() && !_uiManager->getShopUI())
 	{
 		if (_stageBuffer != nullptr)
 		{
@@ -74,6 +74,11 @@ void StageManager::playerAttack(GameObject* hitter, FloatRect attackRc, float da
 void StageManager::setDoorInfo(vector<tagDoorInfo> doorInfos)
 {
 	_uiManager->setDoor(doorInfos);
+}
+
+void StageManager::openShop()
+{
+	_uiManager->setShopUI(true);
 }
 
 void StageManager::startDialogue(BossChapter keyname)

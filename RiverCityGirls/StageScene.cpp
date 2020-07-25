@@ -23,7 +23,7 @@ HRESULT StageScene::init()
 
 	// UI 테스트입니다
 	_uiManager->setPlayerHpActive(true);
-	_uiManager->setShopUI(true);
+	// _uiManager->setShopUI(true);
 
 	return S_OK;
 }

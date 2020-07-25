@@ -99,7 +99,8 @@ Stage * MiddleStage::update()
 				{
 				case DOOR_STATE::SHOP:
 				{
-
+					_stageManager->openShop();
+					return nullptr;
 				}
 				break;
 				case DOOR_STATE::UNLOCK:

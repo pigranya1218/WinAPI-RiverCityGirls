@@ -33,6 +33,7 @@ void Player::init()
 	_speed = 5;
 	_maxHp = 100;
 	_hp = _maxHp;
+	_money = 0;
 	_onObject = false;
 }
 
