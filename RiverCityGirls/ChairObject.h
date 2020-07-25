@@ -9,6 +9,5 @@ public:
 	virtual void update();
 	virtual void release();
 	virtual void render();
-	virtual void collision(Vector3** pos);
 };
 

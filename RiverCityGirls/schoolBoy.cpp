@@ -417,7 +417,7 @@ void SchoolBoy::render()
 	case ENEMY_STATE::GUARD:
 	case ENEMY_STATE::HIT:
 	case ENEMY_STATE::KNOCKDOWN:
-	break;
+	//break;
 	case ENEMY_STATE::STANDUP:
 	{
 		Vector3 drawPos = _position;

@@ -63,15 +63,15 @@ SchoolStudent::SchoolStudent(Vector3 position, DIRECTION direction, int imageTyp
 		break;
 	}
 	_ani->init(_img->getWidth(), _img->getHeight(), _img->getMaxFrameX(), _img->getMaxFrameY());
-	if (_direction == DIRECTION::LEFT)
+	if (_direction == DIRECTION::RIGHT)
 	{
 		_ani->setPlayFrame(0, 4, 0, 1);
 	}
-	if (_direction == DIRECTION::RIGHT)
+	if (_direction == DIRECTION::LEFT)
 	{
 		_ani->setPlayFrame(4, 8, 0, 1);
 	}
-	_ani->setFPS(5);
+	_ani->setFPS(3);
 	_ani->start();
 }
 
@@ -140,11 +140,11 @@ void SchoolStudent::update()
 				}
 
 				_ani->init(_img->getWidth(), _img->getHeight(), _img->getMaxFrameX(), _img->getMaxFrameY());
-				if (_direction == DIRECTION::LEFT)
+				if (_direction == DIRECTION::RIGHT)
 				{
 					_ani->setPlayFrame(0, 4, false, true);
 				}
-				if (_direction == DIRECTION::RIGHT)
+				if (_direction == DIRECTION::LEFT)
 				{
 					_ani->setPlayFrame(4, 8, false, true);
 				}
@@ -219,11 +219,11 @@ void SchoolStudent::hitEffect(GameObject * hitter, FloatRect attackRc, float dam
 		_state = OBJECT_STATE::REACTION;
 		
 		_ani->init(_img->getWidth(), _img->getHeight(), _img->getMaxFrameX(), _img->getMaxFrameY());
-		if (_direction == DIRECTION::LEFT)
+		if (_direction == DIRECTION::RIGHT)
 		{
 			_ani->setPlayFrame(0, 3, false, false);
 		}
-		if (_direction == DIRECTION::RIGHT)
+		if (_direction == DIRECTION::LEFT)
 		{
 			_ani->setPlayFrame(4, 6, false, false);
 		}

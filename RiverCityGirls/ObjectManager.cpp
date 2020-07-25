@@ -67,6 +67,14 @@ void ObjectManager::spawnObject(OBJECT_TYPE type, Vector3 pos, DIRECTION directi
 		{ _objects.push_back(new DeskObject(pos, direction, 3)); }
 		break;
 
+		case OBJECT_TYPE::DESK04:
+		{ _objects.push_back(new DeskObject(pos, direction, 4)); }
+		break;
+
+		case OBJECT_TYPE::DESK05:
+		{ _objects.push_back(new DeskObject(pos, direction, 6)); }
+		break;
+
 		case OBJECT_TYPE::TABLE01:
 		{ _objects.push_back(new TableObject(pos, direction, 1)); }
 		break;
@@ -103,11 +111,11 @@ void ObjectManager::spawnObject(OBJECT_TYPE type, Vector3 pos, DIRECTION directi
 		{ _objects.push_back(new BoxObject(pos, direction));  }
 		break;
 
-		case OBJECT_TYPE::DESK_CHAIR01:
+		case OBJECT_TYPE::FALL_CHAIR01:
 		{ _objects.push_back(new ChairObject(pos, direction, 1));  }
 		break;
 
-		case OBJECT_TYPE::DESK_CHAIR02:
+		case OBJECT_TYPE::FALL_CHAIR02:
 		{ _objects.push_back(new ChairObject(pos, direction, 2));  }
 		break;
 
@@ -117,6 +125,10 @@ void ObjectManager::spawnObject(OBJECT_TYPE type, Vector3 pos, DIRECTION directi
 
 		case OBJECT_TYPE::TABLE_CHAIR02:
 		{ _objects.push_back(new ChairObject(pos, direction, 4));  }
+		break;
+
+		case OBJECT_TYPE::TEACHER_TABLE:
+		{ _objects.push_back(new TeacherTableObject(pos, direction)); }
 		break;
 
 		case OBJECT_TYPE::SNACKMACHINE:
