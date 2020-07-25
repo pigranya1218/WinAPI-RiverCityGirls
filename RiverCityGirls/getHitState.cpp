@@ -88,12 +88,7 @@ PlayerState * getHitState::update(Player & player)
 
 		break;
 	case GET_HIT_STATE::KNOCK_DOWN:
-		lastPlayerY = player.getPosition().y;
-		moveDir.x += (player.getDirection() == DIRECTION::RIGHT) ? -1 : 1;
-		moveDir.y -= _airBorne;
-		_airBorne-=player.getGravity();
-		player.move(moveDir);
-		currentPlayerY = player.getPosition().y;
+		
 
 		
 		if (!_ani->isPlay())
@@ -109,6 +104,15 @@ PlayerState * getHitState::update(Player & player)
 				_getHitState = GET_HIT_STATE::STAND_UP;
 				setGetHitAni(player);
 			}
+		}
+		else
+		{
+			lastPlayerY = player.getPosition().y;
+			moveDir.x += (player.getDirection() == DIRECTION::RIGHT) ? -1 : 1;
+			moveDir.y -= _airBorne;
+			_airBorne -= player.getGravity();
+			player.move(moveDir);
+			currentPlayerY = player.getPosition().y;
 		}
 
 		break;
@@ -132,8 +136,18 @@ PlayerState * getHitState::update(Player & player)
 
 void getHitState::render(Player & player)
 {
+	Vector3 position;
+	position = player.getPosition();
+	if (_getHitState == GET_HIT_STATE::STAND_UP)
+	{
+		position.y += 25;
+	}
+	if (_getHitState == GET_HIT_STATE::KNOCK_DOWN)
+	{
+		position.y -= 10;
+	}
 	_img->setScale(3);
-	CAMERA_MANAGER->aniRenderZ(_img, player.getPosition(), player.getSize(), _ani);
+	CAMERA_MANAGER->aniRenderZ(_img, position, player.getSize(), _ani);
 }
 
 void getHitState::setGetHitAni(Player& player)
