@@ -30,9 +30,10 @@ void CheerGirl::update()
 	Vector3 moveDir = Vector3(0, 0, 0);
 	_elapsedTime += TIME_MANAGER->getElapsedTime();
 
-	if (_state != ENEMY_STATE::HIT)
+	if (_elapsedTime > 1.5)
 	{
 		_hitCount = 0;
+
 	}
 
 	// 상태에 따른 행동 및 상태 전이
@@ -319,6 +320,7 @@ void CheerGirl::update()
 
 	case ENEMY_STATE::HIT: // 작은 경직
 	{
+		
 		_gravity += 1;
 		moveDir.x += (_direction == DIRECTION::RIGHT) ? -1 : 1;
 		moveDir.y += _gravity;
@@ -342,12 +344,17 @@ void CheerGirl::update()
 				_gravity = -16.0f;
 				setState(ENEMY_STATE::KNOCKDOWN, _direction);
 			}
-			else if (_hitCount > 40)
-			{
-				_gravity = -16.0f;
-				setState(ENEMY_STATE::KNOCKDOWN, _direction);
+			
+				_hitCount += 1;
 				
-			}
+				if(_hitCount >110)
+				{
+				   _hitCount = 0;
+				   _gravity = -16.0f;
+				   setState(ENEMY_STATE::KNOCKDOWN, _direction);
+				}
+				
+			
 			
 		}
 		
@@ -412,6 +419,10 @@ void CheerGirl::update()
 
 void CheerGirl::render()
 {
+	char str[1000];
+	sprintf_s(str, "[스쿨걸] elapsedTime : %f, _hitCount : %f", _elapsedTime, _hitCount);
+	TextOut(_hdc, 500, 20, str, strlen(str));
+
 	//좌우에 따른 애니메이션 프레임 및 루프 조정
 	switch (_state)
 	{
