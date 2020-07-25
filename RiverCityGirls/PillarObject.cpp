@@ -77,7 +77,7 @@ void PillarObject::hitEffect(GameObject * hitter, FloatRect attackRc, float dama
 
 	if (_state != OBJECT_STATE::INACTIVE)
 	{
-		_objectManager->makeParticle(PARTICLE_TYPE::PIECE_PILLAR, 30,
+		_objectManager->makeParticle(PARTICLE_TYPE::PIECE_PILLAR, 35,
 			Vector3(_position.x - (_size.x / 2), _position.y, _position.z),
 			Vector3(_position.x + (_size.x / 2), _position.y + (_size.y / 2), _position.z + (_size.z / 2)),
 			Vector2(0, 0),
