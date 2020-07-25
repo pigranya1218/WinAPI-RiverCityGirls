@@ -281,6 +281,7 @@ HRESULT playGround::init()
 	IMAGE_MANAGER->addImage("skipBack"		, L"resources/images/UI/dialogue/skip_fill.png"		);	// 스킵 막대 뒤	
 
 	// 모든 사운드 SOUND_MANAGER에 등록
+
 	// * BGM
 	SOUND_MANAGER->addSound("BGM_Classroom",				"resources/sound/Classroom.mp3", false, true);
 	SOUND_MANAGER->addSound("BGM_Hall",						"resources/sound/Hall.mp3", false, true);
