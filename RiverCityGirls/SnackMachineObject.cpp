@@ -69,9 +69,9 @@ void SnackMachineObject::collision(Vector3 * newPoses, GameObject* gameObject)
 	_restrictRect->checkCollision(newPoses, gameObject);
 }
 
-void SnackMachineObject::hitEffect(GameObject * hitter, FloatRect attackRc, float damage, ATTACK_TYPE type)
+void SnackMachineObject::hitEffect(Vector3 pos, Vector3 size, OBJECT_TEAM team, FloatRect attackRc, float damage, ATTACK_TYPE type)
 {
-	if (hitter->getTeam() != OBJECT_TEAM::PLAYER) return; // 플레이어가 때린 게 아니라면 패스
+	if (team != OBJECT_TEAM::PLAYER) return; // 플레이어가 때린 게 아니라면 패스
 
 	if (_state != OBJECT_STATE::BROKEN)
 	{

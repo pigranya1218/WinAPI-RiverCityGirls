@@ -73,10 +73,7 @@ void Boss::update()
 
 			_enemyManager->moveEnemy(this, moveDir);
 
-			if (distanceFromPlayer <= 100) // 근접 시 공격이나 스킬
-			{
-				setAttackState(_phase);
-			}
+			setAttackState(_phase, distanceFromPlayer);
 		}
 		break;
 		case BOSS_STATE::LAUGH:
@@ -318,7 +315,11 @@ void Boss::update()
 					_gravity = 0;
 					_jumpPower = 0;
 					setState(BOSS_STATE::METEOR_ATTACK_DELAY, _direction, true);
-					_enemyManager->enemyAttackObject(this, FloatRect(_position.x - 150, _position.y - 100, _position.x + 150, _position.y + 100), 10, ATTACK_TYPE::KNOCKDOWN);
+
+					Vector3 attackSize = _size;
+					attackSize.z = 80;
+
+					_enemyManager->enemyAttackObject(_position, attackSize, OBJECT_TEAM::BOSS, FloatRect(_position.x - 150, _position.y - 100, _position.x + 150, _position.y + 100), 10, ATTACK_TYPE::KNOCKDOWN);
 				}
 			}
 		}
@@ -355,6 +356,25 @@ void Boss::update()
 					moveDir.z += (playerPos.z >= _position.z + 10) ? 2 : ((playerPos.z <= _position.z - 10) ? -2 : 0);
 
 					_enemyManager->moveEnemy(this, moveDir);
+
+					Vector3 attackSize = _size;
+					attackSize.z = 50;
+
+					FloatRect attackRc;
+					if (_direction == DIRECTION::LEFT)
+					{
+						attackRc = FloatRect(_position.x - 90, _position.y - 100, _position.x, _position.y);
+					}
+					else
+					{
+						attackRc = FloatRect(_position.x, _position.y - 100, _position.x + 90, _position.y);
+					}
+
+					if (_enemyManager->enemyAttack(_position, attackSize, OBJECT_TEAM::BOSS, attackRc, 10, ATTACK_TYPE::KNOCKDOWN) ||
+						_enemyManager->enemyAttackObject(_position, attackSize, OBJECT_TEAM::BOSS, attackRc, 10, ATTACK_TYPE::KNOCKDOWN)) // 사물이나 플레이어에게 부딪힘
+					{
+						setState(BOSS_STATE::LAUGH, _direction, true);
+					}
 				}
 			}
 			else if (_count == 2)
@@ -727,7 +747,7 @@ void Boss::setState(BOSS_STATE state, DIRECTION direction, bool initTime)
 	}
 }
 
-void Boss::hitEffect(GameObject* hitter, FloatRect attackRc, float damage, ATTACK_TYPE type)
+void Boss::hitEffect(Vector3 pos, Vector3 size, OBJECT_TEAM team, FloatRect attackRc, float damage, ATTACK_TYPE type)
 {
 	if (_bossState == BOSS_STATE::GET_HIT || _bossState == BOSS_STATE::GROUND_HIT) return;
 
@@ -754,52 +774,68 @@ void Boss::hitEffect(GameObject* hitter, FloatRect attackRc, float damage, ATTAC
 		else
 		{
 			_jumpPower = -30;
+			_gravity = 0;
 			setState(BOSS_STATE::GET_HIT, _direction, true);
 		}
 	}
 	if (_bossState == BOSS_STATE::GROUND)
 	{
 		_jumpPower = -10;
+		_gravity = 0;
 		setState(BOSS_STATE::GROUND_HIT, _direction, false);
 	}
 }
 
-void Boss::setAttackState(BOSS_PHASE phase)
+void Boss::setAttackState(BOSS_PHASE phase, float playerDistance)
 {
 	switch (phase)
 	{
 	case BOSS_PHASE::PHASE_1:
 	{
-		int randomCount = RANDOM->getInt(100);
-		if (randomCount < 50)
+		if (playerDistance < 140)
 		{
-			setState(BOSS_STATE::STRONG_PUNCH, _direction, true);
-		} 
-		else
-		{
-			setState(BOSS_STATE::WEAK_PUNCH_COMBO, _direction, true);
+			int randomCount = RANDOM->getInt(100);
+			if (randomCount < 50)
+			{
+				setState(BOSS_STATE::STRONG_PUNCH, _direction, true);
+			}
+			else
+			{
+				setState(BOSS_STATE::WEAK_PUNCH_COMBO, _direction, true);
+			}
 		}
 	}
 	break;
 	case BOSS_PHASE::PHASE_2:
 	{
 		int randomCount = RANDOM->getInt(100);
-		if (randomCount < 10) // 10%
+		if (playerDistance < 140)
 		{
-			setState(BOSS_STATE::STRONG_PUNCH, _direction, true);
-		}
-		else if (randomCount < 20) // 10%
-		{
-			setState(BOSS_STATE::WEAK_PUNCH_COMBO, _direction, true);
-		}
-		else if (randomCount < 60) // 40%
-		{
-			_jumpPower = -50;
-			setState(BOSS_STATE::METEOR_ATTACK, _direction, true);
+			if (randomCount < 20) // 10%
+			{
+				setState(BOSS_STATE::STRONG_PUNCH, _direction, true);
+			}
+			else if (randomCount < 40) // 10%
+			{
+				setState(BOSS_STATE::WEAK_PUNCH_COMBO, _direction, true);
+			}
+			else  // 40%
+			{
+				_jumpPower = -50;
+				setState(BOSS_STATE::METEOR_ATTACK, _direction, true);
+			}
 		}
 		else // 40%
 		{
-			setState(BOSS_STATE::DASH_ATTACK, _direction, true);
+			if (randomCount < 2)
+			{
+				setState(BOSS_STATE::DASH_ATTACK, _direction, true);
+			}
+			else if (randomCount < 4)
+			{
+				_jumpPower = -50;
+				setState(BOSS_STATE::METEOR_ATTACK, _direction, true);
+			}
 		}
 	}
 	break;

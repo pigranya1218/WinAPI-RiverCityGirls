@@ -100,29 +100,40 @@ void Stage::moveGameObject(GameObject* gameObject, Vector3 move)
 	gameObject->setPosition(newPos);
 }
 
-void Stage::attack(GameObject* hitter, FloatRect rc, float damage, ATTACK_TYPE type, vector<OBJECT_TEAM> getAttack)
+bool Stage::attack(Vector3 pos, Vector3 size, OBJECT_TEAM team, FloatRect rc, float damage, ATTACK_TYPE type, vector<OBJECT_TEAM> getAttack)
 {
+	bool result = false;
 	for (int i = 0; i < getAttack.size(); i++)
 	{
 		switch (getAttack[i])
 		{
 		case OBJECT_TEAM::PLAYER:
 		{
-			_player->getHit(hitter, rc, damage, type);
+			if (_player->getHit(pos, size, team, rc, damage, type))
+			{
+				result = true;
+			}
 		}
 		break;
 		case OBJECT_TEAM::ENEMY:
 		{
-			_enemyManager->getHit(hitter, rc, damage, type);
+			if (_enemyManager->getHit(pos, size, team, rc, damage, type))
+			{
+				result = true;
+			}
 		}
 		break;
 		case OBJECT_TEAM::OBJECT:
 		{
-			_objectManager->getHit(hitter, rc, damage, type);
+			if (_objectManager->getHit(pos, size, team, rc, damage, type))
+			{
+				result = true;
+			}
 		}
 		break;
 		}
 	}
+	return result;
 }
 
 void Stage::setBossUiVisible(bool isVisible)

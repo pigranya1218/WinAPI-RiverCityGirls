@@ -128,24 +128,29 @@ void EnemyManager::setBossUi(float currHp, float maxHp)
 	_stage->setBossUi(currHp, maxHp);
 }
 
-void EnemyManager::getHit(GameObject* hitter, FloatRect attackRc, float damage, ATTACK_TYPE type)
+bool EnemyManager::getHit(Vector3 pos, Vector3 size, OBJECT_TEAM team, FloatRect attackRc, float damage, ATTACK_TYPE type)
 {
+	bool result = false;
 	for (int i = 0; i < _enemies.size(); i++)
 	{
-		_enemies[i]->getHit(hitter, attackRc, damage, type);
+		if (_enemies[i]->getHit(pos, size, team, attackRc, damage, type))
+		{
+			result = true;
+		}
 	}
+	return result;
 }
 
-void EnemyManager::enemyAttack(GameObject* hitter, FloatRect attackRc, float damage, ATTACK_TYPE type)
+bool EnemyManager::enemyAttack(Vector3 pos, Vector3 size, OBJECT_TEAM team, FloatRect attackRc, float damage, ATTACK_TYPE type)
 {
 	vector<OBJECT_TEAM> getAttack;
 	getAttack.push_back(OBJECT_TEAM::PLAYER);
-	_stage->attack(hitter, attackRc, damage, type, getAttack);
+	return _stage->attack(pos, size, team, attackRc, damage, type, getAttack);
 }
 
-void EnemyManager::enemyAttackObject(GameObject* hitter, FloatRect attackRc, float damage, ATTACK_TYPE type)
+bool EnemyManager::enemyAttackObject(Vector3 pos, Vector3 size, OBJECT_TEAM team, FloatRect attackRc, float damage, ATTACK_TYPE type)
 {
 	vector<OBJECT_TEAM> getAttack;
 	getAttack.push_back(OBJECT_TEAM::OBJECT);
-	_stage->attack(hitter, attackRc, damage, type, getAttack);
+	return _stage->attack(pos, size, team, attackRc, damage, type, getAttack);
 }

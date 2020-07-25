@@ -178,7 +178,7 @@ void SchoolStudent::collision(Vector3 ** pos)
 {
 }
 
-void SchoolStudent::hitEffect(GameObject * hitter, FloatRect attackRc, float damage, ATTACK_TYPE type)
+void SchoolStudent::hitEffect(Vector3 pos, Vector3 size, OBJECT_TEAM team, FloatRect attackRc, float damage, ATTACK_TYPE type)
 {
 	if (_state != OBJECT_STATE::REACTION)
 	{

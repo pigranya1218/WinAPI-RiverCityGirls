@@ -49,8 +49,8 @@ public:
 	void setBossUiVisible(bool isVisible);
 	void setBossUi(float currHp, float maxHp);
 
-	void getHit(GameObject* gameObject, FloatRect attackRc, float damage, ATTACK_TYPE type);
-	void enemyAttack(GameObject* hitter, FloatRect attackRc, float damage, ATTACK_TYPE type);
-	void enemyAttackObject(GameObject* hitter, FloatRect attackRc, float damage, ATTACK_TYPE type);
+	bool getHit(Vector3 pos, Vector3 size, OBJECT_TEAM team, FloatRect attackRc, float damage, ATTACK_TYPE type);
+	bool enemyAttack(Vector3 pos, Vector3 size, OBJECT_TEAM team, FloatRect attackRc, float damage, ATTACK_TYPE type);
+	bool enemyAttackObject(Vector3 pos, Vector3 size, OBJECT_TEAM team, FloatRect attackRc, float damage, ATTACK_TYPE type);
 };
 

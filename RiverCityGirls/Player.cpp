@@ -94,29 +94,28 @@ float Player::getCenterBottom()
 	return _stageManager->getCenterBottom(_position);
 }
 
-void Player::attack(FloatRect attackRc, float damage, ATTACK_TYPE type)
+bool Player::attack(Vector3 pos, Vector3 size, OBJECT_TEAM team, FloatRect attackRc, float damage, ATTACK_TYPE type)
 {
-	_stageManager->playerAttack(this, attackRc, damage, type);
+	return _stageManager->playerAttack(pos, size, team, attackRc, damage, type);
 }
 
-void Player::getHit(GameObject* hitter, FloatRect attackRc, float damage, ATTACK_TYPE type)
+bool Player::getHit(Vector3 pos, Vector3 size, OBJECT_TEAM team, FloatRect attackRc, float damage, ATTACK_TYPE type)
 {
-	
-	if (_isHit)return;
+	if (_isHit) return false;
 		
 
 	_getHitType = type;
 	_damage = damage;
 
 
-	Vector3 enemyPos = hitter->getPosition();
-	Vector3 enemySize = hitter->getSize();
+	Vector3 enemyPos = pos;
+	Vector3 enemySize = size;
 	float hitterMinZ = enemyPos.z - enemySize.z / 2;
 	float hitterMaxZ = enemyPos.z + enemySize.z / 2;
 	float playerMinZ = _position.z - _size.z / 2;
 	float playerMaxZ = _position.z + _size.z / 2;
 
-	if (playerMaxZ<hitterMinZ || playerMinZ>hitterMaxZ) return;
+	if (playerMaxZ<hitterMinZ || playerMinZ>hitterMaxZ) return false;
 	
 	FloatRect getHitRc = FloatRect(_position.x - _size.x / 2, _position.y - _size.y / 2, _position.x + _size.x / 2, _position.y + _size.y / 2);
 	
@@ -130,9 +129,9 @@ void Player::getHit(GameObject* hitter, FloatRect attackRc, float damage, ATTACK
 		
 		if (_guarding)
 		{
-			if (hitter->getPosition().x > _position.x && attackRc.right < getHitRc.getCenter().x)
+			if (pos.x > _position.x && attackRc.right < getHitRc.getCenter().x)
 			{
-				if (hitter->getPosition().x > _position.x)
+				if (pos.x > _position.x)
 				{
 					_direction == DIRECTION::RIGHT;
 				}
@@ -145,11 +144,11 @@ void Player::getHit(GameObject* hitter, FloatRect attackRc, float damage, ATTACK
 				delete _state;
 				_state = state;
 				state->enter(*this);
-				return;
+				return true;
 			}
-			if (hitter->getPosition().x < _position.x && attackRc.left > getHitRc.getCenter().x)
+			if (pos.x < _position.x && attackRc.left > getHitRc.getCenter().x)
 			{
-				if (hitter->getPosition().x > _position.x)
+				if (pos.x > _position.x)
 				{
 					_direction == DIRECTION::RIGHT;
 				}
@@ -162,7 +161,7 @@ void Player::getHit(GameObject* hitter, FloatRect attackRc, float damage, ATTACK
 				delete _state;
 				_state = state;
 				state->enter(*this);
-				return;
+				return true;
 			}
 			else 
 			{
@@ -170,12 +169,12 @@ void Player::getHit(GameObject* hitter, FloatRect attackRc, float damage, ATTACK
 				delete _state;
 				_state = gdState;
 				gdState->enter(*this);
-				return;
+				return true;
 			}
 		}
 		else
 		{
-			if (hitter->getPosition().x > _position.x)
+			if (pos.x > _position.x)
 			{
 				_direction == DIRECTION::RIGHT;
 			}
@@ -188,7 +187,10 @@ void Player::getHit(GameObject* hitter, FloatRect attackRc, float damage, ATTACK
 			delete _state;
 			_state = state;
 			state->enter(*this);
-			return;
+			return true;
 		}
+
 	}
+	return false;
+
 }

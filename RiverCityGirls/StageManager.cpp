@@ -62,12 +62,12 @@ void StageManager::render()
 	_player->render();
 }
 
-void StageManager::playerAttack(GameObject* hitter, FloatRect attackRc, float damage, ATTACK_TYPE type)
+bool StageManager::playerAttack(Vector3 pos, Vector3 size, OBJECT_TEAM team, FloatRect attackRc, float damage, ATTACK_TYPE type)
 {
 	vector<OBJECT_TEAM> getAttack;
 	getAttack.push_back(OBJECT_TEAM::ENEMY);
 	getAttack.push_back(OBJECT_TEAM::OBJECT);
-	_currStage->attack(hitter, attackRc, damage, type, getAttack);
+	return _currStage->attack(pos, size, team, attackRc, damage, type, getAttack);
 }
 
 void StageManager::setBossUiVisible(bool isVisible)
