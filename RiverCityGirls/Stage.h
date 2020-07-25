@@ -49,6 +49,9 @@ public:
 	void moveGameObject(GameObject* gameObject, Vector3 move);
 	void attack(GameObject* hitter, FloatRect rc, float damage, ATTACK_TYPE type, vector<OBJECT_TEAM> getAttack);
 
+	void setBossUiVisible(bool isVisible);
+	void setBossUi(float currHp, float maxHp);
+
 	float getCenterBottom(Vector3 pos);
 	Vector3 getPlayerPosition();
 };

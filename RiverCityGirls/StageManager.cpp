@@ -69,6 +69,16 @@ void StageManager::playerAttack(GameObject* hitter, FloatRect attackRc, float da
 	_currStage->attack(hitter, attackRc, damage, type, getAttack);
 }
 
+void StageManager::setBossUiVisible(bool isVisible)
+{
+	_uiManager->setBossHpActive(isVisible);
+}
+
+void StageManager::setBossUi(float currHp, float maxHp)
+{
+	_uiManager->setBossHp(currHp, maxHp);
+}
+
 
 
 void StageManager::setDoorInfo(vector<tagDoorInfo> doorInfos)

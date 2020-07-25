@@ -120,6 +120,16 @@ void Stage::attack(GameObject* hitter, FloatRect rc, float damage, ATTACK_TYPE t
 	}
 }
 
+void Stage::setBossUiVisible(bool isVisible)
+{
+	_stageManager->setBossUiVisible(isVisible);
+}
+
+void Stage::setBossUi(float currHp, float maxHp)
+{
+	_stageManager->setBossUi(currHp, maxHp);
+}
+
 float Stage::getCenterBottom(Vector3 pos)
 {
 	Vector2 centerPos = Vector2(pos.x, pos.z);

@@ -32,6 +32,9 @@ public:
 
 	void playerAttack(GameObject* hitter, FloatRect attackRc, float damage, ATTACK_TYPE type);
 
+	void setBossUiVisible(bool isVisible);
+	void setBossUi(float currHp, float maxHp);
+
 	float getCenterBottom(Vector3 pos) { return _currStage->getCenterBottom(pos); }
 	Stage* getStage(string keyName) { return _stageMap[keyName]; }
 	void setDoorInfo(vector<tagDoorInfo> doorInfos);

@@ -46,6 +46,9 @@ public:
 	Vector3 getPlayerPosition();
 	float getCenterBottom(Vector3 pos);
 	
+	void setBossUiVisible(bool isVisible);
+	void setBossUi(float currHp, float maxHp);
+
 	void getHit(GameObject* gameObject, FloatRect attackRc, float damage, ATTACK_TYPE type);
 	void enemyAttack(GameObject* hitter, FloatRect attackRc, float damage, ATTACK_TYPE type);
 };

@@ -118,6 +118,16 @@ float EnemyManager::getCenterBottom(Vector3 pos)
 	return _stage->getCenterBottom(pos);
 }
 
+void EnemyManager::setBossUiVisible(bool isVisible)
+{
+	_stage->setBossUiVisible(isVisible);
+}
+
+void EnemyManager::setBossUi(float currHp, float maxHp)
+{
+	_stage->setBossUi(currHp, maxHp);
+}
+
 void EnemyManager::getHit(GameObject* hitter, FloatRect attackRc, float damage, ATTACK_TYPE type)
 {
 	for (int i = 0; i < _enemies.size(); i++)
