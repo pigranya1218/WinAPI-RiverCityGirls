@@ -31,7 +31,7 @@ void SchoolBoy::update()
 	_elapsedTime += TIME_MANAGER->getElapsedTime();
 
 	// 적 개체의 HP가 0이하
-	if (_hp <= 0)
+	if (_hp <= 0 && _state != ENEMY_STATE::KNOCKDOWN)
 	{
 		setState(ENEMY_STATE::KNOCKDOWN, _direction);
 	}
@@ -251,16 +251,14 @@ void SchoolBoy::update()
 		if (moveDir.y > 1 && lastY == currY) // 땅에 부딪힘
 		{
 			_gravity = 0;
-			if (_hp <= 0 )
-			{
-				if (!_ani->isPlay())
-				{
-					_isActive = false;
-				}
-			}
-			if (_elapsedTime > 3)
+			
+			if (_elapsedTime > 3 && _hp > 0)
 			{
 				setState(ENEMY_STATE::STANDUP, _direction);
+			}
+			else if (_hp <= 0 && !_ani->isPlay())
+			{
+				_isActive = false;
 			}
 		}
 		/*else
@@ -416,12 +414,39 @@ void SchoolBoy::render()
 	case ENEMY_STATE::DASHATTACK:
 	case ENEMY_STATE::GUARD:
 	case ENEMY_STATE::HIT:
-	case ENEMY_STATE::KNOCKDOWN:
+	case ENEMY_STATE::KNOCKDOWN: //사망 처리
+	{
+		if (_hp <= 0 && _ani->isPlay())
+		{
+			if (fmod(_elapsedTime, 0.2f) < 0.1f)
+			{
+				_enemyImg->setAlpha(1);
+			}
+			else if(fmod(_elapsedTime, 0.2f) >= 0.1f)
+			{
+				_enemyImg->setAlpha(0);
+			}
+			Vector3 drowPos = _position;
+			drowPos.y = _position.y + 30;
+			CAMERA_MANAGER->aniRenderZ(_enemyImg, drowPos, _size, _ani, -(_position.y + (_size.y / 2)));
+		}
+		else
+		{
+			Vector3 drowPos = _position;
+			drowPos.y = _position.y + 30;
+			CAMERA_MANAGER->aniRenderZ(_enemyImg, drowPos, _size, _ani, -(_position.y + (_size.y / 2)));
+		}
+	}
+	break;
 	case ENEMY_STATE::STANDUP:
 	{
-		Vector3 drawPos = _position;
-		drawPos.y += 10;
-		CAMERA_MANAGER->aniRenderZ(_enemyImg, drawPos, _size, _ani, -(_position.y + (_size.y / 2)));
+		if (_hp > 0)
+		{
+			Vector3 drawPos = _position;
+			drawPos.y += 10;
+			CAMERA_MANAGER->aniRenderZ(_enemyImg, drawPos, _size, _ani, -(_position.y + (_size.y / 2)));
+		}
+		else _isActive = false;
 	}
 	break;
 	default:
@@ -430,6 +455,9 @@ void SchoolBoy::render()
 	}
 		break;
 	}
+
+	
+	
 
 	//그림자 그리기
 	switch (_state)
