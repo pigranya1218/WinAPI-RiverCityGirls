@@ -4,7 +4,7 @@
 void SchoolBoy::init()
 {
 	//_enemyImg = IMAGE_MANAGER->findImage("school_idle");
-	_position = Vector3(600, -100, 500);
+	_position = Vector3(600, -105, 500);
 	_size = Vector3(140, 200, 40);
 	_state = ENEMY_STATE::IDLE;
 	_direction = DIRECTION::RIGHT;
@@ -212,7 +212,10 @@ void SchoolBoy::update()
 	case ENEMY_STATE::KNOCKDOWN: // 쓰러지는 경직
 	{
 		_gravity += 1;
-		moveDir.x += (_direction == DIRECTION::RIGHT) ? -1 : 1;
+		if (_gravity != 1)
+		{
+			moveDir.x += (_direction == DIRECTION::RIGHT) ? -2 : 2;
+		}
 		moveDir.y += _gravity;
 
 		float lastY = _position.y;
@@ -222,9 +225,15 @@ void SchoolBoy::update()
 		if (moveDir.y > 1 && lastY == currY) // 땅에 부딪힘
 		{
 			_gravity = 0;
-			setState(ENEMY_STATE::STANDUP, _direction);
-
+			if (_elapsedTime > 3)
+			{
+				setState(ENEMY_STATE::STANDUP, _direction);
+			}
 		}
+		/*else
+		{
+			_elapsedTime = 0;
+		}*/
 	}
 	break;
 
@@ -232,7 +241,9 @@ void SchoolBoy::update()
 	{
 		if (!_ani->isPlay())
 		{
-			setState(ENEMY_STATE::IDLE, _direction);
+			int stunRate = RANDOM->getInt(3);
+			if (stunRate == 2 && _hp <= 60) setState(ENEMY_STATE::STUN, _direction);
+			else setState(ENEMY_STATE::IDLE, _direction);
 		}
 	}
 	break;
@@ -329,18 +340,83 @@ void SchoolBoy::render()
 		CAMERA_MANAGER->drawLine(Vector2(_position.x, _position.z), Vector2(_position.x, _position.z + _position.y));
 		CAMERA_MANAGER->rectangle(rc, D2D1::ColorF::Enum::Red, 1, 1);
 		CAMERA_MANAGER->rectangle(_viewRc, D2D1::ColorF::Enum::Magenta, 1, 1);
+
+		//test
+		char str[255];
+		sprintf_s(str, "[스쿨보이] state : %d, jumpPower : %d, gravity : %d", (int)_state, _jumpPower, _gravity);
+		TextOut(_hdc, 500, 0, str, strlen(str));
+
+		sprintf_s(str, "[스쿨보이] drawYFix : %f, elapsedTime : %f", _drawYFix, _elapsedTime);
+		TextOut(_hdc, 500, 20, str, strlen(str));
 	}
 
 	_enemyImg->setScale(3.f);
-	CAMERA_MANAGER->aniRenderZ(_enemyImg, _position, _size, _ani);
-	
-	//test
-	/*char str[255];
-	sprintf_s(str, "[스쿨보이] state : %d, jumpPower : %d, gravity : %d, playerDistance : %f", (int)_state, _jumpPower, _gravity, _playerDistance);
-	TextOut(_hdc, 0, 0, str, strlen(str));
+	//CAMERA_MANAGER->aniRenderZ(_enemyImg, _position, _size, _ani);
+	//이미지 그리기
+	switch (_state)
+	{
+	case ENEMY_STATE::IDLE:
+	{
+		Vector3 drawPos = _position;
+		//drawPos.y -= 4;
+		CAMERA_MANAGER->aniRenderZ(_enemyImg, drawPos, _size, _ani, -(_position.y + (_size.y / 2)));
+	}
+	break;
+	case ENEMY_STATE::WALK:
+	case ENEMY_STATE::RUN:
+	{
+		Vector3 drawPos = _position;
+		drawPos.y += 1;
+		CAMERA_MANAGER->aniRenderZ(_enemyImg, drawPos, _size, _ani, -(_position.y + (_size.y / 2)));
+	}
+	break;
+	case ENEMY_STATE::ATTACK:
+	{
+		Vector3 drawPos = _position;
+		//if (_enemyImg == IMAGE_MANAGER->findImage("schoolboy_attack1")) _drawYFix = 0;
+		//else if (_enemyImg == IMAGE_MANAGER->findImage("schoolboy_attack2")) _drawYFix = -3;
+		//else if (_enemyImg == IMAGE_MANAGER->findImage("schoolboy_attack3")) _drawYFix = -10;
+		drawPos.y -= 5;
+		CAMERA_MANAGER->aniRenderZ(_enemyImg, drawPos, _size, _ani, -(_position.y + (_size.y / 2)));
+	}
+	break;
+	case ENEMY_STATE::DASHATTACK:
+	case ENEMY_STATE::GUARD:
+	case ENEMY_STATE::HIT:
+	case ENEMY_STATE::KNOCKDOWN:
+	case ENEMY_STATE::STANDUP:
+	{
+		Vector3 drawPos = _position;
+		drawPos.y += 10;
+		CAMERA_MANAGER->aniRenderZ(_enemyImg, drawPos, _size, _ani, -(_position.y + (_size.y / 2)));
+	}
+	break;
+	default:
+	{
+		CAMERA_MANAGER->aniRenderZ(_enemyImg, _position, _size, _ani, -(_position.y + (_size.y / 2)));
+	}
+		break;
+	}
 
-	sprintf_s(str, "[스쿨보이] attackCount : %d, elapsedTime : %f, isGetHit : %d", _attackCount, _elapsedTime, (int) _isGetHit);
-	TextOut(_hdc, 0, 20, str, strlen(str));*/
+	//그림자 그리기
+	switch (_state)
+	{
+	case ENEMY_STATE::JUMP:
+	case ENEMY_STATE::JUMPATTACK:
+	case ENEMY_STATE::KNOCKDOWN:
+	{
+		Vector3 shadowPos = _position;
+		shadowPos.y = _enemyManager->getCenterBottom(_position);
+		CAMERA_MANAGER->drawShadowZ(shadowPos, Vector3(120.0, 0, 25.0), -shadowPos.y);
+	}
+	break;
+	default:
+	{
+		CAMERA_MANAGER->drawShadowZ(_position, Vector3(120.0, _size.y, 25.0), -(_position.y + (_size.y / 2)));
+	}
+	break;
+	}
+
 	
 }
 
@@ -353,16 +429,18 @@ void SchoolBoy::hitEffect(GameObject * hitter, FloatRect attackRc, float damage,
 	{
 		if (_hitType == ATTACK_TYPE::HIT1 || _hitType == ATTACK_TYPE::HIT2)
 		{
+			_hp -= damage;
 			setState(ENEMY_STATE::HIT, _direction);
-
 		}
 		else if (_hitType == ATTACK_TYPE::KNOCKDOWN)
 		{
 			_gravity = -16.0f;
+			_hp -= damage;
 			setState(ENEMY_STATE::KNOCKDOWN, _direction);
 		}
 		else if (_hitType == ATTACK_TYPE::STUN)
 		{
+			_hp -= damage;
 			setState(ENEMY_STATE::STUN, _direction);
 		}
 	}
