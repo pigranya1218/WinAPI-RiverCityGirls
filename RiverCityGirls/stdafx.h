@@ -12,6 +12,7 @@
 #include <memory.h>
 #include <tchar.h>
 #include <assert.h>
+#include <atlconv.h>
 
 #include <vector>
 #include <map>

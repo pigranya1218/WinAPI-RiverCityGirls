@@ -153,7 +153,7 @@ void DialogueManager::render()
 	D2D_RENDERER->renderText(
 		_qCharacterImg.front().name->getWidth() * 1.5f,						// X축
 		WINSIZEY - _qCharacterImg.front().name->getHeight() * 2.0f,			// Y축
-		strTowstr(_writeText),												// string >> wstring 변환
+		stringTOwsting(_writeText),											// string >> wstring 변환
 		30,																	// 폰트 크기
 		D2DRenderer::DefaultBrush::White, DWRITE_TEXT_ALIGNMENT_LEADING,	// 정렬은 왼쪽으로
 		L"메이플스토리"														// 폰트
@@ -235,7 +235,7 @@ void DialogueManager::startChapter(BossChapter chapter)
 wstring DialogueManager::strTowstr(string src)
 {
 	USES_CONVERSION;	
-	return A2W(src.c_str());
+	return A2W(src.c_str());	
 }
 
 bool DialogueManager::textUpdate(float elapsedTime)
