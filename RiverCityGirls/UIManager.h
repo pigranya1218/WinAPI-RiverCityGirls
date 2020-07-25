@@ -15,10 +15,13 @@ struct tagPlayerInfo
 	bool	active;		// 출력 및 업데이트 여부
 	int		digitNum;	// 체력 칸 개수
 
+	float	money;
+
 	// 경험치 관련
 	ProgressBar* expBar;		// 경험치 막대
 	float		 currentExp;	// 현재 경험치
 	float		 maxExp;		// 최대 경험치
+
 
 	HRESULT init()
 	{
@@ -42,7 +45,9 @@ struct tagPlayerInfo
 				digitNum = 1;	// 체력바는 1로 만들어줌
 			}
 			expBar->update();
-			expBar->setGauge(currentExp, maxExp);
+			expBar->setGauge((float)player->getExp(), 100.0f);
+
+			money = (float)player->getMoney();			
 		}
 	}
 	void render()
@@ -62,6 +67,17 @@ struct tagPlayerInfo
 				hpDigit->setScale(0.7f);
 				hpDigit->render(Vector2((float)(WINSIZEX / 2 - 400) + (i * (hpDigit->getWidth() / 2.25f)), frameHp->getHeight() / 3.8f));
 			}
+
+			char moneyStr[50];
+			sprintf_s(moneyStr, "%07.02f", money);
+			D2D_RENDERER->renderText(
+				WINSIZEX / 2 - 385, frameHp->getHeight() / 2 - 5,
+				stringTOwsting(moneyStr),
+				17,
+				D2DRenderer::DefaultBrush::White,
+				DWRITE_TEXT_ALIGNMENT_LEADING,
+				L"메이플스토리"
+			);
 		}
 	}
 };
@@ -275,7 +291,7 @@ private:
 struct tagShopInfo
 {
 private:
-	float		money;					// 후에 플레이어에 돈이 생기면 연결
+	float		money;					// 돈
 	float		scale;					// 스케일
 	int			currentList;			// 현재 아이템
 	FloatRect	itemPos[SHOPLISTMAX];	// 아이템 리스트 포지션
@@ -328,7 +344,7 @@ public:
 
 			vItem.push_back(item);
 
-			itemList[i] = IMAGE_MANAGER->findImage("item_" + to_string(i + 1));
+			itemList[i] = IMAGE_MANAGER->findImage("item_" + to_string(i + 1));			
 		}
 		return S_OK;
 	}
@@ -336,6 +352,8 @@ public:
 	{
 		if (active)
 		{
+			money = (float)player->getMoney();			
+
 			if (KEY_MANAGER->isOnceKeyDown(VK_DOWN))
 			{				
 				if (++currentList >= SHOPLISTMAX) currentList = 0;
@@ -345,34 +363,21 @@ public:
 				if (--currentList < 0) currentList = SHOPLISTMAX - 1;
 			}
 			if (KEY_MANAGER->isOnceKeyDown('X'))
-			{
-				//if (isPurchase) isPurchase = false;
-				//else			active = false;
+			{				
 				active = false;
 			}
 			if (KEY_MANAGER->isOnceKeyDown('Z'))
 			{
-				//isPurchase = true;
 				// 체력 회복				
 				player->setHp(player->getHp() + (vItem[currentList].recovery * player->getMaxHp() / 100));
 				// 최대 체력 초과 방지
 				if (player->getHp() > player->getMaxHp()) player->setHp(player->getMaxHp());
-				// 돈은 아직 안함
-			}
-
-			if (isPurchase)
-			{
-				if (getDistance(buttonPos.x, buttonPos.y, movePos.x, movePos.y) > 10)
+				// 돈이 부족하면 살 수 없음
+				if (money >= vItem[currentList].price)
 				{
-
-				}
-			}
-			else
-			{
-				if (getDistance(buttonPos.x, buttonPos.y, movePos.x, movePos.y) > 10)
-				{
-
-				}
+					// 돈계산
+					player->setMoney((int)(money - vItem[currentList].price));
+				}				
 			}
 		}
 	}
@@ -380,13 +385,29 @@ public:
 	{
 		if (active)
 		{			
+			// 상점 전체 이미지 출력
 			IMAGE_MANAGER->findImage("shopFrame")->setSize(Vector2(WINSIZEX, WINSIZEY));
 			IMAGE_MANAGER->findImage("shopFrame")->render(Vector2(WINSIZEX / 2, WINSIZEY / 2));
 			
+			// 선택 창 출력
 			selectBar->setScale(scale);
 			selectBar->render(itemPos[currentList].getCenter());
 			
+			// 아이템 이미지 출력
 			itemList[currentList]->render(Vector2(itemPos[currentList].getCenter().x - 200, itemPos[currentList].getCenter().y - 50));
+
+			// 돈 출력
+			char moneyStr[20];
+			sprintf_s(moneyStr, "$%.2f", money);
+			D2D_RENDERER->renderText(
+				WINSIZEX - 210, WINSIZEY / 2 - 180,
+				stringTOwsting(moneyStr),
+				27,
+				D2DRenderer::DefaultBrush::White,
+				DWRITE_TEXT_ALIGNMENT_LEADING,
+				L"메이플스토리",
+				10.0f
+			);
 
 			for (int i = 0; i < vItem.size(); i++)
 			{				

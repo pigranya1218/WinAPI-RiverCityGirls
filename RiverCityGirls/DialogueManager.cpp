@@ -42,6 +42,8 @@ void DialogueManager::update()
 		{
 			Vector2& pos = _qCharacterImg.front().pos;
 
+			_textY = WINSIZEY - _qCharacterImg.front().name->getHeight() * 2.0f;
+
 			if (KEY_MANAGER->isOnceKeyDown(VK_SPACE))
 			{
 				pos = _qCharacterImg.front().target;				
@@ -82,6 +84,10 @@ void DialogueManager::update()
 					}
 					else
 					{
+						if (_qCharacterMsg.front().substr(_stringNum, 1) == "\n")
+						{
+							_textY = WINSIZEY - _qCharacterImg.front().name->getHeight() * 2.0f - 20;
+						}
 						_writeText.push_back(_qCharacterMsg.front().at(_stringNum++));
 					}					
 				}						
@@ -152,7 +158,7 @@ void DialogueManager::render()
 	
 	D2D_RENDERER->renderText(
 		_qCharacterImg.front().name->getWidth() * 1.5f,						// X축
-		WINSIZEY - _qCharacterImg.front().name->getHeight() * 2.0f,			// Y축
+		_textY,																// Y축
 		stringTOwsting(_writeText),											// string >> wstring 변환
 		30,																	// 폰트 크기
 		D2DRenderer::DefaultBrush::White, DWRITE_TEXT_ALIGNMENT_LEADING,	// 정렬은 왼쪽으로
@@ -194,7 +200,7 @@ void DialogueManager::startChapter(BossChapter chapter)
 			getline(readMsg, str);
 			atPos = str.find('@', 0);					
 			
-			tagDialogueImg characterImg;
+			tagDialogueImgInfo characterImg;
 			ZeroMemory(&characterImg, sizeof(characterImg));
 			
 			characterImg.portrait = IMAGE_MANAGER->findImage(str.substr(0, atPos));
@@ -203,12 +209,12 @@ void DialogueManager::startChapter(BossChapter chapter)
 
 			if (str.find("misuzu") == string::npos)	// 미스즈가 아닐 경우
 			{
-				characterImg.target = Vector2((float)characterImg.portrait->getWidth() / 1.5f, (float)(WINSIZEY - characterImg.portrait->getHeight() / 2));
+				characterImg.target = Vector2((float)characterImg.portrait->getWidth() / 1.5f, (float)(WINSIZEY - (100 + characterImg.portrait->getHeight() / 2.0f * 0.8f)));
 				characterImg.pos = Vector2(0.0f - characterImg.portrait->getWidth() / 2, characterImg.target.y);
 			}
 			else
 			{
-				characterImg.target = Vector2((float)(WINSIZEX - characterImg.portrait->getWidth() / 1.5f), (float)(WINSIZEY - characterImg.portrait->getHeight() / 2));
+				characterImg.target = Vector2((float)(WINSIZEX - characterImg.portrait->getWidth() / 1.5f), (float)(WINSIZEY - (100 + characterImg.portrait->getHeight() / 2 * 0.8f)));
 				characterImg.pos = Vector2((float)(WINSIZEX + characterImg.portrait->getWidth() / 2), characterImg.target.y);
 			}							
 								
@@ -227,15 +233,10 @@ void DialogueManager::startChapter(BossChapter chapter)
 	}
 	readMsg.close();
 
+
 	_isPlay = true;
 
 	_curDialog = curDialogue::ENTER;
-}
-
-wstring DialogueManager::strTowstr(string src)
-{
-	USES_CONVERSION;	
-	return A2W(src.c_str());	
 }
 
 bool DialogueManager::textUpdate(float elapsedTime)
@@ -244,7 +245,7 @@ bool DialogueManager::textUpdate(float elapsedTime)
 
 	if (_elapsedSec >= _textSpeed)
 	{
-		_elapsedSec = 0;
+		_elapsedSec -= _textSpeed;
 		return true;
 	}
 	return false;

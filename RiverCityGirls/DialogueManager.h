@@ -9,7 +9,7 @@ enum class BossChapter
 	BATTLE_AFTER
 };
 
-struct tagDialogueImg
+struct tagDialogueImgInfo
 {
 	Image*	portrait;	// 캐릭터 이미지
 	Image*	name;		// 캐릭터 대화창 옆에 나올 이름
@@ -17,7 +17,7 @@ struct tagDialogueImg
 	Vector2 target;		// 목표 지점	
 };
 
-struct tagSkip
+struct tagSkipInfo
 {
 	ProgressBar* bar;	// 프로그레스 바
 	float curGauge;		// 현재 게이지
@@ -28,16 +28,17 @@ struct tagSkip
 class DialogueManager
 {
 private:	
-	queue<string>			_qCharacterMsg;	// 대사 저장
-	queue<tagDialogueImg>	_qCharacterImg;	// 이미지 등 잡다한 것 저장
-	tagSkip					_skip;			// 스킵 관련
-	string					_writeText;		// 최종 출력할 텍스트
-	bool					_isPlay;		// 현재 대화 진행중	
-	float					_speed;			// 이미지 속도
-	float					_textSpeed;		// 출력할 텍스트 속도
-	float					_elapsedSec;	// 시간 계산용
-	int						_stringNum;		// 출력할 글자 위치
-	float					_textTerm;		// 텍스트 출력 완료 후 화면 넘어갈 속도
+	queue<string>				_qCharacterMsg;	// 대사 저장
+	queue<tagDialogueImgInfo>	_qCharacterImg;	// 이미지 등 잡다한 것 저장
+	tagSkipInfo					_skip;			// 스킵 관련
+	string						_writeText;		// 최종 출력할 텍스트
+	bool						_isPlay;		// 현재 대화 진행중	
+	float						_speed;			// 이미지 속도
+	float						_textSpeed;		// 출력할 텍스트 속도
+	float						_elapsedSec;	// 시간 계산용
+	int							_stringNum;		// 출력할 글자 위치
+	float						_textTerm;		// 텍스트 출력 완료 후 화면 넘어갈 속도
+	float						_textY;			// 텍스트가 개행 시  Y축 위치 조절
 
 	enum class curDialogue
 	{
@@ -58,10 +59,7 @@ public:
 
 	void startChapter(BossChapter chapter);
 	bool getIsPlay() { return _isPlay; }	
-
-
-	// string >> wstring 한글 안깨짐
-	wstring strTowstr(string src);
+	
 	bool textUpdate(float elapsedTime);
 	bool findNameImg(string src, string name);
 	void keyReaction();
