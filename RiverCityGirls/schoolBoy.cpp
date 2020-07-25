@@ -83,6 +83,10 @@ void SchoolBoy::update()
 		else
 		{
 			_gravity = 0;
+			if (distanceFromPlayer <= 200 && _elapsedTime > 1) // 모래 뿌리기
+			{
+				setState(ENEMY_STATE::SKILL, _direction);
+			}
 			if (distanceFromPlayer <= 100) // 근접 시 공격
 			{
 				setState(ENEMY_STATE::ATTACK, _direction);
@@ -129,6 +133,26 @@ void SchoolBoy::update()
 			{
 				setState(ENEMY_STATE::JUMP, _direction);
 				_gravity = -26;
+			}
+		}
+	}
+	break;
+	case ENEMY_STATE::RETURN:
+	{
+		moveDir.z += (playerPos.z < _position.z) ? 1 : ((playerPos.z > _position.z) ? -1 : 0);
+		moveDir.x += (_direction == DIRECTION::RIGHT) ? 1 : -1;
+		moveDir = Vector3::normalize(&moveDir);
+		moveDir = moveDir * 1;
+		_enemyManager->moveEnemy(this, moveDir);
+
+		if (_elapsedTime > 1.5)
+		{
+			_elapsedTime = 0;
+			setState(ENEMY_STATE::WALK, _direction);
+
+			if (distanceFromPlayer > 400)
+			{
+				setState(ENEMY_STATE::RUN, _direction); // 플레이어에게 달려가기
 			}
 		}
 	}
@@ -188,7 +212,7 @@ void SchoolBoy::update()
 			}
 			_viewRc = FloatRect(_attackRc.left, _position.z + _attackRc.top,
 				_attackRc.right, _position.z + _attackRc.bottom);
-			//attack(_attackRc, 5, ATTACK_TYPE::HIT1);
+			enemyAttack(_attackRc, 5, ATTACK_TYPE::HIT1);
 		}
 	}
 	break;
@@ -218,11 +242,46 @@ void SchoolBoy::update()
 			}
 			_viewRc = FloatRect(_attackRc.left, _position.z + _attackRc.top,
 				_attackRc.right, _position.z + _attackRc.bottom);
-			//attack(_attackRc, 5, ATTACK_TYPE::HIT2);
+			enemyAttack(_attackRc, 5, ATTACK_TYPE::HIT2);
 		}
 	}
 	break;
+	case ENEMY_STATE::SKILL:
+	{
+		setDirectionToPlayer(); // 플레이어 바라보기
 
+		moveDir.x += (_direction == DIRECTION::RIGHT) ? 1 : -1;
+		moveDir.z += (playerPos.z >= _position.z + 10) ? 1 : ((playerPos.z <= _position.z - 10) ? -1 : 0);
+		moveDir = Vector3::normalize(&moveDir);
+		moveDir = moveDir * 2;
+
+		if (!_ani->isPlay()) // 공격 모션이 끝났다면
+		{
+			setState(ENEMY_STATE::IDLE, _direction);
+		}
+		else
+		{
+			if (_direction == DIRECTION::LEFT && _ani->getPlayIndex() == _attackS)
+			{
+				_attackRc = FloatRect(_position.x - 300, _position.y - 45,
+					_position.x - 100, _position.y + 20);
+			}
+			else if (_direction == DIRECTION::RIGHT && _ani->getPlayIndex() == _attackS)
+			{
+				_attackRc = FloatRect(_position.x + 100, _position.y - 45,
+					_position.x + 300, _position.y + 20);
+			}
+			else
+			{
+				_attackRc = FloatRect(0, 0, 0, 0);
+				_viewRc = FloatRect(0, 0, 0, 0);
+			}
+			_viewRc = FloatRect(_attackRc.left, _position.z + _attackRc.top,
+				_attackRc.right, _position.z + _attackRc.bottom);
+			enemyAttack(_attackRc, 5, ATTACK_TYPE::HIT1);
+		}
+	}
+	break;
 	case ENEMY_STATE::HIT: // 작은 경직
 	{
 		_gravity += 1;
@@ -389,7 +448,7 @@ void SchoolBoy::render()
 		sprintf_s(str, "[스쿨보이] state : %d, jumpPower : %d, gravity : %d", (int)_state, _jumpPower, _gravity);
 		TextOut(_hdc, 500, 0, str, strlen(str));
 
-		sprintf_s(str, "[스쿨보이] drawYFix : %f, elapsedTime : %f", _drawYFix, _elapsedTime);
+		sprintf_s(str, "[스쿨보이] elapsedTime : %f", _elapsedTime);
 		TextOut(_hdc, 500, 20, str, strlen(str));
 	}
 
@@ -657,6 +716,7 @@ void SchoolBoy::setState(ENEMY_STATE state, DIRECTION direction)
 	break;
 	case ENEMY_STATE::SKILL:
 	{
+		_attackS = 5;
 		_enemyImg = IMAGE_MANAGER->findImage("schoolboy_skill");
 		_ani->init(_enemyImg->getWidth(), _enemyImg->getHeight(),
 			_enemyImg->getMaxFrameX(), _enemyImg->getMaxFrameY());
