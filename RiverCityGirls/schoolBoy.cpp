@@ -14,6 +14,7 @@ void SchoolBoy::init()
 	_gravity = 0;
 	_jumpPower = 0;
 	_hp = 100;
+	_isActive = true;
 }
 
 void SchoolBoy::release()
@@ -28,6 +29,12 @@ void SchoolBoy::update()
 	float distanceFromPlayer = sqrt(pow(playerPos.x - _position.x, 2) + pow(playerPos.z - _position.z, 2)); // 플레이어와 xz 거리
 	Vector3 moveDir = Vector3(0, 0, 0);
 	_elapsedTime += TIME_MANAGER->getElapsedTime();
+
+	// 적 개체의 HP가 0이하
+	if (_hp <= 0)
+	{
+		setState(ENEMY_STATE::KNOCKDOWN, _direction);
+	}
 
 	// 상태에 따른 행동 및 상태 전이
 	switch (_state)
@@ -108,6 +115,9 @@ void SchoolBoy::update()
 		else
 		{
 			_gravity = 0;
+			//오브젝트 사이에 충돌
+			
+
 			if (distanceFromPlayer <= 100) // 근접 시 공격
 			{
 				setState(ENEMY_STATE::DASHATTACK, _direction);
@@ -182,6 +192,22 @@ void SchoolBoy::update()
 		{
 			setState(ENEMY_STATE::IDLE, _direction);
 		}
+		else
+		{
+			if (_direction == DIRECTION::LEFT)
+			{
+				_attackRc = FloatRect(_position.x - 130, _position.y - 35,
+					_position.x - 20, _position.y + 20);
+			}
+			else if (_direction == DIRECTION::RIGHT)
+			{
+				_attackRc = FloatRect(_position.x + 20, _position.y - 35,
+					_position.x + 100, _position.y + 20);
+			}
+			_viewRc = FloatRect(_attackRc.left, _position.z + _attackRc.top,
+				_attackRc.right, _position.z + _attackRc.bottom);
+			//attack(_attackRc, 5, ATTACK_TYPE::HIT1);
+		}
 	}
 	break;
 
@@ -225,6 +251,13 @@ void SchoolBoy::update()
 		if (moveDir.y > 1 && lastY == currY) // 땅에 부딪힘
 		{
 			_gravity = 0;
+			if (_hp <= 0 )
+			{
+				if (!_ani->isPlay())
+				{
+					_isActive = false;
+				}
+			}
 			if (_elapsedTime > 3)
 			{
 				setState(ENEMY_STATE::STANDUP, _direction);
@@ -384,6 +417,7 @@ void SchoolBoy::render()
 	case ENEMY_STATE::GUARD:
 	case ENEMY_STATE::HIT:
 	case ENEMY_STATE::KNOCKDOWN:
+	break;
 	case ENEMY_STATE::STANDUP:
 	{
 		Vector3 drawPos = _position;
