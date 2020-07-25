@@ -10,11 +10,13 @@ void SchoolBoy::init()
 	_direction = DIRECTION::RIGHT;
 	_ani = new Animation;
 	setState(_state, _direction);
-
+	_hitCount = 0;
+	_attackCount = 0;
 	_gravity = 0;
 	_jumpPower = 0;
 	_hp = 100;
 	_isActive = true;
+	_isAttack = false;
 }
 
 void SchoolBoy::release()
@@ -39,22 +41,37 @@ void SchoolBoy::update()
 		setState(ENEMY_STATE::KNOCKDOWN, _direction);
 	}
 
+	//피격 카운트 초기화
+	if (_elapsedTime > 1.5)
+	{
+		_hitCount = 0;
+	}
+
+	//공격 카운트 초기화
+	if (_elapsedTime > 1.5)
+	{
+		_attackCount = 0;
+	}
+
 	// 상태에 따른 행동 및 상태 전이
 	switch (_state)
 	{
 	case ENEMY_STATE::IDLE: // 대기 상태
 	{
 		setDirectionToPlayer(); // 플레이어 바라보기
-
 		if (_elapsedTime > 1)
 		{
 			if (distanceFromPlayer > 400)
 			{
 				setState(ENEMY_STATE::RUN, _direction); // 플레이어에게 달려가기
 			}
-			else
+			else if(distanceFromPlayer > 100)
 			{
 				setState(ENEMY_STATE::WALK, _direction); // 플레이어에게 걸어가기
+			}
+			else
+			{
+				setState(ENEMY_STATE::ATTACK, _direction);
 			}
 		}
 	}
@@ -190,7 +207,8 @@ void SchoolBoy::update()
 	{
 		if (!_ani->isPlay()) // 공격 모션이 끝났다면
 		{
-			setState(ENEMY_STATE::IDLE, _direction);
+			if (_attackCount < 3) setState(ENEMY_STATE::ATTACK, _direction);
+			else setState(ENEMY_STATE::IDLE, _direction);
 		}
 		else
 		{
@@ -198,7 +216,6 @@ void SchoolBoy::update()
 			{
 				_attackRc = FloatRect(_position.x - 130, _position.y - 35,
 					_position.x - 20, _position.y + 20);
-				
 			}
 			else if (_direction == DIRECTION::RIGHT && _ani->getPlayIndex() == _attackS)
 			{
@@ -212,7 +229,23 @@ void SchoolBoy::update()
 			}
 			_viewRc = FloatRect(_attackRc.left, _position.z + _attackRc.top,
 				_attackRc.right, _position.z + _attackRc.bottom);
-			enemyAttack(_attackRc, 5, ATTACK_TYPE::HIT1);
+			ATTACK_TYPE type;
+			if (_attackCount > 3)
+			{
+				type = ATTACK_TYPE::KNOCKDOWN;
+				_attackCount = 0;
+			} 
+			else
+			{
+				_isAttack = true;
+				if (_isAttack)
+				{
+					_attackCount += 1;
+					_isAttack = false;
+				}
+				type = ATTACK_TYPE::HIT1;
+			}
+			enemyAttack(_attackRc, 5, type);
 		}
 	}
 	break;
@@ -291,7 +324,7 @@ void SchoolBoy::update()
 		float lastY = _position.y;
 		_enemyManager->moveEnemy(this, moveDir);
 		float currY = _position.y;
-
+		_hitCount += 1;
 		if (lastY != currY) // 떨어지는 중
 		{
 			setState(ENEMY_STATE::JUMP, _direction);
@@ -301,6 +334,13 @@ void SchoolBoy::update()
 			if (!_ani->isPlay())
 			{
 				setState(ENEMY_STATE::IDLE, _direction);
+			}
+			_hitCount += 1;
+			if (_hitCount > 100)
+			{
+				_hitCount = 0;
+				_gravity = -16.0f;
+				setState(ENEMY_STATE::KNOCKDOWN, _direction);
 			}
 		}
 	}
@@ -448,7 +488,7 @@ void SchoolBoy::render()
 		sprintf_s(str, "[스쿨보이] state : %d, jumpPower : %d, gravity : %d", (int)_state, _jumpPower, _gravity);
 		TextOut(_hdc, 500, 0, str, strlen(str));
 
-		sprintf_s(str, "[스쿨보이] elapsedTime : %f", _elapsedTime);
+		sprintf_s(str, "[스쿨보이] elapsedTime : %f, hitCount : %f, attackCount : %d", _elapsedTime, _hitCount, _attackCount);
 		TextOut(_hdc, 500, 20, str, strlen(str));
 	}
 

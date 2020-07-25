@@ -421,7 +421,7 @@ void CheerGirl::render()
 {
 	char str[1000];
 	sprintf_s(str, "[스쿨걸] elapsedTime : %f, _hitCount : %f", _elapsedTime, _hitCount);
-	TextOut(_hdc, 500, 20, str, strlen(str));
+	TextOut(_hdc, 500, 40, str, strlen(str));
 
 	//좌우에 따른 애니메이션 프레임 및 루프 조정
 	switch (_state)
