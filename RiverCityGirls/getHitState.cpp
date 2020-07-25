@@ -1,5 +1,5 @@
 #include "stdafx.h"
-#include "getHitState.h"
+#include "AllPlayerState.h"
 
 void getHitState::enter(Player & player)
 {
@@ -27,7 +27,28 @@ void getHitState::exit(Player & player)
 
 PlayerState * getHitState::update(Player & player)
 {
+	switch (_getHitState)
+	{
+	case GET_HIT_STATE::GET_HIT:
+		//player.setHp(player.getHp()-damage)
 
+		if (!_ani->isPlay())
+		{
+			return new IdleState;
+		}
+		else
+		{
+
+		}
+
+		break;
+	case GET_HIT_STATE::KNOCK_OUT:
+		break;
+	case GET_HIT_STATE::KNOCK_DOWN:
+		break;
+	case GET_HIT_STATE::STAND_UP:
+		break;
+	}
 
 	return nullptr;
 }

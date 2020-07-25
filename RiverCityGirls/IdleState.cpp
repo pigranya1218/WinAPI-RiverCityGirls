@@ -16,26 +16,35 @@ PlayerState * IdleState::update(Player & player)
 	//{
 	//	_ani->setPlayFrame(12, 24, false, true); // 12 ~ 23
 	//}
+
+	
+	//약공격
 	if (KEY_MANAGER->isOnceKeyDown('Z'))
 	{
 		AttackState* attackState = new AttackState;
 		attackState->setSkill(ATTACK_SKILL::QC1);
 		return attackState;
 	}
-
+	//강공격
 	if (KEY_MANAGER->isOnceKeyDown('S'))
 	{
 		AttackState* attackState = new AttackState;
 		attackState->setSkill(ATTACK_SKILL::HC);
 		return attackState;
 	}
-
+	//점프
 	if (KEY_MANAGER->isOnceKeyDown('X'))
 	{
 		JumpState* jumpState = new JumpState;
 		jumpState->setJumpType(JUMP_TYPE::DEFAULT_JUMP);
 		return jumpState;
 	}
+	//가드
+	if (KEY_MANAGER->isOnceKeyDown('D'))
+	{
+		return new GuardState;
+	}
+
 	if (KEY_MANAGER->isOnceKeyDown(VK_RIGHT))
 	{
 		player.setDirection(DIRECTION::RIGHT);

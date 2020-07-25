@@ -9,21 +9,19 @@ class Boss;
 class Enemy;
 class Stage;
 
+enum class ENEMY_TYPE : int
+{
+	SCHOOL_BOY,
+	SCHOOL_GIRL,
+	CHEER_GIRL,
+	BOSS
+};
+
 
 class EnemyManager
 {
 private:
-	//using vEnemy = vector<Enemy*>;
-	//using viEnemy = vector<Enemy*>::iterator;
-
-private:
 	Stage* _stage;
-	
-	SchoolBoy* _schoolBoy;
-	SchoolGirl* _schoolGirl;
-	CheerGirl* _cheerGirl;
-	Boss* _boss;
-
 
 	vector<Enemy*> _enemies;
 	vector<POINT> _enemyRespawnPos;
@@ -34,18 +32,21 @@ public:
 	EnemyManager() {};
 	~EnemyManager() {};
 
-	HRESULT init();
+	void init();
 	void release();
 	void update();
 	void render();
 
-	void setEnemy();
-	void removeEnemy(int arrNum);
 	void moveEnemy(GameObject* enemy, Vector3 dir);
-	
-	void setStage(Stage* stage) { _stage = stage; }
-	Vector3 getPlayerPosition();
+	void spawnEnemy(ENEMY_TYPE type, Vector2 pos);
+	void clearEnemy();
 
+	void setStage(Stage* stage) { _stage = stage; }
+	int getEnemyCount() { return _enemies.size(); }
+	Vector3 getPlayerPosition();
+	float getCenterBottom(Vector3 pos);
+	
 	void getHit(GameObject* gameObject, FloatRect attackRc, float damage, ATTACK_TYPE type);
+	void enemyAttack(GameObject* hitter, FloatRect attackRc, float damage, ATTACK_TYPE type);
 };
 

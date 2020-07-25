@@ -17,7 +17,7 @@
 기본 정의해둔 브러쉬로 텍스트 렌더링
 ************************************************************************************************/
 void D2DRenderer::renderText(const int x, const int y, const wstring& text, const int size,
-	const DefaultBrush& defaultBrush, const DWRITE_TEXT_ALIGNMENT& align,const wstring& font)
+	const DefaultBrush& defaultBrush, const DWRITE_TEXT_ALIGNMENT& align,const wstring& font, float angle)
 {
 	locale::global(locale("kor"));
 	Vector2 pos(x, y);
@@ -41,7 +41,9 @@ void D2DRenderer::renderText(const int x, const int y, const wstring& text, cons
 	layout->SetFontSize((float)size, range);
 	layout->SetTextAlignment(align);
 
-	mD2DRenderTarget->SetTransform(D2D1::Matrix3x2F::Identity());
+	//mD2DRenderTarget->SetTransform(D2D1::Matrix3x2F::Identity());
+	// 회전 행렬 생성
+	mD2DRenderTarget->SetTransform(D2D1::Matrix3x2F::Rotation(angle, D2D1::Point2F(pos.x, pos.y)));
 
 	mD2DRenderTarget->DrawTextLayout(D2D1::Point2F(pos.x, pos.y), layout,
 		mDefaultBrushList[(UINT)defaultBrush]);
@@ -63,7 +65,7 @@ void D2DRenderer::renderText(const int x, const int y, const wstring& text, cons
 새로운 브러쉬 생성후 렌더링
 ************************************************************************************************/
 void D2DRenderer::renderText(const int x, const int y, const wstring& text, const COLORREF& color,
-	const float alpha, const int size, const DWRITE_TEXT_ALIGNMENT& align, const wstring& font)
+	const float alpha, const int size, const DWRITE_TEXT_ALIGNMENT& align, const wstring& font, float angle)
 {
 	Vector2 pos(x, y);
 
@@ -90,7 +92,10 @@ void D2DRenderer::renderText(const int x, const int y, const wstring& text, cons
 	ID2D1SolidColorBrush* brush;
 	mD2DRenderTarget->CreateSolidColorBrush(D2D1::ColorF(color, alpha), &brush);
 
-	mD2DRenderTarget->SetTransform(D2D1::Matrix3x2F::Identity());
+	//mD2DRenderTarget->SetTransform(D2D1::Matrix3x2F::Identity());
+	// 회전 행렬 생성
+	mD2DRenderTarget->SetTransform(D2D1::Matrix3x2F::Rotation(angle, D2D1::Point2F(pos.x, pos.y)));
+
 	mD2DRenderTarget->DrawTextLayout(D2D1::Point2F(pos.x, pos.y), layout, brush);
 
 	NEW_SAFE_RELEASE(brush);
@@ -112,7 +117,7 @@ void D2DRenderer::renderText(const int x, const int y, const wstring& text, cons
 영역내에서 기본 브러쉬로 글자 출력
 ************************************************************************************************/
 void D2DRenderer::renderTextField(const int x, const int y, const wstring& text, const int size,
-	const int width, const int height, const DefaultBrush& defaultBrush, const DWRITE_TEXT_ALIGNMENT& align, const wstring& font)
+	const int width, const int height, const DefaultBrush& defaultBrush, const DWRITE_TEXT_ALIGNMENT& align, const wstring& font, float angle)
 {
 	Vector2 pos(x, y);
 
@@ -135,7 +140,10 @@ void D2DRenderer::renderTextField(const int x, const int y, const wstring& text,
 	layout->SetParagraphAlignment(DWRITE_PARAGRAPH_ALIGNMENT_CENTER);
 	layout->SetTextAlignment(align);
 
-	mD2DRenderTarget->SetTransform(D2D1::Matrix3x2F::Identity());
+	//mD2DRenderTarget->SetTransform(D2D1::Matrix3x2F::Identity());
+	// 회전 행렬 생성
+	mD2DRenderTarget->SetTransform(D2D1::Matrix3x2F::Rotation(angle, D2D1::Point2F(pos.x, pos.y)));
+
 	mD2DRenderTarget->DrawTextLayout(D2D1::Point2F(pos.x, pos.y), layout, mDefaultBrushList[(UINT)defaultBrush]);
 
 	NEW_SAFE_RELEASE(layout);
@@ -157,7 +165,7 @@ void D2DRenderer::renderTextField(const int x, const int y, const wstring& text,
 영역안에서 새로운 브러쉬를 생성해서 폰트출력
 ************************************************************************************************/
 void D2DRenderer::renderTextField(const int x, const int y, const wstring& text, const COLORREF& color,
-	const int size, const int width, const int height, const float alpha, const DWRITE_TEXT_ALIGNMENT& align, const wstring& font)
+	const int size, const int width, const int height, const float alpha, const DWRITE_TEXT_ALIGNMENT& align, const wstring& font, float angle)
 {
 	Vector2 pos(x, y);
 
@@ -184,7 +192,10 @@ void D2DRenderer::renderTextField(const int x, const int y, const wstring& text,
 	ID2D1SolidColorBrush* brush;
 	mD2DRenderTarget->CreateSolidColorBrush(D2D1::ColorF(color, alpha), &brush);
 
-	mD2DRenderTarget->SetTransform(D2D1::Matrix3x2F::Identity());
+	//mD2DRenderTarget->SetTransform(D2D1::Matrix3x2F::Identity());
+	// 회전 행렬 생성
+	mD2DRenderTarget->SetTransform(D2D1::Matrix3x2F::Rotation(angle, D2D1::Point2F(pos.x, pos.y)));
+
 	mD2DRenderTarget->DrawTextLayout(D2D1::Point2F((float)x, (float)y), layout, brush);
 
 	NEW_SAFE_RELEASE(layout);

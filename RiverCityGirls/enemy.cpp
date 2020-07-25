@@ -41,8 +41,18 @@ void Enemy::getHit(GameObject* hitter, FloatRect attackRc, float damage, ATTACK_
 	}
 }
 
+void Enemy::enemyAttack(FloatRect attackRc, float damage, ATTACK_TYPE type)
+{
+	_enemyManager->enemyAttack(this, attackRc, damage, type);
+}
+
 void Enemy::hitEffect(GameObject* hitter, FloatRect attackRc, float damage, ATTACK_TYPE type)
 {
 
+}
+
+void Enemy::attack(FloatRect attackRc, float damage, ATTACK_TYPE type)
+{
+	_enemyManager->enemyAttack(this, attackRc, damage, type);
 }
 

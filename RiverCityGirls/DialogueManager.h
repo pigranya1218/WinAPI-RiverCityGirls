@@ -1,7 +1,6 @@
 #pragma once
 #include <fstream>
 #include <queue>
-#include <atlconv.h>
 #include "ProgressBar.h"
 
 enum class BossChapter

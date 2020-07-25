@@ -23,15 +23,6 @@ void Object::render()
 	{
 		_img->setAlpha(0.5);
 		
-		Vector2 point[4] = {Vector2(_position.x - (_size.x / 2), _position.z - (_size.z / 2)),
-		Vector2(_position.x + (_size.x / 2), _position.z - (_size.z / 2)), 
-		Vector2(_position.x + (_size.x / 2), _position.z + (_size.z / 2)), 
-		Vector2(_position.x - (_size.x / 2), _position.z + (_size.z / 2))};
-
-		for (int i = 0; i < 4; i++)
-		{
-			CAMERA_MANAGER->drawLine(point[i], point[(i + 1) % 4]);
-		}
 		CAMERA_MANAGER->drawLine(Vector2(_position.x, _position.z), Vector2(_position.x, _position.z - _size.y));
 	}
 }

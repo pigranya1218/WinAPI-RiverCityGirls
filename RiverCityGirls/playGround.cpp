@@ -136,7 +136,7 @@ HRESULT playGround::init()
 	IMAGE_MANAGER->addFrameImage("Kyoko_axekick", L"resources/images/characters/kyoko/Kyoko_axekick.png", 13, 2);
 	IMAGE_MANAGER->addFrameImage("Kyoko_dive", L"resources/images/characters/kyoko/Kyoko_dive.png", 21, 2);
 	IMAGE_MANAGER->addFrameImage("Kyoko_airstep", L"resources/images/characters/kyoko/Kyoko_airstep.png", 11, 2);
-	
+	IMAGE_MANAGER->addFrameImage("Kyoko_guard", L"resources/images/characters/kyoko/Kyoko_guard.png", 3, 2);
 
 	//Enemy 이미지 
     //schoolBoy
@@ -189,12 +189,12 @@ HRESULT playGround::init()
 	IMAGE_MANAGER->addFrameImage("cheergirl_attack2", L"resources/images/characters/enemy_cheergirl/spinpoom.png", 7, 2);
 	IMAGE_MANAGER->addFrameImage("cheergirl_begGing", L"resources/images/characters/enemy_cheergirl/begging.png", 2, 2);
 	IMAGE_MANAGER->addFrameImage("cheergirl_blownBack", L"resources/images/characters/enemy_cheergirl/blownback.png", 23, 2);
-	IMAGE_MANAGER->addFrameImage("cheergirl_walk1", L"resources/images/characters/enemy_cheergirl/cartwheel.png", 15, 2); // 치어걸은 회피스킬
+	IMAGE_MANAGER->addFrameImage("cheergirl_skill", L"resources/images/characters/enemy_cheergirl/cartwheel.png", 15, 2); // 치어걸은 회피스킬
 	IMAGE_MANAGER->addFrameImage("cheergirl_getHit", L"resources/images/characters/enemy_cheergirl/gethits.png", 9, 2);
 	IMAGE_MANAGER->addFrameImage("cheergirl_heldRelease", L"resources/images/characters/enemy_cheergirl/grab_release.png", 4, 2);
 	IMAGE_MANAGER->addFrameImage("cheergirl_groundUp", L"resources/images/characters/enemy_cheergirl/groundup.png", 11, 2);
 	IMAGE_MANAGER->addFrameImage("cheergirl_stun", L"resources/images/characters/enemy_cheergirl/stun.png", 5, 2);
-	IMAGE_MANAGER->addFrameImage("cheergirl_walk2", L"resources/images/characters/enemy_cheergirl/walk.png", 12, 2);
+	IMAGE_MANAGER->addFrameImage("cheergirl_walk", L"resources/images/characters/enemy_cheergirl/walk.png", 12, 2);
 	IMAGE_MANAGER->addFrameImage("cheergirl_jumpAttack1", L"resources/images/characters/enemy_cheergirl/divekick_start.png", 6, 2);
 	IMAGE_MANAGER->addFrameImage("cheergirl_jumpAttack2", L"resources/images/characters/enemy_cheergirl/divekick_middle.png", 7, 2);
 	IMAGE_MANAGER->addFrameImage("cheergirl_jumpAttack3", L"resources/images/characters/enemy_cheergirl/divekick_end.png", 13, 2);
@@ -259,7 +259,13 @@ HRESULT playGround::init()
 	IMAGE_MANAGER->addImage("lockDoor"		, L"resources/images/UI/door_lock.png"			);	// 닫힌 문
 	IMAGE_MANAGER->addImage("shopDoor"		, L"resources/images/UI/door_shop.png"			);	// 상점 문
 	IMAGE_MANAGER->addImage("closeUp"		, L"resources/images/UI/closeHeart.png"			);	// 마무리 하트
-	IMAGE_MANAGER->addImage("shopFrame"		, L"resources/images/UI/shop_frame.png"			);	// 상점 프레임
+	IMAGE_MANAGER->addImage("shopFrame"		, L"resources/images/UI/shop/backGround.png"	);	// 상점 프레임
+	IMAGE_MANAGER->addImage("shopSelectBar"	, L"resources/images/UI/shop/selectionBar.png"	);	// 상점 아이템 선택
+	IMAGE_MANAGER->addImage("shop_BuyButton", L"resources/images/UI/shop/buy_button.png"	);	// 구매 버튼
+	IMAGE_MANAGER->addImage("item_1"		, L"resources/images/UI/shop/item_1.png"		);	// 아이템 1번
+	IMAGE_MANAGER->addImage("item_2"		, L"resources/images/UI/shop/item_2.png"		);	// 아이템 2번
+	IMAGE_MANAGER->addImage("item_3"		, L"resources/images/UI/shop/item_3.png"		);	// 아이템 3번
+	IMAGE_MANAGER->addImage("item_4"		, L"resources/images/UI/shop/item_4.png"		);	// 아이템 4번
 	// 다이얼로그 이미지입니다.
 	IMAGE_MANAGER->addImage("kyokoName"		, L"resources/images/UI/dialogue/Kyoko_name.png"	);	// 쿄코 이름
 	IMAGE_MANAGER->addImage("misakoName"	, L"resources/images/UI/dialogue/Misako_name.png"	);	// 미사코 이름

@@ -7,3 +7,4 @@
 #include "JumpState.h"
 #include "AttackState.h"
 #include "GetHitState.h"
+#include "GuardState.h"

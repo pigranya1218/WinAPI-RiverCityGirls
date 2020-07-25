@@ -171,6 +171,7 @@ void SchoolStudent::render()
 	Vector3 renderPos = _position;
 	renderPos.y -= 50;
 	CAMERA_MANAGER->aniRenderZ(_img, renderPos, _size, _ani);
+	CAMERA_MANAGER->drawShadowZ(_position, Vector3(100.0, _size.y, 25.0));
 }
 
 void SchoolStudent::collision(Vector3 ** pos)

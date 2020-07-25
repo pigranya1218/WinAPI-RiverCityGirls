@@ -33,6 +33,7 @@ void Player::init()
 	_speed = 5;
 	_maxHp = 100;
 	_hp = _maxHp;
+	_money = 0;
 	_onObject = false;
 }
 
@@ -57,6 +58,8 @@ void Player::update()
 		_state = _newState;
 		_state->enter(*this);
 	}
+
+	
 
 	/*AttackState* _newAttackState = _attackState->update(*this);
 	if (_newAttackState != nullptr)
@@ -117,6 +120,7 @@ void Player::getHit(GameObject* hitter, FloatRect attackRc, float damage, ATTACK
 		PlayerState* state = new getHitState;
 		_state->exit(*this);
 		delete _state;
+		_state = state;
 		state->enter(*this);
 		return;
 	}

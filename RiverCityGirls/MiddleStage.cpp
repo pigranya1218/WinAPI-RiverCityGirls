@@ -99,11 +99,13 @@ Stage * MiddleStage::update()
 				{
 				case DOOR_STATE::SHOP:
 				{
-
+					_stageManager->openShop();
+					return nullptr;
 				}
 				break;
 				case DOOR_STATE::UNLOCK:
 				{
+					_enemyManager->clearEnemy();
 					_player->setPosition(_doorDestination[i].destPos);
 					return _stageManager->getStage(_doorDestination[i].destName);
 				}

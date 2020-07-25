@@ -28,4 +28,10 @@ namespace TTYONE_UTIL
 
 		return angle;
 	}
+
+	wstring stringTOwsting(string src)
+	{
+		USES_CONVERSION;
+		return A2W(src.c_str());
+	}
 }

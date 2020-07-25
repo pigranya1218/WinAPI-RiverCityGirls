@@ -22,8 +22,8 @@ HRESULT StageScene::init()
 	_uiManager->init(_player);
 
 	// UI 테스트입니다
-	_uiManager->setPlayerHpActive(true);			
-	//_uiManager->setLock(LOCK_STATE::LOCK_4);
+	_uiManager->setPlayerHpActive(true);
+	// _uiManager->setShopUI(true);
 
 	return S_OK;
 }
@@ -42,10 +42,7 @@ void StageScene::update()
 	// _player->update();
 	
 	_uiManager->update();
-	_dgManager->update();
-
-	//	_uiManager->setLevelUp(true);	
-	//	_uiManager->setLock((LOCK_STATE)tt--);
+	_dgManager->update();	
 }
 
 void StageScene::render()
