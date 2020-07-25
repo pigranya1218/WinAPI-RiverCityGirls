@@ -50,6 +50,8 @@ protected:
 
 	bool _isActive;			//적 개체 생존 여부
 
+	float _hitCount;		//공격 콤보 처리
+
 	
 public:
 	Enemy() {};
