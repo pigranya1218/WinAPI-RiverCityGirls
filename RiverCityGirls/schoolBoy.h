@@ -6,6 +6,7 @@ class SchoolBoy : public Enemy
 {
 private:
 	int _attackS, _attackE;
+	float _drawYFix;
 
 
 public:
