@@ -80,6 +80,38 @@ void StageManager::setBossUi(float currHp, float maxHp)
 	_uiManager->setBossHp(currHp, maxHp);
 }
 
+void StageManager::setLockLevel(int level)
+{
+	switch (level)
+	{
+	case 4:
+	{
+		_uiManager->setLock(LOCK_STATE::LOCK_4);
+	}
+	break;
+	case 3:
+	{
+		_uiManager->setLock(LOCK_STATE::LOCK_3);
+	}
+	break;
+	case 2:
+	{
+		_uiManager->setLock(LOCK_STATE::LOCK_2);
+	}
+	break;
+	case 1:
+	{
+		_uiManager->setLock(LOCK_STATE::LOCK_1);
+	}
+	break;
+	case 0:
+	{
+		_uiManager->setLock(LOCK_STATE::LOCK_0);
+	}
+	break;
+	}
+}
+
 
 
 void StageManager::setDoorInfo(vector<tagDoorInfo> doorInfos)

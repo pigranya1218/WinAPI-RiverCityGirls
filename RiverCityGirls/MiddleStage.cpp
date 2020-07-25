@@ -59,7 +59,12 @@ void MiddleStage::init(Image * background, float bgScale)
 	_objectManager->spawnObject(OBJECT_TYPE::schoolBoyE_idle01, Vector3(2100, 0, 470), DIRECTION::RIGHT);
 	_objectManager->spawnObject(OBJECT_TYPE::schoolGirlA_idle01, Vector3(2200, 0, 470), DIRECTION::LEFT);
 
-	DOOR_STATE doorStates[3] = {DOOR_STATE::UNLOCK, DOOR_STATE::SHOP, DOOR_STATE::UNLOCK};
+	_isQuestClear = false;
+	_isQuesting = false;
+	_maxRestCount = 8;
+	_restCount = _maxRestCount;
+
+	DOOR_STATE doorStates[3] = {DOOR_STATE::UNLOCK, DOOR_STATE::SHOP, (_isQuestClear)?DOOR_STATE::UNLOCK:DOOR_STATE::LOCK};
 	Vector3 doorPoses[3] = {Vector3(80, 0, 500),
 							Vector3(1165, 0, 360) ,
 							Vector3(2710, 0, 500) };
@@ -84,6 +89,8 @@ void MiddleStage::init(Image * background, float bgScale)
 	}
 
 	_respawnCool = 2;
+	_respawnPos[0] = Vector2(1000, 650);
+	_respawnPos[1] = Vector2(1750, 650);
 }
 
 void MiddleStage::release()
@@ -107,6 +114,7 @@ Stage * MiddleStage::update()
 {
 	for (int i = 0; i < _doorInfos.size(); i++)
 	{
+		if (_isQuesting) continue;
 		if (_doorInfos[i].doorState == DOOR_STATE::LOCK) continue;
 		if (Vector3::distance(_doorInfos[i].pos, _player->getPosition()) < 250.0f)
 		{
@@ -131,19 +139,98 @@ Stage * MiddleStage::update()
 		}
 	}
 
-	_respawnCool -= TIME_MANAGER->getElapsedTime();
 
-	/*if (_enemyManager->getEnemyCount() < 1 && _respawnCool < 0)
-	{
-		_respawnCool = 2;
-		_enemyManager->spawnEnemy(ENEMY_TYPE::BOSS, Vector2(500, 670));
-	}*/
-
+	
+	_lastEnemyNum = _enemyManager->getEnemyCount();
 	_objectManager->update();
 	_objectManager->isEat(_player);
 	_enemyManager->update();
 
-	CAMERA_MANAGER->setXY(CAMERA_MANAGER->convertV3ToV2(_player->getPosition()));
+	if (!_isQuestClear && !_isQuesting && _player->getPosition().x >= 1300)
+	{
+		// 퀘스트 시작
+		_isQuesting = true;
+
+		// 좌우로 움직이지 못하는 라인 추가
+		float linePos[2][4] = { {1350 - WINSIZEX / 2, 1, 1350 - WINSIZEX / 2, 2}, {1350 + WINSIZEX / 2, 1, 1350 + WINSIZEX / 2, 2}};
+		float lineRange[2][2] = { {0, 3000}, {0, 3000} };
+		LINEAR_VALUE_TYPE lineTypes[2] = {LINEAR_VALUE_TYPE::LEFT,
+											LINEAR_VALUE_TYPE::RIGHT};
+		for (int i = 0; i < 2; i++)
+		{
+			LinearFunc line = LinearFunc::getLinearFuncFromPoints(Vector2(linePos[i][0], linePos[i][1]), Vector2(linePos[i][2], linePos[i][3]));
+			_restrictLines.push_back(new RestrictMoveLine(line, lineTypes[i], lineRange[i][0], lineRange[i][1]));
+		}
+
+		// UI 추가
+		_stageManager->setLockLevel(4);
+		_deadNum = 0;
+
+	}
+
+	_respawnCool -= TIME_MANAGER->getElapsedTime();
+	
+
+	if (!_isQuesting)
+	{
+		CAMERA_MANAGER->setXY(CAMERA_MANAGER->convertV3ToV2(_player->getPosition()));
+	}
+	else
+	{
+		if (_lastEnemyNum != _enemyManager->getEnemyCount())
+		{
+			_deadNum++;
+		}
+
+		if (_deadNum == 8)
+		{
+			_isQuesting = false;
+			_isQuestClear = true;
+			_stageManager->setLockLevel(0);
+			_restrictLines.erase(_restrictLines.end() - 1);
+			_restrictLines.erase(_restrictLines.end() - 1);
+			_doorInfos[2].doorState = DOOR_STATE::UNLOCK;
+			_stageManager->setDoorInfo(_doorInfos);
+		}
+		else if (_deadNum == 6)
+		{
+			_stageManager->setLockLevel(1);
+		}
+		else if (_deadNum == 4)
+		{
+			_stageManager->setLockLevel(2);
+		}
+		else if (_deadNum == 2)
+		{
+			_stageManager->setLockLevel(3);
+		}
+
+		if (_enemyManager->getEnemyCount() < 3 && _respawnCool < 0 && _restCount > 0)
+		{
+			_restCount--;
+			_respawnCool = 2;
+			int randomType = RANDOM->getInt(3);
+			int randomRespawn = RANDOM->getInt(2);
+			switch (randomType)
+			{
+			case 0:
+			{
+				_enemyManager->spawnEnemy(ENEMY_TYPE::SCHOOL_BOY, _respawnPos[randomRespawn]);
+			}
+			break;
+			case 1:
+			{
+				_enemyManager->spawnEnemy(ENEMY_TYPE::SCHOOL_GIRL, _respawnPos[randomRespawn]);
+			}
+			break;
+			case 2:
+			{
+				_enemyManager->spawnEnemy(ENEMY_TYPE::CHEER_GIRL, _respawnPos[randomRespawn]);
+			}
+			break;
+			}
+		}
+	}
 
 	return nullptr;
 }

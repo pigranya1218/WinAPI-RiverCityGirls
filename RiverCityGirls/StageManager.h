@@ -34,6 +34,7 @@ public:
 
 	void setBossUiVisible(bool isVisible);
 	void setBossUi(float currHp, float maxHp);
+	void setLockLevel(int level);
 
 	float getCenterBottom(Vector3 pos) { return _currStage->getCenterBottom(pos); }
 	Stage* getStage(string keyName) { return _stageMap[keyName]; }
