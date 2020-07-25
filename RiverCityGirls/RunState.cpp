@@ -95,6 +95,7 @@ PlayerState * RunState::update(Player & player)
 
 void RunState::render(Player & player)
 {
+	PlayerState::render(player);
 	_img->setScale(3);
 	CAMERA_MANAGER->aniRenderZ(_img, player.getPosition(), player.getSize(), _ani, -(player.getPosition().y + (player.getSize().y / 2)));
 	CAMERA_MANAGER->drawShadowZ(player.getPosition(), Vector3(120.0, player.getSize().y, 25.0), -(player.getPosition().y + (player.getSize().y / 2)));

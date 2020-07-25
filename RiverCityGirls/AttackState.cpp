@@ -551,6 +551,7 @@ PlayerState * AttackState::update(Player & player)
 
 void AttackState::render(Player & player)
 {
+	PlayerState::render(player);
 	_img->setScale(3);
 	Vector3 position = player.getPosition();
 	
