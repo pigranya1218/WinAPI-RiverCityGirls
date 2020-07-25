@@ -199,58 +199,64 @@ void SchoolGirl::update()
 
 	case ENEMY_STATE::ATTACK:
 	{
-		if (_attackS == 3)
+		if (!_ani->isPlay()) // 공격 모션이 끝났다면
 		{
-			if (_direction == DIRECTION::LEFT)
+			setState(ENEMY_STATE::IDLE, _direction);
+		}
+		else
+		{
+			if (_direction == DIRECTION::LEFT && _ani->getPlayIndex() == _attackS)
 			{
 				_attackRc = FloatRect(_position.x - 130, _position.y - 35,
 					_position.x - 20, _position.y + 20);
+
 			}
-			else if (_direction == DIRECTION::RIGHT)
+			else if (_direction == DIRECTION::RIGHT && _ani->getPlayIndex() == _attackS)
 			{
 				_attackRc = FloatRect(_position.x + 20, _position.y - 35,
 					_position.x + 100, _position.y + 20);
 			}
+			else
+			{
+				_attackRc = FloatRect(0, 0, 0, 0);
+				_viewRc = FloatRect(0, 0, 0, 0);
+			}
 			_viewRc = FloatRect(_attackRc.left, _position.z + _attackRc.top,
 				_attackRc.right, _position.z + _attackRc.bottom);
-
-			enemyAttack(_attackRc, 5, ATTACK_TYPE::HIT1);
+			attack(_attackRc, 5, ATTACK_TYPE::HIT1);
 		}
-		else
-		{
-			_attackRc = FloatRect(0, 0, 0, 0);
-		}
-
-	
-		if (!_ani->isPlay()) // 공격 모션이 끝났다면
-		{
-			setState(ENEMY_STATE::IDLE, _direction);
-		}	
 	
 	}
 	break;
 
 	case ENEMY_STATE::DASHATTACK:
 	{
-		
-		if (_direction == DIRECTION::LEFT)
-		{
-			_attackRc = FloatRect(_position.x - 130, _position.y - 35,
-				_position.x - 20, _position.y + 20);
-		}
-		else if (_direction == DIRECTION::RIGHT)
-		{
-			_attackRc = FloatRect(_position.x + 20, _position.y - 35,
-				_position.x + 100, _position.y + 20);
-		}
-		_viewRc = FloatRect(_attackRc.left, _position.z + _attackRc.top,
-			_attackRc.right, _position.z + _attackRc.bottom);
 		if (!_ani->isPlay()) // 공격 모션이 끝났다면
 		{
 			setState(ENEMY_STATE::IDLE, _direction);
 		}
-
-		enemyAttack(_attackRc, 5, ATTACK_TYPE::HIT2);
+		else
+		{
+			if (_direction == DIRECTION::LEFT && _ani->getPlayIndex() == _attackS)
+			{
+				_attackRc = FloatRect(_position.x - 130, _position.y - 35,
+					_position.x - 20, _position.y + 20);
+			}
+			else if (_direction == DIRECTION::RIGHT && _ani->getPlayIndex() == _attackS)
+			{
+				_attackRc = FloatRect(_position.x + 20, _position.y - 35,
+					_position.x + 100, _position.y + 20);
+			}
+			else
+			{
+				_attackRc = FloatRect(0, 0, 0, 0);
+				_viewRc = FloatRect(0, 0, 0, 0);
+			}
+			_viewRc = FloatRect(_attackRc.left, _position.z + _attackRc.top,
+				_attackRc.right, _position.z + _attackRc.bottom);
+			 enemyAttack(_attackRc, 5, ATTACK_TYPE::HIT2);
+		}
+		
 	}
 	break;
 	case ENEMY_STATE::SKILL:
@@ -279,24 +285,31 @@ void SchoolGirl::update()
 			}
 		}
 
-		if (_direction == DIRECTION::LEFT)
-		{
-			_attackRc = FloatRect(_position.x - 130, _position.y - 35,
-				_position.x - 20, _position.y + 20);
-		}
-		else if (_direction == DIRECTION::RIGHT)
-		{
-			_attackRc = FloatRect(_position.x + 20, _position.y - 35,
-				_position.x + 100, _position.y + 20);
-		}
-		_viewRc = FloatRect(_attackRc.left, _position.z + _attackRc.top,
-			_attackRc.right, _position.z + _attackRc.bottom);
 		if (!_ani->isPlay()) // 공격 모션이 끝났다면
 		{
 			setState(ENEMY_STATE::IDLE, _direction);
 		}
-		
-		enemyAttack(_attackRc, 10, ATTACK_TYPE::KNOCKDOWN);
+		else
+		{
+			if (_direction == DIRECTION::LEFT && _ani->getPlayIndex() == _attackS)
+			{
+				_attackRc = FloatRect(_position.x - 130, _position.y - 35,
+					_position.x - 20, _position.y + 20);
+			}
+			else if (_direction == DIRECTION::RIGHT && _ani->getPlayIndex() == _attackS)
+			{
+				_attackRc = FloatRect(_position.x + 20, _position.y - 35,
+					_position.x + 100, _position.y + 20);
+			}
+			else
+			{
+				_attackRc = FloatRect(0, 0, 0, 0);
+				_viewRc = FloatRect(0, 0, 0, 0);
+			}
+			_viewRc = FloatRect(_attackRc.left, _position.z + _attackRc.top,
+				_attackRc.right, _position.z + _attackRc.bottom);
+			enemyAttack(_attackRc, 5, ATTACK_TYPE::KNOCKDOWN);
+		}
 	}
 	break;
 
@@ -671,10 +684,15 @@ void SchoolGirl::setState(ENEMY_STATE state, DIRECTION direction)
 	case ENEMY_STATE::ATTACK:
 	{
 		_ani = new Animation;
-		int i = RANDOM->getFromIntTo(1, 3);
-		
-		
-	
+		int i = RANDOM->getFromIntTo(1, 3);		
+		if (i == 2)
+		{
+			_attackS = 3;
+		}
+		else
+		{
+			_attackS = 3;
+		}	
 		char imgNameNum[128];
 		sprintf_s(imgNameNum, "schoolgirl_attack%d", i);
 		_enemyImg = IMAGE_MANAGER->findImage(imgNameNum);
@@ -687,6 +705,7 @@ void SchoolGirl::setState(ENEMY_STATE state, DIRECTION direction)
 	break;
 	case ENEMY_STATE::DASHATTACK:
 	{
+		_attackS = 3;
 		_ani = new Animation;
 		_enemyImg = IMAGE_MANAGER->findImage("schoolgirl_attack3");
 		_ani->init(_enemyImg->getWidth(), _enemyImg->getHeight(),
@@ -697,6 +716,7 @@ void SchoolGirl::setState(ENEMY_STATE state, DIRECTION direction)
 	break;
 	case ENEMY_STATE::JUMPATTACK:
 	{
+		_attackS = 3;
 		_ani = new Animation;
 		_enemyImg = IMAGE_MANAGER->findImage("schoolgirl_jumpAttack2");
 		_ani->init(_enemyImg->getWidth(), _enemyImg->getHeight(),
@@ -757,6 +777,7 @@ void SchoolGirl::setState(ENEMY_STATE state, DIRECTION direction)
 	break;
 	case ENEMY_STATE::SKILL:
 	{
+		_attackS = 1;
 		_ani = new Animation;
 		_enemyImg = IMAGE_MANAGER->findImage("schoolgirl_skill");
 		_ani->init(_enemyImg->getWidth(), _enemyImg->getHeight(),
