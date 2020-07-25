@@ -323,6 +323,55 @@ void Boss::update()
 			}
 		}
 		break;
+
+		case BOSS_STATE::DASH_ATTACK:
+		{
+			if (_count == 0)
+			{
+				if (!_ani->isPlay())
+				{
+					_enemyImg = IMAGE_MANAGER->findImage("boss_tackle_loop");
+					_ani->init(_enemyImg->getWidth(), _enemyImg->getHeight(),
+						_enemyImg->getMaxFrameX(), _enemyImg->getMaxFrameY());
+					_ani->setFPS(10);
+					_ani->start();
+					_count++;
+				}
+			}
+			else if (_count == 1)
+			{
+				DIRECTION lastDir = _direction;
+				setDirectionToPlayer();
+				DIRECTION currDir = _direction;
+
+				if (lastDir != currDir) // 방향 전환
+				{
+					_count++;
+					_ani->start();
+				}
+				else
+				{
+					moveDir.x += (_direction == DIRECTION::RIGHT) ? 6 : -6;
+					moveDir.z += (playerPos.z >= _position.z + 10) ? 2 : ((playerPos.z <= _position.z - 10) ? -2 : 0);
+
+					_enemyManager->moveEnemy(this, moveDir);
+				}
+			}
+			else if (_count == 2)
+			{
+				moveDir.x += (_direction == DIRECTION::RIGHT) ? -1 : +1;
+				moveDir.z += (playerPos.z >= _position.z + 10) ? 1 : ((playerPos.z <= _position.z - 10) ? -1 : 0);
+
+				_enemyManager->moveEnemy(this, moveDir);
+
+				if (!_ani->isPlay())
+				{
+					_count--;
+					_ani->start();
+				}
+			}
+		}
+		break;
 		}
 	}
 
@@ -383,6 +432,46 @@ void Boss::render()
 				else
 				{
 					_ani->setPlayFrame(0, _enemyImg->getMaxFrameX(), false, true);
+				}
+			}
+		}
+		break;
+		case BOSS_STATE::DASH_ATTACK:
+		{
+			if (_count == 0)
+			{
+				if (_direction == DIRECTION::LEFT)
+				{
+					_ani->setPlayFrame(_enemyImg->getMaxFrameX(), _enemyImg->getMaxFrameX() * 2, false, false);
+				}
+				else
+				{
+					_ani->setPlayFrame(0, _enemyImg->getMaxFrameX(), false, false);
+				}
+			}
+			else if (_count == 1)
+			{
+				_ani->setFPS(20);
+				if (_direction == DIRECTION::LEFT)
+				{
+					_ani->setPlayFrame(_enemyImg->getMaxFrameX(), _enemyImg->getMaxFrameX() + 8, false, true);
+				}
+				else
+				{
+					_ani->setPlayFrame(0, 8, false, true);
+				}
+			}
+			else if (_count == 2)
+			{
+				_ani->setFPS(10);
+
+				if (_direction == DIRECTION::RIGHT)
+				{
+					_ani->setPlayFrame(_enemyImg->getMaxFrameX() + 8, _enemyImg->getMaxFrameX() * 2, false, false);
+				}
+				else
+				{
+					_ani->setPlayFrame(8, _enemyImg->getMaxFrameX(), false, false);
 				}
 			}
 		}
@@ -625,6 +714,16 @@ void Boss::setState(BOSS_STATE state, DIRECTION direction, bool initTime)
 		_ani->start();
 	}
 	break;
+	case BOSS_STATE::DASH_ATTACK:
+	{
+		_count = 0;
+		_enemyImg = IMAGE_MANAGER->findImage("boss_tackle_init");
+		_ani->init(_enemyImg->getWidth(), _enemyImg->getHeight(),
+			_enemyImg->getMaxFrameX(), _enemyImg->getMaxFrameY());
+		_ani->setFPS(20);
+		_ani->start();
+	}
+	break;
 	}
 }
 
@@ -700,8 +799,7 @@ void Boss::setAttackState(BOSS_PHASE phase)
 		}
 		else // 40%
 		{
-			_jumpPower = -50;
-			setState(BOSS_STATE::METEOR_ATTACK, _direction, true);
+			setState(BOSS_STATE::DASH_ATTACK, _direction, true);
 		}
 	}
 	break;

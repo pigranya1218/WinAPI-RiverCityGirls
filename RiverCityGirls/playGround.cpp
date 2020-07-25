@@ -220,8 +220,8 @@ HRESULT playGround::init()
 	IMAGE_MANAGER->addFrameImage("boss_fallingmiss", L"resources/images/characters/boss_misuzu/RCG_Misuzu_meteor_landed_miss.png", 19, 2);
 	IMAGE_MANAGER->addFrameImage("boss_jump", L"resources/images/characters/boss_misuzu/RCG_Misuzu_meteor_jump.png", 8, 2);
 	IMAGE_MANAGER->addFrameImage("boss_faseupdate", L"resources/images/characters/boss_misuzu/RCG_Misuzu_roar.png", 12, 2);
-	IMAGE_MANAGER->addFrameImage("boss_tackle1", L"resources/images/characters/boss_misuzu/RCG_Misuzu_tackle_initial.png", 5, 2);
-	IMAGE_MANAGER->addFrameImage("boss_tackle2", L"resources/images/characters/boss_misuzu/RCG_Misuzu_tackle_loop.png", 11, 2);
+	IMAGE_MANAGER->addFrameImage("boss_tackle_init", L"resources/images/characters/boss_misuzu/RCG_Misuzu_tackle_initial.png", 5, 2);
+	IMAGE_MANAGER->addFrameImage("boss_tackle_loop", L"resources/images/characters/boss_misuzu/RCG_Misuzu_tackle_loop.png", 11, 2);
 
 
 	// * 스테이지
