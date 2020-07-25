@@ -206,7 +206,7 @@ void CheerGirl::update()
 
 		if (lastY != currY) // ¶³¾îÁü
 		{
-			setState(ENEMY_STATE::JUMP, _direction);
+			
 		}
 		else
 		{
@@ -396,7 +396,7 @@ void CheerGirl::render()
 	}
 
 	_enemyImg->setScale(3);
-	CAMERA_MANAGER->aniRenderZ(_enemyImg, _position, _size, _ani);
+	CAMERA_MANAGER->aniRenderZ(_enemyImg, _position, _size, _ani, -(_position.y + (_size.y / 2)));
 
 	switch (_state)
 	{
@@ -410,7 +410,7 @@ void CheerGirl::render()
 	break;
 	default:
 	{
-
+		CAMERA_MANAGER->drawShadowZ(_position, Vector3(120.0, _size.y, 25.0), -(_position.y + (_size.y / 2)));
 	}
 	break;
 	}
@@ -558,7 +558,7 @@ void CheerGirl::setState(ENEMY_STATE state, DIRECTION direction)
 		_enemyImg = IMAGE_MANAGER->findImage("cheergirl_skill");
 		_ani->init(_enemyImg->getWidth(), _enemyImg->getHeight(),
 			_enemyImg->getMaxFrameX(), _enemyImg->getMaxFrameY());
-		_ani->setFPS(20);
+		_ani->setFPS(30);
 		_ani->start();
 	}
 	break;
