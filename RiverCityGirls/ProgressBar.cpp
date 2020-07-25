@@ -42,11 +42,11 @@ void ProgressBar::render()
 	);			
 
 	_frontBar->setScale(_scale);
-	_frontBar->setSkew(Vector2(_width, _backBar->getHeight()), _angle);
+	_frontBar->setSkew(Vector2(_width, 0.0f), _angle);
 	_frontBar->render(
 		_pos,											// 출력할 위치
 		Vector2(0, 0),									// 이미지의 시작위치
-		Vector2(_width, (float)(_backBar->getHeight()))	// 가져올 길이, 높이		
+		Vector2(_width, (float)(_backBar->getHeight()))	// 가져올 길이, 높이
 	);
 }
 

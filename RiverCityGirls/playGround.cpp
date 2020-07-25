@@ -259,8 +259,8 @@ HRESULT playGround::init()
 	IMAGE_MANAGER->addImage("playerExpFront", L"resources/images/UI/kyoko_exp_frontBar.png"	);	// 플레이어 경험치 앞
 	IMAGE_MANAGER->addImage("playerExpBack"	, L"resources/images/UI/kyoko_exp_backBar.png"	);	// 플레이어 경험치 뒤
 	IMAGE_MANAGER->addImage("playerHpFrame"	, L"resources/images/UI/kyoko_frontFrame.png"	);	// 플레이어 체력 프레임	
-	IMAGE_MANAGER->addImage("bossBackBar"	, L"resources/images/UI/boss_HP_backBar.png"	);	// 보스 체력 뒤
-	IMAGE_MANAGER->addImage("bossFrontBar"	, L"resources/images/UI/boss_HP_frontBar.png"	);	// 보스 체력 앞
+	IMAGE_MANAGER->addImage("bossBackBar"	, L"resources/images/UI/boss_hp_backBar.png"	);	// 보스 체력 뒤
+	IMAGE_MANAGER->addImage("bossFrontBar"	, L"resources/images/UI/boss_hp_frontBar.png"	);	// 보스 체력 앞
 	IMAGE_MANAGER->addImage("bossHpFrame"	, L"resources/images/UI/boss_HP_frame.png"		);	// 보스 체력 프레임
 	IMAGE_MANAGER->addImage("unlockDoor"	, L"resources/images/UI/door_unlock.png"		);	// 열린 문
 	IMAGE_MANAGER->addImage("lockDoor"		, L"resources/images/UI/door_lock.png"			);	// 닫힌 문

@@ -140,7 +140,7 @@ struct tagBossInfo
 	{
 		bossBar = new ProgressBar;
 		frameHp = IMAGE_MANAGER->findImage("bossHpFrame");
-		bossBar->init("bossBackBar", "bossFrontBar", Vector2(WINSIZEX / 2 - 70, WINSIZEY - 95), Vector2(-30.0f, 0.0f));	// 보스 체력 위치설정
+		bossBar->init("bossBackBar", "bossFrontBar", Vector2(WINSIZEX / 2 - 58, WINSIZEY - 95), Vector2(-15.0f, 0.0f));	// 보스 체력 위치설정
 
 		return S_OK;
 	}
