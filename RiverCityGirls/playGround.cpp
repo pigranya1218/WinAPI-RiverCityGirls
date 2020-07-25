@@ -20,8 +20,6 @@ HRESULT playGround::init()
 {
 	GameNode::init(true);
 
-	
-
 	// 모든 이미지 IMAGE_MANAGER에 등록
 	
 	// * Object
@@ -303,7 +301,7 @@ HRESULT playGround::init()
 	SOUND_MANAGER->addSound("KYOKO_Combo",					"resources/sound/stageSound/Kyoko/KyokoCombo3.mp3", false, false);
 	SOUND_MANAGER->addSound("KYOKO_Dive",					"resources/sound/stageSound/Kyoko/KyokoDive.mp3", false, false);
 	SOUND_MANAGER->addSound("KYOKO_Dive2",					"resources/sound/stageSound/Kyoko/KyokoDive2.mp3", false, false);
-	SOUND_MANAGER->addSound("KYOKO_GameOver",				"resources/sound/stageSound/Kyoko/KyokoGameOver.mp3", false, false);
+	SOUND_MANAGER->addSound("KYOKO_GameOver",				"resources/sound/stageSound/Kyoko/KyokoGameOver.mp3", false, true);
 	SOUND_MANAGER->addSound("KYOKO_GetHit",					"resources/sound/stageSound/Kyoko/KyokoGetHit.mp3", false, false);
 	SOUND_MANAGER->addSound("KYOKO_GetHit2",				"resources/sound/stageSound/Kyoko/KyokoGetHit2.mp3", false, false);
 	SOUND_MANAGER->addSound("KYOKO_Grab",					"resources/sound/stageSound/Kyoko/KyoKoGrab.mp3", false, false);
@@ -315,9 +313,32 @@ HRESULT playGround::init()
 	SOUND_MANAGER->addSound("KYOKO_HipAttackWithoutVoice",	"resources/sound/stageSound/Kyoko/KyokoHipAttackWithoutVoice.mp3", false, false);
 	SOUND_MANAGER->addSound("KYOKO_JumpKick",				"resources/sound/stageSound/Kyoko/KyokoJumpKick.mp3", false, false);
 	SOUND_MANAGER->addSound("KYOKO_LevelUP",				"resources/sound/stageSound/Kyoko/KyokoLevelUP.mp3", false, false);
-	SOUND_MANAGER->addSound("KYOKO_Run",					"resources/sound/stageSound/Kyoko/KyokoRun.mp3", false, false);
+	SOUND_MANAGER->addSound("KYOKO_Run",					"resources/sound/stageSound/Kyoko/KyokoRun.mp3", false, true);
 	SOUND_MANAGER->addSound("KYOKO_StageUp",				"resources/sound/stageSound/Kyoko/KyokoStageUp.mp3", false, false);
 	SOUND_MANAGER->addSound("KYOKO_StandUp",				"resources/sound/stageSound/Kyoko/KyokoStandUp.mp3", false, false);
+	// * BOSS_Misuzu
+	SOUND_MANAGER->addSound("Boss_TalkingBGM",				"resources/sound/stageSound/Boss/talking.mp3", false, true);
+	SOUND_MANAGER->addSound("Boss_Speek",					"resources/sound/stageSound/Boss/bossSpeek.mp3", false, false);
+	SOUND_MANAGER->addSound("Boss_Talk",					"resources/sound/stageSound/Boss/bossTalk.mp3", false, false);
+	SOUND_MANAGER->addSound("Boss_StageBGM",				"resources/sound/stageSound/Boss/Effect/BossStageBGM.mp3", false, true);
+	// ** BOSS_Effect
+	SOUND_MANAGER->addSound("Boss_Effect_2Phase",			"resources/sound/stageSound/Boss/Effect/Boss2PaceSound.mp3", false, false);
+	SOUND_MANAGER->addSound("Boss_Effect_3Phase",			"resources/sound/stageSound/Boss/Effect/Boss3PaceSound.mp3", false, false);
+	SOUND_MANAGER->addSound("Boss_Effect_DropSound",		"resources/sound/stageSound/Boss/Effect/BossDropSound.mp3", false, false);
+	SOUND_MANAGER->addSound("Boss_Effect_Jump",				"resources/sound/stageSound/Boss/Effect/BossJump.mp3", false, false);
+	SOUND_MANAGER->addSound("Boss_Effect_WUPunch",			"resources/sound/stageSound/Boss/Effect/BossWUPunch.mp3", false, false);
+	// ** BOSS_Voice
+	SOUND_MANAGER->addSound("BOSS_Voice_2Phase",			"resources/sound/stageSound/Boss/voice/Boss2Pace.mp3", false, false);
+	SOUND_MANAGER->addSound("BOSS_Voice_3Phase",			"resources/sound/stageSound/Boss/voice/Boss3PaceSound.mp3", false, false);
+	SOUND_MANAGER->addSound("BOSS_Voice_Chop",				"resources/sound/stageSound/Boss/voice/BossChop.mp3", false, false);
+	SOUND_MANAGER->addSound("BOSS_Voice_Drop",				"resources/sound/stageSound/Boss/voice/BossDrop.mp3", false, false);
+	SOUND_MANAGER->addSound("BOSS_Voice_Elbow",				"resources/sound/stageSound/Boss/voice/BossElbow.mp3", false, false);
+	SOUND_MANAGER->addSound("BOSS_Voice_Elbow2",			"resources/sound/stageSound/Boss/voice/BossElbow2.mp3", false, false);
+	SOUND_MANAGER->addSound("BOSS_Voice_GetHit",			"resources/sound/stageSound/Boss/voice/BossGetHit.mp3", false, false);
+	SOUND_MANAGER->addSound("BOSS_Voice_GroundShotGun",		"resources/sound/stageSound/Boss/voice/BossGroundShotGun.mp3", false, false);
+	SOUND_MANAGER->addSound("BOSS_Voice_Laugh",				"resources/sound/stageSound/Boss/voice/BossLaugh.mp3", false, false);
+	SOUND_MANAGER->addSound("BOSS_Voice_Laugh2",			"resources/sound/stageSound/Boss/voice/BossLaugh2.mp3", false, false);
+	SOUND_MANAGER->addSound("BOSS_Voice_Scream",			"resources/sound/stageSound/Boss/voice/BossScream.mp3", false, false);
 	// * CheerLeader
 	SOUND_MANAGER->addSound("CheerLeader_Attack",			"resources/sound/stageSound/cheerLeader/cheerAttack.mp3", false, false);
 	SOUND_MANAGER->addSound("CheerLeader_Attack2",			"resources/sound/stageSound/cheerLeader/cheerAttack2.mp3", false, false);
