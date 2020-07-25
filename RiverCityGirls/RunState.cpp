@@ -55,6 +55,11 @@ PlayerState * RunState::update(Player & player)
 		return attackState;
 	}
 
+	if (KEY_MANAGER->isOnceKeyDown('D'))
+	{
+		return new GuardState;
+	}
+
 	if (moveDir.x > 0)
 	{
 		_ani->setPlayFrame(0, 16, false, true);

@@ -25,12 +25,11 @@ private:
 	Synthesize(int, _exp, Exp)
 	Synthesize(int, _money, Money)
 	Synthesize(float, _damageTime, DamageTime)
-	Synthesize(float, _damage,Damage)
+	Synthesize(float, _damage,Damage)//받는 데미지
 
-	Synthesize(ATTACK_TYPE, _getHitType, GetHitType)
-	 ;//적에게 맞은 공격 타입
-	Synthesize(bool, _isHit, IsHit);
-
+	Synthesize(ATTACK_TYPE, _getHitType, GetHitType)//적에게 맞은 공격 타입
+	Synthesize(bool, _isHit, IsHit)
+	Synthesize(bool, _guarding,Guarding)
 	float _mortalTime;
 	PlayerState* _state;
 	

@@ -37,6 +37,7 @@ void Player::init()
 	_onObject = false;
 	_damageTime = 0;
 	_isHit = false;
+	_guarding=false;
 	_mortalTime = 0;
 }
 
@@ -121,21 +122,73 @@ void Player::getHit(GameObject* hitter, FloatRect attackRc, float damage, ATTACK
 	
 	if (FloatRect::intersect(getHitRc, attackRc))
 	{
+
 		
-		if (hitter->getPosition().x > _position.x)
+
+		PlayerState* state = new getHitState;
+		PlayerState* gdState = new GuardState;
+		
+		if (_guarding)
 		{
-			_direction == DIRECTION::RIGHT;
+			if (hitter->getPosition().x > _position.x && attackRc.right < getHitRc.getCenter().x)
+			{
+				if (hitter->getPosition().x > _position.x)
+				{
+					_direction == DIRECTION::RIGHT;
+				}
+				else
+				{
+					_direction = DIRECTION::LEFT;
+				}
+
+				_state->exit(*this);
+				delete _state;
+				_state = state;
+				state->enter(*this);
+				return;
+			}
+			if (hitter->getPosition().x < _position.x && attackRc.left > getHitRc.getCenter().x)
+			{
+				if (hitter->getPosition().x > _position.x)
+				{
+					_direction == DIRECTION::RIGHT;
+				}
+				else
+				{
+					_direction = DIRECTION::LEFT;
+				}
+
+				_state->exit(*this);
+				delete _state;
+				_state = state;
+				state->enter(*this);
+				return;
+			}
+			else 
+			{
+				_state->exit(*this);
+				delete _state;
+				_state = gdState;
+				gdState->enter(*this);
+				return;
+			}
 		}
 		else
 		{
-			_direction = DIRECTION::LEFT;
+			if (hitter->getPosition().x > _position.x)
+			{
+				_direction == DIRECTION::RIGHT;
+			}
+			else
+			{
+				_direction = DIRECTION::LEFT;
+			}
+
+			_state->exit(*this);
+			delete _state;
+			_state = state;
+			state->enter(*this);
+			return;
 		}
-		
-		PlayerState* state = new getHitState;
-		_state->exit(*this);
-		delete _state;
-		_state = state;
-		state->enter(*this);
-		return;
 	}
 }

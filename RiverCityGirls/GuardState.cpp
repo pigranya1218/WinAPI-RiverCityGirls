@@ -11,17 +11,20 @@ void GuardState::enter(Player& player)
 	_ani->setFPS(15);
 	if (player.getDirection() == DIRECTION::RIGHT)
 	{
-		_ani->setPlayFrame(0, 1, false, false); // 0 
+		_ani->setPlayFrame(0, 2, false, false); // 0 ~ 
 	}
 	else if (player.getDirection() == DIRECTION::LEFT)
 	{
-		_ani->setPlayFrame(3, 4, false, false); // 3
+		_ani->setPlayFrame(3, 5, false, false); // 3 ~ 
 	}
 	_ani->start();
+
+	player.setGuarding(true);
 }
 
 void GuardState::exit(Player& player)
 {
+	player.setGuarding(false);
 	_ani->release();
 	SAFE_DELETE(_ani)
 }
@@ -32,6 +35,7 @@ PlayerState* GuardState::update(Player& player)
 	{
 		return new IdleState;
 	}
+	_ani->frameUpdate(TIME_MANAGER->getElapsedTime());
 
     return nullptr;
 }
