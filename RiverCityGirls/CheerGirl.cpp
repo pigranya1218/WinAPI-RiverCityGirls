@@ -47,9 +47,29 @@ void CheerGirl::update()
 			{
 				setState(ENEMY_STATE::RUN, _direction); // 플레이어에게 달려가기
 			}
+			else if (distanceFromPlayer > 100)
+			{
+				int randomCount = RANDOM->getInt(100);
+				if (randomCount < 10)
+				{
+					setState(ENEMY_STATE::SKILL, _direction);
+				}
+				else
+				{
+					setState(ENEMY_STATE::WALK, _direction);
+				}
+			}
 			else
 			{
-				setState(ENEMY_STATE::WALK, _direction); // 플레이어에게 걸어가기
+				int randomCount = RANDOM->getInt(100);
+				if (randomCount < 30)
+				{
+					setState(ENEMY_STATE::SKILL, _direction);
+				}
+				else
+				{
+					setState(ENEMY_STATE::WALK, _direction);
+				}
 			}
 		}
 	}
@@ -78,18 +98,27 @@ void CheerGirl::update()
 		else
 		{
 			_gravity = 0;
-			if (distanceFromPlayer <= 100) // 근접 시 공격
+			if (distanceFromPlayer <= 100) // 근접 시 공격이나 스킬
 			{
-				setState(ENEMY_STATE::ATTACK, _direction);
+				int randomCount = RANDOM->getInt(100);
+				if (randomCount < 30)
+				{
+					setState(ENEMY_STATE::SKILL, _direction);
+				}
+				else
+				{
+					setState(ENEMY_STATE::ATTACK, _direction);
+				}
 			}
 			else if (_elapsedTime >= 5) // 오랜 쫓음으로 인해 한번 점프해본다
 			{
 				setState(ENEMY_STATE::JUMP, _direction);
-				_gravity = -22;
+				_gravity = -24;
 			}
 		}
 	}
 	break;
+
 	case ENEMY_STATE::RUN:
 	{
 		setDirectionToPlayer(); // 플레이어 바라보기
@@ -99,7 +128,7 @@ void CheerGirl::update()
 		moveDir.x += (_direction == DIRECTION::RIGHT) ? 1 : -1;
 		moveDir.z += (playerPos.z >= _position.z + 10) ? 1 : ((playerPos.z <= _position.z - 10) ? -1 : 0);
 		moveDir = Vector3::normalize(&moveDir);
-		moveDir = moveDir * 4;
+		moveDir = moveDir * 6;
 		moveDir.y += _gravity;
 
 		float lastY = _position.y;
@@ -113,14 +142,22 @@ void CheerGirl::update()
 		else
 		{
 			_gravity = 0;
-			if (distanceFromPlayer <= 100) // 근접 시 공격
+			if (distanceFromPlayer <= 100) // 근접 시 공격이나 스킬
 			{
-				setState(ENEMY_STATE::DASHATTACK, _direction);
+				int randomCount = RANDOM->getInt(100);
+				if (randomCount < 30)
+				{
+					setState(ENEMY_STATE::SKILL, _direction);
+				}
+				else
+				{
+					setState(ENEMY_STATE::ATTACK, _direction);
+				}
 			}
 			else if (_elapsedTime >= 5) // 오랜 쫓음으로 인해 한번 점프해본다
 			{
 				setState(ENEMY_STATE::JUMP, _direction);
-				_gravity = -26;
+				_gravity = -28;
 			}
 		}
 	}
@@ -151,6 +188,36 @@ void CheerGirl::update()
 				setState(ENEMY_STATE::WALK, _direction); // 플레이어에게 걸어가기
 			}
 		}
+	}
+	break;
+
+	case ENEMY_STATE::SKILL:
+	{
+		_gravity += 1;
+
+		moveDir.x += (_direction == DIRECTION::RIGHT) ? 1 : -1;
+		moveDir = Vector3::normalize(&moveDir);
+		moveDir = moveDir * 8;
+		moveDir.y += _gravity;
+
+		float lastY = _position.y;
+		_enemyManager->moveEnemy(this, moveDir);
+		float currY = _position.y;
+
+		if (lastY != currY) // 떨어짐
+		{
+			setState(ENEMY_STATE::JUMP, _direction);
+		}
+		else
+		{
+			_gravity = 0;
+			if (!_ani->isPlay())
+			{
+				setDirectionToPlayer(); // 플레이어 바라보기
+				setState(ENEMY_STATE::IDLE, _direction);
+			}
+		}
+		
 	}
 	break;
 
@@ -199,18 +266,27 @@ void CheerGirl::update()
 	case ENEMY_STATE::KNOCKDOWN: // 쓰러지는 경직
 	{
 		_gravity += 1;
-		moveDir.x += (_direction == DIRECTION::RIGHT) ? -1 : 1;
+		if (_gravity != 1)
+		{
+			moveDir.x += (_direction == DIRECTION::RIGHT) ? -3 : 3;
+		}
 		moveDir.y += _gravity;
 
 		float lastY = _position.y;
 		_enemyManager->moveEnemy(this, moveDir);
 		float currY = _position.y;
 
-		if (moveDir.y > 1 && lastY == currY) // 땅에 부딪힘
+		if (moveDir.y >= 1 && lastY == currY) // 땅에 부딪힘
 		{
 			_gravity = 0;
-			setState(ENEMY_STATE::STANDUP, _direction);
-
+			if (_elapsedTime > 3)
+			{
+				setState(ENEMY_STATE::STANDUP, _direction);
+			}
+		}
+		else
+		{
+			_elapsedTime = 0;
 		}
 	}
 	break;
@@ -283,6 +359,7 @@ void CheerGirl::render()
 		}
 	}
 	break;
+
 	case ENEMY_STATE::KNOCKDOWN:
 	{
 		if (_direction == DIRECTION::LEFT)
@@ -295,6 +372,7 @@ void CheerGirl::render()
 		}
 	}
 	break;
+
 	default:
 	{
 		if (_direction == DIRECTION::LEFT)
@@ -323,6 +401,8 @@ void CheerGirl::render()
 
 void CheerGirl::hitEffect(GameObject* hitter, FloatRect attackRc, float damage, ATTACK_TYPE type)
 {
+	if (_state == ENEMY_STATE::SKILL) return;
+
 	_hitType = type;
 	if (_state != ENEMY_STATE::HIT && _state != ENEMY_STATE::KNOCKDOWN && _state != ENEMY_STATE::STANDUP)
 	{
@@ -363,7 +443,7 @@ void CheerGirl::setState(ENEMY_STATE state, DIRECTION direction)
 	break;
 	case ENEMY_STATE::WALK:
 	{
-		_enemyImg = IMAGE_MANAGER->findImage("cheergirl_walk2");
+		_enemyImg = IMAGE_MANAGER->findImage("cheergirl_walk");
 		_ani->init(_enemyImg->getWidth(), _enemyImg->getHeight(),
 			_enemyImg->getMaxFrameX(), _enemyImg->getMaxFrameY());
 
@@ -458,10 +538,10 @@ void CheerGirl::setState(ENEMY_STATE state, DIRECTION direction)
 	break;
 	case ENEMY_STATE::SKILL:
 	{
-		_enemyImg = IMAGE_MANAGER->findImage("cheergirl_walk2");
+		_enemyImg = IMAGE_MANAGER->findImage("cheergirl_skill");
 		_ani->init(_enemyImg->getWidth(), _enemyImg->getHeight(),
 			_enemyImg->getMaxFrameX(), _enemyImg->getMaxFrameY());
-		_ani->setFPS(10);
+		_ani->setFPS(20);
 		_ani->start();
 	}
 	break;

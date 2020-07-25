@@ -190,12 +190,12 @@ HRESULT playGround::init()
 	IMAGE_MANAGER->addFrameImage("cheergirl_attack2", L"resources/images/characters/enemy_cheergirl/spinpoom.png", 7, 2);
 	IMAGE_MANAGER->addFrameImage("cheergirl_begGing", L"resources/images/characters/enemy_cheergirl/begging.png", 2, 2);
 	IMAGE_MANAGER->addFrameImage("cheergirl_blownBack", L"resources/images/characters/enemy_cheergirl/blownback.png", 23, 2);
-	IMAGE_MANAGER->addFrameImage("cheergirl_walk1", L"resources/images/characters/enemy_cheergirl/cartwheel.png", 15, 2); // 치어걸은 회피스킬
+	IMAGE_MANAGER->addFrameImage("cheergirl_skill", L"resources/images/characters/enemy_cheergirl/cartwheel.png", 15, 2); // 치어걸은 회피스킬
 	IMAGE_MANAGER->addFrameImage("cheergirl_getHit", L"resources/images/characters/enemy_cheergirl/gethits.png", 9, 2);
 	IMAGE_MANAGER->addFrameImage("cheergirl_heldRelease", L"resources/images/characters/enemy_cheergirl/grab_release.png", 4, 2);
 	IMAGE_MANAGER->addFrameImage("cheergirl_groundUp", L"resources/images/characters/enemy_cheergirl/groundup.png", 11, 2);
 	IMAGE_MANAGER->addFrameImage("cheergirl_stun", L"resources/images/characters/enemy_cheergirl/stun.png", 5, 2);
-	IMAGE_MANAGER->addFrameImage("cheergirl_walk2", L"resources/images/characters/enemy_cheergirl/walk.png", 12, 2);
+	IMAGE_MANAGER->addFrameImage("cheergirl_walk", L"resources/images/characters/enemy_cheergirl/walk.png", 12, 2);
 	IMAGE_MANAGER->addFrameImage("cheergirl_jumpAttack1", L"resources/images/characters/enemy_cheergirl/divekick_start.png", 6, 2);
 	IMAGE_MANAGER->addFrameImage("cheergirl_jumpAttack2", L"resources/images/characters/enemy_cheergirl/divekick_middle.png", 7, 2);
 	IMAGE_MANAGER->addFrameImage("cheergirl_jumpAttack3", L"resources/images/characters/enemy_cheergirl/divekick_end.png", 13, 2);
