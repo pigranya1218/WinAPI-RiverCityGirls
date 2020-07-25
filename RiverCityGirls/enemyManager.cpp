@@ -42,6 +42,7 @@ void EnemyManager::render()
 void EnemyManager::moveEnemy(GameObject * enemy, Vector3 dir)
 {
 	_stage->moveGameObject(enemy, dir);
+
 }
 
 void EnemyManager::spawnEnemy(ENEMY_TYPE type, Vector2 pos)
