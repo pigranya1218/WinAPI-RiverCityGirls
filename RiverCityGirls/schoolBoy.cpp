@@ -65,13 +65,9 @@ void SchoolBoy::update()
 			{
 				setState(ENEMY_STATE::RUN, _direction); // 플레이어에게 달려가기
 			}
-			else if(distanceFromPlayer > 100)
+			else //if(distanceFromPlayer > 100)
 			{
 				setState(ENEMY_STATE::WALK, _direction); // 플레이어에게 걸어가기
-			}
-			else
-			{
-				setState(ENEMY_STATE::ATTACK, _direction);
 			}
 		}
 	}
@@ -207,8 +203,12 @@ void SchoolBoy::update()
 	{
 		if (!_ani->isPlay()) // 공격 모션이 끝났다면
 		{
-			if (_attackCount < 3) setState(ENEMY_STATE::ATTACK, _direction);
-			else setState(ENEMY_STATE::IDLE, _direction);
+			if (_attackCount < 100) setState(ENEMY_STATE::ATTACK, _direction);
+			else
+			{
+				_attackCount = 0;
+				setState(ENEMY_STATE::IDLE, _direction);
+			}
 		}
 		else
 		{
@@ -230,22 +230,16 @@ void SchoolBoy::update()
 			_viewRc = FloatRect(_attackRc.left, _position.z + _attackRc.top,
 				_attackRc.right, _position.z + _attackRc.bottom);
 			ATTACK_TYPE type;
-			if (_attackCount > 3)
+			if (_attackCount > 0 && _attackCount % 100 == 0)
 			{
 				type = ATTACK_TYPE::KNOCKDOWN;
-				_attackCount = 0;
 			} 
 			else
 			{
-				_isAttack = true;
-				if (_isAttack)
-				{
-					_attackCount += 1;
-					_isAttack = false;
-				}
 				type = ATTACK_TYPE::HIT1;
+				_attackCount += 1;
 			}
-			enemyAttack(_attackRc, 5, type);
+			enemyAttack(_position, _size, OBJECT_TEAM::ENEMY, _attackRc, 5, type);
 		}
 	}
 	break;
