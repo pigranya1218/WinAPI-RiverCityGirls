@@ -101,7 +101,7 @@ void Player::attack(FloatRect attackRc, float damage, ATTACK_TYPE type)
 void Player::getHit(GameObject* hitter, FloatRect attackRc, float damage, ATTACK_TYPE type)
 {
 	
-	if (_isHit)return; 
+	if (_isHit)return;
 		
 
 	_getHitType = type;
@@ -116,11 +116,12 @@ void Player::getHit(GameObject* hitter, FloatRect attackRc, float damage, ATTACK
 	float playerMaxZ = _position.z + _size.z / 2;
 
 	if (playerMaxZ<hitterMinZ || playerMinZ>hitterMaxZ) return;
-
+	
 	FloatRect getHitRc = FloatRect(_position.x - _size.x / 2, _position.y - _size.y / 2, _position.x + _size.x / 2, _position.y + _size.y / 2);
+	
 	if (FloatRect::intersect(getHitRc, attackRc))
 	{
-
+		
 		if (hitter->getPosition().x > _position.x)
 		{
 			_direction == DIRECTION::RIGHT;
@@ -129,7 +130,7 @@ void Player::getHit(GameObject* hitter, FloatRect attackRc, float damage, ATTACK
 		{
 			_direction = DIRECTION::LEFT;
 		}
-
+		
 		PlayerState* state = new getHitState;
 		_state->exit(*this);
 		delete _state;

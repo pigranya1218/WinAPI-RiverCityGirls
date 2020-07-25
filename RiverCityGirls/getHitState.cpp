@@ -4,6 +4,7 @@
 void getHitState::enter(Player & player)
 {
 	_getHitType = player.getGetHitType();
+	
 	switch (_getHitType)
 	{
 	case ATTACK_TYPE::HIT1:
@@ -20,6 +21,7 @@ void getHitState::enter(Player & player)
 	
 	_downTime = 0;
 	_airBorne = 1;
+	_hitDelay = 0;
 	player.setHp(player.getHp() - player.getDamage());
 	player.setIsHit(true);
 }
@@ -33,10 +35,10 @@ void getHitState::exit(Player & player)
 
 PlayerState * getHitState::update(Player & player)
 {
-	Vector3 moveDir;
+	
 
 	moveDir.x = 0;
-	moveDir.y = 0;
+	moveDir.y += player.getGravity();
 	moveDir.z = 0;
 
 	
@@ -45,32 +47,44 @@ PlayerState * getHitState::update(Player & player)
 	{
 	case GET_HIT_STATE::HIT:
 
-	lastPlayerY = player.getPosition().y;
-	moveDir.x += (player.getDirection() == DIRECTION::RIGHT) ? -1 : 1;
-	moveDir.y += player.getGravity();
-	player.move(moveDir);
-	currentPlayerY = player.getPosition().y;
-	
-	if (!_ani->isPlay())
-	{
-		//player.setHp(player.getHp() - player.getDamage());
-		return new IdleState;
 		
-	}
+			lastPlayerY = player.getPosition().y;
+			moveDir.x += (player.getDirection() == DIRECTION::RIGHT) ? -0.3 : 0.3;
+			
+			player.move(moveDir);
+			currentPlayerY = player.getPosition().y;
+		
+			if (!_ani->isPlay())
+			{
+				return new IdleState;
+			}
+		
 
 		break;
-	case GET_HIT_STATE::HIT2:
-		lastPlayerY = player.getPosition().y;
-		moveDir.x += (player.getDirection() == DIRECTION::RIGHT) ? -1 : 1;
-		//moveDir.y += player.getGravity();
-		player.move(moveDir);
-		currentPlayerY = player.getPosition().y;
 
-		if (!_ani->isPlay())
-		{
-			//player.setHp(player.getHp() - player.getDamage());
-			return new IdleState;
-		}
+
+
+
+	case GET_HIT_STATE::HIT2:
+		
+
+		
+			lastPlayerY = player.getPosition().y;
+			moveDir.x += (player.getDirection() == DIRECTION::RIGHT) ? -0.3 : 0.3;
+			//moveDir.y += player.getGravity();
+			player.move(moveDir);
+			currentPlayerY = player.getPosition().y;
+
+			
+
+		
+		
+			if (!_ani->isPlay())
+			{
+				return new IdleState;
+			}
+		
+		
 
 		break;
 	case GET_HIT_STATE::KNOCK_DOWN:
@@ -85,7 +99,7 @@ PlayerState * getHitState::update(Player & player)
 		if (!_ani->isPlay())
 		{
 			
-			if (_downTime <= 2)
+			if (_downTime <= 1)
 			{
 				_downTime += TIME_MANAGER->getElapsedTime();
 			}
@@ -130,7 +144,7 @@ void getHitState::setGetHitAni(Player& player)
 		_img = IMAGE_MANAGER->findImage("Kyoko_gethit");
 		_ani = new Animation;
 		_ani->init(_img->getWidth(), _img->getHeight(), _img->getMaxFrameX(), _img->getMaxFrameY());
-		_ani->setFPS(20);
+		_ani->setFPS(10);
 		if (player.getDirection() == DIRECTION::RIGHT)
 		{
 			_ani->setPlayFrame(0, 4, false, false); // 0 ~ 3
