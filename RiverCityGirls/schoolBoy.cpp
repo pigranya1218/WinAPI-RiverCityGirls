@@ -162,6 +162,23 @@ void SchoolBoy::update()
 		{
 			setState(ENEMY_STATE::IDLE, _direction);
 		}
+		else
+		{
+			if (_direction == DIRECTION::LEFT)
+			{
+				_attackRc = FloatRect(_position.x - 130, _position.y - 35,
+					_position.x - 20, _position.y + 20);
+			}
+			else if (_direction == DIRECTION::RIGHT)
+			{
+				_attackRc = FloatRect(_position.x + 20, _position.y - 35,
+					_position.x + 100, _position.y + 20);
+			}
+			_viewRc = FloatRect(_attackRc.left, _position.z + _attackRc.top,
+				_attackRc.right, _position.z + _attackRc.bottom);
+			//공격 함수 할 예정
+
+		}
 	}
 	break;
 
@@ -360,6 +377,9 @@ void SchoolBoy::hitEffect(GameObject * hitter, FloatRect attackRc, float damage,
 
 void SchoolBoy::setState(ENEMY_STATE state, DIRECTION direction)
 {
+	_state = state;
+	_elapsedTime = 0;
+
 	//디렉션에 따른 애니메이션
 	switch (state)
 	{
