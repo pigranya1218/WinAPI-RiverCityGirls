@@ -24,9 +24,19 @@ void EnemyManager::release()
 
 void EnemyManager::update()
 {
-	for (int i = 0; i < _enemies.size(); i++)
+	for (int i = 0; i < _enemies.size();)
 	{
 		_enemies[i]->update();
+		if (_enemies[i]->isActive())
+		{
+			_enemies[i]->release();
+			delete _enemies[i];
+			_enemies.erase(_enemies.begin() + i);
+		}
+		else
+		{
+			i++;
+		}
 	}
 }
 

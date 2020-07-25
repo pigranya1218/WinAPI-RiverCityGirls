@@ -63,6 +63,8 @@ public:
 
 	void setDirectionToPlayer();
 
+	bool isActive() { return _isActive; }
+
 
 };
 
