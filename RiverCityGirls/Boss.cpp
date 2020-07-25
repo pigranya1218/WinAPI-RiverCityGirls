@@ -12,6 +12,7 @@ void Boss::init()
 	_gravity = 0;
 	_jumpPower = 0;
 	_hp = 150;
+	_isActive = true;
 }
 
 void Boss::release()
