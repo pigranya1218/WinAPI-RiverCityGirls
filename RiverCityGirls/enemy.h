@@ -8,6 +8,7 @@ enum class ENEMY_STATE
 {
 	IDLE,
 	WALK,
+	RETURN,
 	RUN,	 //RUN상태에서 ATTACK -> DASH_ATTACK
 	JUMP,	 //JUMP상태에서 ATTACK -> JUMP_PUNCH
 	ATTACK,	 //콤보처리 ATTACK 1 ~ 3
@@ -31,6 +32,8 @@ protected:
 
 	FloatRect _attackRc;	// 공격 판정 렉트
 	FloatRect _viewRc;		
+	int _attackS;	// 공격 판정할 프레임 저장용
+
 	ENEMY_STATE _state;		// 상태
 
 	Image* _enemyImg;
@@ -46,6 +49,8 @@ protected:
 	float _elapsedTime;		// 상태 전환 계산 타이머
 
 	bool _isActive;			//적 개체 생존 여부
+
+	
 public:
 	Enemy() {};
 	~Enemy() {};
