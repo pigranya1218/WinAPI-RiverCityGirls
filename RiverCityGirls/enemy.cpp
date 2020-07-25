@@ -51,3 +51,8 @@ void Enemy::hitEffect(GameObject* hitter, FloatRect attackRc, float damage, ATTA
 
 }
 
+void Enemy::attack(FloatRect attackRc, float damage, ATTACK_TYPE type)
+{
+	_enemyManager->enemyAttack(this, attackRc, damage, type);
+}
+
