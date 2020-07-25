@@ -68,6 +68,7 @@ public:
 
 	void setEnemyManager(EnemyManager* enemyManager) { _enemyManager = enemyManager; }
 	void getHit(GameObject* hitter, FloatRect attackRc, float damage, ATTACK_TYPE type);
+	void enemyAttack(FloatRect attackRc, float damage, ATTACK_TYPE type);
 	virtual void hitEffect(GameObject* hitter, FloatRect attackRc, float damage, ATTACK_TYPE type);
 };
 
