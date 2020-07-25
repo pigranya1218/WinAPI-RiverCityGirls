@@ -141,7 +141,7 @@ Stage * MiddleStage::update()
 
 	_objectManager->update();
 	_objectManager->isEat(_player);
-	//_enemyManager->update();
+	_enemyManager->update();
 
 	CAMERA_MANAGER->setXY(CAMERA_MANAGER->convertV3ToV2(_player->getPosition()));
 
@@ -166,5 +166,5 @@ void MiddleStage::render()
 
 
 	_objectManager->render();
-	//_enemyManager->render();
+	_enemyManager->render();
 }

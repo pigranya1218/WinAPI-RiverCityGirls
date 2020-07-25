@@ -286,7 +286,7 @@ void Boss::update()
 				moveDir.x += (_direction == DIRECTION::RIGHT) ? 1 : -1;
 				moveDir.z += (playerPos.z >= _position.z + 10) ? 1 : ((playerPos.z <= _position.z - 10) ? -1 : 0);
 				moveDir = Vector3::normalize(&moveDir);
-				moveDir = moveDir * 5;
+				moveDir = moveDir * 8;
 
 				_enemyManager->moveEnemy(this, moveDir);
 
