@@ -367,16 +367,16 @@ public:
 				active = false;
 			}
 			if (KEY_MANAGER->isOnceKeyDown('Z'))
-			{
-				// 체력 회복				
-				player->setHp(player->getHp() + (vItem[currentList].recovery * player->getMaxHp() / 100));
-				// 최대 체력 초과 방지
-				if (player->getHp() > player->getMaxHp()) player->setHp(player->getMaxHp());
+			{				
 				// 돈이 부족하면 살 수 없음
 				if (money >= vItem[currentList].price)
 				{
 					// 돈계산
 					player->setMoney((int)(money - vItem[currentList].price));
+					// 체력 회복	
+					player->setHp(player->getHp() + (vItem[currentList].recovery * player->getMaxHp() / 100));
+					// 최대 체력 초과 방지
+					if (player->getHp() > player->getMaxHp()) player->setHp(player->getMaxHp());
 				}				
 			}
 		}
