@@ -35,6 +35,7 @@ DeskObject::DeskObject(Vector3 position, DIRECTION direction, int imageType)
 		//sit boy
 		case 4:
 		{
+			_position = Vector3(position.x, -_size.y - 25, position.z);
 			_img = IMAGE_MANAGER->findImage("OBJECT_DESK_boy_idle01");
 			_frameAni = new Animation;
 			_frameAni->init(_img->getWidth(), _img->getHeight(), _img->getMaxFrameX(), _img->getMaxFrameY());
@@ -53,6 +54,7 @@ DeskObject::DeskObject(Vector3 position, DIRECTION direction, int imageType)
 		//sit girl
 		case 6:
 		{
+			_position = Vector3(position.x, -_size.y - 25, position.z);
 			_img = IMAGE_MANAGER->findImage("OBJECT_DESK_girl_idle01");
 			_frameAni = new Animation;
 			_frameAni->init(_img->getWidth(), _img->getHeight(), _img->getMaxFrameX(), _img->getMaxFrameY());

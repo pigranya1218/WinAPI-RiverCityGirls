@@ -44,12 +44,20 @@ void MiddleStage::init(Image * background, float bgScale)
 	}
 
 	//Object ¹èÄ¡
-	_objectManager->spawnObject(OBJECT_TYPE::SNACKMACHINE, Vector3(1813, 0, 470), DIRECTION::LEFT);
-	_objectManager->spawnObject(OBJECT_TYPE::TABLE01, Vector3(700, 0, 750), DIRECTION::LEFT);
-	_objectManager->spawnObject(OBJECT_TYPE::TABLE03, Vector3(1200, 0, 750), DIRECTION::LEFT);
-	_objectManager->spawnObject(OBJECT_TYPE::TABLE07, Vector3(1700, 0, 750), DIRECTION::LEFT);
-	_objectManager->spawnObject(OBJECT_TYPE::TABLE08, Vector3(2200, 0, 750), DIRECTION::LEFT);
+	_objectManager->spawnObject(OBJECT_TYPE::SNACKMACHINE, Vector3(2420, 0, 470), DIRECTION::RIGHT);
+	_objectManager->spawnObject(OBJECT_TYPE::TABLE01, Vector3(500, 0, 680), DIRECTION::LEFT);
+	_objectManager->spawnObject(OBJECT_TYPE::TABLE06, Vector3(1120, 0, 750), DIRECTION::LEFT);
+	_objectManager->spawnObject(OBJECT_TYPE::TABLE07, Vector3(1740, 0, 750), DIRECTION::LEFT);
+	_objectManager->spawnObject(OBJECT_TYPE::TABLE03, Vector3(2360, 0, 680), DIRECTION::LEFT);
 
+	_objectManager->spawnObject(OBJECT_TYPE::schoolGirlA_idle01, Vector3(300, 0, 500), DIRECTION::RIGHT);
+	_objectManager->spawnObject(OBJECT_TYPE::schoolGirlE_idle01, Vector3(400, 0, 500), DIRECTION::LEFT);
+
+	_objectManager->spawnObject(OBJECT_TYPE::schoolGirlB_idle01, Vector3(400, 0, 750), DIRECTION::RIGHT);
+	_objectManager->spawnObject(OBJECT_TYPE::schoolBoyA_idle01, Vector3(550, 0, 750), DIRECTION::LEFT);
+
+	_objectManager->spawnObject(OBJECT_TYPE::schoolBoyE_idle01, Vector3(2100, 0, 470), DIRECTION::RIGHT);
+	_objectManager->spawnObject(OBJECT_TYPE::schoolGirlA_idle01, Vector3(2200, 0, 470), DIRECTION::LEFT);
 
 	DOOR_STATE doorStates[3] = {DOOR_STATE::UNLOCK, DOOR_STATE::SHOP, DOOR_STATE::UNLOCK};
 	Vector3 doorPoses[3] = {Vector3(80, 0, 500),
@@ -78,14 +86,21 @@ void MiddleStage::init(Image * background, float bgScale)
 	_respawnCool = 2;
 }
 
+void MiddleStage::release()
+{
+	Stage::release();
+}
+
 void MiddleStage::enter()
 {
 	Stage::enter();
+	SOUND_MANAGER->stop("BGM_Hall");
+	SOUND_MANAGER->play("BGM_Hall", 1.0f);
 }
 
 void MiddleStage::exit()
 {
-	Stage::exit();
+	SOUND_MANAGER->stop("BGM_Hall");
 }
 
 Stage * MiddleStage::update()
@@ -126,7 +141,7 @@ Stage * MiddleStage::update()
 
 	_objectManager->update();
 	_objectManager->isEat(_player);
-	_enemyManager->update();
+	//_enemyManager->update();
 
 	CAMERA_MANAGER->setXY(CAMERA_MANAGER->convertV3ToV2(_player->getPosition()));
 
@@ -151,5 +166,5 @@ void MiddleStage::render()
 
 
 	_objectManager->render();
-	_enemyManager->render();
+	//_enemyManager->render();
 }

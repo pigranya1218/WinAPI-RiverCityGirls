@@ -63,6 +63,11 @@ void BossStage::init(Image * background, float bgScale)
 	}
 }
 
+void BossStage::release()
+{
+	Stage::release();
+}
+
 void BossStage::enter()
 {
 	Stage::enter();
@@ -71,7 +76,7 @@ void BossStage::enter()
 
 void BossStage::exit()
 {
-	Stage::exit();
+
 }
 
 Stage * BossStage::update()

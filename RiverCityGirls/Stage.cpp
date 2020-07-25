@@ -20,6 +20,17 @@ void Stage::init(Image * background, float bgScale)
 	_enemyManager->init();
 }
 
+void Stage::release()
+{
+	_objectManager->release();
+	_enemyManager->release();
+	for (int i = 0; i < _restrictLines.size(); i++)
+	{
+		delete _restrictLines[i];
+	}
+	_restrictLines.clear();
+}
+
 void Stage::enter()
 {
 	float maxWidth = _background->getWidth() * _bgScale;
@@ -31,13 +42,7 @@ void Stage::enter()
 
 void Stage::exit()
 {
-	_objectManager->release();
-	_enemyManager->release();
-	for (int i = 0; i < _restrictLines.size(); i++)
-	{
-		delete _restrictLines[i];
-	}
-	_restrictLines.clear();
+	
 }
 
 Stage * Stage::update()

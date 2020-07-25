@@ -28,17 +28,21 @@ void StartStage::init(Image * background, float bgScale)
 	}
 	
 	//Object ¹èÄ¡
-	//_objectManager->spawnObject(OBJECT_TYPE::DESK, OBJECT_STATE::IDLE01, Vector3(710, 0, 510), DIRECTION::LEFT);
-	//_objectManager->spawnObject(OBJECT_TYPE::DESK, OBJECT_STATE::IDLE01, Vector3(990, 0, 510), DIRECTION::LEFT);
-
 	_objectManager->spawnObject(OBJECT_TYPE::DESK01, Vector3(460, 0, 510), DIRECTION::LEFT);
 	_objectManager->spawnObject(OBJECT_TYPE::DESK02, Vector3(710, 0, 510), DIRECTION::LEFT);
 	_objectManager->spawnObject(OBJECT_TYPE::DESK01, Vector3(970, 0, 510), DIRECTION::LEFT);
 	_objectManager->spawnObject(OBJECT_TYPE::DESK03, Vector3(1230, 0, 510), DIRECTION::LEFT);
+	_objectManager->spawnObject(OBJECT_TYPE::DESK04, Vector3(310, 0, 710), DIRECTION::LEFT);
+	_objectManager->spawnObject(OBJECT_TYPE::DESK01, Vector3(560, 0, 710), DIRECTION::LEFT);
+	_objectManager->spawnObject(OBJECT_TYPE::DESK02, Vector3(820, 0, 710), DIRECTION::LEFT);
+	_objectManager->spawnObject(OBJECT_TYPE::DESK05, Vector3(1080, 0, 710), DIRECTION::LEFT);
 
-	_objectManager->spawnObject(OBJECT_TYPE::mrRudis, Vector3(1670, 0, 510), DIRECTION::LEFT);
-	_objectManager->spawnObject(OBJECT_TYPE::schoolBoyA_idle01, Vector3(600, 0, 400), DIRECTION::LEFT);
-	_objectManager->spawnObject(OBJECT_TYPE::schoolGirlB_idle02, Vector3(500, 0, 400), DIRECTION::RIGHT);
+	_objectManager->spawnObject(OBJECT_TYPE::TEACHER_TABLE, Vector3(1650, 0, 800), DIRECTION::RIGHT);
+	_objectManager->spawnObject(OBJECT_TYPE::FALL_CHAIR02, Vector3(1600, 0, 480), DIRECTION::LEFT);
+	_objectManager->spawnObject(OBJECT_TYPE::FALL_CHAIR01, Vector3(1800, 0, 620), DIRECTION::LEFT);
+
+	_objectManager->spawnObject(OBJECT_TYPE::mrRudis, Vector3(1670, 0, 560), DIRECTION::LEFT);
+
 
 	tagDoorInfo door;
 	door.doorState = DOOR_STATE::UNLOCK;
@@ -57,14 +61,21 @@ void StartStage::init(Image * background, float bgScale)
 	_respawnCool = 2;
 }
 
+void StartStage::release()
+{
+	Stage::release();
+}
+
 void StartStage::enter()
 {
 	Stage::enter();
+	SOUND_MANAGER->stop("BGM_Classroom");
+	SOUND_MANAGER->play("BGM_Classroom", 1.0f);
 }
 
 void StartStage::exit()
 {
-	Stage::exit();
+	SOUND_MANAGER->stop("BGM_Classroom");
 }
 
 Stage * StartStage::update()
@@ -113,7 +124,7 @@ Stage * StartStage::update()
 
 	_objectManager->update();
 	_objectManager->isEat(_player);
-	_enemyManager->update();
+	//_enemyManager->update();
 
 	CAMERA_MANAGER->setXY(CAMERA_MANAGER->convertV3ToV2(_player->getPosition()));
 
@@ -138,5 +149,5 @@ void StartStage::render()
 	
 
 	_objectManager->render();
-	_enemyManager->render();
+	//_enemyManager->render();
 }

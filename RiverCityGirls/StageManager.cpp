@@ -34,7 +34,7 @@ void StageManager::release()
 {
 	for (auto iter = _stageMap.begin(); iter != _stageMap.end(); iter++)
 	{
-		iter->second->exit();
+		iter->second->release();
 		delete iter->second;
 	}
 	_stageMap.clear();
@@ -46,6 +46,7 @@ void StageManager::update()
 	{
 		if (_stageBuffer != nullptr)
 		{
+			_currStage->exit();
 			_currStage = _stageBuffer;
 			_currStage->enter();
 		}
