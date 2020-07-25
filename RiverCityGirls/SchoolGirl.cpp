@@ -93,10 +93,15 @@ void SchoolGirl::update()
 				_gravity = -22;
 			}			
 		}
-		if (_elapsedTime > 2 && _position.x == _position.x )
+		if (_elapsedTime > 2 && _position.x == _position.x  && playerPos.z >= _position.z)
 		{
-			_position.z += 2;
+			_position.z += 1;
 		}
+		else
+		{
+			_position.z -= 1;
+		}
+
 		
 	}
 	break;
@@ -132,6 +137,14 @@ void SchoolGirl::update()
 				setState(ENEMY_STATE::JUMP, _direction);
 				_gravity = -26;
 			}
+		}
+		if (_elapsedTime > 2 && _position.x == _position.x  && playerPos.z >= _position.z)
+		{
+			_position.z += 1;
+		}
+		else
+		{
+			_position.z -= 1;
 		}
 	
 	}
@@ -180,6 +193,7 @@ void SchoolGirl::update()
 		}
 		_viewRc = FloatRect(_attackRc.left, _position.z + _attackRc.top,
 			_attackRc.right, _position.z + _attackRc.bottom);	
+
 		//enemyAttack(_attackRc, 5, ATTACK_TYPE::HIT1); 활성화되면 터짐
 
 		
