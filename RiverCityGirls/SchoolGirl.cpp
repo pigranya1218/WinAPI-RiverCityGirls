@@ -188,7 +188,7 @@ void SchoolGirl::update()
 		_viewRc = FloatRect(_attackRc.left, _position.z + _attackRc.top,
 			_attackRc.right, _position.z + _attackRc.bottom);	
 
-		//enemyAttack(_attackRc, 5, ATTACK_TYPE::HIT1); 활성화되면 터짐
+		enemyAttack(_attackRc, 5, ATTACK_TYPE::HIT1); //활성화되면 터짐
 
 		
 
