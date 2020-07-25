@@ -3,6 +3,7 @@
 class MiddleStage : public Stage
 {
 private:
+	float _respawnCool;
 
 public:
 	virtual void init(Image* background, float bgScale);

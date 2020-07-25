@@ -202,11 +202,13 @@ HRESULT playGround::init()
 	//º¸½º
 	IMAGE_MANAGER->addFrameImage("boss_block", L"resources/images/characters/boss_misuzu/Misuzu_block.png", 4, 2);
 	IMAGE_MANAGER->addFrameImage("boss_walk", L"resources/images/characters/boss_misuzu/MizusuWalk.png", 10, 2);
-	IMAGE_MANAGER->addFrameImage("boss_poewerAttack", L"resources/images/characters/boss_misuzu/MizusuWUPunch.png", 27, 2);
+	IMAGE_MANAGER->addFrameImage("boss_laugh", L"resources/images/characters/boss_misuzu/RCG_Misuzu_taunt_update.png", 23, 2);
+	IMAGE_MANAGER->addFrameImage("boss_powerAttack", L"resources/images/characters/boss_misuzu/MizusuWUPunch.png", 27, 2);
 	IMAGE_MANAGER->addFrameImage("boss_blownBack", L"resources/images/characters/boss_misuzu/RCG_Misuzu_blownback.png", 22, 2);
 	IMAGE_MANAGER->addFrameImage("boss_defeat", L"resources/images/characters/boss_misuzu/RCG_Misuzu_defeat.png", 13, 2);
 	IMAGE_MANAGER->addFrameImage("boss_dizzy", L"resources/images/characters/boss_misuzu/RCG_Misuzu_dizzy.png", 4, 2);
 	IMAGE_MANAGER->addFrameImage("boss_attack1", L"resources/images/characters/boss_misuzu/RCG_Misuzu_elbow.png", 11, 2);
+	IMAGE_MANAGER->addFrameImage("boss_attack2", L"resources/images/characters/boss_misuzu/RCG_Misuzu_slap.png", 14, 2);
 	IMAGE_MANAGER->addFrameImage("boss_getHit", L"resources/images/characters/boss_misuzu/RCG_Misuzu_GetHit.png", 9, 2);
 	IMAGE_MANAGER->addFrameImage("boss_getup", L"resources/images/characters/boss_misuzu/RCG_Misuzu_getup3.png", 15, 2);	
 	IMAGE_MANAGER->addFrameImage("boss_groundHit", L"resources/images/characters/boss_misuzu/RCG_Misuzu_groundhit.png", 4, 2);
@@ -215,7 +217,6 @@ HRESULT playGround::init()
 	IMAGE_MANAGER->addFrameImage("boss_fallingmiss", L"resources/images/characters/boss_misuzu/RCG_Misuzu_meteor_rubbutt.png", 6, 2);
 	IMAGE_MANAGER->addFrameImage("boss_jump", L"resources/images/characters/boss_misuzu/RCG_Misuzu_meteor_jump.png", 8, 2);
 	IMAGE_MANAGER->addFrameImage("boss_faseupdate", L"resources/images/characters/boss_misuzu/RCG_Misuzu_roar.png", 12, 2);
-	IMAGE_MANAGER->addFrameImage("boss_attack2", L"resources/images/characters/boss_misuzu/RCG_Misuzu_slap.png", 14, 2);
 	IMAGE_MANAGER->addFrameImage("boss_tackle1", L"resources/images/characters/boss_misuzu/RCG_Misuzu_tackle_initial.png", 5, 2);
 	IMAGE_MANAGER->addFrameImage("boss_tackle2", L"resources/images/characters/boss_misuzu/RCG_Misuzu_tackle_loop.png", 11, 2);
 

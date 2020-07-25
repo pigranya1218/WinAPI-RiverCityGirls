@@ -587,20 +587,3 @@ void CheerGirl::setState(ENEMY_STATE state, DIRECTION direction)
 	break;
 	}
 }
-
-void CheerGirl::setDirectionToPlayer()
-{
-	Vector3 playerPos = _enemyManager->getPlayerPosition();
-	if (_state != ENEMY_STATE::KNOCKDOWN && _state != ENEMY_STATE::STANDUP
-		&& _state != ENEMY_STATE::HIT && _state != ENEMY_STATE::STUN)
-	{
-		if (playerPos.x <= _position.x - 50)
-		{
-			_direction = DIRECTION::LEFT;
-		}
-		else if (playerPos.x >= _position.x + 50)
-		{
-			_direction = DIRECTION::RIGHT;
-		}
-	}
-}

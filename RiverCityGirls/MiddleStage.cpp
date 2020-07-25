@@ -74,6 +74,8 @@ void MiddleStage::init(Image * background, float bgScale)
 		doorDest.destPos = destPoses[i];
 		_doorDestination.push_back(doorDest);
 	}
+
+	_respawnCool = 2;
 }
 
 void MiddleStage::enter()
@@ -112,6 +114,14 @@ Stage * MiddleStage::update()
 				}
 			}
 		}
+	}
+
+	_respawnCool -= TIME_MANAGER->getElapsedTime();
+
+	if (_enemyManager->getEnemyCount() < 1 && _respawnCool < 0)
+	{
+		_respawnCool = 2;
+		_enemyManager->spawnEnemy(ENEMY_TYPE::BOSS, Vector2(500, 670));
 	}
 
 	_objectManager->update();

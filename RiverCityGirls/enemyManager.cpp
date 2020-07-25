@@ -77,7 +77,11 @@ void EnemyManager::spawnEnemy(ENEMY_TYPE type, Vector2 pos)
 	break;
 	case ENEMY_TYPE::BOSS:
 	{
-
+		Boss* _boss = new Boss;
+		_boss->init();
+		_boss->setEnemyManager(this);
+		_boss->setPosition(Vector3(pos.x, -_boss->getSize().y / 2, pos.y));
+		_enemies.push_back(_boss);
 	}
 	break;
 	}

@@ -56,3 +56,16 @@ void Enemy::attack(FloatRect attackRc, float damage, ATTACK_TYPE type)
 	_enemyManager->enemyAttack(this, attackRc, damage, type);
 }
 
+void Enemy::setDirectionToPlayer()
+{
+	Vector3 playerPos = _enemyManager->getPlayerPosition();
+	if (playerPos.x <= _position.x - 50)
+	{
+		_direction = DIRECTION::LEFT;
+	}
+	else if (playerPos.x >= _position.x + 50)
+	{
+		_direction = DIRECTION::RIGHT;
+	}
+}
+
