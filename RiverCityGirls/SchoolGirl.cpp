@@ -9,7 +9,7 @@ void SchoolGirl::init()
 	_state = ENEMY_STATE::IDLE;
 	_direction = DIRECTION::RIGHT;
 	setState(_state, _direction);
-
+	_isActive = true;
 	_gravity = 0;
 	_jumpPower = 0;
 	_hp = 100;
@@ -32,6 +32,8 @@ void SchoolGirl::update()
 	float distanceFromPlayer = sqrt(pow(playerPos.x - _position.x, 2) + pow(playerPos.z - _position.z, 2)); // 플레이어와 xz 거리
 	Vector3 moveDir = Vector3(0, 0, 0);
 	_elapsedTime += TIME_MANAGER->getElapsedTime();
+
+	
 
 	// 상태에 따른 행동 및 상태 전이
 	switch (_state)
@@ -180,7 +182,7 @@ void SchoolGirl::update()
 		_viewRc = FloatRect(_attackRc.left, _position.z + _attackRc.top,
 			_attackRc.right, _position.z + _attackRc.bottom);	
 
-		//enemyAttack(_attackRc, 5, ATTACK_TYPE::HIT1);		
+		enemyAttack(_attackRc, 5, ATTACK_TYPE::HIT1);		
 
 		if (!_ani->isPlay()) // 공격 모션이 끝났다면
 		{
@@ -210,7 +212,7 @@ void SchoolGirl::update()
 			setState(ENEMY_STATE::IDLE, _direction);
 		}
 
-		//enemyAttack(_attackRc, 5, ATTACK_TYPE::HIT2);
+		enemyAttack(_attackRc, 5, ATTACK_TYPE::HIT2);
 	}
 	break;
 	case ENEMY_STATE::SKILL:
@@ -256,7 +258,7 @@ void SchoolGirl::update()
 			setState(ENEMY_STATE::IDLE, _direction);
 		}
 		
-		//enemyAttack(_attackRc, 10, ATTACK_TYPE::KNOCKDOWN);
+		enemyAttack(_attackRc, 10, ATTACK_TYPE::KNOCKDOWN);
 	}
 	break;
 
@@ -288,10 +290,12 @@ void SchoolGirl::update()
 
 	case ENEMY_STATE::KNOCKDOWN: // 쓰러지는 경직
 	{
+	
 		_gravity += 1;
-		moveDir.x += (_direction == DIRECTION::RIGHT) ? -1 : 1;
+		if(_hp > 0 && _ani->isPlay()){
+		moveDir.x += (_direction == DIRECTION::RIGHT) ? -1 : 1;		
+		}
 		moveDir.y += _gravity;
-
 		float lastY = _position.y;
 		_enemyManager->moveEnemy(this, moveDir);
 		float currY = _position.y;
@@ -304,16 +308,18 @@ void SchoolGirl::update()
 			_gravity = 0;
 			int randomCount = RANDOM->getInt(10);
 			
-			if (_elapsedTime > 1.5f)
+			if (_elapsedTime > 1.5f && _hp > 0 )
 			{
 				setState(ENEMY_STATE::STANDUP, _direction);
 			}
+		
 		}
 	}
 	break;
 
 	case ENEMY_STATE::STANDUP: // 쓰러지고 일어서는 상태
 	{
+		
 		int randomCount = RANDOM->getInt(10);
 		if (randomCount < 3 && !_ani->isPlay() && _hp <50)
 		{
@@ -323,6 +329,8 @@ void SchoolGirl::update()
 		{
 			setState(ENEMY_STATE::IDLE, _direction);
 		}
+	
+	
 	}
 	break;
 
@@ -335,6 +343,8 @@ void SchoolGirl::update()
 	}
 	break;
 	}
+
+	
 
 	_ani->frameUpdate(TIME_MANAGER->getElapsedTime());
 
@@ -430,6 +440,8 @@ void SchoolGirl::render()
 
 	if (DEBUG_MANAGER->isDebugMode(DEBUG_TYPE::ENEMY))
 	{
+	
+		
 		_enemyImg->setAlpha(0.5);
 		FloatRect rc = FloatRect(Vector2(_position.x, _position.z + _position.y + (_size.y / 2)), Vector2(_size.x, _size.z), Pivot::Center);		
 		CAMERA_MANAGER->drawLine(Vector2(_position.x, _position.z), Vector2(_position.x, _position.z + _position.y));
@@ -454,11 +466,31 @@ void SchoolGirl::render()
 	break;
 	}
 	if (_state == ENEMY_STATE::KNOCKDOWN || _state == ENEMY_STATE::STANDUP )
-	{
+	{ 
+		
+
+		if (_hp <= 0 && !_ani->isPlay())
+		{
+			if (fmod(_elapsedTime, 0.2f) < 0.1f)
+			{
+				_enemyImg->setAlpha(1);
+			}
+			if (fmod(_elapsedTime, 0.2f) > 0.1f)
+			{
+				_enemyImg->setAlpha(0);
+			}							
+			Vector3 drowPos = _position;
+			drowPos.y = _position.y + 30;
+			_enemyImg->setScale(3);
+			CAMERA_MANAGER->aniRenderZ(_enemyImg, drowPos, _size, _ani);
+		}
+		else
+		{
 		Vector3 drowPos = _position;
 		drowPos.y = _position.y + 30;
 		_enemyImg->setScale(3);
 		CAMERA_MANAGER->aniRenderZ(_enemyImg, drowPos, _size, _ani);
+		}
 	}
 	else if (_state == ENEMY_STATE::HIT)
 	{
