@@ -9,6 +9,7 @@ void Boss::init()
 	_direction = DIRECTION::LEFT;
 	setState(BOSS_STATE::IDLE, _direction, true);
 
+	_team = OBJECT_TEAM::BOSS;
 	_gravity = 0;
 	_jumpPower = 0;
 	_maxHp = 300;
@@ -317,6 +318,7 @@ void Boss::update()
 					_gravity = 0;
 					_jumpPower = 0;
 					setState(BOSS_STATE::METEOR_ATTACK_DELAY, _direction, true);
+					_enemyManager->enemyAttackObject(this, FloatRect(_position.x - 150, _position.y - 100, _position.x + 150, _position.y + 100), 10, ATTACK_TYPE::KNOCKDOWN);
 				}
 			}
 		}
@@ -425,14 +427,21 @@ void Boss::render()
 		{
 			Vector3 drawPos = _position;
 			drawPos.y -= 35;
-			CAMERA_MANAGER->aniRenderZ(_enemyImg, drawPos, _size, _ani, -(_position.y + (_size.y / 2)));
+			CAMERA_MANAGER->aniRenderZ(_enemyImg, drawPos, _size, _ani);
 		}
 		break;
 		case BOSS_STATE::IDLE:
 		{
 			Vector3 drawPos = _position;
 			drawPos.y -= 20;
-			CAMERA_MANAGER->aniRenderZ(_enemyImg, drawPos, _size, _ani, -(_position.y + (_size.y / 2)));
+			CAMERA_MANAGER->aniRenderZ(_enemyImg, drawPos, _size, _ani);
+		}
+		break;
+		case BOSS_STATE::STRONG_PUNCH:
+		{
+			Vector3 drawPos = _position;
+			drawPos.y += 10;
+			CAMERA_MANAGER->aniRenderZ(_enemyImg, drawPos, _size, _ani);
 		}
 		break;
 		case BOSS_STATE::WEAK_PUNCH_COMBO:
@@ -441,13 +450,13 @@ void Boss::render()
 			{
 				Vector3 drawPos = _position;
 				drawPos.y -= 15;
-				CAMERA_MANAGER->aniRenderZ(_enemyImg, drawPos, _size, _ani, -(_position.y + (_size.y / 2)));
+				CAMERA_MANAGER->aniRenderZ(_enemyImg, drawPos, _size, _ani);
 			}
 			else
 			{
 				Vector3 drawPos = _position;
 				drawPos.y -= 20;
-				CAMERA_MANAGER->aniRenderZ(_enemyImg, drawPos, _size, _ani, -(_position.y + (_size.y / 2)));
+				CAMERA_MANAGER->aniRenderZ(_enemyImg, drawPos, _size, _ani);
 			}
 		}
 		break;
@@ -461,12 +470,12 @@ void Boss::render()
 		{
 			Vector3 drawPos = _position;
 			drawPos.y -= 20;
-			CAMERA_MANAGER->aniRenderZ(_enemyImg, drawPos, _size, _ani, -(_position.y + (_size.y / 2)));
+			CAMERA_MANAGER->aniRenderZ(_enemyImg, drawPos, _size, _ani);
 		}
 		break;
 		default:
 		{
-			CAMERA_MANAGER->aniRenderZ(_enemyImg, _position, _size, _ani, -(_position.y + (_size.y / 2)));
+			CAMERA_MANAGER->aniRenderZ(_enemyImg, _position, _size, _ani);
 		}
 		break;
 		}
@@ -475,16 +484,11 @@ void Boss::render()
 
 	switch (_bossState) // 그림자 그리기
 	{
-	case BOSS_STATE::METEOR_ATTACK:
-	{
-		Vector3 shadowPos = _position;
-		shadowPos.y = _enemyManager->getCenterBottom(_position);
-		CAMERA_MANAGER->drawShadowZ(shadowPos, Vector3(180.0, 0, 40.0), -shadowPos.y);
-	}
-	break;
 	default:
 	{
-		CAMERA_MANAGER->drawShadowZ(_position, Vector3(180.0, _size.y, 40.0), -(_position.y + (_size.y / 2)));
+		Vector3 shadowPos = _position;
+		shadowPos.y = 0;
+		CAMERA_MANAGER->drawShadowZ(shadowPos, Vector3(200.0, 0, 40.0));
 	}
 	break;
 	}

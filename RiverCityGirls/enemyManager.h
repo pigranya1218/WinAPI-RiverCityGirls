@@ -51,5 +51,6 @@ public:
 
 	void getHit(GameObject* gameObject, FloatRect attackRc, float damage, ATTACK_TYPE type);
 	void enemyAttack(GameObject* hitter, FloatRect attackRc, float damage, ATTACK_TYPE type);
+	void enemyAttackObject(GameObject* hitter, FloatRect attackRc, float damage, ATTACK_TYPE type);
 };
 

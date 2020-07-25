@@ -140,6 +140,12 @@ void EnemyManager::enemyAttack(GameObject* hitter, FloatRect attackRc, float dam
 {
 	vector<OBJECT_TEAM> getAttack;
 	getAttack.push_back(OBJECT_TEAM::PLAYER);
+	_stage->attack(hitter, attackRc, damage, type, getAttack);
+}
+
+void EnemyManager::enemyAttackObject(GameObject* hitter, FloatRect attackRc, float damage, ATTACK_TYPE type)
+{
+	vector<OBJECT_TEAM> getAttack;
 	getAttack.push_back(OBJECT_TEAM::OBJECT);
 	_stage->attack(hitter, attackRc, damage, type, getAttack);
 }
