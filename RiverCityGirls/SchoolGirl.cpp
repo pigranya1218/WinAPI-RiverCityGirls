@@ -76,11 +76,8 @@ void SchoolGirl::update()
 		float lastX = _position.x;		
 		_enemyManager->moveEnemy(this, moveDir);
 		float currY = _position.y;
-		float currX = _position.x;
-		if (lastX == currX && _elapsedTime > 3.0 && distanceFromPlayer > 90 && _state == ENEMY_STATE::WALK)
-		{
-			_position.z -= 4;
-		}
+		float currX = _position.x;		
+
 		if (lastY != currY) // 떨어짐
 		{
 			setState(ENEMY_STATE::JUMP, _direction);
@@ -96,18 +93,12 @@ void SchoolGirl::update()
 					setState(ENEMY_STATE::GUARD, _direction);
 				}
 			}
-			else if (_elapsedTime >= 5) // 오랜 쫓음으로 인해 한번 점프해본다
+			else if (_elapsedTime >= 5) 
 			{
 				setState(ENEMY_STATE::SKILL, _direction);
 				_gravity = -22;
 			}			
 		}	
-		
-		
-		
-		
-		
-		
 	}
 	break;
 	case ENEMY_STATE::RUN:
@@ -127,10 +118,8 @@ void SchoolGirl::update()
 		_enemyManager->moveEnemy(this, moveDir);
 		float currY = _position.y;
 		float currX = _position.x;
-		if (lastX == currX && _elapsedTime > 3.0 && distanceFromPlayer > 90 && _state == ENEMY_STATE::RUN)
-		{
-			_position.z -= 4;
-		}
+		
+	
 		if (lastY != currY) // 떨어짐
 		{
 			setState(ENEMY_STATE::JUMP, _direction);
@@ -232,7 +221,6 @@ void SchoolGirl::update()
 	break;
 	case ENEMY_STATE::SKILL:
 	{
-
 		_gravity += 1;
 		moveDir.x += (_direction == DIRECTION::RIGHT) ? 1 : -1;
 		moveDir.z += (playerPos.z >= _position.z + 10) ? 1 : ((playerPos.z <= _position.z - 10) ? -1 : 0);
@@ -273,30 +261,32 @@ void SchoolGirl::update()
 		{
 			setState(ENEMY_STATE::IDLE, _direction);
 		}
-
+		
 		//enemyAttack(_attackRc, 10, ATTACK_TYPE::KNOCKDOWN);
 	}
 	break;
 
 	case ENEMY_STATE::HIT: // 작은 경직
 	{
-		_gravity += 1;
-		moveDir.x += (_direction == DIRECTION::RIGHT) ? -1 : 1;
-		moveDir.y += _gravity;
+		if (_state != ENEMY_STATE::GUARD) {
+			_gravity += 1;
+			moveDir.x += (_direction == DIRECTION::RIGHT) ? -1 : 1;
+			moveDir.y += _gravity;
 
-		float lastY = _position.y;
-		_enemyManager->moveEnemy(this, moveDir);
-		float currY = _position.y;
+			float lastY = _position.y;
+			_enemyManager->moveEnemy(this, moveDir);
+			float currY = _position.y;
 
-		if (lastY != currY) // 떨어짐
-		{
-			setState(ENEMY_STATE::JUMP, _direction);
-		}
-		else
-		{
-			if (!_ani->isPlay())
+			if (lastY != currY) // 떨어짐
 			{
-				setState(ENEMY_STATE::IDLE, _direction);
+				setState(ENEMY_STATE::JUMP, _direction);
+			}
+			else
+			{
+				if (!_ani->isPlay())
+				{
+					setState(ENEMY_STATE::IDLE, _direction);
+				}
 			}
 		}
 	}
@@ -318,6 +308,8 @@ void SchoolGirl::update()
 		else // 떨어지지 않음
 		{
 			_gravity = 0;
+			int randomCount = RANDOM->getInt(10);
+			
 			if (_elapsedTime > 1.5f)
 			{
 				setState(ENEMY_STATE::STANDUP, _direction);
@@ -328,7 +320,12 @@ void SchoolGirl::update()
 
 	case ENEMY_STATE::STANDUP: // 쓰러지고 일어서는 상태
 	{
-		if (!_ani->isPlay())
+		int randomCount = RANDOM->getInt(10);
+		if (randomCount < 3 && !_ani->isPlay() && _hp <50)
+		{
+			setState(ENEMY_STATE::STUN, _direction);
+		}
+		else if (!_ani->isPlay() && randomCount > 2)
 		{
 			setState(ENEMY_STATE::IDLE, _direction);
 		}
@@ -343,23 +340,15 @@ void SchoolGirl::update()
 		}
 	}
 	break;
-	case ENEMY_STATE::GUARD: // 가드상태
-	{
-		if (_elapsedTime > 3.0f)
-		{
-			setState(ENEMY_STATE::IDLE, _direction);
-		}
 	}
-	break;
-	}
-	
 
 	_ani->frameUpdate(TIME_MANAGER->getElapsedTime());
 
 }
 
 void SchoolGirl::render()
-{
+{	
+
 	//좌우에 따른 애니메이션 프레임 및 루프 조정
 	switch (_state)
 	{
@@ -379,6 +368,7 @@ void SchoolGirl::render()
 	break;
 	case ENEMY_STATE::HIT:
 	{
+		
 		if (_direction == DIRECTION::LEFT)
 		{
 			if (_hitType == ATTACK_TYPE::HIT1)
@@ -401,6 +391,7 @@ void SchoolGirl::render()
 				_ani->setPlayFrame(3, 6, false, false);
 			}
 		}
+		
 	}
 	break;
 	case ENEMY_STATE::KNOCKDOWN:
@@ -413,6 +404,20 @@ void SchoolGirl::render()
 		{
 			_ani->setPlayFrame(0, _enemyImg->getMaxFrameX(), false, false);
 		}
+	
+	}
+	break;	
+	case ENEMY_STATE::STUN:
+	{
+		if (_direction == DIRECTION::LEFT)
+		{
+			_ani->setPlayFrame(_enemyImg->getMaxFrameX(), _enemyImg->getMaxFrameX() * 2, false, true);
+		}
+		else
+		{
+			_ani->setPlayFrame(0, _enemyImg->getMaxFrameX(), false, true);
+		}
+
 	}
 	break;
 	default:
@@ -436,11 +441,64 @@ void SchoolGirl::render()
 		CAMERA_MANAGER->drawLine(Vector2(_position.x, _position.z), Vector2(_position.x, _position.z + _position.y));
 		CAMERA_MANAGER->rectangle(rc, D2D1::ColorF::Enum::Red, 1, 1);
 		CAMERA_MANAGER->rectangle(_viewRc, D2D1::ColorF::Enum::Red, 1, 1);
-	}	
+	}
 
+	switch (_state) // 그림자 그리기
+	{
+	case ENEMY_STATE::JUMP:
+	case ENEMY_STATE::KNOCKDOWN:
+	{
+		Vector3 shadowPos = _position;
+		shadowPos.y = _enemyManager->getCenterBottom(_position);
+		CAMERA_MANAGER->drawShadowZ(shadowPos, Vector3(120.0, 0, 25.0), -shadowPos.y);
+	}
+	break;
+	default:
+	{
+		CAMERA_MANAGER->drawShadowZ(_position, Vector3(120.0, _size.y, 25.0), -(_position.y + (_size.y / 2)));
+	}
+	break;
+	}
+	if (_state == ENEMY_STATE::KNOCKDOWN || _state == ENEMY_STATE::STANDUP )
+	{
+		Vector3 drowPos = _position;
+		drowPos.y = _position.y + 30;
+		_enemyImg->setScale(3);
+		CAMERA_MANAGER->aniRenderZ(_enemyImg, drowPos, _size, _ani);
+	}
+	else if (_state == ENEMY_STATE::HIT)
+	{
+		Vector3 drowPos = _position;
+		drowPos.y = _position.y + 10;
+		_enemyImg->setScale(3);
+		CAMERA_MANAGER->aniRenderZ(_enemyImg, drowPos, _size, _ani);
+	}
+	else if (_state == ENEMY_STATE::GUARD)
+	{
+		Vector3 drowPos = _position;
+		drowPos.y = _position.y + 15;
+		_enemyImg->setScale(3);
+		CAMERA_MANAGER->aniRenderZ(_enemyImg, drowPos, _size, _ani);
+	}
+	else if (_state == ENEMY_STATE::IDLE)
+	{
+		Vector3 drowPos = _position;
+		drowPos.y = _position.y + 10;
+		_enemyImg->setScale(3);
+		CAMERA_MANAGER->aniRenderZ(_enemyImg, drowPos, _size, _ani);
+	}
+	else if (_state == ENEMY_STATE::STUN)
+	{
+		Vector3 drowPos = _position;
+		drowPos.y = _position.y + 30;
+		_enemyImg->setScale(3);
+		CAMERA_MANAGER->aniRenderZ(_enemyImg, drowPos, _size, _ani);
+	}
+	else{
+	 _enemyImg->setScale(3);
+	 CAMERA_MANAGER->aniRenderZ(_enemyImg, _position, _size, _ani);
+	}
 
-	_enemyImg->setScale(3);
-	CAMERA_MANAGER->aniRenderZ(_enemyImg, _position, _size, _ani);
 }
 
 
@@ -450,16 +508,19 @@ void SchoolGirl::hitEffect(GameObject * hitter, FloatRect attackRc, float damage
 	
 	_hitType = type;
 	if (_state != ENEMY_STATE::HIT && _state != ENEMY_STATE::KNOCKDOWN && _state != ENEMY_STATE::STANDUP)
-	{
+	{		
 		if (_hitType == ATTACK_TYPE::HIT1 || _hitType == ATTACK_TYPE::HIT2)
 		{
-			setState(ENEMY_STATE::HIT, _direction);
+			_hp = _hp - damage;
+			  setState(ENEMY_STATE::HIT, _direction);			  
 
 		}
 		else if (_hitType == ATTACK_TYPE::KNOCKDOWN)
-		{
-			_gravity = -16.0f;
-			setState(ENEMY_STATE::KNOCKDOWN, _direction);
+		{			
+			_hp = _hp -damage;
+			 _gravity = -16.0f;
+			 setState(ENEMY_STATE::KNOCKDOWN, _direction);
+			
 		}
 		else if (_hitType == ATTACK_TYPE::STUN)
 		{
@@ -575,6 +636,16 @@ void SchoolGirl::setState(ENEMY_STATE state, DIRECTION direction)
 	{
 		_ani = new Animation;
 		_enemyImg = IMAGE_MANAGER->findImage("schoolgirl_stun");
+		_ani->init(_enemyImg->getWidth(), _enemyImg->getHeight(),
+			_enemyImg->getMaxFrameX(), _enemyImg->getMaxFrameY());
+		_ani->setFPS(7);
+		_ani->start();
+	}
+	break;
+	case ENEMY_STATE::GUARD:
+	{
+		_ani = new Animation;
+		_enemyImg = IMAGE_MANAGER->findImage("schoolgirl_block");
 		_ani->init(_enemyImg->getWidth(), _enemyImg->getHeight(),
 			_enemyImg->getMaxFrameX(), _enemyImg->getMaxFrameY());
 		_ani->setFPS(7);
