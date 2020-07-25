@@ -261,7 +261,7 @@ HRESULT playGround::init()
 	IMAGE_MANAGER->addImage("unlockDoor"	, L"resources/images/UI/door_unlock.png"		);	// 열린 문
 	IMAGE_MANAGER->addImage("lockDoor"		, L"resources/images/UI/door_lock.png"			);	// 닫힌 문
 	IMAGE_MANAGER->addImage("shopDoor"		, L"resources/images/UI/door_shop.png"			);	// 상점 문
-	IMAGE_MANAGER->addImage("closeUp"		, L"resources/images/UI/closeHeart.png"			);	// 마무리 하트
+	IMAGE_MANAGER->addImage("heart"			, L"resources/images/UI/closeHeart.png"			);	// 마무리 하트
 	IMAGE_MANAGER->addImage("shopFrame"		, L"resources/images/UI/shop/backGround.png"	);	// 상점 프레임
 	IMAGE_MANAGER->addImage("shopSelectBar"	, L"resources/images/UI/shop/selectionBar.png"	);	// 상점 아이템 선택
 	IMAGE_MANAGER->addImage("shop_BuyButton", L"resources/images/UI/shop/buy_button.png"	);	// 구매 버튼

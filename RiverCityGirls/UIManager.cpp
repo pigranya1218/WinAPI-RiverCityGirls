@@ -18,14 +18,14 @@ HRESULT UIManager::init(Player* player)
 
 	ZeroMemory(&_playerInfo,	sizeof(_playerInfo));
 	ZeroMemory(&_bossInfo,		sizeof(_bossInfo));
-	ZeroMemory(&_close,			sizeof(_close));
+	ZeroMemory(&_heart,			sizeof(_heart));
 	ZeroMemory(&_levelInfo,		sizeof(_levelInfo));
 	ZeroMemory(&_cellPhone,		sizeof(_cellPhone));
 
 	result = _playerInfo.init();
 	result = _bossInfo.init();
 	result = _levelInfo.init();
-	result = _close.init();
+	result = _heart.init();
 	result = _shop.init();
 	
 	
@@ -55,7 +55,7 @@ void UIManager::update()
 		}
 	}
 
-	_close.update();
+	_heart.update(_player);
 
 	_lock.update();	
 
@@ -78,7 +78,7 @@ void UIManager::render()
 			_vDoor[i].render();
 		}
 	}		
-	// _close.render(_player->getPosition());
+	_heart.render();
 
 	 _shop.render();	
 

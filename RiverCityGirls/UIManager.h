@@ -251,41 +251,69 @@ private:
 	float		alpha;		// 알파값
 };
 
-struct tagCloseInfo
+struct tagHeartInfo
 {
 	bool	active;	// 출력 여부
+
 	HRESULT init()
 	{
-		img = IMAGE_MANAGER->findImage("closeUp");
+		img = IMAGE_MANAGER->findImage("heart");
+		black = IMAGE_MANAGER->findImage("blackScreen");
+
 		active = 0;
-		scale = 2.0f;
+		scale = 3.0f;
 
 		return S_OK;
 	}
-	void update()
+	void update(class Player* player)
 	{
 		if (active)
 		{
+			playerPos = CAMERA_MANAGER->getRelativeV2(CAMERA_MANAGER->convertV3ToV2(player->getPosition()));
+
+			heartRc = rectMakePivot(playerPos, Vector2(img->getWidth() * scale, img->getHeight() * scale), Pivot::Center);
+
 			scale -= 0.01f;
-			if (scale < 0.2f)
+			if (scale < 0)
 			{
 				active = false;
-				scale = 2.0f;
+				scale = 5.0f;
 			}
 		}		
 	}
-	void render(const Vector3& playerPos)
+	void render()
 	{
 		if (active)
 		{
 			img->setScale(scale);
-			img->render(CAMERA_MANAGER->getRelativeV2(CAMERA_MANAGER->convertV3ToV2(playerPos)));
+			img->render(playerPos);			
+
+			// 하트 외부에 검은화면 좌표 및 사이즈 계산용 렉트
+			FloatRect rcR = rectMakePivot(Vector2(heartRc.right - 10, 0.0f), Vector2(WINSIZEX - heartRc.right + 10, (float)WINSIZEY), Pivot::LeftTop);
+			FloatRect rcL = rectMakePivot(Vector2(0, 0), Vector2(heartRc.left + 10, (float)WINSIZEY), Pivot::LeftTop);
+			FloatRect rcT = rectMakePivot(Vector2(0, 0), Vector2((float)WINSIZEX, heartRc.top + 10), Pivot::LeftTop);
+			FloatRect rcB = rectMakePivot(Vector2(0.0f, heartRc.bottom - 10), Vector2((float)WINSIZEX, WINSIZEY - heartRc.bottom), Pivot::LeftTop);
+
+			black->setSize(rcR.getSize());
+			black->render(rcR.getCenter());
+
+			black->setSize(rcL.getSize());
+			black->render(rcL.getCenter());
+
+			black->setSize(rcT.getSize());
+			black->render(rcT.getCenter());
+
+			black->setSize(rcB.getSize());
+			black->render(rcB.getCenter());			
 		}
 	}
 
 private:
-	Image*	img;	// 하트
-	float	scale;	// 스케일	
+	Image*		img;		// 하트
+	Image*		black;		// 검정 화면
+	float		scale;		// 스케일
+	Vector2		playerPos;	// 플레이어 위치
+	FloatRect	heartRc;	// 하트 좌표 확인용 렉트
 };
 
 struct tagShopInfo
@@ -630,7 +658,7 @@ private:
 	tagLevelInfo	_levelInfo;
 	tagBossInfo		_bossInfo;
 	tagCellPhone	_cellPhone;
-	tagCloseInfo	_close;
+	tagHeartInfo	_heart;
 	tagShopInfo		_shop;	
 	tagLockInfo		_lock;
 
@@ -662,10 +690,10 @@ public:
 	// 문 세팅
 	void setDoor(vector<tagDoorInfo> doors);
 
-	void setCloseUp(bool active) { _close.active = active; }
+	void setHart(bool active)	{ _heart.active = active; }
 
 	void setShopUI(bool active) { _shop.active = active; }
-	bool getShopUI() { return _shop.active; }
+	bool getShopUI()			{ return _shop.active; }
 
 	void setLock(LOCK_STATE state);
 };
