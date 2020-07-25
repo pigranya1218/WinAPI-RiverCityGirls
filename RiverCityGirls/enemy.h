@@ -45,6 +45,7 @@ protected:
 	float _gravity;         //중력값
 	float _elapsedTime;		// 상태 전환 계산 타이머
 
+	bool _isActive;			//적 개체 생존 여부
 public:
 	Enemy() {};
 	~Enemy() {};
