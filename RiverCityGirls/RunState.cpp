@@ -103,6 +103,9 @@ void RunState::render(Player & player)
 
 void RunState::enter(Player & player)
 {
+	SOUND_MANAGER->stop("KYOKO_Run");
+	SOUND_MANAGER->play("KYOKO_Run", 1.0f);
+
 	_img = IMAGE_MANAGER->findImage("Kyoko_run");
 	_ani = new Animation;
 	_ani->init(_img->getWidth(), _img->getHeight(), _img->getMaxFrameX(), _img->getMaxFrameY());
@@ -118,11 +121,11 @@ void RunState::enter(Player & player)
 	}
 	_ani->start();
 	_startY = player.getPosition().y;
-
 }
 
 void RunState::exit(Player & player)
 {
 	_ani->release();
 	SAFE_DELETE(_ani);
+	SOUND_MANAGER->stop("KYOKO_Run");
 }
