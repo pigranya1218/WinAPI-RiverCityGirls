@@ -160,6 +160,8 @@ void SchoolBoy::update()
 	{
 		if (!_ani->isPlay()) // 공격 모션이 끝났다면
 		{
+			_attackRc = FloatRect(0, 0, 0, 0);
+			_viewRc = FloatRect(0, 0, 0, 0);
 			setState(ENEMY_STATE::IDLE, _direction);
 		}
 		else
@@ -176,8 +178,7 @@ void SchoolBoy::update()
 			}
 			_viewRc = FloatRect(_attackRc.left, _position.z + _attackRc.top,
 				_attackRc.right, _position.z + _attackRc.bottom);
-			//공격 함수 할 예정
-
+			//attack(_attackRc, 5, ATTACK_TYPE::HIT1);
 		}
 	}
 	break;
