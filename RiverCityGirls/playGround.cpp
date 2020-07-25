@@ -265,7 +265,7 @@ HRESULT playGround::init()
 	IMAGE_MANAGER->addImage("unlockDoor"	, L"resources/images/UI/door_unlock.png"		);	// 열린 문
 	IMAGE_MANAGER->addImage("lockDoor"		, L"resources/images/UI/door_lock.png"			);	// 닫힌 문
 	IMAGE_MANAGER->addImage("shopDoor"		, L"resources/images/UI/door_shop.png"			);	// 상점 문
-	IMAGE_MANAGER->addImage("closeUp"		, L"resources/images/UI/closeHeart.png"			);	// 마무리 하트
+	IMAGE_MANAGER->addImage("heart"			, L"resources/images/UI/closeHeart.png"			);	// 마무리 하트
 	IMAGE_MANAGER->addImage("shopFrame"		, L"resources/images/UI/shop/backGround.png"	);	// 상점 프레임
 	IMAGE_MANAGER->addImage("shopSelectBar"	, L"resources/images/UI/shop/selectionBar.png"	);	// 상점 아이템 선택
 	IMAGE_MANAGER->addImage("shop_BuyButton", L"resources/images/UI/shop/buy_button.png"	);	// 구매 버튼
@@ -273,6 +273,8 @@ HRESULT playGround::init()
 	IMAGE_MANAGER->addImage("item_2"		, L"resources/images/UI/shop/item_2.png"		);	// 아이템 2번
 	IMAGE_MANAGER->addImage("item_3"		, L"resources/images/UI/shop/item_3.png"		);	// 아이템 3번
 	IMAGE_MANAGER->addImage("item_4"		, L"resources/images/UI/shop/item_4.png"		);	// 아이템 4번
+
+	IMAGE_MANAGER->addFrameImage("levelUp"	, L"resources/images/UI/level_up.png", 4, 1		);	// 레벨업!!
 	// 다이얼로그 이미지입니다.
 	IMAGE_MANAGER->addImage("kyokoName"		, L"resources/images/UI/dialogue/Kyoko_name.png"	);	// 쿄코 이름
 	IMAGE_MANAGER->addImage("misakoName"	, L"resources/images/UI/dialogue/Misako_name.png"	);	// 미사코 이름
@@ -368,11 +370,22 @@ HRESULT playGround::init()
 		fileW = L"";
 		fileW.assign(file.begin(), file.end());
 		IMAGE_MANAGER->addImage("misuzu_" + to_string(i), fileW);
-	}
+	}	
 
-	IMAGE_MANAGER->addFrameImage("levelUp", L"resources/images/UI/level_up.png", 4, 1);	// 레벨업!!
-	IMAGE_MANAGER->addImage("startMapPhone", L"resources/images/UI/startStage_phone.png");		// 핸드폰 이미지
-	
+	// * 이펙트
+	// 이미지 매니저에 이펙트 이미지 미리 추가해놓고
+	IMAGE_MANAGER->addFrameImage("effect_1", L"resources/images/effect/effect_1.png",  5, 1);	
+	IMAGE_MANAGER->addFrameImage("effect_2", L"resources/images/effect/effect_2.png", 15, 1);
+	IMAGE_MANAGER->addFrameImage("effect_3", L"resources/images/effect/effect_3.png",  4, 4);
+	IMAGE_MANAGER->addFrameImage("effect_4", L"resources/images/effect/effect_4.png",  5, 3);
+	// 이펙트 매니저에 등록
+	for (int i = 1; i < 5; i++)
+	{
+		string name = "effect_" + to_string(i);
+		Image* img = IMAGE_MANAGER->findImage(name);
+		EFFECT_MANAGER->addEffect(name, name.c_str(), img->getWidth(), img->getHeight(), img->getMaxFrameX(), img->getMaxFrameY(), 10, 10);
+	}		
+
 	D2D_RENDERER->addTextFormat(L"메이플스토리");		// 폰트 갖고옴	
 	
 	// 모든 씬 SCENE_MANAGER에 등록

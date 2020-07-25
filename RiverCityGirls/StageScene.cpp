@@ -23,7 +23,8 @@ HRESULT StageScene::init()
 
 	// UI 테스트입니다
 	_uiManager->setPlayerHpActive(true);
-	// _uiManager->setShopUI(true);
+	//_uiManager->setHart(true);
+	
 
 	return S_OK;
 }
@@ -53,6 +54,5 @@ void StageScene::render()
 	CAMERA_MANAGER->renderZList();
 
 	_uiManager->render();
-	_dgManager->render();
-
+	_dgManager->render();	
 }
