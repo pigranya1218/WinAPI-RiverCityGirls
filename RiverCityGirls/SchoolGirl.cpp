@@ -23,7 +23,8 @@ void SchoolGirl::release()
 
 void SchoolGirl::update()
 {
-	
+
+
 	_attackRc = FloatRect(0, 0, 0, 0);
 	_viewRc = FloatRect(0, 0, 0, 0);
 	
@@ -33,7 +34,10 @@ void SchoolGirl::update()
 	Vector3 moveDir = Vector3(0, 0, 0);
 	_elapsedTime += TIME_MANAGER->getElapsedTime();
 
-	
+	if (_state != ENEMY_STATE::HIT)
+	{
+		_hitCount = 0;
+	}
 
 	// 상태에 따른 행동 및 상태 전이
 	switch (_state)
@@ -315,7 +319,7 @@ void SchoolGirl::update()
 
 	case ENEMY_STATE::HIT: // 작은 경직
 	{
-		if (_state != ENEMY_STATE::GUARD) {
+		
 			_gravity += 1;
 			moveDir.x += (_direction == DIRECTION::RIGHT) ? -1 : 1;
 			moveDir.y += _gravity;
@@ -323,19 +327,36 @@ void SchoolGirl::update()
 			float lastY = _position.y;
 			_enemyManager->moveEnemy(this, moveDir);
 			float currY = _position.y;
-
+			
+			_hitCount += 1;
 			if (lastY != currY) // 떨어짐
 			{
 				setState(ENEMY_STATE::JUMP, _direction);
 			}
 			else
 			{
-				if (!_ani->isPlay())
+				if (!_ani->isPlay() && _hp > 0)
 				{
 					setState(ENEMY_STATE::IDLE, _direction);
 				}
+				else if (_hp <= 0)
+				{
+					_gravity = -16.0f;
+					setState(ENEMY_STATE::KNOCKDOWN, _direction);
+				}
+				else if (_hitCount > 40)
+				{
+					
+					_gravity = -16.0f;
+					setState(ENEMY_STATE::KNOCKDOWN, _direction);
+					
+				}
+				
+				
 			}
-		}
+			
+			
+		
 	}
 	break;
 
@@ -403,6 +424,10 @@ void SchoolGirl::update()
 
 void SchoolGirl::render()
 {	
+
+	char str[255];
+	sprintf_s(str, "[스쿨걸] hitcount : %f", _hitCount);
+	TextOut(_hdc, 500, 20, str, strlen(str));
 
 	//좌우에 따른 애니메이션 프레임 및 루프 조정
 	switch (_state)
@@ -602,6 +627,7 @@ void SchoolGirl::hitEffect(GameObject * hitter, FloatRect attackRc, float damage
 	{		
 		if (_hitType == ATTACK_TYPE::HIT1 || _hitType == ATTACK_TYPE::HIT2)
 		{
+			
 			_hp = _hp - damage;
 			  setState(ENEMY_STATE::HIT, _direction);			  
 
@@ -611,6 +637,7 @@ void SchoolGirl::hitEffect(GameObject * hitter, FloatRect attackRc, float damage
 			_hp = _hp -damage;
 			 _gravity = -16.0f;
 			 setState(ENEMY_STATE::KNOCKDOWN, _direction);
+			 
 			
 		}
 		else if (_hitType == ATTACK_TYPE::STUN)

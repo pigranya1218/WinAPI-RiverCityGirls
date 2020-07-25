@@ -12,6 +12,7 @@ void CheerGirl::init()
 	_isActive = true;
 	_gravity = 0;
 	_jumpPower = 0;
+
 	_hp = 100;
 }
 
@@ -23,10 +24,16 @@ void CheerGirl::release()
 
 void CheerGirl::update()
 {
+	
 	Vector3 playerPos = _enemyManager->getPlayerPosition(); // 플레이어의 위치
 	float distanceFromPlayer = sqrt(pow(playerPos.x - _position.x, 2) + pow(playerPos.z - _position.z, 2)); // 플레이어와 xz 거리
 	Vector3 moveDir = Vector3(0, 0, 0);
 	_elapsedTime += TIME_MANAGER->getElapsedTime();
+
+	if (_state != ENEMY_STATE::HIT)
+	{
+		_hitCount = 0;
+	}
 
 	// 상태에 따른 행동 및 상태 전이
 	switch (_state)
@@ -319,18 +326,32 @@ void CheerGirl::update()
 		float lastY = _position.y;
 		_enemyManager->moveEnemy(this, moveDir);
 		float currY = _position.y;
-
+		_hitCount += 1;
 		if (lastY != currY) // 떨어지는 중
 		{
 			setState(ENEMY_STATE::JUMP, _direction);
 		}
 		else
 		{
-			if (!_ani->isPlay())
+			if (!_ani->isPlay() && _hp > 0)
 			{
 				setState(ENEMY_STATE::IDLE, _direction);
 			}
+			else if (_hp <= 0)
+			{
+				_gravity = -16.0f;
+				setState(ENEMY_STATE::KNOCKDOWN, _direction);
+			}
+			else if (_hitCount > 40)
+			{
+				_gravity = -16.0f;
+				setState(ENEMY_STATE::KNOCKDOWN, _direction);
+				
+			}
+			
 		}
+		
+		
 	}
 	break;
 
@@ -433,6 +454,7 @@ void CheerGirl::render()
 				_ani->setPlayFrame(3, 6, false, false);
 			}
 		}
+
 	}
 	break;
 
