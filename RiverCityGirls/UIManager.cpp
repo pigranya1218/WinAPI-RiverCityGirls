@@ -26,7 +26,7 @@ HRESULT UIManager::init(Player* player)
 	result = _bossInfo.init();
 	result = _levelInfo.init();
 	result = _close.init();
-	result = _shop.init();		
+	result = _shop.init();
 	
 	
 	return result;
@@ -67,7 +67,7 @@ void UIManager::render()
 {
 	_lock.render();
 
-	_playerInfo.render();
+	
 	_bossInfo.render();
 	_levelInfo.render();
 
@@ -81,6 +81,8 @@ void UIManager::render()
 	// _close.render(_player->getPosition());
 
 	 _shop.render();	
+
+	 _playerInfo.render();
 }
 
 void UIManager::setLevelUp(bool active)

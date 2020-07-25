@@ -275,12 +275,15 @@ private:
 struct tagShopInfo
 {
 private:
-	float		money;
-	float		scale;
-	int			currentList;
-	FloatRect	itemPos[SHOPLISTMAX];
-	Image*		itemList[SHOPLISTMAX];
-	Image*		selectBar;
+	float		money;					// 후에 플레이어에 돈이 생기면 연결
+	float		scale;					// 스케일
+	int			currentList;			// 현재 아이템
+	FloatRect	itemPos[SHOPLISTMAX];	// 아이템 리스트 포지션
+	Vector2		buttonPos, movePos;		// 버튼 위치, 버튼이 이동해야할 위치
+	Image*		itemList[SHOPLISTMAX];	// 아이템 이미지
+	Image*		selectBar;				// 선택된 것
+	Image*		buyButton;				// 버튼
+	bool		isPurchase;				// 구매중?
 
 	struct tagItemInfo		// 아이템 정보 구조체
 	{
@@ -299,6 +302,7 @@ public:
 		currentList = 0;
 
 		selectBar = IMAGE_MANAGER->findImage("shopSelectBar");
+		buyButton = IMAGE_MANAGER->findImage("shop_BuyButton");
 		scale = 0.72f;
 
 		// 먼저 초기 위치 잡아줌
@@ -333,18 +337,42 @@ public:
 		if (active)
 		{
 			if (KEY_MANAGER->isOnceKeyDown(VK_DOWN))
-			{
-				currentList++;
-				if (currentList >= SHOPLISTMAX) currentList = 0;
+			{				
+				if (++currentList >= SHOPLISTMAX) currentList = 0;
 			}
 			if (KEY_MANAGER->isOnceKeyDown(VK_UP))
 			{				
-				currentList--;
-				if (currentList < 0) currentList = SHOPLISTMAX - 1;
+				if (--currentList < 0) currentList = SHOPLISTMAX - 1;
 			}
 			if (KEY_MANAGER->isOnceKeyDown('X'))
 			{
+				//if (isPurchase) isPurchase = false;
+				//else			active = false;
 				active = false;
+			}
+			if (KEY_MANAGER->isOnceKeyDown('Z'))
+			{
+				//isPurchase = true;
+				// 체력 회복				
+				player->setHp(player->getHp() + (vItem[currentList].recovery * player->getMaxHp() / 100));
+				// 최대 체력 초과 방지
+				if (player->getHp() > player->getMaxHp()) player->setHp(player->getMaxHp());
+				// 돈은 아직 안함
+			}
+
+			if (isPurchase)
+			{
+				if (getDistance(buttonPos.x, buttonPos.y, movePos.x, movePos.y) > 10)
+				{
+
+				}
+			}
+			else
+			{
+				if (getDistance(buttonPos.x, buttonPos.y, movePos.x, movePos.y) > 10)
+				{
+
+				}
 			}
 		}
 	}
@@ -364,13 +392,13 @@ public:
 			{				
 				// 아이템 이름 출력
 				D2D_RENDERER->renderText(
-					itemPos[i].getCenter().x - 150, itemPos[i].getCenter().y - 70,
-					stringTOwsting(vItem[i].name),
-					25,
-					i == currentList ? D2DRenderer::DefaultBrush::White : D2DRenderer::DefaultBrush::Black,
-					DWRITE_TEXT_ALIGNMENT_LEADING,
-					L"메이플스토리",
-					10.0f
+					itemPos[i].getCenter().x - 150, itemPos[i].getCenter().y - 70,								// 출력 좌표
+					stringTOwsting(vItem[i].name),																// 출력할 텍스트
+					25,																							// 폰트 크기
+					i == currentList ? D2DRenderer::DefaultBrush::White : D2DRenderer::DefaultBrush::Black,		// 선택되어있으면 흰색, 아니면 검정색
+					DWRITE_TEXT_ALIGNMENT_LEADING,																// 정렬
+					L"메이플스토리",																				// 폰트
+					10.0f																						// 회전 각도
 				);
 				// 아이템 가격 출력
 				char temp[50];

@@ -262,6 +262,7 @@ HRESULT playGround::init()
 	IMAGE_MANAGER->addImage("closeUp"		, L"resources/images/UI/closeHeart.png"			);	// 마무리 하트
 	IMAGE_MANAGER->addImage("shopFrame"		, L"resources/images/UI/shop/backGround.png"	);	// 상점 프레임
 	IMAGE_MANAGER->addImage("shopSelectBar"	, L"resources/images/UI/shop/selectionBar.png"	);	// 상점 아이템 선택
+	IMAGE_MANAGER->addImage("shop_BuyButton", L"resources/images/UI/shop/buy_button.png"	);	// 구매 버튼
 	IMAGE_MANAGER->addImage("item_1"		, L"resources/images/UI/shop/item_1.png"		);	// 아이템 1번
 	IMAGE_MANAGER->addImage("item_2"		, L"resources/images/UI/shop/item_2.png"		);	// 아이템 2번
 	IMAGE_MANAGER->addImage("item_3"		, L"resources/images/UI/shop/item_3.png"		);	// 아이템 3번
