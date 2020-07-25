@@ -33,10 +33,10 @@ void BossStage::init(Image * background, float bgScale)
 	}
 
 	//Object ¹èÄ¡
-	_objectManager->spawnObject(OBJECT_TYPE::PILLAR, Vector3(900, 150, 250), DIRECTION::LEFT);
-	_objectManager->spawnObject(OBJECT_TYPE::PILLAR, Vector3(700, 150, 650), DIRECTION::LEFT);
-	_objectManager->spawnObject(OBJECT_TYPE::PILLAR, Vector3(1900, 150, 250), DIRECTION::RIGHT);
-	_objectManager->spawnObject(OBJECT_TYPE::PILLAR, Vector3(2100, 150, 650), DIRECTION::RIGHT);
+	_objectManager->spawnObject(OBJECT_TYPE::PILLAR, Vector3(900, 150, 650), DIRECTION::LEFT);
+	_objectManager->spawnObject(OBJECT_TYPE::PILLAR, Vector3(700, 150, 900), DIRECTION::LEFT);
+	_objectManager->spawnObject(OBJECT_TYPE::PILLAR, Vector3(1900, 150, 650), DIRECTION::RIGHT);
+	_objectManager->spawnObject(OBJECT_TYPE::PILLAR, Vector3(2100, 150, 900), DIRECTION::RIGHT);
 
 
 	DOOR_STATE doorStates[2] = { DOOR_STATE::UNLOCK, DOOR_STATE::LOCK};

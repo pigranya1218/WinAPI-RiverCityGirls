@@ -7,8 +7,8 @@ class PillarObject :
 {
 private:
 	RestrictMoveRect* _restrictRect;
-	int _collisionOffsetX = 5;
-	int _collisionOffsetZ = 0;
+	int _collisionOffsetX = 0;
+	int _collisionOffsetZ = 30;
 public:
 	PillarObject(Vector3 position, DIRECTION direction);
 

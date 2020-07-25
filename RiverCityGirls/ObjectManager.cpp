@@ -188,7 +188,11 @@ void ObjectManager::spawnObject(OBJECT_TYPE type, Vector3 pos, DIRECTION directi
 		break;
 
 		case OBJECT_TYPE::PILLAR:
-		{ _objects.push_back(new PillarObject(pos, direction)); }
+		{ 
+			PillarObject* pillarObject = new PillarObject(pos, direction);
+			pillarObject->setObjectManager(this);
+			_objects.push_back(pillarObject);
+		}
 		break;
 	}
 }
