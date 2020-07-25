@@ -93,6 +93,11 @@ void SchoolGirl::update()
 				_gravity = -22;
 			}			
 		}
+		if (_elapsedTime > 2 && _position.x == _position.x )
+		{
+			_position.z += 2;
+		}
+		
 	}
 	break;
 	case ENEMY_STATE::RUN:
@@ -128,6 +133,7 @@ void SchoolGirl::update()
 				_gravity = -26;
 			}
 		}
+	
 	}
 	break;
 
@@ -174,7 +180,8 @@ void SchoolGirl::update()
 		}
 		_viewRc = FloatRect(_attackRc.left, _position.z + _attackRc.top,
 			_attackRc.right, _position.z + _attackRc.bottom);	
-		enemyAttack(_attackRc, 5, ATTACK_TYPE::HIT1);
+		//enemyAttack(_attackRc, 5, ATTACK_TYPE::HIT1); 활성화되면 터짐
+
 		
 
 		if (!_ani->isPlay()) // 공격 모션이 끝났다면
