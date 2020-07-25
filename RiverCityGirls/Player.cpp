@@ -119,6 +119,7 @@ void Player::getHit(GameObject* hitter, FloatRect attackRc, float damage, ATTACK
 		PlayerState* state = new getHitState;
 		_state->exit(*this);
 		delete _state;
+		_state = state;
 		state->enter(*this);
 		return;
 	}

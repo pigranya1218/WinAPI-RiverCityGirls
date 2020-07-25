@@ -397,6 +397,23 @@ void CheerGirl::render()
 
 	_enemyImg->setScale(3);
 	CAMERA_MANAGER->aniRenderZ(_enemyImg, _position, _size, _ani);
+
+	switch (_state)
+	{
+	case ENEMY_STATE::JUMP:
+	case ENEMY_STATE::KNOCKDOWN:
+	{
+		Vector3 shadowPos = _position;
+		shadowPos.y = _enemyManager->getCenterBottom(_position);
+		CAMERA_MANAGER->drawShadowZ(shadowPos, Vector3(120.0, 0, 25.0), -shadowPos.y);
+	}
+	break;
+	default:
+	{
+
+	}
+	break;
+	}
 }
 
 void CheerGirl::hitEffect(GameObject* hitter, FloatRect attackRc, float damage, ATTACK_TYPE type)

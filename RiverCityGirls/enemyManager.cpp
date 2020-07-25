@@ -98,6 +98,11 @@ Vector3 EnemyManager::getPlayerPosition()
 	return _stage->getPlayerPosition();
 }
 
+float EnemyManager::getCenterBottom(Vector3 pos)
+{
+	return _stage->getCenterBottom(pos);
+}
+
 void EnemyManager::getHit(GameObject* hitter, FloatRect attackRc, float damage, ATTACK_TYPE type)
 {
 	for (int i = 0; i < _enemies.size(); i++)
