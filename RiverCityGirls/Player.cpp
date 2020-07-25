@@ -58,6 +58,8 @@ void Player::update()
 		_state->enter(*this);
 	}
 
+	
+
 	/*AttackState* _newAttackState = _attackState->update(*this);
 	if (_newAttackState != nullptr)
 	{

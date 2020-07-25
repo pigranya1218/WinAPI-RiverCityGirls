@@ -89,7 +89,7 @@ Stage * StartStage::update()
 	{
 		_respawnCool = 2;
 		//int randomType = RANDOM->getInt(3);
-		int randomType = 0;
+		int randomType = 1;
 		int randomRespawn = RANDOM->getInt(4);
 		switch (randomType)
 		{
