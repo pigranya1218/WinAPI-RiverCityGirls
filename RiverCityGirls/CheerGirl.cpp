@@ -30,7 +30,7 @@ void CheerGirl::update()
 	Vector3 moveDir = Vector3(0, 0, 0);
 	_elapsedTime += TIME_MANAGER->getElapsedTime();
 
-	if (_state != ENEMY_STATE::HIT)
+	if (_elapsedTime > 1)
 	{
 		_hitCount = 0;
 	}
@@ -342,8 +342,9 @@ void CheerGirl::update()
 				_gravity = -16.0f;
 				setState(ENEMY_STATE::KNOCKDOWN, _direction);
 			}
-			else if (_hitCount > 40)
+			else if (_hitCount > 60)
 			{
+				_hitCount = 0;
 				_gravity = -16.0f;
 				setState(ENEMY_STATE::KNOCKDOWN, _direction);
 				
