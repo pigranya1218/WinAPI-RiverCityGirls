@@ -8,6 +8,7 @@ enum class ENEMY_STATE
 {
 	IDLE,
 	WALK,
+	RETURN,
 	RUN,	 //RUN상태에서 ATTACK -> DASH_ATTACK
 	JUMP,	 //JUMP상태에서 ATTACK -> JUMP_PUNCH
 	ATTACK,	 //콤보처리 ATTACK 1 ~ 3

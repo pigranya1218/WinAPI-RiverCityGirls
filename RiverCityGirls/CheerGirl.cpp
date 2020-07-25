@@ -82,8 +82,10 @@ void CheerGirl::update()
 		moveDir.y += _gravity;
 
 		float lastY = _position.y;
+		float lastX = _position.x;
 		_enemyManager->moveEnemy(this, moveDir);
 		float currY = _position.y;
+		float currX = _position.x;
 
 		if (lastY != currY) // 떨어짐
 		{
@@ -110,6 +112,12 @@ void CheerGirl::update()
 				_gravity = -24;
 			}
 		}
+
+		if (_state == ENEMY_STATE::WALK && lastX == currX)
+		{
+
+			setState(ENEMY_STATE::RETURN, _direction);
+		}
 	}
 	break;
 
@@ -126,8 +134,10 @@ void CheerGirl::update()
 		moveDir.y += _gravity;
 
 		float lastY = _position.y;
+		float lastX = _position.x;
 		_enemyManager->moveEnemy(this, moveDir);
 		float currY = _position.y;
+		float currX = _position.x;
 
 		if (lastY != currY) // 떨어짐
 		{
@@ -154,9 +164,34 @@ void CheerGirl::update()
 				_gravity = -28;
 			}
 		}
+
+		if (_state == ENEMY_STATE::RUN && lastX == currX)
+		{
+
+			setState(ENEMY_STATE::RETURN, _direction);
+		}
 	}
 	break;
+	case ENEMY_STATE::RETURN:
+	{
+		moveDir.z += (playerPos.z < _position.z) ? 1 : ((playerPos.z > _position.z) ? -1 : 0);
+		moveDir.x += (_direction == DIRECTION::RIGHT) ? 1 : -1;
+		moveDir = Vector3::normalize(&moveDir);
+		moveDir = moveDir * 1;
+		_enemyManager->moveEnemy(this, moveDir);
 
+		if (_elapsedTime > 1.5)
+		{
+			_elapsedTime = 0;
+			setState(ENEMY_STATE::WALK, _direction);
+
+			if (distanceFromPlayer > 400)
+			{
+				setState(ENEMY_STATE::RUN, _direction); // 플레이어에게 달려가기
+			}
+		}
+	}
+	break;
 	case ENEMY_STATE::JUMP:
 	{
 		_gravity += 1;
@@ -347,6 +382,7 @@ void CheerGirl::render()
 	{
 	case ENEMY_STATE::IDLE:
 	case ENEMY_STATE::WALK:
+	case ENEMY_STATE::RETURN:
 	case ENEMY_STATE::RUN:	
 	{
 		if (_direction == DIRECTION::LEFT)
@@ -424,13 +460,29 @@ void CheerGirl::render()
 	}
 	break;
 	}
-
 	if (DEBUG_MANAGER->isDebugMode(DEBUG_TYPE::ENEMY))
 	{
 		_enemyImg->setAlpha(0.5);
 		FloatRect rc = FloatRect(Vector2(_position.x, _position.z + _position.y + (_size.y / 2)), Vector2(_size.x, _size.z), Pivot::Center);
 		CAMERA_MANAGER->drawLine(Vector2(_position.x, _position.z), Vector2(_position.x, _position.z + _position.y));
 		CAMERA_MANAGER->rectangle(rc, D2D1::ColorF::Enum::Red, 1, 1);
+		CAMERA_MANAGER->rectangle(_viewRc, D2D1::ColorF::Enum::Red, 1, 1);
+	}
+	switch (_state) // 그림자 그리기
+	{
+	case ENEMY_STATE::JUMP:
+	case ENEMY_STATE::KNOCKDOWN:
+	{
+		Vector3 shadowPos = _position;
+		shadowPos.y = _enemyManager->getCenterBottom(_position);
+		CAMERA_MANAGER->drawShadowZ(shadowPos, Vector3(120.0, 0, 25.0), -shadowPos.y);
+	}
+	break;
+	default:
+	{
+		CAMERA_MANAGER->drawShadowZ(_position, Vector3(120.0, _size.y, 25.0), -(_position.y + (_size.y / 2)));
+	}
+	break;
 	}
 
 	_enemyImg->setScale(3);
@@ -449,7 +501,7 @@ void CheerGirl::render()
 		drawPos.y += 7;
 		CAMERA_MANAGER->aniRenderZ(_enemyImg, drawPos, _size, _ani, -(_position.y + (_size.y / 2)));
 	}
-	break;	
+	break;
 	case ENEMY_STATE::STANDUP:
 	{
 		Vector3 drawPos = _position;
@@ -457,32 +509,18 @@ void CheerGirl::render()
 		CAMERA_MANAGER->aniRenderZ(_enemyImg, drawPos, _size, _ani, -(_position.y + (_size.y / 2)));
 	}
 	break;
-	default:
+	case ENEMY_STATE::ATTACK:
+	case ENEMY_STATE::HIT:
+	case ENEMY_STATE::SKILL:
+	case ENEMY_STATE::WALK:
+	case ENEMY_STATE::STUN:
 	{
 		CAMERA_MANAGER->aniRenderZ(_enemyImg, _position, _size, _ani, -(_position.y + (_size.y / 2)));
 	}
 	break;
 	}
-
-	switch (_state) // 그림자 그리기
-	{
-	case ENEMY_STATE::JUMP:
-	case ENEMY_STATE::KNOCKDOWN:
-	{
-		Vector3 shadowPos = _position;
-		shadowPos.y = _enemyManager->getCenterBottom(_position);
-		CAMERA_MANAGER->drawShadowZ(shadowPos, Vector3(120.0, 0, 25.0), -shadowPos.y);
-	}
-	break;
-	default:
-	{
-		CAMERA_MANAGER->drawShadowZ(_position, Vector3(120.0, _size.y, 25.0), -(_position.y + (_size.y / 2)));
-	}
-	break;
-	}
 	if (_state == ENEMY_STATE::KNOCKDOWN )
 	{
-
 
 		if (_hp <= 0 && !_ani->isPlay())
 		{
@@ -501,7 +539,14 @@ void CheerGirl::render()
 			}
 
 			Vector3 drowPos = _position;
-			drowPos.y = _position.y + 30;
+			drowPos.y = _position.y ;
+			_enemyImg->setScale(3);
+			CAMERA_MANAGER->aniRenderZ(_enemyImg, drowPos, _size, _ani);
+		}
+		else
+		{
+			Vector3 drowPos = _position;
+			drowPos.y = _position.y ;
 			_enemyImg->setScale(3);
 			CAMERA_MANAGER->aniRenderZ(_enemyImg, drowPos, _size, _ani);
 		}
@@ -557,6 +602,16 @@ void CheerGirl::setState(ENEMY_STATE state, DIRECTION direction)
 	}
 	break;
 	case ENEMY_STATE::WALK:
+	{
+		_enemyImg = IMAGE_MANAGER->findImage("cheergirl_walk");
+		_ani->init(_enemyImg->getWidth(), _enemyImg->getHeight(),
+			_enemyImg->getMaxFrameX(), _enemyImg->getMaxFrameY());
+
+		_ani->setFPS(10);
+		_ani->start();
+	}
+	break;
+	case ENEMY_STATE::RETURN:
 	{
 		_enemyImg = IMAGE_MANAGER->findImage("cheergirl_walk");
 		_ani->init(_enemyImg->getWidth(), _enemyImg->getHeight(),
