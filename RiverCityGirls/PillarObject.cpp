@@ -86,6 +86,5 @@ void PillarObject::hitEffect(Vector3 pos, Vector3 size, OBJECT_TEAM team, FloatR
 			Vector2(PI2, PI),
 			5, 6, 3, 5);
 		_state = OBJECT_STATE::INACTIVE;
-		CAMERA_MANAGER->pushShakeEvent(-20, 0.06, 0.24);
 	}
 }

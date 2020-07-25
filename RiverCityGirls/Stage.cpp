@@ -146,6 +146,16 @@ void Stage::setBossUi(float currHp, float maxHp)
 	_stageManager->setBossUi(currHp, maxHp);
 }
 
+void Stage::startDialogue(BossChapter chapter)
+{
+	_stageManager->startDialogue(chapter);
+}
+
+bool Stage::isDialoging()
+{
+	return _stageManager->isDialoging();
+}
+
 float Stage::getCenterBottom(Vector3 pos)
 {
 	Vector2 centerPos = Vector2(pos.x, pos.z);

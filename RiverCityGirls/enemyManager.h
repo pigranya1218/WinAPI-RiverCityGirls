@@ -1,6 +1,7 @@
 #pragma once
 #include "GameObject.h"
 #include <vector>
+#include "DialogueManager.h"
 
 class SchoolBoy;
 class SchoolGirl;
@@ -52,5 +53,7 @@ public:
 	bool getHit(Vector3 pos, Vector3 size, OBJECT_TEAM team, FloatRect attackRc, float damage, ATTACK_TYPE type);
 	bool enemyAttack(Vector3 pos, Vector3 size, OBJECT_TEAM team, FloatRect attackRc, float damage, ATTACK_TYPE type);
 	bool enemyAttackObject(Vector3 pos, Vector3 size, OBJECT_TEAM team, FloatRect attackRc, float damage, ATTACK_TYPE type);
+	void startDialogue(BossChapter key);
+	bool isDialoging();
 };
 

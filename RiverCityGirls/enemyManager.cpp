@@ -52,7 +52,6 @@ void EnemyManager::render()
 void EnemyManager::moveEnemy(GameObject * enemy, Vector3 dir)
 {
 	_stage->moveGameObject(enemy, dir);
-
 }
 
 void EnemyManager::spawnEnemy(ENEMY_TYPE type, Vector2 pos)
@@ -153,4 +152,14 @@ bool EnemyManager::enemyAttackObject(Vector3 pos, Vector3 size, OBJECT_TEAM team
 	vector<OBJECT_TEAM> getAttack;
 	getAttack.push_back(OBJECT_TEAM::OBJECT);
 	return _stage->attack(pos, size, team, attackRc, damage, type, getAttack);
+}
+
+void EnemyManager::startDialogue(BossChapter key)
+{
+	_stage->startDialogue(key);
+}
+
+bool EnemyManager::isDialoging()
+{
+	return _stage->isDialoging();
 }

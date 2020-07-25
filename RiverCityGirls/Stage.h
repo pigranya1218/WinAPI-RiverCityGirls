@@ -3,6 +3,7 @@
 #include "GameObject.h"
 #include "RestrictMoveLine.h"
 #include "UIManager.h"
+#include "DialogueManager.h"
 
 class StageManager;
 class ObjectManager;
@@ -52,6 +53,8 @@ public:
 
 	void setBossUiVisible(bool isVisible);
 	void setBossUi(float currHp, float maxHp);
+	void startDialogue(BossChapter chapter);
+	bool isDialoging();
 
 	float getCenterBottom(Vector3 pos);
 	Vector3 getPlayerPosition();

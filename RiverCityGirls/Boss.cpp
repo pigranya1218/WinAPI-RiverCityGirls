@@ -25,9 +25,6 @@ void Boss::release()
 
 void Boss::update()
 {
-	_enemyManager->setBossUiVisible(true);
-	_enemyManager->setBossUi(_hp, _maxHp);
-
 	if (_phase == BOSS_PHASE::DEFEAT)
 	{
 		if (!_ani->isPlay())
@@ -41,10 +38,19 @@ void Boss::update()
 				_ani->setPlayFrame(10, 13, false, true);
 			}
 			_ani->start();
+			_enemyManager->setBossUiVisible(false);
+			_enemyManager->startDialogue(BossChapter::BATTLE_AFTER);
 		}
 	}
 	else
 	{
+		if (!_enemyManager->isDialoging())
+		{
+			_enemyManager->setBossUiVisible(true);
+			_enemyManager->setBossUi(_hp, _maxHp);
+		}
+		
+
 		Vector3 playerPos = _enemyManager->getPlayerPosition(); // 플레이어의 위치
 		float distanceFromPlayer = sqrt(pow(playerPos.x - _position.x, 2) + pow(playerPos.z - _position.z, 2)); // 플레이어와 xz 거리
 		Vector3 moveDir = Vector3(0, 0, 0);
@@ -283,11 +289,12 @@ void Boss::update()
 			else if (_count == 1) // 플레이어와 근접한 방향으로 이동
 			{
 				setDirectionToPlayer();
+				int speed = (_phase == BOSS_PHASE::PHASE_2) ? 8 : 16;
 
 				moveDir.x += (_direction == DIRECTION::RIGHT) ? 1 : -1;
 				moveDir.z += (playerPos.z >= _position.z + 10) ? 1 : ((playerPos.z <= _position.z - 10) ? -1 : 0);
 				moveDir = Vector3::normalize(&moveDir);
-				moveDir = moveDir * 8;
+				moveDir = moveDir * speed;
 
 				_enemyManager->moveEnemy(this, moveDir);
 
@@ -314,12 +321,29 @@ void Boss::update()
 				{
 					_gravity = 0;
 					_jumpPower = 0;
-					setState(BOSS_STATE::METEOR_ATTACK_DELAY, _direction, true);
+					if (_phase == BOSS_PHASE::PHASE_2)
+					{
+						setState(BOSS_STATE::METEOR_ATTACK_DELAY, _direction, true);
+					}
+					else
+					{
+						int randomCount = RANDOM->getInt(100);
+						if (randomCount < 50)
+						{
+							_jumpPower = -70;
+							setState(BOSS_STATE::METEOR_ATTACK, _direction, true);
+						}
+						else
+						{
+							setState(BOSS_STATE::METEOR_ATTACK_DELAY, _direction, true);
+						}
+					}
 
 					Vector3 attackSize = _size;
-					attackSize.z = 80;
+					attackSize.z = 150;
 
 					_enemyManager->enemyAttackObject(_position, attackSize, OBJECT_TEAM::BOSS, FloatRect(_position.x - 150, _position.y - 100, _position.x + 150, _position.y + 100), 10, ATTACK_TYPE::KNOCKDOWN);
+					CAMERA_MANAGER->pushShakeEvent(-20, 0.06, 0.24);
 				}
 			}
 		}
@@ -352,8 +376,10 @@ void Boss::update()
 				}
 				else
 				{
-					moveDir.x += (_direction == DIRECTION::RIGHT) ? 6 : -6;
-					moveDir.z += (playerPos.z >= _position.z + 10) ? 2 : ((playerPos.z <= _position.z - 10) ? -2 : 0);
+					int speedX = (_phase == BOSS_PHASE::PHASE_2)? 6: 10;
+					int speedZ = (_phase == BOSS_PHASE::PHASE_2) ? 2 : 3;
+					moveDir.x += (_direction == DIRECTION::RIGHT) ? speedX : -speedX;
+					moveDir.z += (playerPos.z >= _position.z + 10) ? speedZ : ((playerPos.z <= _position.z - 10) ? -speedZ : 0);
 
 					_enemyManager->moveEnemy(this, moveDir);
 
@@ -374,13 +400,16 @@ void Boss::update()
 						_enemyManager->enemyAttackObject(_position, attackSize, OBJECT_TEAM::BOSS, attackRc, 10, ATTACK_TYPE::KNOCKDOWN)) // 사물이나 플레이어에게 부딪힘
 					{
 						setState(BOSS_STATE::LAUGH, _direction, true);
+						CAMERA_MANAGER->pushShakeEvent(-20, 0.06, 0.24);
 					}
 				}
 			}
 			else if (_count == 2)
 			{
-				moveDir.x += (_direction == DIRECTION::RIGHT) ? -1 : +1;
-				moveDir.z += (playerPos.z >= _position.z + 10) ? 1 : ((playerPos.z <= _position.z - 10) ? -1 : 0);
+				int speedX = (_phase == BOSS_PHASE::PHASE_2) ? 1 : 4;
+				int speedZ = (_phase == BOSS_PHASE::PHASE_2) ? 1 : 2;
+				moveDir.x += (_direction == DIRECTION::RIGHT) ? -speedX : +speedX;
+				moveDir.z += (playerPos.z >= _position.z + 10) ? speedZ : ((playerPos.z <= _position.z - 10) ? -speedZ : 0);
 
 				_enemyManager->moveEnemy(this, moveDir);
 
@@ -825,7 +854,7 @@ void Boss::setAttackState(BOSS_PHASE phase, float playerDistance)
 				setState(BOSS_STATE::METEOR_ATTACK, _direction, true);
 			}
 		}
-		else // 40%
+		else
 		{
 			if (randomCount < 2)
 			{
@@ -842,13 +871,33 @@ void Boss::setAttackState(BOSS_PHASE phase, float playerDistance)
 	case BOSS_PHASE::PHASE_3:
 	{
 		int randomCount = RANDOM->getInt(100);
-		if (randomCount < 50)
+		if (playerDistance < 140)
 		{
-			setState(BOSS_STATE::STRONG_PUNCH, _direction, true);
+			if (randomCount < 20) // 10%
+			{
+				setState(BOSS_STATE::STRONG_PUNCH, _direction, true);
+			}
+			else if (randomCount < 40) // 10%
+			{
+				setState(BOSS_STATE::WEAK_PUNCH_COMBO, _direction, true);
+			}
+			else  // 40%
+			{
+				_jumpPower = -70;
+				setState(BOSS_STATE::METEOR_ATTACK, _direction, true);
+			}
 		}
 		else
 		{
-			setState(BOSS_STATE::WEAK_PUNCH_COMBO, _direction, true);
+			if (randomCount < 2)
+			{
+				setState(BOSS_STATE::DASH_ATTACK, _direction, true);
+			}
+			else if (randomCount < 4)
+			{
+				_jumpPower = -70;
+				setState(BOSS_STATE::METEOR_ATTACK, _direction, true);
+			}
 		}
 	}
 	break;
