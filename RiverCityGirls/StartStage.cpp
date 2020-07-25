@@ -43,7 +43,6 @@ void StartStage::init(Image * background, float bgScale)
 
 	_objectManager->spawnObject(OBJECT_TYPE::mrRudis, Vector3(1670, 0, 560), DIRECTION::LEFT);
 
-	SOUND_MANAGER->play("BGM_Classroom", 1.0f);
 
 	tagDoorInfo door;
 	door.doorState = DOOR_STATE::UNLOCK;
@@ -62,15 +61,20 @@ void StartStage::init(Image * background, float bgScale)
 	_respawnCool = 2;
 }
 
+void StartStage::release()
+{
+	Stage::release();
+}
+
 void StartStage::enter()
 {
 	Stage::enter();
-	//SOUND_MANAGER->stop("BGM_Classroom");
+	SOUND_MANAGER->stop("BGM_Classroom");
+	SOUND_MANAGER->play("BGM_Classroom", 1.0f);
 }
 
 void StartStage::exit()
 {
-	Stage::exit();
 	SOUND_MANAGER->stop("BGM_Classroom");
 }
 

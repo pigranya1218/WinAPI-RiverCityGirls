@@ -86,14 +86,21 @@ void MiddleStage::init(Image * background, float bgScale)
 	_respawnCool = 2;
 }
 
+void MiddleStage::release()
+{
+	Stage::release();
+}
+
 void MiddleStage::enter()
 {
 	Stage::enter();
+	SOUND_MANAGER->stop("BGM_Hall");
+	SOUND_MANAGER->play("BGM_Hall", 1.0f);
 }
 
 void MiddleStage::exit()
 {
-	Stage::exit();
+	SOUND_MANAGER->stop("BGM_Hall");
 }
 
 Stage * MiddleStage::update()
