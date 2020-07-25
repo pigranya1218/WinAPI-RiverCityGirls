@@ -458,6 +458,13 @@ void Boss::render()
 
 	switch (_bossState) // 그림자 그리기
 	{
+	case BOSS_STATE::METEOR_ATTACK:
+	{
+		Vector3 shadowPos = _position;
+		shadowPos.y = _enemyManager->getCenterBottom(_position);
+		CAMERA_MANAGER->drawShadowZ(shadowPos, Vector3(180.0, 0, 40.0), -shadowPos.y);
+	}
+	break;
 	default:
 	{
 		CAMERA_MANAGER->drawShadowZ(_position, Vector3(180.0, _size.y, 40.0), -(_position.y + (_size.y / 2)));
