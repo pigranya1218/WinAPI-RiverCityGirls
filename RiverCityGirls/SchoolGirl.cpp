@@ -10,15 +10,9 @@ void SchoolGirl::init()
 	_direction = DIRECTION::RIGHT;
 	setState(_state, _direction);
 
-	_attackCount = 0;
 	_gravity = 0;
 	_jumpPower = 0;
 	_hp = 100;
-	_playerDistance = 0;
-	_lastEnemyX = 0;
-	_lastEnemyY = 0;
-	_currentEnemyX = 0;
-	_currentEnemyY = 0;
 }
 
 void SchoolGirl::release()

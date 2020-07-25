@@ -10,15 +10,9 @@ void CheerGirl::init()
 	_ani = new Animation;
 	setState(_state, _direction);
 
-	_attackCount = 0;
 	_gravity = 0;
 	_jumpPower = 0;
 	_hp = 100;
-	_playerDistance = 0;
-	_lastEnemyX = 0;
-	_lastEnemyY = 0;
-	_currentEnemyX = 0;
-	_currentEnemyY = 0;
 }
 
 void CheerGirl::release()
@@ -197,7 +191,7 @@ void CheerGirl::update()
 
 		moveDir.x += (_direction == DIRECTION::RIGHT) ? 1 : -1;
 		moveDir = Vector3::normalize(&moveDir);
-		moveDir = moveDir * 8;
+		moveDir = moveDir * 10;
 		moveDir.y += _gravity;
 
 		float lastY = _position.y;
@@ -208,7 +202,7 @@ void CheerGirl::update()
 		{
 			
 		}
-		else
+		else // 땅에 착지한 상태
 		{
 			_gravity = 0;
 			if (!_ani->isPlay())
@@ -396,9 +390,38 @@ void CheerGirl::render()
 	}
 
 	_enemyImg->setScale(3);
-	CAMERA_MANAGER->aniRenderZ(_enemyImg, _position, _size, _ani, -(_position.y + (_size.y / 2)));
+	switch (_state) // 이미지 그리기
+	{
+	case ENEMY_STATE::IDLE:
+	{
+		Vector3 drawPos = _position;
+		drawPos.y += 7;
+		CAMERA_MANAGER->aniRenderZ(_enemyImg, drawPos, _size, _ani, -(_position.y + (_size.y / 2)));
+	}
+	break;
+	case ENEMY_STATE::RUN:
+	{
+		Vector3 drawPos = _position;
+		drawPos.y += 7;
+		CAMERA_MANAGER->aniRenderZ(_enemyImg, drawPos, _size, _ani, -(_position.y + (_size.y / 2)));
+	}
+	break;
+	case ENEMY_STATE::KNOCKDOWN:
+	case ENEMY_STATE::STANDUP:
+	{
+		Vector3 drawPos = _position;
+		drawPos.y -= 37;
+		CAMERA_MANAGER->aniRenderZ(_enemyImg, drawPos, _size, _ani, -(_position.y + (_size.y / 2)));
+	}
+	break;
+	default:
+	{
+		CAMERA_MANAGER->aniRenderZ(_enemyImg, _position, _size, _ani, -(_position.y + (_size.y / 2)));
+	}
+	break;
+	}
 
-	switch (_state)
+	switch (_state) // 그림자 그리기
 	{
 	case ENEMY_STATE::JUMP:
 	case ENEMY_STATE::KNOCKDOWN:

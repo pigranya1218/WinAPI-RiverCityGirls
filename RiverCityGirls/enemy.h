@@ -39,24 +39,11 @@ protected:
 	DIRECTION _moveTo;		// 현재 이동 방향
 	ATTACK_TYPE _hitType;	//플레이어에게 받은 피격 타입
 
-	float _playerDistance;	//플레이어와의 거리
-	
 	int _hp;				//체력
-	float _damage;			//데미지
 
 	float _jumpPower;       //점프파워
 	float _gravity;         //중력값
 	float _elapsedTime;		// 상태 전환 계산 타이머
-
-	float _lastEnemyX;		//최종 포지션x
-	float _lastEnemyY;		//최종 포지션y
-	float _currentEnemyX;	//현재 포지션x
-	float _currentEnemyY;	//현재 포지션y
-
-	int _attackCount;		//공격 딜레이 카운트
-	int _dashAttackCount;
-
-	bool _isGetHit;			//피격 여부
 
 public:
 	Enemy() {};

@@ -11,16 +11,9 @@ void SchoolBoy::init()
 	_ani = new Animation;
 	setState(_state, _direction);
 
-	_attackCount = 0;
 	_gravity = 0;
 	_jumpPower = 0;
 	_hp = 100;
-	_playerDistance = 0;
-	//_isGetHit = false;
-	_lastEnemyX = 0;
-	_lastEnemyY = 0;
-	_currentEnemyX = 0;
-	_currentEnemyY = 0;
 }
 
 void SchoolBoy::release()
@@ -341,12 +334,12 @@ void SchoolBoy::render()
 	CAMERA_MANAGER->aniRenderZ(_enemyImg, _position, _size, _ani);
 	
 	//test
-	char str[255];
+	/*char str[255];
 	sprintf_s(str, "[½ºÄðº¸ÀÌ] state : %d, jumpPower : %d, gravity : %d, playerDistance : %f", (int)_state, _jumpPower, _gravity, _playerDistance);
 	TextOut(_hdc, 0, 0, str, strlen(str));
 
 	sprintf_s(str, "[½ºÄðº¸ÀÌ] attackCount : %d, elapsedTime : %f, isGetHit : %d", _attackCount, _elapsedTime, (int) _isGetHit);
-	TextOut(_hdc, 0, 20, str, strlen(str));
+	TextOut(_hdc, 0, 20, str, strlen(str));*/
 	
 }
 
