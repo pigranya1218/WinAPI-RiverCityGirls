@@ -25,6 +25,9 @@ void SchoolBoy::release()
 
 void SchoolBoy::update()
 {
+	_attackRc = FloatRect(0, 0, 0, 0);
+	_viewRc = FloatRect(0, 0, 0, 0);
+
 	Vector3 playerPos = _enemyManager->getPlayerPosition(); //플레이어 위치
 	float distanceFromPlayer = sqrt(pow(playerPos.x - _position.x, 2) + pow(playerPos.z - _position.z, 2)); // 플레이어와 xz 거리
 	Vector3 moveDir = Vector3(0, 0, 0);
@@ -163,21 +166,25 @@ void SchoolBoy::update()
 	{
 		if (!_ani->isPlay()) // 공격 모션이 끝났다면
 		{
-			_attackRc = FloatRect(0, 0, 0, 0);
-			_viewRc = FloatRect(0, 0, 0, 0);
 			setState(ENEMY_STATE::IDLE, _direction);
 		}
 		else
 		{
-			if (_direction == DIRECTION::LEFT)
+			if (_direction == DIRECTION::LEFT && _ani->getPlayIndex() == _attackS)
 			{
 				_attackRc = FloatRect(_position.x - 130, _position.y - 35,
 					_position.x - 20, _position.y + 20);
+				
 			}
-			else if (_direction == DIRECTION::RIGHT)
+			else if (_direction == DIRECTION::RIGHT && _ani->getPlayIndex() == _attackS)
 			{
 				_attackRc = FloatRect(_position.x + 20, _position.y - 35,
 					_position.x + 100, _position.y + 20);
+			}
+			else
+			{
+				_attackRc = FloatRect(0, 0, 0, 0);
+				_viewRc = FloatRect(0, 0, 0, 0);
 			}
 			_viewRc = FloatRect(_attackRc.left, _position.z + _attackRc.top,
 				_attackRc.right, _position.z + _attackRc.bottom);
@@ -194,19 +201,24 @@ void SchoolBoy::update()
 		}
 		else
 		{
-			if (_direction == DIRECTION::LEFT)
+			if (_direction == DIRECTION::LEFT && _ani->getPlayIndex() == _attackS)
 			{
 				_attackRc = FloatRect(_position.x - 130, _position.y - 35,
 					_position.x - 20, _position.y + 20);
 			}
-			else if (_direction == DIRECTION::RIGHT)
+			else if (_direction == DIRECTION::RIGHT && _ani->getPlayIndex() == _attackS)
 			{
 				_attackRc = FloatRect(_position.x + 20, _position.y - 35,
 					_position.x + 100, _position.y + 20);
 			}
+			else
+			{
+				_attackRc = FloatRect(0, 0, 0, 0);
+				_viewRc = FloatRect(0, 0, 0, 0);
+			}
 			_viewRc = FloatRect(_attackRc.left, _position.z + _attackRc.top,
 				_attackRc.right, _position.z + _attackRc.bottom);
-			//attack(_attackRc, 5, ATTACK_TYPE::HIT1);
+			//attack(_attackRc, 5, ATTACK_TYPE::HIT2);
 		}
 	}
 	break;
@@ -560,12 +572,10 @@ void SchoolBoy::setState(ENEMY_STATE state, DIRECTION direction)
 		if (i == 3)
 		{
 			_attackS = 3;
-			_attackE = 5;
 		}
 		else
 		{
 			_attackS = 2;
-			_attackE = 4;
 		}
 		char imgNameNum[128];
 		sprintf_s(imgNameNum, "schoolboy_attack%d", i);
@@ -579,7 +589,6 @@ void SchoolBoy::setState(ENEMY_STATE state, DIRECTION direction)
 	case ENEMY_STATE::DASHATTACK:
 	{
 		_attackS = 2;
-		_attackE = 4;
 		_enemyImg = IMAGE_MANAGER->findImage("schoolboy_runAttack");
 		_ani->init(_enemyImg->getWidth(), _enemyImg->getHeight(),
 			_enemyImg->getMaxFrameX(), _enemyImg->getMaxFrameY());
@@ -590,7 +599,6 @@ void SchoolBoy::setState(ENEMY_STATE state, DIRECTION direction)
 	case ENEMY_STATE::JUMPATTACK:
 	{
 		_attackS = 2;
-		_attackE = 4;
 		_enemyImg = IMAGE_MANAGER->findImage("schoolboy_jumpAttack");
 		_ani->init(_enemyImg->getWidth(), _enemyImg->getHeight(),
 			_enemyImg->getMaxFrameX(), _enemyImg->getMaxFrameY());

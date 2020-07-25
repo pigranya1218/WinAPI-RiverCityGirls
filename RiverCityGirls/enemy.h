@@ -31,6 +31,8 @@ protected:
 
 	FloatRect _attackRc;	// 공격 판정 렉트
 	FloatRect _viewRc;		
+	int _attackS;	// 공격 판정할 프레임 저장용
+
 	ENEMY_STATE _state;		// 상태
 
 	Image* _enemyImg;
@@ -46,6 +48,8 @@ protected:
 	float _elapsedTime;		// 상태 전환 계산 타이머
 
 	bool _isActive;			//적 개체 생존 여부
+
+	
 public:
 	Enemy() {};
 	~Enemy() {};
