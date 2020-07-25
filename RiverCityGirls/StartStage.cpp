@@ -71,7 +71,7 @@ void StartStage::enter()
 void StartStage::exit()
 {
 	Stage::exit();
-	SOUND_MANAGER->stop("BGM_Classroom");
+	//SOUND_MANAGER->stop("BGM_Classroom");
 }
 
 Stage * StartStage::update()
