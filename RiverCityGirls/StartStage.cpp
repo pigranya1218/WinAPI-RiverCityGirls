@@ -28,9 +28,6 @@ void StartStage::init(Image * background, float bgScale)
 	}
 	
 	//Object ¹èÄ¡
-	//_objectManager->spawnObject(OBJECT_TYPE::DESK, OBJECT_STATE::IDLE01, Vector3(710, 0, 510), DIRECTION::LEFT);
-	//_objectManager->spawnObject(OBJECT_TYPE::DESK, OBJECT_STATE::IDLE01, Vector3(990, 0, 510), DIRECTION::LEFT);
-
 	_objectManager->spawnObject(OBJECT_TYPE::DESK01, Vector3(460, 0, 510), DIRECTION::LEFT);
 	_objectManager->spawnObject(OBJECT_TYPE::DESK02, Vector3(710, 0, 510), DIRECTION::LEFT);
 	_objectManager->spawnObject(OBJECT_TYPE::DESK01, Vector3(970, 0, 510), DIRECTION::LEFT);
@@ -45,8 +42,8 @@ void StartStage::init(Image * background, float bgScale)
 	_objectManager->spawnObject(OBJECT_TYPE::FALL_CHAIR01, Vector3(1800, 0, 620), DIRECTION::LEFT);
 
 	_objectManager->spawnObject(OBJECT_TYPE::mrRudis, Vector3(1670, 0, 560), DIRECTION::LEFT);
-	//_objectManager->spawnObject(OBJECT_TYPE::schoolBoyA_idle01, Vector3(600, 0, 400), DIRECTION::LEFT);
-	//_objectManager->spawnObject(OBJECT_TYPE::schoolGirlB_idle02, Vector3(500, 0, 400), DIRECTION::RIGHT);
+
+	SOUND_MANAGER->play("BGM_Classroom", 1.0f);
 
 	tagDoorInfo door;
 	door.doorState = DOOR_STATE::UNLOCK;
@@ -68,11 +65,13 @@ void StartStage::init(Image * background, float bgScale)
 void StartStage::enter()
 {
 	Stage::enter();
+	//SOUND_MANAGER->stop("BGM_Classroom");
 }
 
 void StartStage::exit()
 {
 	Stage::exit();
+	SOUND_MANAGER->stop("BGM_Classroom");
 }
 
 Stage * StartStage::update()
