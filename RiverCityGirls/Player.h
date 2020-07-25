@@ -19,14 +19,21 @@ private:
 	Synthesize(DIRECTION, _direction, Direction)
 	Synthesize(float, _jumpPower, JumpPower)
 	Synthesize(float, _gravity, Gravity)
-    Synthesize(int, _hp, Hp)
-    Synthesize(int, _maxHp, MaxHp)
+	Synthesize(int, _hp, Hp)
+	Synthesize(int, _maxHp, MaxHp)
 	Synthesize(bool, _onObject, OnObject)
-	Synthesize(int,_exp,Exp)
-	Synthesize(int, _money,Money)
-	
-		
+	Synthesize(int, _exp, Exp)
+	Synthesize(int, _money, Money)
+	Synthesize(float, _damageTime, DamageTime)
+	Synthesize(float, _damage,Damage)
+
+	Synthesize(ATTACK_TYPE, _getHitType, GetHitType)
+	 ;//적에게 맞은 공격 타입
+	Synthesize(bool, _isHit, IsHit);
+
+	float _mortalTime;
 	PlayerState* _state;
+	
 
 public:
 	Player();

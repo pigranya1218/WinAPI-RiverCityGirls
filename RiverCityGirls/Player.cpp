@@ -35,6 +35,9 @@ void Player::init()
 	_hp = _maxHp;
 	_money = 0;
 	_onObject = false;
+	_damageTime = 0;
+	_isHit = false;
+	_mortalTime = 0;
 }
 
 void Player::release()
@@ -56,6 +59,7 @@ void Player::update()
 		_state->exit(*this);
 		delete _state;
 		_state = _newState;
+		_damageTime = 0;
 		_state->enter(*this);
 	}
 
@@ -96,6 +100,14 @@ void Player::attack(FloatRect attackRc, float damage, ATTACK_TYPE type)
 
 void Player::getHit(GameObject* hitter, FloatRect attackRc, float damage, ATTACK_TYPE type)
 {
+	
+	if (_isHit)return; 
+		
+
+	_getHitType = type;
+	_damage = damage;
+
+
 	Vector3 enemyPos = hitter->getPosition();
 	Vector3 enemySize = hitter->getSize();
 	float hitterMinZ = enemyPos.z - enemySize.z / 2;
@@ -108,6 +120,7 @@ void Player::getHit(GameObject* hitter, FloatRect attackRc, float damage, ATTACK
 	FloatRect getHitRc = FloatRect(_position.x - _size.x / 2, _position.y - _size.y / 2, _position.x + _size.x / 2, _position.y + _size.y / 2);
 	if (FloatRect::intersect(getHitRc, attackRc))
 	{
+
 		if (hitter->getPosition().x > _position.x)
 		{
 			_direction == DIRECTION::RIGHT;
