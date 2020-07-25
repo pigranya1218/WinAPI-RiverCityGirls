@@ -27,17 +27,18 @@ void SchoolGirl::update()
 
 	_attackRc = FloatRect(0, 0, 0, 0);
 	_viewRc = FloatRect(0, 0, 0, 0);
-	
+	if (_elapsedTime > 1.5)
+	{
+		_hitCount = 0;
+
+	}
 	
 	Vector3 playerPos = _enemyManager->getPlayerPosition(); // 플레이어의 위치
 	float distanceFromPlayer = sqrt(pow(playerPos.x - _position.x, 2) + pow(playerPos.z - _position.z, 2)); // 플레이어와 xz 거리
 	Vector3 moveDir = Vector3(0, 0, 0);
 	_elapsedTime += TIME_MANAGER->getElapsedTime();
 
-	if (_state != ENEMY_STATE::HIT)
-	{
-		_hitCount = 0;
-	}
+	
 
 	// 상태에 따른 행동 및 상태 전이
 	switch (_state)
@@ -344,13 +345,16 @@ void SchoolGirl::update()
 					_gravity = -16.0f;
 					setState(ENEMY_STATE::KNOCKDOWN, _direction);
 				}
-				else if (_hitCount > 40)
+
+				_hitCount += 1;
+
+				if (_hitCount > 110)
 				{
-					
+					_hitCount = 0;
 					_gravity = -16.0f;
 					setState(ENEMY_STATE::KNOCKDOWN, _direction);
-					
 				}
+
 				
 				
 			}
