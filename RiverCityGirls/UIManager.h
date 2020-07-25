@@ -499,6 +499,8 @@ private:
 		Vector2		size;
 		Animation*	ani;
 
+		unsigned frameX, frameY;
+
 		float fps;
 
 	public:
@@ -515,16 +517,22 @@ private:
 			ani->setFPS(1);
 			ani->start();
 
+			frameX = frameY = 0;
+
 			return S_OK;
 		}
 		void update()
 		{
-			ani->frameUpdate(TIME_MANAGER->getElapsedTime() * 10);
+			//ani->frameUpdate(TIME_MANAGER->getElapsedTime() * 10);
+			if (frameX < img->getMaxFrameX() - 1) frameX++;
+			if (frameY < img->getMaxFrameY() - 1) frameY++;	
 		}
 		void render()
 		{
+			//img->setScale(0.8f);
 			img->setSize(size);
-			img->aniRender(pos, ani);
+			//img->aniRender(pos, ani);
+			img->frameRender(pos, frameX, frameY);
 		}
 	};
 	
@@ -543,7 +551,7 @@ private:
 	{
 		chainTop.init(
 			lockSt + "_top",
-			Vector2(WINSIZEX / 2.0f, 100 + IMAGE_MANAGER->findImage(lockSt + "_top")->getFrameSize().y / 2),
+			Vector2(WINSIZEX / 2.0f, 100 + IMAGE_MANAGER->findImage(lockSt + "_top")->getFrameSize().y / 2 * 0.8f),
 			Vector2((float)WINSIZEX, IMAGE_MANAGER->findImage(lockSt + "_top")->getFrameSize().y)
 		);
 
@@ -555,14 +563,14 @@ private:
 
 		chainLeft.init(
 			lockSt + "_left",
-			Vector2(IMAGE_MANAGER->findImage(lockSt + "_left")->getFrameSize().x / 2, WINSIZEY / 2.0f),
+			Vector2(IMAGE_MANAGER->findImage(lockSt + "_left")->getFrameSize().x / 2, (WINSIZEY) / 2.0f),
 			Vector2(IMAGE_MANAGER->findImage(lockSt + "_left")->getFrameSize().x, (float)WINSIZEY - 200)
 		);
 
 		chainRight.init(
 			lockSt + "_right",
 			Vector2(WINSIZEX - (IMAGE_MANAGER->findImage(lockSt + "_right")->getFrameSize().x / 2), (WINSIZEY) / 2.0f),
-			Vector2(IMAGE_MANAGER->findImage(lockSt + "_right")->getFrameSize().x, (float)WINSIZEY - 200)
+			Vector2(IMAGE_MANAGER->findImage(lockSt + "_right")->getFrameSize().x, (float)(WINSIZEY - 200))
 		);
 	}
 
@@ -633,10 +641,10 @@ public:
 	{
 		if (active)
 		{
-			chainLeft.render(); 
-			chainRight.render();
-			chainTop.render(); 
 			chainBottom.render();
+			chainTop.render(); 
+			chainLeft.render();
+			chainRight.render();
 
 			img->aniRender(pos, ani);
 		}

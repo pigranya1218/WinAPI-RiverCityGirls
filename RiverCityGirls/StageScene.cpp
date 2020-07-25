@@ -18,13 +18,13 @@ HRESULT StageScene::init()
 
 	_player->init();
 	_stageManager->init();
+
+
 	_dgManager->init(1);
 	_uiManager->init(_player);
 
 	// UI 테스트입니다
 	_uiManager->setPlayerHpActive(true);
-	//_uiManager->setHart(true);
-	
 
 	return S_OK;
 }
@@ -43,7 +43,7 @@ void StageScene::update()
 	// _player->update();
 	
 	_uiManager->update();
-	_dgManager->update();	
+	_dgManager->update();
 }
 
 void StageScene::render()
@@ -53,6 +53,10 @@ void StageScene::render()
 
 	CAMERA_MANAGER->renderZList();
 
-	_uiManager->render();
-	_dgManager->render();	
+	if (!_dgManager->getIsPlay())
+	{
+		_uiManager->render();
+	}	
+	_dgManager->render();
+
 }
