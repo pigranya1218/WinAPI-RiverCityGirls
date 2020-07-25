@@ -136,7 +136,7 @@ PlayerState * AttackState::update(Player & player)
 		/*CAMERA_MANAGER->rectangle(_viewRc, D2D1::ColorF::Enum::Red, 1, 1);
 		CAMERA_MANAGER->drawShadow(player.getPosition(), player.getSize());*/
 			
-		if (2 <= _ani->getPlayIndex() && _ani->getPlayIndex() <= 3)
+		if (_ani->getPlayIndex() == 2)
 		{
 			Vector3 position = player.getPosition();
 			if (player.getDirection() == DIRECTION::RIGHT)
@@ -206,7 +206,7 @@ PlayerState * AttackState::update(Player & player)
 		}
 		else
 		{
-			if (2 <= _ani->getPlayIndex() && _ani->getPlayIndex() <= 4)
+			if (_ani->getPlayIndex() == 3)
 			{
 				Vector3 position = player.getPosition();
 				if (player.getDirection() == DIRECTION::RIGHT)
@@ -278,7 +278,7 @@ PlayerState * AttackState::update(Player & player)
 			}
 			else
 			{
-				if (4 <= _ani->getPlayIndex() && _ani->getPlayIndex() <= 6)
+				if (_ani->getPlayIndex() == 5)
 				{
 					Vector3 position = player.getPosition();
 					if (player.getDirection() == DIRECTION::RIGHT)
@@ -336,7 +336,7 @@ PlayerState * AttackState::update(Player & player)
 				}
 
 
-				if (2 <= _ani->getPlayIndex() && _ani->getPlayIndex() <= 3)
+				if (_ani->getPlayIndex() == 3)
 				{
 					Vector3 position = player.getPosition();
 					if (player.getDirection() == DIRECTION::RIGHT)
@@ -381,7 +381,7 @@ PlayerState * AttackState::update(Player & player)
 			break;
 		case ATTACK_SKILL::JUMP_QC:
 				
-			if (4 <= _ani->getPlayIndex() && _ani->getPlayIndex() <= 10)
+			if (_ani->getPlayIndex() == 5)
 			{
 				//Vector3 position = player.getPosition();
 				if (player.getDirection() == DIRECTION::RIGHT)
@@ -418,7 +418,7 @@ PlayerState * AttackState::update(Player & player)
 				}
 				else
 				{
-					if (5 <= _ani->getPlayIndex() && _ani->getPlayIndex() <= 7)
+					if (_ani->getPlayIndex() == 6)
 					{
 						Vector3 position = player.getPosition();
 						if (player.getDirection() == DIRECTION::RIGHT)
@@ -450,7 +450,7 @@ PlayerState * AttackState::update(Player & player)
 				else
 				{
 					moveDir.x += _currMoveDirX;
-					if (3 <= _ani->getPlayIndex() && _ani->getPlayIndex() <= 10)
+					if (_ani->getPlayIndex() == 6)
 					{
 						Vector3 position = player.getPosition();
 						if (player.getDirection() == DIRECTION::RIGHT)
@@ -482,7 +482,7 @@ PlayerState * AttackState::update(Player & player)
 			case ATTACK_SKILL::JUMP_HC:
 				
 
-				if (5 <= _ani->getPlayIndex() && _ani->getPlayIndex() <= 11)
+				if (_ani->getPlayIndex() == 6)
 				{
 					//Vector3 position = player.getPosition();
 					if (player.getDirection() == DIRECTION::RIGHT)

@@ -18,11 +18,12 @@ private:
 	float currentPlayerY;
 	float _downTime;
 	float _airBorne;
+	float _hitDelay;
 
 	ATTACK_TYPE _getHitType;
 	Synthesize(GET_HIT_STATE, _getHitState,GetHitState)
 
-	
+	Vector3 moveDir;
 	//int _hitAniArr[10];
 
 public:

@@ -133,7 +133,10 @@ PlayerState * WalkState::update(Player& player)
 			return attackState;
 		}
 
-
+		if (KEY_MANAGER->isOnceKeyDown('D'))
+		{
+			return new GuardState;
+		}
 
 		moveDir = Vector3::normalize(&moveDir);
 		moveDir = moveDir * player.getSpeed();
@@ -184,6 +187,11 @@ PlayerState * WalkState::update(Player& player)
 			AttackState* attackState = new AttackState;
 			attackState->setSkill(ATTACK_SKILL::HC);
 			return attackState;
+		}
+
+		if (KEY_MANAGER->isOnceKeyDown('D'))
+		{
+			return new GuardState;
 		}
 
 		if (!_ani->isPlay())
