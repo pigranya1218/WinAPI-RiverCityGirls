@@ -276,16 +276,30 @@ void Boss::update()
 				if (_position.y <= -2000)
 				{
 					_count++;
+					_elapsedTime = 0;
 				}
 			}
 			else if (_count == 1) // 플레이어와 근접한 방향으로 이동
 			{
-				_count++;
-				_enemyImg = IMAGE_MANAGER->findImage("boss_falling");
-				_ani->init(_enemyImg->getWidth(), _enemyImg->getHeight(),
-					_enemyImg->getMaxFrameX(), _enemyImg->getMaxFrameY());
-				_ani->setFPS(15);
-				_ani->start();
+				setDirectionToPlayer();
+
+				moveDir.x += (_direction == DIRECTION::RIGHT) ? 1 : -1;
+				moveDir.z += (playerPos.z >= _position.z + 10) ? 1 : ((playerPos.z <= _position.z - 10) ? -1 : 0);
+				moveDir = Vector3::normalize(&moveDir);
+				moveDir = moveDir * 5;
+
+				_enemyManager->moveEnemy(this, moveDir);
+
+				if (_elapsedTime > 2)
+				{
+					_count++;
+					_enemyImg = IMAGE_MANAGER->findImage("boss_falling");
+					_ani->init(_enemyImg->getWidth(), _enemyImg->getHeight(),
+						_enemyImg->getMaxFrameX(), _enemyImg->getMaxFrameY());
+					_ani->setFPS(15);
+					_ani->start();
+				}
+				
 			}
 			else // 떨어지기 
 			{
