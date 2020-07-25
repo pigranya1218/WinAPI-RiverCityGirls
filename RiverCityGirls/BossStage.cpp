@@ -61,6 +61,8 @@ void BossStage::init(Image * background, float bgScale)
 		doorDest.destPos = destPoses[i];
 		_doorDestination.push_back(doorDest);
 	}
+
+	
 }
 
 void BossStage::release()
@@ -104,6 +106,11 @@ Stage * BossStage::update()
 				}
 			}
 		}
+	}
+
+	if (_enemyManager->getEnemyCount() < 1)
+	{
+		_enemyManager->spawnEnemy(ENEMY_TYPE::BOSS, Vector2(1600, 750));
 	}
 
 	_objectManager->update();

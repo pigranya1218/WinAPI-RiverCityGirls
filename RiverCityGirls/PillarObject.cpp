@@ -5,7 +5,7 @@
 PillarObject::PillarObject(Vector3 position, DIRECTION direction)
 {
 	_direction = direction;
-	_size = Vector3(110, 800, 55);
+	_size = Vector3(110, 5000, 55);
 	_position = Vector3(position.x, -(_size.y / 2), position.z);
 
 	switch (_direction)
@@ -58,7 +58,9 @@ void PillarObject::render()
 	Object::render();
 
 	_img->setScale(3);
-	CAMERA_MANAGER->renderZ(_img, _position, _size);
+	Vector3 drawPos = _position;
+	drawPos.y += 2100;
+	CAMERA_MANAGER->renderZ(_img, drawPos, _size);
 
 	if (DEBUG_MANAGER->isDebugMode(DEBUG_TYPE::OBJECT))
 	{
@@ -78,8 +80,8 @@ void PillarObject::hitEffect(GameObject * hitter, FloatRect attackRc, float dama
 	if (_state != OBJECT_STATE::INACTIVE)
 	{
 		_objectManager->makeParticle(PARTICLE_TYPE::PIECE_PILLAR, 35,
-			Vector3(_position.x - (_size.x / 2), _position.y, _position.z),
-			Vector3(_position.x + (_size.x / 2), _position.y + (_size.y / 2), _position.z + (_size.z / 2)),
+			Vector3(_position.x - (_size.x / 2), 400.0, _position.z),
+			Vector3(_position.x + (_size.x / 2), 800.0, _position.z + (_size.z / 2)),
 			Vector2(0, 0),
 			Vector2(PI2, PI),
 			5, 6, 3, 5);

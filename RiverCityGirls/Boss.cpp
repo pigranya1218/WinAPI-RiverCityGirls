@@ -269,14 +269,17 @@ void Boss::update()
 		{
 			if (_count == 0)
 			{
-				moveDir.y += _jumpPower;
-
-				_enemyManager->moveEnemy(this, moveDir);
-			
-				if (_position.y <= -2000)
+				if (_ani->getPlayIndex() >= 6)
 				{
-					_count++;
-					_elapsedTime = 0;
+					moveDir.y += _jumpPower;
+
+					_enemyManager->moveEnemy(this, moveDir);
+
+					if (_position.y <= -2000)
+					{
+						_count++;
+						_elapsedTime = 0;
+					}
 				}
 			}
 			else if (_count == 1) // 플레이어와 근접한 방향으로 이동

@@ -3,7 +3,7 @@
 class BossStage : public Stage
 {
 private:
-
+	
 public:
 	virtual void init(Image* background, float bgScale);
 	virtual void release();

@@ -96,3 +96,8 @@ void StageManager::startDialogue(BossChapter keyname)
 {
 	_dgManager->startChapter(keyname);
 }
+
+bool StageManager::isDialoging()
+{
+	return _dgManager->getIsPlay();
+}

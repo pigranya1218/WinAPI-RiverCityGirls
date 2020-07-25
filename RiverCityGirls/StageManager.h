@@ -40,5 +40,6 @@ public:
 	void setDoorInfo(vector<tagDoorInfo> doorInfos);
 	void openShop();
 	void startDialogue(BossChapter chapter);
+	bool isDialoging();
 };
 

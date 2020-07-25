@@ -74,7 +74,7 @@ void MiddleStage::init(Image * background, float bgScale)
 	string destNames[3] = {"START_STAGE", "SHOP", "BOSS_STAGE"};
 	Vector3 destPoses[3] = {Vector3(1250, -(_player->getSize().y * 0.5), 400),
 							Vector3() ,
-							Vector3(400, -(_player->getSize().y * 0.5), 750) };
+							Vector3(1150, -(_player->getSize().y * 0.5), 750) };
 	for(int i = 0 ; i < 3 ; i++)
 	{ 
 		tagDoorDestination doorDest;
@@ -133,11 +133,11 @@ Stage * MiddleStage::update()
 
 	_respawnCool -= TIME_MANAGER->getElapsedTime();
 
-	if (_enemyManager->getEnemyCount() < 1 && _respawnCool < 0)
+	/*if (_enemyManager->getEnemyCount() < 1 && _respawnCool < 0)
 	{
 		_respawnCool = 2;
 		_enemyManager->spawnEnemy(ENEMY_TYPE::BOSS, Vector2(500, 670));
-	}
+	}*/
 
 	_objectManager->update();
 	_objectManager->isEat(_player);
