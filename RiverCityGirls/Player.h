@@ -50,6 +50,7 @@ public:
 	void setStageManager(StageManager* stageManager) { _stageManager = stageManager; }
 	bool attack(Vector3 pos, Vector3 size, OBJECT_TEAM team, FloatRect attackRc, float damage, ATTACK_TYPE type);
 	bool getHit(Vector3 pos, Vector3 size, OBJECT_TEAM team, FloatRect attackRc, float damage, ATTACK_TYPE type);
+	void setIdleState();
 	
 };
 

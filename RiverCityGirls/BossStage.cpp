@@ -73,7 +73,10 @@ void BossStage::release()
 void BossStage::enter()
 {
 	Stage::enter();
-	_stageManager->startDialogue(BossChapter::BATTLE_BEFORE);
+	if (_enemyManager->getEnemyCount() < 1)
+	{
+		_stageManager->startDialogue(BossChapter::BATTLE_BEFORE);
+	}
 }
 
 void BossStage::exit()
@@ -99,8 +102,8 @@ Stage * BossStage::update()
 				break;
 				case DOOR_STATE::UNLOCK:
 				{
-					_enemyManager->clearEnemy();
 					_player->setPosition(_doorDestination[i].destPos);
+					_player->setIdleState();
 					return _stageManager->getStage(_doorDestination[i].destName);
 				}
 				}

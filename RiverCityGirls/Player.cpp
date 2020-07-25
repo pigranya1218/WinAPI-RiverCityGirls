@@ -194,3 +194,12 @@ bool Player::getHit(Vector3 pos, Vector3 size, OBJECT_TEAM team, FloatRect attac
 	return false;
 
 }
+
+void Player::setIdleState()
+{
+	PlayerState* state = new IdleState;
+	_state->exit(*this);
+	delete _state;
+	_state = state;
+	state->enter(*this);
+}

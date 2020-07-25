@@ -91,6 +91,7 @@ Stage * StartStage::update()
 			{
 				_enemyManager->clearEnemy();
 				_player->setPosition(_doorDestination[i].destPos);
+				_player->setIdleState();
 				return _stageManager->getStage(_doorDestination[i].destName);
 			}
 		}
