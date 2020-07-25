@@ -3,7 +3,7 @@
 
 void SchoolGirl::init()
 {
-	_enemyImg = IMAGE_MANAGER->findImage("shoolgirl_idle");
+	
 	_position = Vector3(1000, -105, 500);
 	_size = Vector3(80, 210, 30);
 	_state = ENEMY_STATE::IDLE;
@@ -23,7 +23,7 @@ void SchoolGirl::release()
 
 void SchoolGirl::update()
 {
-
+	
 	_attackRc = FloatRect(0, 0, 0, 0);
 	_viewRc = FloatRect(0, 0, 0, 0);
 	
@@ -69,10 +69,10 @@ void SchoolGirl::update()
 		moveDir.y += _gravity;
 		
 		float lastY = _position.y;
-		float lastX = _position.x;		
+		float lastX = _position.x;
 		_enemyManager->moveEnemy(this, moveDir);
-		float currY = _position.y;
-		float currX = _position.x;		
+		float currY = _position.y;	
+		float currX = _position.x;
 
 		if (lastY != currY) // ¶³¾îÁü
 		{
@@ -94,7 +94,9 @@ void SchoolGirl::update()
 				setState(ENEMY_STATE::SKILL, _direction);
 				_gravity = -22;
 			}			
-		}	
+		}
+		
+		
 	}
 	break;
 	case ENEMY_STATE::RUN:
@@ -109,11 +111,10 @@ void SchoolGirl::update()
 		moveDir = moveDir * 4;
 		moveDir.y += _gravity;
 
-		float lastY = _position.y;
-		float lastX = _position.x;
+		float lastY = _position.y;	
 		_enemyManager->moveEnemy(this, moveDir);
 		float currY = _position.y;
-		float currX = _position.x;
+		
 		
 	
 		if (lastY != currY) // ¶³¾îÁü
@@ -168,7 +169,7 @@ void SchoolGirl::update()
 
 	case ENEMY_STATE::ATTACK:
 	{
-		
+	
 		if (_direction == DIRECTION::LEFT)
 		{
 			_attackRc = FloatRect(_position.x - 130, _position.y - 35,
@@ -183,7 +184,7 @@ void SchoolGirl::update()
 			_attackRc.right, _position.z + _attackRc.bottom);	
 
 		enemyAttack(_attackRc, 5, ATTACK_TYPE::HIT1);		
-
+	
 		if (!_ani->isPlay()) // °ø°Ý ¸ð¼ÇÀÌ ³¡³µ´Ù¸é
 		{
 			setState(ENEMY_STATE::IDLE, _direction);
@@ -465,7 +466,7 @@ void SchoolGirl::render()
 	}
 	break;
 	}
-	if (_state == ENEMY_STATE::KNOCKDOWN || _state == ENEMY_STATE::STANDUP )
+	if (_state == ENEMY_STATE::KNOCKDOWN  )
 	{ 
 		
 
@@ -478,7 +479,13 @@ void SchoolGirl::render()
 			if (fmod(_elapsedTime, 0.2f) > 0.1f)
 			{
 				_enemyImg->setAlpha(0);
-			}							
+			}
+			if (_elapsedTime > 5)
+			{
+				_elapsedTime = 0;
+				_isActive = false;
+			}
+
 			Vector3 drowPos = _position;
 			drowPos.y = _position.y + 30;
 			_enemyImg->setScale(3);
@@ -514,6 +521,13 @@ void SchoolGirl::render()
 		CAMERA_MANAGER->aniRenderZ(_enemyImg, drowPos, _size, _ani);
 	}
 	else if (_state == ENEMY_STATE::STUN)
+	{
+		Vector3 drowPos = _position;
+		drowPos.y = _position.y + 30;
+		_enemyImg->setScale(3);
+		CAMERA_MANAGER->aniRenderZ(_enemyImg, drowPos, _size, _ani);
+	}
+	else if (_state == ENEMY_STATE::STANDUP)
 	{
 		Vector3 drowPos = _position;
 		drowPos.y = _position.y + 30;
@@ -612,7 +626,7 @@ void SchoolGirl::setState(ENEMY_STATE state, DIRECTION direction)
 		if (i == 2)
 		{
 			_attackS = 3;
-			_attackE = 5;
+			_attackE = 5;			
 		}
 		else
 		{
@@ -626,6 +640,11 @@ void SchoolGirl::setState(ENEMY_STATE state, DIRECTION direction)
 			_enemyImg->getMaxFrameX(), _enemyImg->getMaxFrameY());
 		_ani->setFPS(10);
 		_ani->start();
+		if (_enemyImg->getMaxFrameX() == 3)
+		{
+
+		}
+
 	}
 	break;
 	case ENEMY_STATE::DASHATTACK:
