@@ -141,6 +141,8 @@ HRESULT playGround::init()
 	IMAGE_MANAGER->addFrameImage("Kyoko_guard", L"resources/images/characters/kyoko/Kyoko_guard.png", 3, 2);
 	IMAGE_MANAGER->addFrameImage("Kyoko_standup", L"resources/images/characters/kyoko/Kyoko_standup.png", 9, 2);
 	IMAGE_MANAGER->addFrameImage("Kyoko_knockout", L"resources/images/characters/kyoko/Kyoko_knockout.png", 24, 2);
+	IMAGE_MANAGER->addFrameImage("Kyoko_gameover", L"resources/images/characters/kyoko/Kyoko_gameover.png", 26, 2);
+	IMAGE_MANAGER->addFrameImage("Kyoko_battle_start", L"resources/images/characters/kyoko/Kyoko_battle_start.png", 26, 2);
 
 	//Enemy ÀÌ¹ÌÁö 
     //schoolBoy
@@ -299,27 +301,28 @@ HRESULT playGround::init()
 	SOUND_MANAGER->addSound("STAGE_HitSound2", "resources/sound/stageSound/HitSound2.mp3", false, false);
 	SOUND_MANAGER->addSound("STAGE_HitSound3", "resources/sound/stageSound/HitSound3.mp3", false, false);
 	// * Kyoko
-	SOUND_MANAGER->addSound("KYOKO_BackElbow", "resources/sound/stageSound/Kyoko/KyokoBackElbow.mp3", false, false);
+	SOUND_MANAGER->addSound("KYOKO_BackElbow1", "resources/sound/stageSound/Kyoko/KyokoBackElbow.mp3", false, false);
 	SOUND_MANAGER->addSound("KYOKO_BackElbow2", "resources/sound/stageSound/Kyoko/KyokoBackElbow2.mp3", false, false);
-	SOUND_MANAGER->addSound("KYOKO_Chop", "resources/sound/stageSound/Kyoko/KyokoChop.mp3", false, false);
+	SOUND_MANAGER->addSound("KYOKO_Chop1", "resources/sound/stageSound/Kyoko/KyokoChop.mp3", false, false);
 	SOUND_MANAGER->addSound("KYOKO_Chop2", "resources/sound/stageSound/Kyoko/KyokoChop2.mp3", false, false);
 	SOUND_MANAGER->addSound("KYOKO_Chop3", "resources/sound/stageSound/Kyoko/KyokoChop3.mp3", false, false);
 	SOUND_MANAGER->addSound("KYOKO_Combo", "resources/sound/stageSound/Kyoko/KyokoCombo3.mp3", false, false);
-	SOUND_MANAGER->addSound("KYOKO_Dive", "resources/sound/stageSound/Kyoko/KyokoDive.mp3", false, false);
+	SOUND_MANAGER->addSound("KYOKO_Dive1", "resources/sound/stageSound/Kyoko/KyokoDive.mp3", false, false);
 	SOUND_MANAGER->addSound("KYOKO_Dive2", "resources/sound/stageSound/Kyoko/KyokoDive2.mp3", false, false);
 	SOUND_MANAGER->addSound("KYOKO_GameOver", "resources/sound/stageSound/Kyoko/KyokoGameOver.mp3", false, false);
-	SOUND_MANAGER->addSound("KYOKO_GetHit", "resources/sound/stageSound/Kyoko/KyokoGetHit.mp3", false, false);
+	SOUND_MANAGER->addSound("KYOKO_GetHit1", "resources/sound/stageSound/Kyoko/KyokoGetHit.mp3", false, false);
 	SOUND_MANAGER->addSound("KYOKO_GetHit2", "resources/sound/stageSound/Kyoko/KyokoGetHit2.mp3", false, false);
 	SOUND_MANAGER->addSound("KYOKO_Grab", "resources/sound/stageSound/Kyoko/KyoKoGrab.mp3", false, false);
-	SOUND_MANAGER->addSound("KYOKO_GrabHit", "resources/sound/stageSound/Kyoko/KyokoGrabHit.mp3", false, false);
+	SOUND_MANAGER->addSound("KYOKO_GrabHit1", "resources/sound/stageSound/Kyoko/KyokoGrabHit.mp3", false, false);
 	SOUND_MANAGER->addSound("KYOKO_GrabHit2", "resources/sound/stageSound/Kyoko/KyokoGrabHit2.mp3", false, false);
 	SOUND_MANAGER->addSound("KYOKO_GrabHit3", "resources/sound/stageSound/Kyoko/KyokoGrabHit3.mp3", false, false);
 	SOUND_MANAGER->addSound("KYOKO_HeavyAtkKick", "resources/sound/stageSound/Kyoko/KyokoHeavyAtkKick.mp3", false, false);
-	SOUND_MANAGER->addSound("KYOKO_HipAttack", "resources/sound/stageSound/Kyoko/KyokoHipAttack.mp3", false, false);
-	SOUND_MANAGER->addSound("KYOKO_HipAttackWithoutVoice", "resources/sound/stageSound/Kyoko/KyokoHipAttackWithoutVoice.mp3", false, false);
+	SOUND_MANAGER->addSound("KYOKO_HipAttack1", "resources/sound/stageSound/Kyoko/KyokoHipAttack.mp3", false, false);
+	SOUND_MANAGER->addSound("KYOKO_HipAttack2", "resources/sound/stageSound/Kyoko/KyokoHipAttackWithoutVoice.mp3", false, false);
 	SOUND_MANAGER->addSound("KYOKO_JumpKick", "resources/sound/stageSound/Kyoko/KyokoJumpKick.mp3", false, false);
 	SOUND_MANAGER->addSound("KYOKO_LevelUP", "resources/sound/stageSound/Kyoko/KyokoLevelUP.mp3", false, false);
 	SOUND_MANAGER->addSound("KYOKO_Run", "resources/sound/stageSound/Kyoko/KyokoRun.mp3", false, false);
+	SOUND_MANAGER->addSound("KYOKO_Jump", "resources/sound/stageSound/Kyoko/KyokoJump.mp3", false, false);
 	SOUND_MANAGER->addSound("KYOKO_StageUp", "resources/sound/stageSound/Kyoko/KyokoStageUp.mp3", false, false);
 	SOUND_MANAGER->addSound("KYOKO_StandUp", "resources/sound/stageSound/Kyoko/KyokoStandUp.mp3", false, false);
 	// * CheerLeader
