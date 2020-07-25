@@ -43,7 +43,7 @@ protected:
 	ATTACK_TYPE _hitType;	//플레이어에게 받은 피격 타입
 
 	int _hp;				//체력
-
+	float _hitCount;          //맞았을때 카운트
 	float _jumpPower;       //점프파워
 	float _gravity;         //중력값
 	float _elapsedTime;		// 상태 전환 계산 타이머
