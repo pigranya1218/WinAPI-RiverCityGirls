@@ -3,6 +3,8 @@
 
 void getHitState::enter(Player & player)
 {
+	
+
 	_getHitType = player.getGetHitType();
 	
 	switch (_getHitType)
@@ -17,12 +19,16 @@ void getHitState::enter(Player & player)
 		_getHitState = GET_HIT_STATE::KNOCK_DOWN;
 		break;
 	}
+	if (player.getHp() <= 0)
+	{
+		_getHitState = GET_HIT_STATE::GAME_OVER;
+	}
 	setGetHitAni(player);
 	
 	_downTime = 0;
 	_airBorne = 1;
 	_hitDelay = 0;
-	player.setHp(player.getHp() - player.getDamage());
+	player.setHp(player.getHp() - player.getDamage());//플레이어 체력 깍는 것
 	player.setIsHit(true);
 }
 
@@ -88,12 +94,7 @@ PlayerState * getHitState::update(Player & player)
 
 		break;
 	case GET_HIT_STATE::KNOCK_DOWN:
-		lastPlayerY = player.getPosition().y;
-		moveDir.x += (player.getDirection() == DIRECTION::RIGHT) ? -1 : 1;
-		moveDir.y -= _airBorne;
-		_airBorne-=player.getGravity();
-		player.move(moveDir);
-		currentPlayerY = player.getPosition().y;
+		
 
 		
 		if (!_ani->isPlay())
@@ -110,6 +111,15 @@ PlayerState * getHitState::update(Player & player)
 				setGetHitAni(player);
 			}
 		}
+		else
+		{
+			lastPlayerY = player.getPosition().y;
+			moveDir.x += (player.getDirection() == DIRECTION::RIGHT) ? -1 : 1;
+			moveDir.y -= _airBorne;
+			_airBorne -= player.getGravity();
+			player.move(moveDir);
+			currentPlayerY = player.getPosition().y;
+		}
 
 		break;
 	case GET_HIT_STATE::STAND_UP:
@@ -120,6 +130,10 @@ PlayerState * getHitState::update(Player & player)
 		}
 
 		break;
+	case GET_HIT_STATE::GAME_OVER:
+
+		break;
+
 	}
 
 	
@@ -132,8 +146,18 @@ PlayerState * getHitState::update(Player & player)
 
 void getHitState::render(Player & player)
 {
+	Vector3 position;
+	position = player.getPosition();
+	if (_getHitState == GET_HIT_STATE::STAND_UP)
+	{
+		position.y += 25;
+	}
+	if (_getHitState == GET_HIT_STATE::KNOCK_DOWN)
+	{
+		position.y -= 10;
+	}
 	_img->setScale(3);
-	CAMERA_MANAGER->aniRenderZ(_img, player.getPosition(), player.getSize(), _ani);
+	CAMERA_MANAGER->aniRenderZ(_img, position, player.getSize(), _ani);
 }
 
 void getHitState::setGetHitAni(Player& player)
@@ -201,6 +225,21 @@ void getHitState::setGetHitAni(Player& player)
 		_ani->start();
 		break;
 	case GET_HIT_STATE::STUN:
+		break;
+	case GET_HIT_STATE::GAME_OVER:
+		_img = IMAGE_MANAGER->findImage("Kyoko_gameover");
+		_ani = new Animation;
+		_ani->init(_img->getWidth(), _img->getHeight(), _img->getMaxFrameX(), _img->getMaxFrameY());
+		_ani->setFPS(20);
+		if (player.getDirection() == DIRECTION::RIGHT)
+		{
+			_ani->setPlayFrame(0, 26, false, false); //
+		}
+		else if (player.getDirection() == DIRECTION::LEFT)
+		{
+			_ani->setPlayFrame(26, 52, false, false); // 
+		}
+		_ani->start();
 		break;
 	}
 }

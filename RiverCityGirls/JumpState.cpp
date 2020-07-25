@@ -202,7 +202,7 @@ void JumpState::render(Player & player)
 
 void JumpState::enter(Player & player)
 {
-	
+	SOUND_MANAGER->play("KYOKO_Jump", 1.0f);
 	_img = IMAGE_MANAGER->findImage("Kyoko_jump");
 	_ani = new Animation;
 	_ani->init(_img->getWidth(), _img->getHeight(), _img->getMaxFrameX(), _img->getMaxFrameY());
@@ -220,6 +220,7 @@ void JumpState::enter(Player & player)
 
 void JumpState::exit(Player & player)
 {
+	SOUND_MANAGER->stop("KYOKO_Jump");
 	player.setJumpPower(23);
 	_ani->release();
 	SAFE_DELETE(_ani);
