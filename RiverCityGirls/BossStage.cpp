@@ -61,8 +61,6 @@ void BossStage::init(Image * background, float bgScale)
 		doorDest.destPos = destPoses[i];
 		_doorDestination.push_back(doorDest);
 	}
-
-	
 }
 
 void BossStage::release()
