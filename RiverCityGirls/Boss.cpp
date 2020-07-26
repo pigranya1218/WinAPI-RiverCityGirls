@@ -26,6 +26,15 @@ void Boss::release()
 
 void Boss::update()
 {
+	if (KEY_MANAGER->isOnceKeyDown('Q'))
+	{
+		setState(BOSS_STATE::STAND_UP, _direction, true);
+	}
+	if (KEY_MANAGER->isOnceKeyDown('W'))
+	{
+		setState(BOSS_STATE::ROAR, _direction, true);
+	}
+
 	if (_phase == BOSS_PHASE::DEFEAT)
 	{
 		if (!_ani->isPlay())
@@ -97,6 +106,7 @@ void Boss::update()
 		break;
 		case BOSS_STATE::LAUGH:
 		{
+			
 			if (!_ani->isPlay())
 			{
 				setState(BOSS_STATE::IDLE, _direction, true);
@@ -341,11 +351,13 @@ void Boss::update()
 			{
 				if (_ani->getPlayIndex() == _attackS)
 				{
-					_attackRc = FloatRect(_position.x - 50, _position.y - 50,
-						_position.x + 50, _position.y + 50);
+					_size.z = _position.x -1150;
+					_attackRc = FloatRect(_position.x - 250, _position.y ,
+						_position.x + 250, _position.y + 200);					
 				}
 				else
 				{
+					_size.z = 30;
 					_attackRc = FloatRect(0, 0, 0, 0);
 					_viewRc = FloatRect(0, 0, 0, 0);
 				}
@@ -366,11 +378,13 @@ void Boss::update()
 			{
 				if (_ani->getPlayIndex() == _attackS)
 				{
-					_attackRc = FloatRect(_position.x - 50, _position.y - 50,
-						_position.x + 50, _position.y + 50);
+					_size.z = _position.x - 1050;
+					_attackRc = FloatRect(_position.x - 250, _position.y-200,
+						_position.x + 250, _position.y + 200);
 				}
 				else
 				{
+					_size.z = 30;
 					_attackRc = FloatRect(0, 0, 0, 0);
 					_viewRc = FloatRect(0, 0, 0, 0);
 				}
