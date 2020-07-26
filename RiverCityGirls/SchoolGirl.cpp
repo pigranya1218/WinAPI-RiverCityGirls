@@ -27,18 +27,17 @@ void SchoolGirl::update()
 
 	_attackRc = FloatRect(0, 0, 0, 0);
 	_viewRc = FloatRect(0, 0, 0, 0);
-	if (_elapsedTime > 1.5)
-	{
-		_hitCount = 0;
-
-	}
+	
 	
 	Vector3 playerPos = _enemyManager->getPlayerPosition(); // 플레이어의 위치
 	float distanceFromPlayer = sqrt(pow(playerPos.x - _position.x, 2) + pow(playerPos.z - _position.z, 2)); // 플레이어와 xz 거리
 	Vector3 moveDir = Vector3(0, 0, 0);
 	_elapsedTime += TIME_MANAGER->getElapsedTime();
 
-	
+	if (_elapsedTime >1)
+	{
+		_hitCount = 0;
+	}
 
 	// 상태에 따른 행동 및 상태 전이
 	switch (_state)
@@ -345,16 +344,13 @@ void SchoolGirl::update()
 					_gravity = -16.0f;
 					setState(ENEMY_STATE::KNOCKDOWN, _direction);
 				}
-
-				_hitCount += 1;
-
-				if (_hitCount > 110)
+				else if (_hitCount > 60)
 				{
-					_hitCount = 0;
+					
 					_gravity = -16.0f;
 					setState(ENEMY_STATE::KNOCKDOWN, _direction);
+					
 				}
-
 				
 				
 			}
@@ -731,7 +727,13 @@ void SchoolGirl::setState(ENEMY_STATE state, DIRECTION direction)
 			_enemyImg->getMaxFrameX(), _enemyImg->getMaxFrameY());
 		_ani->setFPS(10);
 		_ani->start();	
-		
+
+		char soundNameNum[128];
+		sprintf_s(soundNameNum, "SchoolGirl_Attack%d", i);
+		/*SOUND_MANAGER->stop("SchoolGirl_Attack");
+		SOUND_MANAGER->stop("SchoolGirl_Attack2");
+		SOUND_MANAGER->stop("SchoolGirl_Attack3");
+		SOUND_MANAGER->play(soundNameNum, 0.7f);*/
 	}
 	break;
 	case ENEMY_STATE::DASHATTACK:

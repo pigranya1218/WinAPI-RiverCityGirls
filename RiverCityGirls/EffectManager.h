@@ -27,9 +27,10 @@ public:
 		int imageWidth, int imageHeight, int effectWidth, int effectHeight,
 		int fps, int buffer);
 
-	void play(string effectName, int x, int y);
-	void play(string effectName, int x, int y, int width, int height);
+	/*void play(string effectName, int x, int y);
+	void play(string effectName, int x, int y, int width, int height);*/
 
+	void playZ(string effectName, Vector3 pos, float scale);
 
 };
 

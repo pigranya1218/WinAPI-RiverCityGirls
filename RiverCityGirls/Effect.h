@@ -11,6 +11,7 @@ protected:
 	Animation*	_effectAnimation;
 	bool		_isRunning;
 	float		_elapsedTime;
+	float		_scale;
 
 public:
 	Effect();
@@ -21,8 +22,9 @@ public:
 	virtual void update();
 	virtual void render();
 
-	void startEffect(int x, int y);
-	void startEffect(int x, int y, int width, int height);
+	//void startEffect(int x, int y);
+	//void startEffect(int x, int y, int width, int height);
+	void startEffectZ(Vector3 pos, float scale);
 
 	virtual void killEffect();
 

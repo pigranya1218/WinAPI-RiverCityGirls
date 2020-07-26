@@ -3,9 +3,14 @@
 
 void AttackState::enter(Player & player)
 {
+	int num2 = RANDOM->getFromIntTo(1, 3);
+	int num3 = RANDOM->getFromIntTo(1, 4);
+
 	switch (_skill)
 	{
 	case ATTACK_SKILL:: QC1:
+		
+		SOUND_MANAGER->play("KYOKO_Chop"+ to_string(num3), 1.0f);
 		_img = IMAGE_MANAGER->findImage("Kyoko_attack1");
 		_ani = new Animation;
 		_ani->init(_img->getWidth(), _img->getHeight(), _img->getMaxFrameX(), _img->getMaxFrameY());
@@ -22,6 +27,7 @@ void AttackState::enter(Player & player)
 		_ani->start();
 		break;
 	case ATTACK_SKILL::RUN_QC:
+		SOUND_MANAGER->play("KYOKO_BackElbow" + to_string(num2), 1.0f);
 		_img = IMAGE_MANAGER->findImage("Kyoko_backelbow");
 		_ani = new Animation;
 		_ani->init(_img->getWidth(), _img->getHeight(), _img->getMaxFrameX(), _img->getMaxFrameY());
@@ -38,7 +44,7 @@ void AttackState::enter(Player & player)
 		_ani->start();
 		break;
 	case ATTACK_SKILL::JUMP_QC:
-		
+		SOUND_MANAGER->play("KYOKO_HipAttack" + to_string(num2), 1.0f);
 		_img = IMAGE_MANAGER->findImage("Kyoko_buttbump");
 		_ani = new Animation;
 		_ani->init(_img->getWidth(), _img->getHeight(), _img->getMaxFrameX(), _img->getMaxFrameY());
@@ -56,6 +62,7 @@ void AttackState::enter(Player & player)
 		
 		break;
 	case ATTACK_SKILL::HC:
+		SOUND_MANAGER->play("KYOKO_HeavyAtkKick", 1.0f);
 		_img = IMAGE_MANAGER->findImage("Kyoko_axekick");
 		_ani = new Animation;
 		_ani->init(_img->getWidth(), _img->getHeight(), _img->getMaxFrameX(), _img->getMaxFrameY());
@@ -72,6 +79,7 @@ void AttackState::enter(Player & player)
 		_ani->start();
 		break;
 	case ATTACK_SKILL::RUN_HC:
+		SOUND_MANAGER->play("KYOKO_Dive" + to_string(num2), 1.0f);
 		_img = IMAGE_MANAGER->findImage("Kyoko_dive");
 		_ani = new Animation;
 		_ani->init(_img->getWidth(), _img->getHeight(), _img->getMaxFrameX(), _img->getMaxFrameY());
@@ -88,6 +96,7 @@ void AttackState::enter(Player & player)
 		_ani->start();
 		break;
 	case ATTACK_SKILL::JUMP_HC:
+		SOUND_MANAGER->play("KYOKO_JumpKick", 1.0f);
 		_img = IMAGE_MANAGER->findImage("Kyoko_airstep");
 		_ani = new Animation;
 		_ani->init(_img->getWidth(), _img->getHeight(), _img->getMaxFrameX(), _img->getMaxFrameY());
@@ -152,11 +161,16 @@ PlayerState * AttackState::update(Player & player)
 				
 			_viewRc = FloatRect(_attackRc.left, position.z + _attackRc.top,
 				_attackRc.right, position.z + _attackRc.bottom);
-			player.attack(player.getPosition(), player.getSize(), OBJECT_TEAM::PLAYER, _attackRc, 10, ATTACK_TYPE::HIT1);
+			if (player.attack(player.getPosition(), player.getSize(), OBJECT_TEAM::PLAYER, _attackRc, 10, ATTACK_TYPE::HIT1))
+			{
+				EFFECT_MANAGER->playZ("effect_4", Vector3((_attackRc.left + _attackRc.right) / 2, (_attackRc.top + _attackRc.bottom) / 2, position.z + player.getSize().z / 2) , 1);
+			}
 		}
 			
-		if (_initTime>=0.2 &&KEY_MANAGER->isOnceKeyDown('Z'))
+		if (_initTime>=0.13 &&KEY_MANAGER->isOnceKeyDown('Z')&&player.attack(player.getPosition(), player.getSize(), 
+			OBJECT_TEAM::PLAYER, _attackRc, 10, ATTACK_TYPE::HIT1))
 		{
+			SOUND_MANAGER->play("KYOKO_Chop2", 1.0f);
 			_img = IMAGE_MANAGER->findImage("Kyoko_attack2");
 
 			_ani->init(_img->getWidth(), _img->getHeight(), _img->getMaxFrameX(), _img->getMaxFrameY());
@@ -227,7 +241,8 @@ PlayerState * AttackState::update(Player & player)
 
 			_initTime += TIME_MANAGER->getElapsedTime();
 				
-			if (_initTime>=0.25 &&KEY_MANAGER->isOnceKeyDown('Z'))
+			if (_initTime>=0.15 &&KEY_MANAGER->isOnceKeyDown('Z') && player.attack(player.getPosition(), player.getSize(),
+				OBJECT_TEAM::PLAYER, _attackRc, 10, ATTACK_TYPE::HIT1))
 			{
 				_img = IMAGE_MANAGER->findImage("Kyoko_attack3");
 
@@ -445,7 +460,7 @@ PlayerState * AttackState::update(Player & player)
 				{
 					if (KEY_MANAGER->isStayKeyDown(VK_RIGHT) || KEY_MANAGER->isStayKeyDown(VK_LEFT))return new WalkState;
 					else return new IdleState;
-
+					SOUND_MANAGER->stop("KYOKO_Dive");
 				}
 				else
 				{
@@ -612,6 +627,12 @@ void AttackState::render(Player & player)
 
 void AttackState::exit(Player & paleyr)
 {
+	SOUND_MANAGER->stop("KYOKO_Chop" );
+	SOUND_MANAGER->stop("KYOKO_BackElbow" );
+	SOUND_MANAGER->stop("KYOKO_HipAttack" );
+	SOUND_MANAGER->stop("KYOKO_JumpKick");
+	SOUND_MANAGER->stop("KYOKO_Dive");
+	SOUND_MANAGER->stop("KYOKO_HeavyAtkKick");
 	_ani->release();
 	SAFE_DELETE(_ani);
 }

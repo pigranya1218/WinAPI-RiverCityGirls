@@ -61,8 +61,6 @@ void BossStage::init(Image * background, float bgScale)
 		doorDest.destPos = destPoses[i];
 		_doorDestination.push_back(doorDest);
 	}
-
-	
 }
 
 void BossStage::release()
@@ -103,7 +101,7 @@ Stage * BossStage::update()
 				case DOOR_STATE::UNLOCK:
 				{
 					_player->setPosition(_doorDestination[i].destPos);
-					_player->setIdleState();
+					//_player->setIdleState();
 					return _stageManager->getStage(_doorDestination[i].destName);
 				}
 				}
