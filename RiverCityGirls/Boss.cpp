@@ -301,6 +301,12 @@ void Boss::update()
 			}
 			else
 			{
+				//이펙트
+				if (_ani->isPlay() && _ani->getPlayIndex() >= _attackS && _ani->getPlayIndex() <= _enemyImg->getMaxFrameX())
+				{
+					float dir = (_direction == DIRECTION::RIGHT) ? 100 : -100;
+					EFFECT_MANAGER->playZ("effect_strongPunch", Vector3(_position.x + dir, _position.y - 20, _position.z + 10), 2.f);
+				}
 				//powerPunch 공격 렉트
 				if (_direction == DIRECTION::LEFT && _ani->getPlayIndex() == _attackS)
 				{

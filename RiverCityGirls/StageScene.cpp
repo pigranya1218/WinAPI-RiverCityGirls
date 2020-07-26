@@ -10,6 +10,7 @@ HRESULT StageScene::init()
 	_player = new Player;
 
 	_dgManager = new DialogueManager;
+	_dgManager->init(1);
 
 	_stageManager->setUIManager(_uiManager);
 	_stageManager->setDialogueManager(_dgManager);
@@ -18,7 +19,6 @@ HRESULT StageScene::init()
 
 	_player->init();
 	_stageManager->init();
-	_dgManager->init(1);
 	_uiManager->init(_player);
 
 	// UI 테스트입니다

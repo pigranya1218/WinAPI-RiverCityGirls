@@ -28,6 +28,7 @@ private:
 	float _initTime;
 	float _lastPlayerY;
 	bool _isCombo;
+	bool _isFirstAttackCheck;
 	bool _isStep;
 
 	int num2;

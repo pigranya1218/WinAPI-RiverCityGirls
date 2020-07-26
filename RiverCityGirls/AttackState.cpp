@@ -7,6 +7,7 @@ void AttackState::enter(Player & player)
 	num3 = RANDOM->getFromIntTo(1, 4);
 	_isCombo = false;
 	_isStep = false;
+	_isFirstAttackCheck = true;
 
 	switch (_skill)
 	{
@@ -82,9 +83,10 @@ void AttackState::enter(Player & player)
 		{
 			_ani->setPlayFrame(13, 26, false, false);
 		}
-
+		CAMERA_MANAGER->pushShakeEvent(-2, 0.06, 0.1);
 		_ani->setFPS(15);
 		_ani->start();
+		
 		break;
 	case ATTACK_SKILL::RUN_HC:
 		SOUND_MANAGER->stop("KYOKO_Dive" + to_string(num2));
@@ -157,8 +159,9 @@ PlayerState * AttackState::update(Player & player)
 		/*CAMERA_MANAGER->rectangle(_viewRc, D2D1::ColorF::Enum::Red, 1, 1);
 		CAMERA_MANAGER->drawShadow(player.getPosition(), player.getSize());*/
 			
-		if (_ani->getPlayIndex() == 2)
+		if (_ani->getPlayIndex() == 2 && _isFirstAttackCheck)
 		{
+			_isFirstAttackCheck = false;
 			Vector3 position = player.getPosition();
 			if (player.getDirection() == DIRECTION::RIGHT)
 			{
@@ -197,8 +200,9 @@ PlayerState * AttackState::update(Player & player)
 				}
 				_ani->setFPS(15);
 				_ani->start();
+				_isCombo = false;
 
-
+				_isFirstAttackCheck = true;
 				_skill = ATTACK_SKILL::QC2;
 				_initTime = 0;
 			}
@@ -218,6 +222,8 @@ PlayerState * AttackState::update(Player & player)
 
 				_ani->setFPS(15);
 				_ani->start();
+				_isCombo = false;
+				_isFirstAttackCheck = true;
 
 				_skill = ATTACK_SKILL::HC;
 
@@ -239,8 +245,9 @@ PlayerState * AttackState::update(Player & player)
 		}
 		else
 		{
-			if (_ani->getPlayIndex() == 3)
+			if (_ani->getPlayIndex() == 3 && _isFirstAttackCheck)
 			{
+				_isFirstAttackCheck = false;
 				Vector3 position = player.getPosition();
 				if (player.getDirection() == DIRECTION::RIGHT)
 				{
@@ -269,7 +276,7 @@ PlayerState * AttackState::update(Player & player)
 				{
 					SOUND_MANAGER->stop("KYOKO_Combo");
 					SOUND_MANAGER->play("KYOKO_Combo",1.0f);
-
+					CAMERA_MANAGER->pushShakeEvent(-2, 0.06, 0.1);
 					_img = IMAGE_MANAGER->findImage("Kyoko_attack3");
 
 					_ani->init(_img->getWidth(), _img->getHeight(), _img->getMaxFrameX(), _img->getMaxFrameY());
@@ -283,6 +290,9 @@ PlayerState * AttackState::update(Player & player)
 					}
 					_ani->setFPS(15);
 					_ani->start();
+					_isCombo = false;
+					_isFirstAttackCheck = true;
+
 					_initTime = 0;
 
 					_skill = ATTACK_SKILL::QC3;
@@ -303,6 +313,8 @@ PlayerState * AttackState::update(Player & player)
 
 					_ani->setFPS(15);
 					_ani->start();
+					_isCombo = false;
+					_isFirstAttackCheck = true;
 
 					_skill = ATTACK_SKILL::HC;
 
@@ -324,8 +336,9 @@ PlayerState * AttackState::update(Player & player)
 			}
 			else
 			{
-				if (_ani->getPlayIndex() == 5)
+				if (_ani->getPlayIndex() == 5 && _isFirstAttackCheck)
 				{
+					_isFirstAttackCheck = false;
 					Vector3 position = player.getPosition();
 					if (player.getDirection() == DIRECTION::RIGHT)
 					{
@@ -366,6 +379,8 @@ PlayerState * AttackState::update(Player & player)
 
 						_ani->setFPS(15);
 						_ani->start();
+						_isCombo = false;
+						_isFirstAttackCheck = true;
 
 						_skill = ATTACK_SKILL::HC;
 
@@ -394,8 +409,10 @@ PlayerState * AttackState::update(Player & player)
 				}
 
 
-				if (_ani->getPlayIndex() == 3)
+				if (_ani->getPlayIndex() == 3 && _isFirstAttackCheck)
 				{
+					_isFirstAttackCheck = false;
+
 					Vector3 position = player.getPosition();
 					if (player.getDirection() == DIRECTION::RIGHT)
 					{
@@ -435,6 +452,8 @@ PlayerState * AttackState::update(Player & player)
 						}
 						_ani->setFPS(15);
 						_ani->start();
+						_isCombo = false;
+						_isFirstAttackCheck = true;
 
 
 						_skill = ATTACK_SKILL::QC2;
@@ -447,8 +466,10 @@ PlayerState * AttackState::update(Player & player)
 			break;
 		case ATTACK_SKILL::JUMP_QC:
 				
-			if (_ani->getPlayIndex() == 5)
+			if (_ani->getPlayIndex() == 5 && _isFirstAttackCheck)
 			{
+				_isFirstAttackCheck = false;
+
 				Vector3 position = player.getPosition();
 				if (player.getDirection() == DIRECTION::RIGHT)
 				{
@@ -488,8 +509,9 @@ PlayerState * AttackState::update(Player & player)
 				}
 				else
 				{
-					if (_ani->getPlayIndex() == 6)
+					if (_ani->getPlayIndex() == 6 && _isFirstAttackCheck)
 					{
+						_isFirstAttackCheck = false;
 						Vector3 position = player.getPosition();
 						if (player.getDirection() == DIRECTION::RIGHT)
 						{
@@ -507,6 +529,7 @@ PlayerState * AttackState::update(Player & player)
 						
 						if (player.attack(player.getPosition(), player.getSize(), OBJECT_TEAM::PLAYER, _attackRc, 10, ATTACK_TYPE::KNOCKDOWN))
 						{
+							CAMERA_MANAGER->pushShakeEvent(-2, 0.06, 0.1);
 							EFFECT_MANAGER->playZ("effect_4", Vector3((_attackRc.left + _attackRc.right) / 2, (_attackRc.top + _attackRc.bottom) / 2, position.z + player.getSize().z / 2), 1);
 						}
 					}
@@ -524,8 +547,9 @@ PlayerState * AttackState::update(Player & player)
 				else
 				{
 					moveDir.x += _currMoveDirX;
-					if (_ani->getPlayIndex() == 6)
+					if (_ani->getPlayIndex() == 6 && _isFirstAttackCheck)
 					{
+						_isFirstAttackCheck = false;
 						Vector3 position = player.getPosition();
 						if (player.getDirection() == DIRECTION::RIGHT)
 						{
@@ -547,6 +571,7 @@ PlayerState * AttackState::update(Player & player)
 						
 						if (player.attack(player.getPosition(), player.getSize(), OBJECT_TEAM::PLAYER, _attackRc, 10, ATTACK_TYPE::KNOCKDOWN))
 						{
+							CAMERA_MANAGER->pushShakeEvent(-2, 0.06, 0.1);
 							EFFECT_MANAGER->playZ("effect_4", Vector3((_attackRc.left + _attackRc.right) / 2, (_attackRc.top + _attackRc.bottom) / 2, position.z + player.getSize().z / 2), 1);
 						}
 					}
@@ -561,8 +586,9 @@ PlayerState * AttackState::update(Player & player)
 				
 				
 
-				if (_ani->getPlayIndex() == 6)
+				if (_ani->getPlayIndex() == 6 && _isFirstAttackCheck)
 				{
+					
 					Vector3 position = player.getPosition();
 					if (player.getDirection() == DIRECTION::RIGHT)
 					{
@@ -583,6 +609,7 @@ PlayerState * AttackState::update(Player & player)
 					
 					if (player.attack(player.getPosition(), player.getSize(), OBJECT_TEAM::PLAYER, _attackRc, 10, ATTACK_TYPE::KNOCKDOWN))
 					{
+						_isFirstAttackCheck = false;
 						EFFECT_MANAGER->playZ("effect_4", Vector3((_attackRc.left + _attackRc.right) / 2, (_attackRc.top + _attackRc.bottom) / 2, position.z + player.getSize().z / 2), 1);
 						_isStep = true;
 						_currJumpPower = -_currJumpPower;
@@ -664,8 +691,11 @@ void AttackState::render(Player & player)
 		}
 	}
 
+	
+
 	if (_skill == ATTACK_SKILL::HC)
 	{
+		
 		position.y += 15;
 	}
 	else if (_skill == ATTACK_SKILL::QC3)

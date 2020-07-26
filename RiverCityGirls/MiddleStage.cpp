@@ -62,7 +62,7 @@ void MiddleStage::init(Image * background, float bgScale)
 	_objectManager->spawnObject(OBJECT_TYPE::workingFemaleA, Vector3(2500, 0, 900), DIRECTION::RIGHT);
 	_objectManager->spawnObject(OBJECT_TYPE::workingMaleD, Vector3(2700, 0, 900), DIRECTION::LEFT);
 
-	_isQuestClear = false;
+	_isQuestClear = true;
 	_isQuesting = false;
 	_maxRestCount = 4;
 	_restCount = _maxRestCount;
