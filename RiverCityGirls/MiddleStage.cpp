@@ -50,9 +50,6 @@ void MiddleStage::init(Image * background, float bgScale)
 	_objectManager->spawnObject(OBJECT_TYPE::TABLE07, Vector3(1740, 0, 750), DIRECTION::LEFT);
 	_objectManager->spawnObject(OBJECT_TYPE::TABLE03, Vector3(2360, 0, 680), DIRECTION::LEFT);
 
-	_objectManager->spawnObject(OBJECT_TYPE::TABLE_CHAIR01, Vector3(750, 0, 600), DIRECTION::LEFT);
-	_objectManager->spawnObject(OBJECT_TYPE::TABLE_CHAIR02, Vector3(2000, 0, 550), DIRECTION::LEFT);
-
 	_objectManager->spawnObject(OBJECT_TYPE::schoolGirlA_idle01, Vector3(300, 0, 500), DIRECTION::RIGHT);
 	_objectManager->spawnObject(OBJECT_TYPE::schoolGirlE_idle01, Vector3(400, 0, 500), DIRECTION::LEFT);
 
