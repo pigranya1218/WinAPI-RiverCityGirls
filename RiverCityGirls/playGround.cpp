@@ -333,9 +333,11 @@ HRESULT playGround::init()
 	SOUND_MANAGER->addSound("KYOKO_HipAttack2",	            "resources/sound/stageSound/Kyoko/KyokoHipAttackWithoutVoice.mp3", false, false);
 	SOUND_MANAGER->addSound("KYOKO_JumpKick",				"resources/sound/stageSound/Kyoko/KyokoJumpKick.mp3", false, false);
 	SOUND_MANAGER->addSound("KYOKO_LevelUP",				"resources/sound/stageSound/Kyoko/KyokoLevelUP.mp3", false, false);
-	SOUND_MANAGER->addSound("KYOKO_Run",					"resources/sound/stageSound/Kyoko/KyokoRun.mp3", false, true);
+	SOUND_MANAGER->addSound("KYOKO_Run",					"resources/sound/stageSound/Kyoko/KyokoRun.mp3", false, false);
+	SOUND_MANAGER->addSound("KYOKO_Jump",                   "resources/sound/stageSound/Kyoko/KyokoJump.mp3", false, false);
 	SOUND_MANAGER->addSound("KYOKO_StageUp",				"resources/sound/stageSound/Kyoko/KyokoStageUp.mp3", false, false);
 	SOUND_MANAGER->addSound("KYOKO_StandUp",				"resources/sound/stageSound/Kyoko/KyokoStandUp.mp3", false, false);
+	
 	// * BOSS_Misuzu
 	SOUND_MANAGER->addSound("Boss_TalkingBGM",				"resources/sound/stageSound/Boss/talking.mp3", false, true);
 	SOUND_MANAGER->addSound("Boss_Speek",					"resources/sound/stageSound/Boss/bossSpeek.mp3", false, false);
