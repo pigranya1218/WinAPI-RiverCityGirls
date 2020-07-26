@@ -12,7 +12,6 @@ void CheerGirl::init()
 	_isActive = true;
 	_gravity = 0;
 	_jumpPower = 0;
-
 	_hp = 100;
 }
 
@@ -468,7 +467,7 @@ void CheerGirl::update()
 void CheerGirl::render()
 {
 	char str[1000];
-	sprintf_s(str, "[스쿨걸] elapsedTime : %f, _hitCount : %f", _elapsedTime, _hitCount);
+	sprintf_s(str, "[치어걸] _hp : %d, _hitCount : %f", _hp, _hitCount);
 	TextOut(_hdc, 500, 40, str, strlen(str));
 
 	//좌우에 따른 애니메이션 프레임 및 루프 조정
@@ -656,29 +655,32 @@ void CheerGirl::render()
 void CheerGirl::hitEffect(Vector3 pos, Vector3 size, OBJECT_TEAM team, FloatRect attackRc, float damage, ATTACK_TYPE type)
 {
 	
+	if (_state != ENEMY_STATE::KNOCKDOWN || _state != ENEMY_STATE::STANDUP || _state != ENEMY_STATE::SKILL) {		
+		
+		if (_state == ENEMY_STATE::SKILL) return;
 
-	if (_state == ENEMY_STATE::SKILL) return;
-
-	_hitType = type;
-	if (_state != ENEMY_STATE::HIT && _state != ENEMY_STATE::KNOCKDOWN && _state != ENEMY_STATE::STANDUP)
-	{
-		if (_hitType == ATTACK_TYPE::HIT1 || _hitType == ATTACK_TYPE::HIT2)
+		_hitType = type;
+		if (_state != ENEMY_STATE::HIT && _state != ENEMY_STATE::KNOCKDOWN && _state != ENEMY_STATE::STANDUP)
 		{
-			_hp = _hp - damage;
-			setState(ENEMY_STATE::HIT, _direction);
+			if (_hitType == ATTACK_TYPE::HIT1 || _hitType == ATTACK_TYPE::HIT2)
+			{
+				_hp = _hp - damage;
+				setState(ENEMY_STATE::HIT, _direction);
 
-		}
-		else if (_hitType == ATTACK_TYPE::KNOCKDOWN)
-		{
-			_hp = _hp - damage;
-			_gravity = -16.0f;
-			setState(ENEMY_STATE::KNOCKDOWN, _direction);
+			}
+			else if (_hitType == ATTACK_TYPE::KNOCKDOWN)
+			{
+				_hp = _hp - damage;
+				_gravity = -16.0f;
+				setState(ENEMY_STATE::KNOCKDOWN, _direction);
 
+			}
+			else if (_hitType == ATTACK_TYPE::STUN)
+			{
+				setState(ENEMY_STATE::STUN, _direction);
+			}
 		}
-		else if (_hitType == ATTACK_TYPE::STUN)
-		{
-			setState(ENEMY_STATE::STUN, _direction);
-		}
+		
 	}
 }
 

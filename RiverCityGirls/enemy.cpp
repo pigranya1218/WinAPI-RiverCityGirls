@@ -45,12 +45,16 @@ bool Enemy::getHit(Vector3 pos, Vector3 size, OBJECT_TEAM team, FloatRect attack
 
 bool Enemy::enemyAttack(Vector3 pos, Vector3 size, OBJECT_TEAM team, FloatRect attackRc, float damage, ATTACK_TYPE type)
 {
+	
 	return _enemyManager->enemyAttack(pos, size, team, attackRc, damage, type);
+	
+	
 }
 
 void Enemy::hitEffect(Vector3 pos, Vector3 size, OBJECT_TEAM team, FloatRect attackRc, float damage, ATTACK_TYPE type)
 {
-
+	
+	
 }
 
 void Enemy::setDirectionToPlayer()
