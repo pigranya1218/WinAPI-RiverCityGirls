@@ -155,7 +155,7 @@ PlayerState * getHitState::update(Player & player)
 		{
 			int stunPer = RANDOM->getInt(100);
 
-			if (stunPer < 50)
+			if (stunPer < 20)
 			{
 				_getHitState = GET_HIT_STATE::STUN;
 				setGetHitAni(player);
@@ -214,6 +214,7 @@ void getHitState::render(Player & player)
 
 }
 
+//각 맞는 타입에 따른 애니메이션 세팅 함수
 void getHitState::setGetHitAni(Player& player)
 {
 	switch (_getHitState)
@@ -301,7 +302,7 @@ void getHitState::setGetHitAni(Player& player)
 		_img = IMAGE_MANAGER->findImage("Kyoko_gameover");
 		_ani = new Animation;
 		_ani->init(_img->getWidth(), _img->getHeight(), _img->getMaxFrameX(), _img->getMaxFrameY());
-		_ani->setFPS(15);
+		_ani->setFPS(10);
 		if (player.getDirection() == DIRECTION::RIGHT)
 		{
 			_ani->setPlayFrame(0, 26, false, false); //
