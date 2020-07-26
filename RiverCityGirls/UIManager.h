@@ -277,7 +277,7 @@ struct tagHeartInfo
 
 			heartRc = rectMakePivot(playerPos, Vector2(img->getWidth() * scale, img->getHeight() * scale), Pivot::Center);
 
-			if(scale > 0) scale -= 0.01f;
+			if(scale > 0) scale -= 0.02f;
 			else
 			{
 				isLoading = true;
@@ -334,7 +334,7 @@ struct tagHeartInfo
 
 			if (isLoading)
 			{
-				loading->frameRender(Vector2(WINSIZEX - loading->getFrameSize().x / 2, WINSIZEY - loading->getFrameSize().y / 2), curFrame, 0);
+				loading->frameRender(Vector2(WINSIZEX - loading->getFrameSize().x / 2 - 20, WINSIZEY - loading->getFrameSize().y / 2 - 20), curFrame, 0);
 			}
 		}
 	}
