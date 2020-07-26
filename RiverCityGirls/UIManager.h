@@ -728,8 +728,8 @@ public:
 	// ¹® ¼¼ÆÃ
 	void setDoor(vector<tagDoorInfo> doors);
 
-	void setHart(bool active)	{ _heart.active = active; }
-	bool getHart() { return _heart.active; }
+	void setHeart(bool active)	{ _heart.active = active; }
+	bool getHeart() { return _heart.active; }
 
 	void setShopUI(bool active) { _shop.active = active; }
 	bool getShopUI()			{ return _shop.active; }

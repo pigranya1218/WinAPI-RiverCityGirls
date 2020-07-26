@@ -23,8 +23,6 @@ HRESULT StageScene::init()
 
 	// UI 테스트입니다
 	_uiManager->setPlayerHpActive(true);
-	_uiManager->setHart(true);
-	
 
 	return S_OK;
 }
@@ -42,14 +40,7 @@ void StageScene::update()
 	EFFECT_MANAGER->update();
 	
 	_uiManager->update();
-	_dgManager->update();	
-
-	if (KEY_MANAGER->isOnceKeyDown(VK_LBUTTON))
-	{
-		EFFECT_MANAGER->play("effect_5", _ptMouse.x, _ptMouse.y);
-	}
-
-	EFFECT_MANAGER->update();
+	_dgManager->update();		
 }
 
 void StageScene::render()
@@ -61,6 +52,4 @@ void StageScene::render()
 
 	_uiManager->render();
 	_dgManager->render();	
-
-	EFFECT_MANAGER->render();
 }
