@@ -155,7 +155,7 @@ PlayerState * getHitState::update(Player & player)
 		{
 			int stunPer = RANDOM->getInt(100);
 
-			if (stunPer < 50)
+			if (stunPer < 20)
 			{
 				_getHitState = GET_HIT_STATE::STUN;
 				setGetHitAni(player);
@@ -212,6 +212,7 @@ void getHitState::render(Player & player)
 	CAMERA_MANAGER->aniRenderZ(_img, position, player.getSize(), _ani);
 }
 
+//각 맞는 타입에 따른 애니메이션 세팅 함수
 void getHitState::setGetHitAni(Player& player)
 {
 	switch (_getHitState)
