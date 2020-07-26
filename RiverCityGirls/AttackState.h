@@ -27,7 +27,11 @@ private:
 	FloatRect _viewRc;
 	float _initTime;
 	float _lastPlayerY;
+	bool _isCombo;
+	bool _isStep;
 
+	int num2;
+	int num3;
 public:
 	virtual void enter(Player&player);
 	virtual PlayerState* update(Player& player);

@@ -425,9 +425,7 @@ void SchoolGirl::update()
 void SchoolGirl::render()
 {	
 
-	char str[255];
-	sprintf_s(str, "[스쿨걸] hitcount : %f", _hitCount);
-	TextOut(_hdc, 500, 20, str, strlen(str));
+	
 
 	//좌우에 따른 애니메이션 프레임 및 루프 조정
 	switch (_state)
@@ -620,33 +618,36 @@ void SchoolGirl::render()
 
 bool SchoolGirl::hitEffect(Vector3 pos, Vector3 size, OBJECT_TEAM team, FloatRect attackRc, float damage, ATTACK_TYPE type)
 {
-
-	
-	_hitType = type;
-	if (_state != ENEMY_STATE::HIT && _state != ENEMY_STATE::KNOCKDOWN && _state != ENEMY_STATE::STANDUP)
-	{		
-		if (_hitType == ATTACK_TYPE::HIT1 || _hitType == ATTACK_TYPE::HIT2)
+	if (_state == ENEMY_STATE::KNOCKDOWN || _state == ENEMY_STATE::STANDUP) {
+		return false;
+	}
+	if (_state != ENEMY_STATE::KNOCKDOWN || _state != ENEMY_STATE::STANDUP ) {
+		_hitType = type;
+		if (_state != ENEMY_STATE::HIT && _state != ENEMY_STATE::KNOCKDOWN && _state != ENEMY_STATE::STANDUP)
 		{
-			
-			_hp = _hp - damage;
-			  setState(ENEMY_STATE::HIT, _direction);			  
+			if (_hitType == ATTACK_TYPE::HIT1 || _hitType == ATTACK_TYPE::HIT2)
+			{
 
-		}
-		else if (_hitType == ATTACK_TYPE::KNOCKDOWN)
-		{			
-			_hp = _hp -damage;
-			 _gravity = -16.0f;
-			 setState(ENEMY_STATE::KNOCKDOWN, _direction);
-			 
-			
-		}
-		else if (_hitType == ATTACK_TYPE::STUN)
-		{
-			setState(ENEMY_STATE::STUN, _direction);
+				_hp = _hp - damage;
+				setState(ENEMY_STATE::HIT, _direction);
+
+			}
+			else if (_hitType == ATTACK_TYPE::KNOCKDOWN)
+			{
+				_hp = _hp - damage;
+				_gravity = -16.0f;
+				setState(ENEMY_STATE::KNOCKDOWN, _direction);
+
+
+			}
+			else if (_hitType == ATTACK_TYPE::STUN)
+			{
+				setState(ENEMY_STATE::STUN, _direction);
+			}
 		}
 		return true;
 	}
-	return false;
+	
 }
 
 void SchoolGirl::setState(ENEMY_STATE state, DIRECTION direction)
@@ -732,10 +733,10 @@ void SchoolGirl::setState(ENEMY_STATE state, DIRECTION direction)
 
 		char soundNameNum[128];
 		sprintf_s(soundNameNum, "SchoolGirl_Attack%d", i);
-		/*SOUND_MANAGER->stop("SchoolGirl_Attack");
+		SOUND_MANAGER->stop("SchoolGirl_Attack1");
 		SOUND_MANAGER->stop("SchoolGirl_Attack2");
 		SOUND_MANAGER->stop("SchoolGirl_Attack3");
-		SOUND_MANAGER->play(soundNameNum, 0.7f);*/
+		SOUND_MANAGER->play(soundNameNum, 0.7f);
 	}
 	break;
 	case ENEMY_STATE::DASHATTACK:
@@ -768,6 +769,9 @@ void SchoolGirl::setState(ENEMY_STATE state, DIRECTION direction)
 			_enemyImg->getMaxFrameX(), _enemyImg->getMaxFrameY());
 		_ani->setFPS(8);
 		_ani->start();
+
+		SOUND_MANAGER->stop("SchoolGirl_GetHit3");
+		SOUND_MANAGER->play("SchoolGirl_GetHit3", 0.7f);
 	}
 	break;
 	case ENEMY_STATE::STUN:
@@ -798,6 +802,8 @@ void SchoolGirl::setState(ENEMY_STATE state, DIRECTION direction)
 			_enemyImg->getMaxFrameX(), _enemyImg->getMaxFrameY());
 		_ani->setFPS(15);
 		_ani->start();
+		SOUND_MANAGER->stop("SchoolGirl_GetHit2");
+		SOUND_MANAGER->play("SchoolGirl_GetHit2", 0.7f);
 	}
 	break;
 	case ENEMY_STATE::STANDUP:
@@ -819,6 +825,8 @@ void SchoolGirl::setState(ENEMY_STATE state, DIRECTION direction)
 			_enemyImg->getMaxFrameX(), _enemyImg->getMaxFrameY());
 		_ani->setFPS(10);
 		_ani->start();
+		SOUND_MANAGER->stop("SchoolGirl_tornado");
+		SOUND_MANAGER->play("SchoolGirl_tornado", 0.7f);
 	}
 	break;
 	}

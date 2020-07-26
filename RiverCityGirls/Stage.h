@@ -56,6 +56,7 @@ public:
 	void startDialogue(BossChapter chapter);
 	bool isDialoging();
 	void setHeart(bool isVisible);
+	void spawnMoney(Vector3 pos);
 
 	float getCenterBottom(Vector3 pos);
 	Vector3 getPlayerPosition();

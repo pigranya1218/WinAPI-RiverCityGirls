@@ -52,6 +52,9 @@ PlayerState * getHitState::update(Player & player)
 
 		if (player.getHp() <= 0)
 		{
+			int num = RANDOM->getFromIntTo(1, 3);
+			SOUND_MANAGER->stop("KYOKO_GameOver" + to_string(num));
+			SOUND_MANAGER->play("KYOKO_GameOver" + to_string(num), 1.0f);
 			_getHitState = GET_HIT_STATE::GAME_OVER;
 			setGetHitAni(player);
 		}
@@ -81,6 +84,9 @@ PlayerState * getHitState::update(Player & player)
 		
 		if (player.getHp() <= 0)
 		{
+			int num = RANDOM->getFromIntTo(1, 3);
+			SOUND_MANAGER->stop("KYOKO_GameOver" + to_string(num));
+			SOUND_MANAGER->play("KYOKO_GameOver" + to_string(num), 1.0f);
 			_getHitState = GET_HIT_STATE::GAME_OVER;
 			setGetHitAni(player);
 		}
@@ -119,6 +125,9 @@ PlayerState * getHitState::update(Player & player)
 			{
 				if (player.getHp() <= 0)
 				{
+					int num = RANDOM->getFromIntTo(1, 3);
+					SOUND_MANAGER->stop("KYOKO_GameOver" + to_string(num));
+					SOUND_MANAGER->play("KYOKO_GameOver" + to_string(num), 1.0f);
 					_getHitState = GET_HIT_STATE::GAME_OVER;
 					setGetHitAni(player);
 				}
@@ -146,7 +155,7 @@ PlayerState * getHitState::update(Player & player)
 		{
 			int stunPer = RANDOM->getInt(100);
 
-			if (stunPer < 10)
+			if (stunPer < 50)
 			{
 				_getHitState = GET_HIT_STATE::STUN;
 				setGetHitAni(player);
@@ -165,7 +174,12 @@ PlayerState * getHitState::update(Player & player)
 		}
 		break;
 	case GET_HIT_STATE::GAME_OVER:
-
+		
+		
+		if (!_ani->isPlay())
+		{
+			player.gameOver();
+		}
 		break;
 
 	}
@@ -196,6 +210,8 @@ void getHitState::render(Player & player)
 	}
 	_img->setScale(3);
 	CAMERA_MANAGER->aniRenderZ(_img, position, player.getSize(), _ani);
+	CAMERA_MANAGER->drawShadowZ(player.getPosition(), Vector3(120.0, player.getSize().y, 25.0), -(player.getPosition().y + (player.getSize().y / 2)));
+
 }
 
 void getHitState::setGetHitAni(Player& player)
@@ -278,7 +294,10 @@ void getHitState::setGetHitAni(Player& player)
 		_ani->start();
 		player.setIsHit(false);
 		break;
+
 	case GET_HIT_STATE::GAME_OVER:
+		
+		
 		_img = IMAGE_MANAGER->findImage("Kyoko_gameover");
 		_ani = new Animation;
 		_ani->init(_img->getWidth(), _img->getHeight(), _img->getMaxFrameX(), _img->getMaxFrameY());

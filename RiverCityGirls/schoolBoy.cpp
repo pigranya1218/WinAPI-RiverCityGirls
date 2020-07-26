@@ -86,8 +86,10 @@ void SchoolBoy::update()
 		moveDir.y += _gravity;
 
 		float lastY = _position.y;
+		float lastX = _position.x;
 		_enemyManager->moveEnemy(this, moveDir);
 		float currY = _position.y;
+		float currX = _position.x;
 
 		if (lastY != currY) // 떨어짐
 		{
@@ -96,19 +98,24 @@ void SchoolBoy::update()
 		else
 		{
 			_gravity = 0;
-			if (distanceFromPlayer <= 200 && _elapsedTime > 1) // 모래 뿌리기
-			{
-				setState(ENEMY_STATE::SKILL, _direction);
-			}
 			if (distanceFromPlayer <= 100) // 근접 시 공격
 			{
 				setState(ENEMY_STATE::ATTACK, _direction);
+				if (_state != ENEMY_STATE::ATTACK && _hitType == ATTACK_TYPE::HIT1)
+				{
+					setState(ENEMY_STATE::GUARD, _direction);
+				}
 			}
-			else if (_elapsedTime >= 5) // 오랜 쫓음으로 인해 한번 점프해본다
+			else if (_elapsedTime >= 5)
 			{
-				setState(ENEMY_STATE::JUMP, _direction);
+				setState(ENEMY_STATE::SKILL, _direction);
 				_gravity = -22;
 			}
+		}
+		if (_state == ENEMY_STATE::WALK && lastX == currX)
+		{
+
+			setState(ENEMY_STATE::RETURN, _direction);
 		}
 	}
 	break;
@@ -125,8 +132,10 @@ void SchoolBoy::update()
 		moveDir.y += _gravity;
 
 		float lastY = _position.y;
+		float lastX = _position.x;
 		_enemyManager->moveEnemy(this, moveDir);
 		float currY = _position.y;
+		float currX = _position.x;
 
 		if (lastY != currY) // 떨어짐
 		{
@@ -135,9 +144,6 @@ void SchoolBoy::update()
 		else
 		{
 			_gravity = 0;
-			//오브젝트 사이에 충돌
-			
-
 			if (distanceFromPlayer <= 100) // 근접 시 공격
 			{
 				setState(ENEMY_STATE::DASHATTACK, _direction);
@@ -147,6 +153,11 @@ void SchoolBoy::update()
 				setState(ENEMY_STATE::JUMP, _direction);
 				_gravity = -26;
 			}
+		}
+		if (_state == ENEMY_STATE::RUN && lastX == currX)
+		{
+
+			setState(ENEMY_STATE::RETURN, _direction);
 		}
 	}
 	break;
@@ -343,9 +354,8 @@ void SchoolBoy::update()
 	case ENEMY_STATE::KNOCKDOWN: // 쓰러지는 경직
 	{
 		_gravity += 1;
-		if (_gravity != 1)
-		{
-			moveDir.x += (_direction == DIRECTION::RIGHT) ? -2 : 2;
+		if (_hp > 0 && _ani->isPlay() && _elapsedTime <1) {
+			moveDir.x += (_direction == DIRECTION::RIGHT) ? -1 : 1;
 		}
 		moveDir.y += _gravity;
 
@@ -476,14 +486,7 @@ void SchoolBoy::render()
 		CAMERA_MANAGER->drawLine(Vector2(_position.x, _position.z), Vector2(_position.x, _position.z + _position.y));
 		CAMERA_MANAGER->rectangle(rc, D2D1::ColorF::Enum::Red, 1, 1);
 		CAMERA_MANAGER->rectangle(_viewRc, D2D1::ColorF::Enum::Magenta, 1, 1);
-
-		//test
-		char str[255];
-		sprintf_s(str, "[스쿨보이] state : %d, jumpPower : %d, gravity : %d", (int)_state, _jumpPower, _gravity);
-		TextOut(_hdc, 500, 0, str, strlen(str));
-
-		sprintf_s(str, "[스쿨보이] elapsedTime : %f, hitCount : %f, attackCount : %d", _elapsedTime, _hitCount, _attackCount);
-		TextOut(_hdc, 500, 20, str, strlen(str));
+		
 	}
 
 	_enemyImg->setScale(3.f);
@@ -603,7 +606,9 @@ void SchoolBoy::render()
 //피격
 bool SchoolBoy::hitEffect(Vector3 pos, Vector3 size, OBJECT_TEAM team, FloatRect attackRc, float damage, ATTACK_TYPE type)
 {
-
+	if (_state == ENEMY_STATE::KNOCKDOWN || _state == ENEMY_STATE::STANDUP) {
+		return false;
+	}
 	_hitType = type;
 	if (_state != ENEMY_STATE::HIT && _state != ENEMY_STATE::KNOCKDOWN && _state != ENEMY_STATE::STANDUP)
 	{
@@ -623,9 +628,9 @@ bool SchoolBoy::hitEffect(Vector3 pos, Vector3 size, OBJECT_TEAM team, FloatRect
 			_hp -= damage;
 			setState(ENEMY_STATE::STUN, _direction);
 		}
-		return true;
 	}
-	return false;
+	
+	return true;
 }
 
 
@@ -657,6 +662,16 @@ void SchoolBoy::setState(ENEMY_STATE state, DIRECTION direction)
 		_ani->start();
 	}
 	break;
+	case ENEMY_STATE::RETURN:
+	{
+		_enemyImg = IMAGE_MANAGER->findImage("schoolboy_walk");
+		_ani->init(_enemyImg->getWidth(), _enemyImg->getHeight(),
+			_enemyImg->getMaxFrameX(), _enemyImg->getMaxFrameY());
+
+		_ani->setFPS(10);
+		_ani->start();
+	}
+	break;
 	case ENEMY_STATE::RUN:
 	{
 		_enemyImg = IMAGE_MANAGER->findImage("schoolboy_run");
@@ -677,6 +692,7 @@ void SchoolBoy::setState(ENEMY_STATE state, DIRECTION direction)
 	break;
 	case ENEMY_STATE::ATTACK:
 	{
+		SOUND_MANAGER->stop("SchoolBoy_Attack");
 		SOUND_MANAGER->play("SchoolBoy_Attack", 1.f);
 		int i = RANDOM->getFromIntTo(1, 4);
 		if (i == 3)
@@ -701,10 +717,14 @@ void SchoolBoy::setState(ENEMY_STATE state, DIRECTION direction)
 			_enemyImg->getMaxFrameX(), _enemyImg->getMaxFrameY());
 		_ani->setFPS(10);
 		_ani->start();
+
+		SOUND_MANAGER->stop("SchoolBoy_Attack");
+		SOUND_MANAGER->play("SchoolBoy_Attack", 0.7f);
 	}
 	break;
 	case ENEMY_STATE::DASHATTACK:
 	{
+		SOUND_MANAGER->stop("SchoolBoy_Attack");
 		SOUND_MANAGER->play("SchoolBoy_Attack", 1.f);
 		_attackS = 2;
 		_enemyImg = IMAGE_MANAGER->findImage("schoolboy_runAttack");
@@ -712,10 +732,13 @@ void SchoolBoy::setState(ENEMY_STATE state, DIRECTION direction)
 			_enemyImg->getMaxFrameX(), _enemyImg->getMaxFrameY());
 		_ani->setFPS(10);
 		_ani->start();
+		SOUND_MANAGER->stop("SchoolBoy_Attack");
+		SOUND_MANAGER->play("SchoolBoy_Attack", 0.7f);
 	}
 	break;
 	case ENEMY_STATE::JUMPATTACK:
 	{
+		SOUND_MANAGER->stop("SchoolBoy_Attack");
 		SOUND_MANAGER->play("SchoolBoy_Attack", 1.f);
 		_attackS = 2;
 		_enemyImg = IMAGE_MANAGER->findImage("schoolboy_jumpAttack");
@@ -723,6 +746,8 @@ void SchoolBoy::setState(ENEMY_STATE state, DIRECTION direction)
 			_enemyImg->getMaxFrameX(), _enemyImg->getMaxFrameY());
 		_ani->setFPS(10);
 		_ani->start();
+		SOUND_MANAGER->stop("SchoolBoy_Attack");
+		SOUND_MANAGER->play("SchoolBoy_Attack", 0.7f);
 	}
 	break;
 	case ENEMY_STATE::GUARD:
@@ -738,6 +763,7 @@ void SchoolBoy::setState(ENEMY_STATE state, DIRECTION direction)
 	{
 		if (_hitType == ATTACK_TYPE::HIT1)
 		{
+			SOUND_MANAGER->stop("SchoolBoy_GetHit");
 			SOUND_MANAGER->play("SchoolBoy_GetHit", 1.f);
 		}
 		else if (_hitType == ATTACK_TYPE::HIT2)
@@ -745,6 +771,7 @@ void SchoolBoy::setState(ENEMY_STATE state, DIRECTION direction)
 			int playRate = RANDOM->getFromIntTo(3, 5);
 			char str[128];
 			sprintf_s(str, "SchoolBoy_GetHit%d", playRate);
+			SOUND_MANAGER->stop(str);
 			SOUND_MANAGER->play(str, 1.f);
 		}
 		_enemyImg = IMAGE_MANAGER->findImage("schoolboy_getHit");
@@ -752,6 +779,8 @@ void SchoolBoy::setState(ENEMY_STATE state, DIRECTION direction)
 			_enemyImg->getMaxFrameX(), _enemyImg->getMaxFrameY());
 		_ani->setFPS(7);
 		_ani->start();
+		SOUND_MANAGER->stop("SchoolBoy_GetHit4");
+		SOUND_MANAGER->play("SchoolBoy_GetHit4", 0.7f);
 	}
 	break;
 	case ENEMY_STATE::STUN:
@@ -765,6 +794,7 @@ void SchoolBoy::setState(ENEMY_STATE state, DIRECTION direction)
 	break;
 	case ENEMY_STATE::KNOCKDOWN:
 	{
+		SOUND_MANAGER->stop("SchoolBoy_GetHit2");
 		SOUND_MANAGER->play("SchoolBoy_GetHit2", 1.f);	
 		_enemyImg = IMAGE_MANAGER->findImage("schoolboy_knockDown");
 		_ani->init(_enemyImg->getWidth(), _enemyImg->getHeight(),
@@ -773,6 +803,8 @@ void SchoolBoy::setState(ENEMY_STATE state, DIRECTION direction)
 		//else _ani->setPlayFrame(_enemyImg->getMaxFrameX(), 57, false, false);
 		_ani->setFPS(10);
 		_ani->start();
+		SOUND_MANAGER->stop("SchoolBoy_GetHit3");
+		SOUND_MANAGER->play("SchoolBoy_GetHit3", 0.7f);
 	}
 	break;
 	case ENEMY_STATE::STANDUP:
@@ -788,6 +820,7 @@ void SchoolBoy::setState(ENEMY_STATE state, DIRECTION direction)
 	break;
 	case ENEMY_STATE::SKILL:
 	{
+		SOUND_MANAGER->stop("SchoolBoy_SandToss");
 		SOUND_MANAGER->play("SchoolBoy_SandToss", 1.f);
 		_attackS = 5;
 		_enemyImg = IMAGE_MANAGER->findImage("schoolboy_skill");
@@ -795,6 +828,9 @@ void SchoolBoy::setState(ENEMY_STATE state, DIRECTION direction)
 			_enemyImg->getMaxFrameX(), _enemyImg->getMaxFrameY());
 		_ani->setFPS(10);
 		_ani->start();
+
+		SOUND_MANAGER->stop("SchoolBoy_SandToss");
+		SOUND_MANAGER->play("SchoolBoy_SandToss", 0.7f);
 	}
 	break;
 	case ENEMY_STATE::HELD:

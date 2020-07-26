@@ -67,6 +67,12 @@ HRESULT playGround::init()
 	IMAGE_MANAGER->addImage("OBJECT_FOOD_APPLE",					L"resources/images/object/RCG_Consumables_apple.png");
 	IMAGE_MANAGER->addImage("OBJECT_FOOD_CHILI",					L"resources/images/object/RCG_Consumables_chili.png");
 	IMAGE_MANAGER->addImage("OBJECT_FOOD_CHIKEN",					L"resources/images/object/RCG_Consumables_hen.png");
+	// ** MONEY
+	IMAGE_MANAGER->addFrameImage("OBJECT_MOVE_COIN_SILVER",			L"resources/images/object/money/fx_coin_anim_silver.png", 4, 4);
+	IMAGE_MANAGER->addFrameImage("OBJECT_MOVE_COIN_GOLD",			L"resources/images/object/money/fx_gold_coin_spin.png", 4, 4);
+	IMAGE_MANAGER->addFrameImage("OBJECT_MOVE_MONEY_BLUE",			L"resources/images/object/money/fx_money_blue_4x4.png", 4, 4);
+	IMAGE_MANAGER->addFrameImage("OBJECT_MOVE_MONEY_GREEN",			L"resources/images/object/money/fx_money_green_4x4.png", 4, 4);
+	IMAGE_MANAGER->addFrameImage("OBJECT_MOVE_MONEY_PURPLE",		L"resources/images/object/money/fx_money_purple_4x4.png", 4, 4);
 	// ** SNACKMACHINE
 	IMAGE_MANAGER->addImage("OBJECT_SNACKMACHINE_RIGHT",			L"resources/images/object/cafeteria_snackmachine_right.png");
 	IMAGE_MANAGER->addImage("OBJECT_SNACKMACHINE_RIGHT_BROKEN",		L"resources/images/object/cafeteria_snackmachine_right_broken.png");
@@ -199,10 +205,8 @@ HRESULT playGround::init()
 	IMAGE_MANAGER->addFrameImage("cheergirl_heldRelease", L"resources/images/characters/enemy_cheergirl/grab_release.png", 4, 2);
 	IMAGE_MANAGER->addFrameImage("cheergirl_groundUp", L"resources/images/characters/enemy_cheergirl/groundup.png", 11, 2);
 	IMAGE_MANAGER->addFrameImage("cheergirl_stun", L"resources/images/characters/enemy_cheergirl/stun.png", 5, 2);
-	IMAGE_MANAGER->addFrameImage("cheergirl_walk", L"resources/images/characters/enemy_cheergirl/walk.png", 12, 2);
-	IMAGE_MANAGER->addFrameImage("cheergirl_jumpAttack1", L"resources/images/characters/enemy_cheergirl/divekick_start.png", 6, 2);
-	IMAGE_MANAGER->addFrameImage("cheergirl_jumpAttack2", L"resources/images/characters/enemy_cheergirl/divekick_middle.png", 7, 2);
-	IMAGE_MANAGER->addFrameImage("cheergirl_jumpAttack3", L"resources/images/characters/enemy_cheergirl/divekick.png", 26, 2);
+	IMAGE_MANAGER->addFrameImage("cheergirl_walk", L"resources/images/characters/enemy_cheergirl/walk.png", 12, 2);	
+	IMAGE_MANAGER->addFrameImage("cheergirl_jumpAttack", L"resources/images/characters/enemy_cheergirl/divekick.png", 13, 2);
 	//보스
 	IMAGE_MANAGER->addFrameImage("boss_block", L"resources/images/characters/boss_misuzu/Misuzu_block.png", 4, 2);
 	IMAGE_MANAGER->addFrameImage("boss_walk", L"resources/images/characters/boss_misuzu/MizusuWalk.png", 10, 2);
@@ -226,6 +230,7 @@ HRESULT playGround::init()
 	IMAGE_MANAGER->addFrameImage("boss_tackle_init", L"resources/images/characters/boss_misuzu/RCG_Misuzu_tackle_initial.png", 5, 2);
 	IMAGE_MANAGER->addFrameImage("boss_tackle_loop", L"resources/images/characters/boss_misuzu/RCG_Misuzu_tackle_loop.png", 11, 2);
 	IMAGE_MANAGER->addFrameImage("boss_electric", L"resources/images/characters/boss_misuzu/electric.png", 2, 2);
+	IMAGE_MANAGER->addFrameImage("boss_groundbreak", L"resources/images/characters/boss_misuzu/groundbreak.png", 1, 1);
 
 
 	// * 스테이지
@@ -297,12 +302,14 @@ HRESULT playGround::init()
 	SOUND_MANAGER->addSound("UI_confirm",					"resources/sound/UISound/confirm.mp3", false, false);
 	SOUND_MANAGER->addSound("UI_PhoneMenu",					"resources/sound/UISound/PhoneMenu.mp3", false, false);
 	SOUND_MANAGER->addSound("UI_scroll",					"resources/sound/UISound/scroll.mp3", false, false);
+	
 	// * Stage_Sound
 	SOUND_MANAGER->addSound("STAGE_getEXP",					"resources/sound/stageSound/getEXP.mp3", false, false);
 	SOUND_MANAGER->addSound("STAGE_getMoney",				"resources/sound/stageSound/getMoney.mp3", false, false);
-	SOUND_MANAGER->addSound("STAGE_HitSound",				"resources/sound/stageSound/HitSound.mp3", false, false);
+	SOUND_MANAGER->addSound("STAGE_HitSound1",				"resources/sound/stageSound/HitSound.mp3", false, false);
 	SOUND_MANAGER->addSound("STAGE_HitSound2",				"resources/sound/stageSound/HitSound2.mp3", false, false);
 	SOUND_MANAGER->addSound("STAGE_HitSound3",				"resources/sound/stageSound/HitSound3.mp3", false, false);
+	SOUND_MANAGER->addSound("GameOver",                     "resources/sound/stageSound/gameOver.mp3", false, false);
 	// * Kyoko
 	
 	SOUND_MANAGER->addSound("KYOKO_BackElbow1",				"resources/sound/stageSound/Kyoko/KyokoBackElbow.mp3", false, false);
@@ -313,8 +320,9 @@ HRESULT playGround::init()
 	SOUND_MANAGER->addSound("KYOKO_Combo",					"resources/sound/stageSound/Kyoko/KyokoCombo3.mp3", false, false);
 	SOUND_MANAGER->addSound("KYOKO_Dive1",					"resources/sound/stageSound/Kyoko/KyokoDive.mp3", false, false);
 	SOUND_MANAGER->addSound("KYOKO_Dive2",					"resources/sound/stageSound/Kyoko/KyokoDive2.mp3", false, false);
-	SOUND_MANAGER->addSound("KYOKO_GameOver",				"resources/sound/stageSound/Kyoko/KyokoGameOver.mp3", false, true);
-	SOUND_MANAGER->addSound("KYOKO_GetHit1",					"resources/sound/stageSound/Kyoko/KyokoGetHit.mp3", false, false);
+	SOUND_MANAGER->addSound("KYOKO_GameOver1",               "resources/sound/stageSound/Kyoko/KyokoGameOver1.mp3", false, false);
+	SOUND_MANAGER->addSound("KYOKO_GameOver2",               "resources/sound/stageSound/Kyoko/KyokoGameOver2.mp3", false, false);
+	SOUND_MANAGER->addSound("KYOKO_GetHit1",				"resources/sound/stageSound/Kyoko/KyokoGetHit.mp3", false, false);
 	SOUND_MANAGER->addSound("KYOKO_GetHit2",				"resources/sound/stageSound/Kyoko/KyokoGetHit2.mp3", false, false);
 	SOUND_MANAGER->addSound("KYOKO_Grab",					"resources/sound/stageSound/Kyoko/KyoKoGrab.mp3", false, false);
 	SOUND_MANAGER->addSound("KYOKO_GrabHit1",				"resources/sound/stageSound/Kyoko/KyokoGrabHit.mp3", false, false);
@@ -323,6 +331,7 @@ HRESULT playGround::init()
 	SOUND_MANAGER->addSound("KYOKO_HeavyAtkKick",			"resources/sound/stageSound/Kyoko/KyokoHeavyAtkKick.mp3", false, false);
 	SOUND_MANAGER->addSound("KYOKO_HipAttack1",				"resources/sound/stageSound/Kyoko/KyokoHipAttack.mp3", false, false);
 	SOUND_MANAGER->addSound("KYOKO_HipAttack2",	            "resources/sound/stageSound/Kyoko/KyokoHipAttackWithoutVoice.mp3", false, false);
+	SOUND_MANAGER->addSound("KYOKO_Jump",					"resources/sound/stageSound/Kyoko/KyokoJump.mp3", false, false);
 	SOUND_MANAGER->addSound("KYOKO_JumpKick",				"resources/sound/stageSound/Kyoko/KyokoJumpKick.mp3", false, false);
 	SOUND_MANAGER->addSound("KYOKO_LevelUP",				"resources/sound/stageSound/Kyoko/KyokoLevelUP.mp3", false, false);
 	SOUND_MANAGER->addSound("KYOKO_Run",					"resources/sound/stageSound/Kyoko/KyokoRun.mp3", false, true);
@@ -348,11 +357,11 @@ HRESULT playGround::init()
 	SOUND_MANAGER->addSound("BOSS_Voice_Elbow2",			"resources/sound/stageSound/Boss/voice/BossElbow2.mp3", false, false);
 	SOUND_MANAGER->addSound("BOSS_Voice_GetHit",			"resources/sound/stageSound/Boss/voice/BossGetHit.mp3", false, false);
 	SOUND_MANAGER->addSound("BOSS_Voice_GroundShotGun",		"resources/sound/stageSound/Boss/voice/BossGroundShotGun.mp3", false, false);
-	SOUND_MANAGER->addSound("BOSS_Voice_Laugh",				"resources/sound/stageSound/Boss/voice/BossLaugh.mp3", false, false);
+	SOUND_MANAGER->addSound("BOSS_Voice_Laugh1",			"resources/sound/stageSound/Boss/voice/BossLaugh.mp3", false, false);
 	SOUND_MANAGER->addSound("BOSS_Voice_Laugh2",			"resources/sound/stageSound/Boss/voice/BossLaugh2.mp3", false, false);
 	SOUND_MANAGER->addSound("BOSS_Voice_Scream",			"resources/sound/stageSound/Boss/voice/BossScream.mp3", false, true);
 	// * CheerLeader
-	SOUND_MANAGER->addSound("CheerLeader_Attack",			"resources/sound/stageSound/cheerLeader/cheerAttack.mp3", false, false);
+	SOUND_MANAGER->addSound("CheerLeader_Attack1",			"resources/sound/stageSound/cheerLeader/cheerAttack.mp3", false, false);
 	SOUND_MANAGER->addSound("CheerLeader_Attack2",			"resources/sound/stageSound/cheerLeader/cheerAttack2.mp3", false, false);
 	SOUND_MANAGER->addSound("CheerLeader_Attack3",			"resources/sound/stageSound/cheerLeader/cheerAttack3.mp3", false, false);
 	SOUND_MANAGER->addSound("CheerLeader_Begging",			"resources/sound/stageSound/cheerLeader/cheerBegging.mp3", false, true);
@@ -362,13 +371,13 @@ HRESULT playGround::init()
 	// * SchoolBoy
 	SOUND_MANAGER->addSound("SchoolBoy_Attack",				"resources/sound/stageSound/SchoolBoy/schoolBoyAttack.mp3", false, false);
 	SOUND_MANAGER->addSound("SchoolBoy_Begging",			"resources/sound/stageSound/SchoolBoy/schoolBoyBegging.mp3", false, true);
-	SOUND_MANAGER->addSound("SchoolBoy_GetHit",				"resources/sound/stageSound/SchoolBoy/schoolBoyGetHit.mp3", false, false);
+	SOUND_MANAGER->addSound("SchoolBoy_GetHit1",			"resources/sound/stageSound/SchoolBoy/schoolBoyGetHit.mp3", false, false);
 	SOUND_MANAGER->addSound("SchoolBoy_GetHit2",			"resources/sound/stageSound/SchoolBoy/schoolBoyGetHit2.mp3", false, false);
 	SOUND_MANAGER->addSound("SchoolBoy_GetHit3",			"resources/sound/stageSound/SchoolBoy/schoolBoyGetHit3.mp3", false, false);
 	SOUND_MANAGER->addSound("SchoolBoy_GetHit4",			"resources/sound/stageSound/SchoolBoy/schoolBoyGetHit4.mp3", false, false);
 	SOUND_MANAGER->addSound("SchoolBoy_SandToss",			"resources/sound/stageSound/SchoolBoy/schoolBoySandToss.mp3", false, false);
 	// * SchoolGirl
-	SOUND_MANAGER->addSound("SchoolGirl_Attack",			"resources/sound/stageSound/schoolGirl/SchoolGirlAttack.mp3", false, false);
+	SOUND_MANAGER->addSound("SchoolGirl_Attack1",			"resources/sound/stageSound/schoolGirl/SchoolGirlAttack.mp3", false, false);
 	SOUND_MANAGER->addSound("SchoolGirl_Attack2",			"resources/sound/stageSound/schoolGirl/SchoolGirlAttack2.mp3", false, false);
 	SOUND_MANAGER->addSound("SchoolGirl_Attack3",			"resources/sound/stageSound/schoolGirl/SchoolGirlAttack3.mp3", false, false);
 	SOUND_MANAGER->addSound("SchoolGirl_Begging",			"resources/sound/stageSound/schoolGirl/SchoolGirlBegging.mp3", false, true);
@@ -407,6 +416,7 @@ HRESULT playGround::init()
 	IMAGE_MANAGER->addFrameImage("effect_2", L"resources/images/effect/effect_2.png", 15, 1);
 	IMAGE_MANAGER->addFrameImage("effect_3", L"resources/images/effect/effect_3.png",  4, 4);
 	IMAGE_MANAGER->addFrameImage("effect_4", L"resources/images/effect/effect_4.png",  5, 3);
+	IMAGE_MANAGER->addFrameImage("effect_5", L"resources/images/effect/effect_5.png", 7, 2);
 	IMAGE_MANAGER->addFrameImage("effect_explosion", L"resources/images/effect/explosion.png",  4, 4);
 	IMAGE_MANAGER->addFrameImage("effect_guard", L"resources/images/effect/effect_guard.png",  5, 8);
 	IMAGE_MANAGER->addFrameImage("effect_spark", L"resources/images/effect/effect_spark.png", 4, 1);

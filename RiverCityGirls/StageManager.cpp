@@ -27,6 +27,7 @@ void StageManager::init()
 	_stageMap["BOSS_STAGE"] = stage_3;
 
 	_currStage = _stageMap["START_STAGE"];
+	//_currStage = _stageMap["BOSS_STAGE"];
 	_currStage->enter();
 	_player->setStartState();
 	
@@ -140,4 +141,8 @@ bool StageManager::isDialoging()
 void StageManager::setHeart(bool isVisible)
 {
 	_uiManager->setHeart(isVisible);
+}
+
+void StageManager::gameOver()
+{
 }

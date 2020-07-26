@@ -81,11 +81,12 @@ void UIManager::render()
 
 	_levelInfo.render();
 	
+	_playerInfo.render();
+
 	_heart.render();
 
-	 _shop.render();	
+	_shop.render();	
 
-	 _playerInfo.render();
 }
 
 void UIManager::setLevelUp(bool active)

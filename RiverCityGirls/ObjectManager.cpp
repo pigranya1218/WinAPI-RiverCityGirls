@@ -235,6 +235,13 @@ void ObjectManager::spawnFood(Vector3 pos)
 	_objects.push_back(food);
 }
 
+void ObjectManager::spawnMoney(Vector3 pos)
+{
+	MoneyObject* money = new MoneyObject(pos);
+	money->setObjectManager(this);
+	_objects.push_back(money);
+}
+
 void ObjectManager::isEat(Player* player)
 {
 	for (int i = 0; i < _objects.size(); i++)
