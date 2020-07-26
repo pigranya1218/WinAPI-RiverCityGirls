@@ -275,7 +275,7 @@ void CheerGirl::update()
 			}
 			_viewRc = FloatRect(_attackRc.left, _position.z + _attackRc.top,
 				_attackRc.right, _position.z + _attackRc.bottom);
-			enemyAttack(_position, _size, OBJECT_TEAM::ENEMY, _attackRc, 5, ATTACK_TYPE::HIT2);
+			enemyAttack(_position, _size, OBJECT_TEAM::ENEMY, _attackRc, 5, ATTACK_TYPE::KNOCKDOWN);
 		}
 	}
 	break;
@@ -737,6 +737,11 @@ void CheerGirl::setState(ENEMY_STATE state, DIRECTION direction)
 	break;
 	case ENEMY_STATE::ATTACK:
 	{
+		int playRate = RANDOM->getFromIntTo(2, 4);
+		char str[128];
+		sprintf_s(str, "CheerLeader_Attack%d", playRate);
+		SOUND_MANAGER->stop(str);
+		SOUND_MANAGER->play(str, 1.f);
 		_attackS = 3;		
 		_enemyImg = IMAGE_MANAGER->findImage("cheergirl_attack1");
 		_ani->init(_enemyImg->getWidth(), _enemyImg->getHeight(),
@@ -747,6 +752,8 @@ void CheerGirl::setState(ENEMY_STATE state, DIRECTION direction)
 	break;
 	case ENEMY_STATE::DASHATTACK:
 	{
+		SOUND_MANAGER->stop("CheerLeader_Attack1");
+		SOUND_MANAGER->play("CheerLeader_Attack1", 1.f);
 		_attackS = 3;		
 		_enemyImg = IMAGE_MANAGER->findImage("cheergirl_attack2");
 		_ani->init(_enemyImg->getWidth(), _enemyImg->getHeight(),
@@ -757,6 +764,8 @@ void CheerGirl::setState(ENEMY_STATE state, DIRECTION direction)
 	break;
 	case ENEMY_STATE::JUMPATTACK:
 	{
+		SOUND_MANAGER->stop("CheerLeader_JumpAtk");
+		SOUND_MANAGER->play("CheerLeader_JumpAtk", 1.f);
 		_attackS = 8;
 		_enemyImg = IMAGE_MANAGER->findImage("cheergirl_jumpAttack");
 		_ani->init(_enemyImg->getWidth(), _enemyImg->getHeight(),
@@ -768,6 +777,11 @@ void CheerGirl::setState(ENEMY_STATE state, DIRECTION direction)
 	break;
 	case ENEMY_STATE::HIT:
 	{
+		int playRate = RANDOM->getFromIntTo(2, 4);
+		char str[128];
+		sprintf_s(str, "CheerLeader_Attack%d", playRate);
+		SOUND_MANAGER->stop(str);
+		SOUND_MANAGER->play(str, 1.f);
 		_enemyImg = IMAGE_MANAGER->findImage("cheergirl_getHit");
 		_ani->init(_enemyImg->getWidth(), _enemyImg->getHeight(),
 			_enemyImg->getMaxFrameX(), _enemyImg->getMaxFrameY());

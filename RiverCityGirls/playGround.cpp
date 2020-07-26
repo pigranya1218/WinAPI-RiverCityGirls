@@ -302,6 +302,7 @@ HRESULT playGround::init()
 	SOUND_MANAGER->addSound("UI_confirm",					"resources/sound/UISound/confirm.mp3", false, false);
 	SOUND_MANAGER->addSound("UI_PhoneMenu",					"resources/sound/UISound/PhoneMenu.mp3", false, false);
 	SOUND_MANAGER->addSound("UI_scroll",					"resources/sound/UISound/scroll.mp3", false, false);
+	SOUND_MANAGER->addSound("UI_lock",						"resources/sound/UISound/lock.mp3", false, false);
 	
 	// * Stage_Sound
 	SOUND_MANAGER->addSound("STAGE_getEXP",					"resources/sound/stageSound/getEXP.mp3", false, false);
@@ -331,11 +332,14 @@ HRESULT playGround::init()
 	SOUND_MANAGER->addSound("KYOKO_HeavyAtkKick",			"resources/sound/stageSound/Kyoko/KyokoHeavyAtkKick.mp3", false, false);
 	SOUND_MANAGER->addSound("KYOKO_HipAttack1",				"resources/sound/stageSound/Kyoko/KyokoHipAttack.mp3", false, false);
 	SOUND_MANAGER->addSound("KYOKO_HipAttack2",	            "resources/sound/stageSound/Kyoko/KyokoHipAttackWithoutVoice.mp3", false, false);
+	SOUND_MANAGER->addSound("KYOKO_Jump",					"resources/sound/stageSound/Kyoko/KyokoJump.mp3", false, false);
 	SOUND_MANAGER->addSound("KYOKO_JumpKick",				"resources/sound/stageSound/Kyoko/KyokoJumpKick.mp3", false, false);
 	SOUND_MANAGER->addSound("KYOKO_LevelUP",				"resources/sound/stageSound/Kyoko/KyokoLevelUP.mp3", false, false);
-	SOUND_MANAGER->addSound("KYOKO_Run",					"resources/sound/stageSound/Kyoko/KyokoRun.mp3", false, true);
+	SOUND_MANAGER->addSound("KYOKO_Run",					"resources/sound/stageSound/Kyoko/KyokoRun.mp3", false, false);
+	SOUND_MANAGER->addSound("KYOKO_Jump",                   "resources/sound/stageSound/Kyoko/KyokoJump.mp3", false, false);
 	SOUND_MANAGER->addSound("KYOKO_StageUp",				"resources/sound/stageSound/Kyoko/KyokoStageUp.mp3", false, false);
 	SOUND_MANAGER->addSound("KYOKO_StandUp",				"resources/sound/stageSound/Kyoko/KyokoStandUp.mp3", false, false);
+	
 	// * BOSS_Misuzu
 	SOUND_MANAGER->addSound("Boss_TalkingBGM",				"resources/sound/stageSound/Boss/talking.mp3", false, true);
 	SOUND_MANAGER->addSound("Boss_Speek",					"resources/sound/stageSound/Boss/bossSpeek.mp3", false, false);
@@ -419,7 +423,15 @@ HRESULT playGround::init()
 	IMAGE_MANAGER->addFrameImage("effect_explosion", L"resources/images/effect/explosion.png",  4, 4);
 	IMAGE_MANAGER->addFrameImage("effect_guard", L"resources/images/effect/effect_guard.png",  5, 8);
 	IMAGE_MANAGER->addFrameImage("effect_spark", L"resources/images/effect/effect_spark.png", 4, 1);
+	IMAGE_MANAGER->addFrameImage("effect_faseChange", L"resources/images/effect/faseChange.png", 3, 1);
+	IMAGE_MANAGER->addFrameImage("effect_standUpEffect", L"resources/images/effect/standUpEffect.png", 8, 1);
+	IMAGE_MANAGER->addFrameImage("effect_dashAttackEffect", L"resources/images/effect/dashAttackEffect.png", 7, 1);
+
+
+
 	IMAGE_MANAGER->addFrameImage("effect_eat", L"resources/images/effect/particle-effects-png.png", 8, 6);
+
+	IMAGE_MANAGER->addFrameImage("effect_stun", L"resources/images/effect/effect_stun.png", 4, 1);
 
 	// 이펙트 매니저에 등록
 	for (int i = 1; i < 5; i++)
@@ -433,7 +445,14 @@ HRESULT playGround::init()
 	EFFECT_MANAGER->addEffect("effect_explosion", "effect_explosion", 20, 10);
 	EFFECT_MANAGER->addEffect("effect_guard", "effect_guard", 50, 20);
 	EFFECT_MANAGER->addEffect("effect_spark", "effect_spark", 20, 10);
-	EFFECT_MANAGER->addEffect("effect_eat", "effect_eat", 40, 20);
+	//EFFECT_MANAGER->addEffect("effect_faseChange", "boss_faseChange", 30, 10);
+	//EFFECT_MANAGER->addEffect("effect_standUpEffect", "boss_standUpEffect", 30, 10);
+	//EFFECT_MANAGER->addEffect("effect_dashAttackEffect", "boss_dashAttackEffect", 30, 10);
+	EFFECT_MANAGER->addEffect("effect_faseChange", "effect_faseChange", 30, 10);
+	EFFECT_MANAGER->addEffect("effect_standUpEffect", "effect_standUpEffect", 30, 10);
+	EFFECT_MANAGER->addEffect("effect_dashAttackEffect", "effect_dashAttackEffect", 30, 10);
+	EFFECT_MANAGER->addEffect("effect_eat", "effect_eat", 50, 20);
+	EFFECT_MANAGER->addEffect("effect_stun", "effect_stun", 5, 10);
 
 	D2D_RENDERER->addTextFormat(L"메이플스토리");		// 폰트 갖고옴	
 	

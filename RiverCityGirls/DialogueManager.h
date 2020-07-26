@@ -25,6 +25,16 @@ struct tagSkipInfo
 	bool istayDown;		// 현재 누르고 있는 중
 };
 
+class Battle
+{
+private:
+
+
+public:
+	Battle() {}
+	~Battle(){}
+};
+
 class DialogueManager
 {
 private:	
@@ -38,7 +48,7 @@ private:
 	float						_elapsedSec;	// 시간 계산용
 	int							_stringNum;		// 출력할 글자 위치
 	float						_textTerm;		// 텍스트 출력 완료 후 화면 넘어갈 속도
-	float						_textY;			// 텍스트가 개행 시  Y축 위치 조절
+	float						_textY;			// 텍스트가 개행 시  Y축 위치 조절	
 
 	enum class curDialogue
 	{

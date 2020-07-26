@@ -25,7 +25,7 @@ void Boss::release()
 }
 
 void Boss::update()
-{
+{	
 
 	if (_phase == BOSS_PHASE::DEFEAT)
 	{
@@ -345,6 +345,11 @@ void Boss::update()
 			}
 			else
 			{
+				//standup 이펙트
+				if (_ani->getPlayIndex() >= _attackS)
+				{
+					EFFECT_MANAGER->playZ("effect_standUpEffect", Vector3(_position.x, _position.y + 50, _position.z + 30), 5.0f);
+				}
 				//standup 공격 렉트
 				if (_ani->getPlayIndex() == _attackS)
 				{
@@ -445,6 +450,9 @@ void Boss::update()
 				{
 					_gravity = 0;
 					_jumpPower = 0;
+					//지면에 떨어졌을 때의 이펙트 재생
+					
+
 					if (_phase == BOSS_PHASE::PHASE_2)
 					{
 						setState(BOSS_STATE::METEOR_ATTACK_DELAY, _direction, true);
@@ -509,16 +517,16 @@ void Boss::update()
 					_enemyManager->moveEnemy(this, moveDir);
 
 					Vector3 attackSize = _size;
-					attackSize.z = 50;
+					attackSize.z = 70;
 
 					FloatRect attackRc;
 					if (_direction == DIRECTION::LEFT)
 					{
-						attackRc = FloatRect(_position.x - 90, _position.y - 100, _position.x, _position.y);
+						attackRc = FloatRect(_position.x - 130, _position.y - 100, _position.x, _position.y);
 					}
 					else
 					{
-						attackRc = FloatRect(_position.x, _position.y - 100, _position.x + 90, _position.y);
+						attackRc = FloatRect(_position.x, _position.y - 100, _position.x + 130, _position.y);
 					}
 					_viewRc = FloatRect(attackRc.left, _position.z + attackRc.top,
 						attackRc.right, _position.z + attackRc.bottom);
@@ -750,16 +758,45 @@ void Boss::render()
 		break;
 		}
 	}
-
+	if (_phase == BOSS_PHASE::PHASE_2 )
+	{
+		
+		if (_electricTime < 0 && _bossState == BOSS_STATE::ROAR)
+		{
+			
+			EFFECT_MANAGER->playZ("effect_faseChange", Vector3(_position.x , -110.0, _position.z - 20), 4);			
+			_electricTime = 3.0;
+		}
+	}
 	if (_phase == BOSS_PHASE::PHASE_3)
 	{
-		if (_electricTime < 0 && _bossState != BOSS_STATE::METEOR_ATTACK)
+
+		if (_electricTime < 0 && _bossState == BOSS_STATE::ROAR)
+		{
+
+			EFFECT_MANAGER->playZ("effect_faseChange", Vector3(_position.x, -110.0, _position.z - 20), 4);
+			_electricTime = 3.0;
+		}
+
+		if (_electricTime < 0 && _bossState != BOSS_STATE::METEOR_ATTACK &&  _bossState != BOSS_STATE::ROAR)
 		{
 			EFFECT_MANAGER->playZ("effect_electric", Vector3(_position.x, -310.0, _position.z - 20), 1);
 			_electricTime = 0.5;
 		}
 	}
 	
+	if (_bossState == BOSS_STATE::DASH_ATTACK)
+	{
+		if(_direction == DIRECTION::LEFT)
+		{
+		   EFFECT_MANAGER->playZ("effect_dashAttackEffect", Vector3(_position.x +50, -10.0, _position.z - 20), 1);
+		}
+		else
+		{
+			EFFECT_MANAGER->playZ("effect_dashAttackEffect", Vector3(_position.x - 50, -10.0, _position.z - 20), 1);
+		}
+		
+	}
 	
 	
 

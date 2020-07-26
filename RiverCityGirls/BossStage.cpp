@@ -81,7 +81,7 @@ void BossStage::enter()
 	else
 	{
 		SOUND_MANAGER->stop("Boss_StageBGM");
-		SOUND_MANAGER->play("Boss_StageBGM", 1.f);
+		SOUND_MANAGER->play("Boss_StageBGM", 0.3);
 	}
 }
 
