@@ -52,7 +52,7 @@ void Effect::render()
 	if (!_isRunning) return;
 
 	_effectImage->setScale(_scale);
-	CAMERA_MANAGER->aniRenderZ(_effectImage, _position, Vector3(10, 10, 10), _effectAnimation);
+	CAMERA_MANAGER->aniRenderZ(_effectImage, _position, Vector3(10, 10, 30), _effectAnimation);
 }
 
 //void Effect::startEffect(int x, int y)
