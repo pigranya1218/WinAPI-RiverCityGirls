@@ -44,7 +44,10 @@ public:
 	void setStage(Stage* stage) { _stage = stage; }
 	int getEnemyCount() { return _enemies.size(); }
 	Vector3 getPlayerPosition();
+	
+	float getPlayerHp();
 	float getCenterBottom(Vector3 pos);
+	
 	
 	void setBossUiVisible(bool isVisible);
 	void setBossUi(float currHp, float maxHp);

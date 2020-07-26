@@ -183,3 +183,8 @@ Vector3 Stage::getPlayerPosition()
 
 }
 
+float Stage::getPlayerHp()
+{
+	return _player->getHp();
+}
+
