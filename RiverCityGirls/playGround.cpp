@@ -240,6 +240,8 @@ HRESULT playGround::init()
 	// * UI
 	IMAGE_MANAGER->addImage("blackScreen", L"resources/images/UI/blackScreen.png");				// 검은 화면입니다.
 
+	IMAGE_MANAGER->addFrameImage("loading", L"resources/images/UI/loadingFrame.png", 4, 1);
+
 	IMAGE_MANAGER->addFrameImage("chainLock_top"	, L"resources/images/UI/lock/chain_top_lock.png"	, 1, 13);	// 위 사슬 잠금
 	IMAGE_MANAGER->addFrameImage("chainLock_bot"	, L"resources/images/UI/lock/chain_bot_lock.png"	, 1, 13);	// 밑 사슬 잠금
 	IMAGE_MANAGER->addFrameImage("chainLock_left"	, L"resources/images/UI/lock/chain_left_lock.png"	, 13, 1);	// 좌 사슬 잠금

@@ -23,8 +23,6 @@ HRESULT StageScene::init()
 
 	// UI 테스트입니다
 	_uiManager->setPlayerHpActive(true);
-	//_uiManager->setHart(true);
-	
 
 	return S_OK;
 }
@@ -42,7 +40,7 @@ void StageScene::update()
 	EFFECT_MANAGER->update();
 	
 	_uiManager->update();
-	_dgManager->update();	
+	_dgManager->update();		
 }
 
 void StageScene::render()
