@@ -727,7 +727,13 @@ void SchoolGirl::setState(ENEMY_STATE state, DIRECTION direction)
 			_enemyImg->getMaxFrameX(), _enemyImg->getMaxFrameY());
 		_ani->setFPS(10);
 		_ani->start();	
-		
+
+		char soundNameNum[128];
+		sprintf_s(soundNameNum, "SchoolGirl_Attack%d", i);
+		/*SOUND_MANAGER->stop("SchoolGirl_Attack");
+		SOUND_MANAGER->stop("SchoolGirl_Attack2");
+		SOUND_MANAGER->stop("SchoolGirl_Attack3");
+		SOUND_MANAGER->play(soundNameNum, 0.7f);*/
 	}
 	break;
 	case ENEMY_STATE::DASHATTACK:
