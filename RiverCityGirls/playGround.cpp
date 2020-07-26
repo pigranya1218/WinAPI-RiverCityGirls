@@ -252,6 +252,8 @@ HRESULT playGround::init()
 	IMAGE_MANAGER->addFrameImage("lock_1", L"resources/images/UI/lock/lock_4.png", 10, 1);	// 자물쇠 잠금 1단계
 	IMAGE_MANAGER->addFrameImage("lock_0", L"resources/images/UI/lock/lock_5.png",  9, 1);	// 자물쇠 잠금 부서짐
 
+	IMAGE_MANAGER->addFrameImage("loading", L"resources/images/UI/loadingFrame.png", 4, 1);
+
 	IMAGE_MANAGER->addImage("playerBackBar"	, L"resources/images/UI/kyoko_HP_backFrame.png"	);	// 플레이어 프레임 뒤
 	IMAGE_MANAGER->addImage("playerDigit"	, L"resources/images/UI/kyoko_hp_digit.png"		);	// 플레이어 체력 앞
 	IMAGE_MANAGER->addImage("playerExpFront", L"resources/images/UI/kyoko_exp_frontBar.png"	);	// 플레이어 경험치 앞
@@ -399,8 +401,9 @@ HRESULT playGround::init()
 	IMAGE_MANAGER->addFrameImage("effect_2", L"resources/images/effect/effect_2.png", 15, 1);
 	IMAGE_MANAGER->addFrameImage("effect_3", L"resources/images/effect/effect_3.png",  4, 4);
 	IMAGE_MANAGER->addFrameImage("effect_4", L"resources/images/effect/effect_4.png",  5, 3);
+	IMAGE_MANAGER->addFrameImage("effect_5", L"resources/images/effect/effect_5.png",  4, 2);
 	// 이펙트 매니저에 등록
-	for (int i = 1; i < 5; i++)
+	for (int i = 1; i < 6; i++)
 	{
 		string name = "effect_" + to_string(i);
 		Image* img = IMAGE_MANAGER->findImage(name);

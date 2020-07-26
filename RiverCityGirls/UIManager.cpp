@@ -25,7 +25,7 @@ HRESULT UIManager::init(Player* player)
 	result = _playerInfo.init();
 	result = _bossInfo.init();
 	result = _levelInfo.init();
-	result = _heart.init();
+	result = _heart.init(3);
 	result = _shop.init();
 	
 	
