@@ -418,7 +418,7 @@ public:
 	{
 		if (active)
 		{
-			money = (float)player->getMoney();			
+			money = player->getMoney();			
 
 			if (KEY_MANAGER->isOnceKeyDown(VK_DOWN))
 			{				
@@ -441,12 +441,12 @@ public:
 			if (KEY_MANAGER->isOnceKeyDown('Z'))
 			{				
 				// 돈이 부족하면 살 수 없음
-				if (money >= vItem[currentList].price)
+				if (money >= vItem[currentList].price && player->getHp() < player->getMaxHp())
 				{
 					SOUND_MANAGER->stop("UI_confirm");
 					SOUND_MANAGER->play("UI_confirm");
 					// 돈계산
-					player->setMoney((int)(money - vItem[currentList].price));
+					player->setMoney(money - vItem[currentList].price);
 					// 체력 회복	
 					player->setHp(player->getHp() + (vItem[currentList].recovery * player->getMaxHp() / 100));
 					// 최대 체력 초과 방지
