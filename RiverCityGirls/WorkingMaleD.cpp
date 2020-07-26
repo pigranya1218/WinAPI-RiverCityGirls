@@ -33,7 +33,7 @@ void WorkingMaleD::release()
 
 void WorkingMaleD::render()
 {
-	_img->setScale(3);
+	Object::render();
 	CAMERA_MANAGER->aniRenderZ(_img, _position, _size, _idleAni);
 }
 
