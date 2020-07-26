@@ -632,7 +632,7 @@ void SchoolBoy::setState(ENEMY_STATE state, DIRECTION direction)
 	_state = state;
 	_elapsedTime = 0;
 
-	//디렉션에 따른 애니메이션
+	//스테이트에 따른 애니메이션 및 사운드 재생
 	switch (state)
 	{
 	case ENEMY_STATE::IDLE:
@@ -675,6 +675,7 @@ void SchoolBoy::setState(ENEMY_STATE state, DIRECTION direction)
 	break;
 	case ENEMY_STATE::ATTACK:
 	{
+		SOUND_MANAGER->play("SchoolBoy_Attack", 1.f);
 		int i = RANDOM->getFromIntTo(1, 4);
 		if (i == 3)
 		{
@@ -702,6 +703,7 @@ void SchoolBoy::setState(ENEMY_STATE state, DIRECTION direction)
 	break;
 	case ENEMY_STATE::DASHATTACK:
 	{
+		SOUND_MANAGER->play("SchoolBoy_Attack", 1.f);
 		_attackS = 2;
 		_enemyImg = IMAGE_MANAGER->findImage("schoolboy_runAttack");
 		_ani->init(_enemyImg->getWidth(), _enemyImg->getHeight(),
@@ -712,6 +714,7 @@ void SchoolBoy::setState(ENEMY_STATE state, DIRECTION direction)
 	break;
 	case ENEMY_STATE::JUMPATTACK:
 	{
+		SOUND_MANAGER->play("SchoolBoy_Attack", 1.f);
 		_attackS = 2;
 		_enemyImg = IMAGE_MANAGER->findImage("schoolboy_jumpAttack");
 		_ani->init(_enemyImg->getWidth(), _enemyImg->getHeight(),
@@ -731,6 +734,17 @@ void SchoolBoy::setState(ENEMY_STATE state, DIRECTION direction)
 	break;
 	case ENEMY_STATE::HIT:
 	{
+		if (_hitType == ATTACK_TYPE::HIT1)
+		{
+			SOUND_MANAGER->play("SchoolBoy_GetHit", 1.f);
+		}
+		else if (_hitType == ATTACK_TYPE::HIT2)
+		{
+			int playRate = RANDOM->getFromIntTo(3, 5);
+			char str[128];
+			sprintf_s(str, "SchoolBoy_GetHit%d", playRate);
+			SOUND_MANAGER->play(str, 1.f);
+		}
 		_enemyImg = IMAGE_MANAGER->findImage("schoolboy_getHit");
 		_ani->init(_enemyImg->getWidth(), _enemyImg->getHeight(),
 			_enemyImg->getMaxFrameX(), _enemyImg->getMaxFrameY());
@@ -749,6 +763,7 @@ void SchoolBoy::setState(ENEMY_STATE state, DIRECTION direction)
 	break;
 	case ENEMY_STATE::KNOCKDOWN:
 	{
+		SOUND_MANAGER->play("SchoolBoy_GetHit2", 1.f);	
 		_enemyImg = IMAGE_MANAGER->findImage("schoolboy_knockDown");
 		_ani->init(_enemyImg->getWidth(), _enemyImg->getHeight(),
 			_enemyImg->getMaxFrameX(), _enemyImg->getMaxFrameY());
@@ -771,6 +786,7 @@ void SchoolBoy::setState(ENEMY_STATE state, DIRECTION direction)
 	break;
 	case ENEMY_STATE::SKILL:
 	{
+		SOUND_MANAGER->play("SchoolBoy_SandToss", 1.f);
 		_attackS = 5;
 		_enemyImg = IMAGE_MANAGER->findImage("schoolboy_skill");
 		_ani->init(_enemyImg->getWidth(), _enemyImg->getHeight(),
