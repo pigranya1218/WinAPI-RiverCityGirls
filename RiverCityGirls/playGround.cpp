@@ -433,7 +433,7 @@ HRESULT playGround::init()
 	EFFECT_MANAGER->addEffect("effect_explosion", "effect_explosion", 20, 10);
 	EFFECT_MANAGER->addEffect("effect_guard", "effect_guard", 50, 20);
 	EFFECT_MANAGER->addEffect("effect_spark", "effect_spark", 20, 10);
-	EFFECT_MANAGER->addEffect("effect_eat", "effect_eat", 50, 20);
+	EFFECT_MANAGER->addEffect("effect_eat", "effect_eat", 40, 20);
 
 	D2D_RENDERER->addTextFormat(L"메이플스토리");		// 폰트 갖고옴	
 	
