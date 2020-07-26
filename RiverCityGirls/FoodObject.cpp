@@ -76,7 +76,6 @@ void FoodObject::render()
 
 void FoodObject::eatEffect(Player * player)
 {
-	
 	switch (_randomSpawn)
 	{
 		case 0:
@@ -85,6 +84,8 @@ void FoodObject::eatEffect(Player * player)
 			{
 				_state = OBJECT_STATE::INACTIVE;
 				player->setHp(min(player->getHp() + 10, player->getMaxHp()));
+				SOUND_MANAGER->stop("STAGE_getMoney");
+				SOUND_MANAGER->play("STAGE_getMoney", 1.0f);
 			}
 		}
 		break;
@@ -94,6 +95,8 @@ void FoodObject::eatEffect(Player * player)
 			{
 				_state = OBJECT_STATE::INACTIVE;
 				player->setHp(min(player->getHp() + 30, player->getMaxHp()));
+				SOUND_MANAGER->stop("STAGE_getMoney");
+				SOUND_MANAGER->play("STAGE_getMoney", 1.0f);
 			}
 		}
 		break;
@@ -103,6 +106,8 @@ void FoodObject::eatEffect(Player * player)
 			{
 				_state = OBJECT_STATE::INACTIVE;
 				player->setHp(min(player->getHp() + 20, player->getMaxHp()));
+				SOUND_MANAGER->stop("STAGE_getMoney");
+				SOUND_MANAGER->play("STAGE_getMoney", 1.0f);
 			}
 		}
 		break;

@@ -88,8 +88,8 @@ bool SnackMachineObject::hitEffect(Vector3 pos, Vector3 size, OBJECT_TEAM team, 
 				Vector2(0, 0), 
 				Vector2(PI2, PI), 
 				5, 6, 3, 5);
-			//_objectManager->spawnFood(Vector3(_position.x, 25.0, _position.z + 60));
-			_objectManager->spawnMoney(Vector3(_position.x, 50.0, _position.z + 60));
+			_objectManager->spawnFood(Vector3(_position.x, 25.0, _position.z + 60));
+			//_objectManager->spawnMoney(Vector3(_position.x, 50.0, _position.z + 60));
 		}
 		if (_direction == DIRECTION::RIGHT)
 		{
@@ -100,8 +100,8 @@ bool SnackMachineObject::hitEffect(Vector3 pos, Vector3 size, OBJECT_TEAM team, 
 				Vector2(0, 0),
 				Vector2(PI2, PI),
 				5, 6, 3, 5);
-			//_objectManager->spawnFood(Vector3(_position.x, 25.0, _position.z + 60));
-			_objectManager->spawnMoney(Vector3(_position.x, 50.0, _position.z + 60));
+			_objectManager->spawnFood(Vector3(_position.x, 25.0, _position.z + 60));
+			//_objectManager->spawnMoney(Vector3(_position.x, 50.0, _position.z + 60));
 		}
 
 		return true;
