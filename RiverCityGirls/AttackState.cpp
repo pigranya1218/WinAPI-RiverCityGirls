@@ -3,9 +3,10 @@
 
 void AttackState::enter(Player & player)
 {
-	int num2 = RANDOM->getFromIntTo(1, 3);
-	int num3 = RANDOM->getFromIntTo(1, 4);
+	num2 = RANDOM->getFromIntTo(1, 3);
+	num3 = RANDOM->getFromIntTo(1, 4);
 	_isCombo = false;
+	_isStep = false;
 
 	switch (_skill)
 	{
@@ -148,6 +149,7 @@ PlayerState * AttackState::update(Player & player)
 		_initTime += TIME_MANAGER->getElapsedTime();
 		if (!_ani->isPlay())
 		{
+			SOUND_MANAGER->stop("KYOKO_Chop" + to_string(num3));
 			if (KEY_MANAGER->isStayKeyDown(VK_RIGHT) || KEY_MANAGER->isStayKeyDown(VK_LEFT))return new WalkState;
 			else return new IdleState;
 		}
@@ -174,11 +176,11 @@ PlayerState * AttackState::update(Player & player)
 			if (player.attack(player.getPosition(), player.getSize(), OBJECT_TEAM::PLAYER, _attackRc, 10, ATTACK_TYPE::HIT1))
 			{
 				EFFECT_MANAGER->playZ("effect_4", Vector3((_attackRc.left + _attackRc.right) / 2, (_attackRc.top + _attackRc.bottom) / 2, position.z + player.getSize().z / 2), 1);
-				SOUND_MANAGER->play("KYOKO_Chop2", 1.0f);
+				//SOUND_MANAGER->play("KYOKO_Chop2", 1.0f);
 				_isCombo = true;
 			}
 		}
-		if (_isCombo)
+		if (_isCombo&& _ani->getPlayIndex()>3)
 		{
 			if (KEY_MANAGER->isOnceKeyDown('Z'))
 			{
@@ -200,6 +202,27 @@ PlayerState * AttackState::update(Player & player)
 				_skill = ATTACK_SKILL::QC2;
 				_initTime = 0;
 			}
+			if (KEY_MANAGER->isOnceKeyDown('S'))
+			{
+
+				_img = IMAGE_MANAGER->findImage("Kyoko_axekick");
+				_ani->init(_img->getWidth(), _img->getHeight(), _img->getMaxFrameX(), _img->getMaxFrameY());
+				if (player.getDirection() == DIRECTION::RIGHT)
+				{
+					_ani->setPlayFrame(0, 13, false, false);
+				}
+				else
+				{
+					_ani->setPlayFrame(13, 26, false, false);
+				}
+
+				_ani->setFPS(15);
+				_ani->start();
+
+				_skill = ATTACK_SKILL::HC;
+
+			}
+
 		}
 		
 	}
@@ -237,28 +260,55 @@ PlayerState * AttackState::update(Player & player)
 				if (player.attack(player.getPosition(), player.getSize(), OBJECT_TEAM::PLAYER, _attackRc, 10, ATTACK_TYPE::HIT1))
 				{
 					EFFECT_MANAGER->playZ("effect_4", Vector3((_attackRc.left + _attackRc.right) / 2, (_attackRc.top + _attackRc.bottom) / 2, position.z + player.getSize().z / 2), 1);
-					if ( KEY_MANAGER->isOnceKeyDown('Z'))
+					_isCombo = true;
+				}
+				
+			}
+			if (_isCombo&& _ani->getPlayIndex()>4)
+			{
+				if (KEY_MANAGER->isOnceKeyDown('Z'))
+				{
+					SOUND_MANAGER->stop("KYOKO_Combo");
+					SOUND_MANAGER->play("KYOKO_Combo",1.0f);
+
+					_img = IMAGE_MANAGER->findImage("Kyoko_attack3");
+
+					_ani->init(_img->getWidth(), _img->getHeight(), _img->getMaxFrameX(), _img->getMaxFrameY());
+					if (player.getDirection() == DIRECTION::RIGHT)
 					{
-						_img = IMAGE_MANAGER->findImage("Kyoko_attack3");
-
-						_ani->init(_img->getWidth(), _img->getHeight(), _img->getMaxFrameX(), _img->getMaxFrameY());
-						if (player.getDirection() == DIRECTION::RIGHT)
-						{
-							_ani->setPlayFrame(0, 7, false, false);
-						}
-						else
-						{
-							_ani->setPlayFrame(7, 14, false, false);
-						}
-						_ani->setFPS(15);
-						_ani->start();
-						_initTime = 0;
-						_skill = ATTACK_SKILL::QC3;
-
+						_ani->setPlayFrame(0, 7, false, false);
 					}
+					else
+					{
+						_ani->setPlayFrame(7, 14, false, false);
+					}
+					_ani->setFPS(15);
+					_ani->start();
+					_initTime = 0;
+
+					_skill = ATTACK_SKILL::QC3;
+
+				}
+				if (KEY_MANAGER->isOnceKeyDown('S'))
+				{
+					_img = IMAGE_MANAGER->findImage("Kyoko_axekick");
+					_ani->init(_img->getWidth(), _img->getHeight(), _img->getMaxFrameX(), _img->getMaxFrameY());
+					if (player.getDirection() == DIRECTION::RIGHT)
+					{
+						_ani->setPlayFrame(0, 13, false, false);
+					}
+					else
+					{
+						_ani->setPlayFrame(13, 26, false, false);
+					}
+
+					_ani->setFPS(15);
+					_ani->start();
+
+					_skill = ATTACK_SKILL::HC;
+
 				}
 			}
-
 
 
 			_initTime += TIME_MANAGER->getElapsedTime();
@@ -268,6 +318,7 @@ PlayerState * AttackState::update(Player & player)
 		case ATTACK_SKILL::QC3:
 			if (!_ani->isPlay())
 			{
+				SOUND_MANAGER->stop("KYOKO_Combo");
 				if (KEY_MANAGER->isStayKeyDown(VK_RIGHT) || KEY_MANAGER->isStayKeyDown(VK_LEFT))return new WalkState;
 				else return new IdleState;
 					
@@ -294,30 +345,33 @@ PlayerState * AttackState::update(Player & player)
 					if (player.attack(player.getPosition(), player.getSize(), OBJECT_TEAM::PLAYER, _attackRc, 10, ATTACK_TYPE::KNOCKDOWN))
 					{
 						EFFECT_MANAGER->playZ("effect_4",Vector3(_attackRc.getCenter().x,_attackRc.getCenter().y,position.z+player.getSize().z/2),1);
-
-						if (KEY_MANAGER->isOnceKeyDown('S'))
+						_isCombo = true;
+					}
+					
+					
+				}
+				if (_isCombo && _ani->getPlayIndex() > 6)
+				{
+					if (KEY_MANAGER->isOnceKeyDown('S'))
+					{
+						_img = IMAGE_MANAGER->findImage("Kyoko_axekick");
+						_ani->init(_img->getWidth(), _img->getHeight(), _img->getMaxFrameX(), _img->getMaxFrameY());
+						if (player.getDirection() == DIRECTION::RIGHT)
 						{
-							_img = IMAGE_MANAGER->findImage("Kyoko_axekick");
-							_ani->init(_img->getWidth(), _img->getHeight(), _img->getMaxFrameX(), _img->getMaxFrameY());
-							if (player.getDirection() == DIRECTION::RIGHT)
-							{
-								_ani->setPlayFrame(0, 13, false, false);
-							}
-							else
-							{
-								_ani->setPlayFrame(13, 26, false, false);
-							}
-
-							_ani->setFPS(15);
-							_ani->start();
-
-							_skill = ATTACK_SKILL::HC;
-							
+							_ani->setPlayFrame(0, 13, false, false);
 						}
+						else
+						{
+							_ani->setPlayFrame(13, 26, false, false);
+						}
+
+						_ani->setFPS(15);
+						_ani->start();
+
+						_skill = ATTACK_SKILL::HC;
 
 					}
 				}
-			
 				
 			}
 			break;
@@ -325,6 +379,7 @@ PlayerState * AttackState::update(Player & player)
 		case ATTACK_SKILL::RUN_QC:
 			if (!_ani->isPlay())
 			{
+				SOUND_MANAGER->stop("KYOKO_Dive");
 				if (KEY_MANAGER->isStayKeyDown(VK_RIGHT) || KEY_MANAGER->isStayKeyDown(VK_LEFT))return new WalkState;
 				else return new IdleState;
 			}
@@ -361,30 +416,33 @@ PlayerState * AttackState::update(Player & player)
 					if (player.attack(player.getPosition(), player.getSize(), OBJECT_TEAM::PLAYER, _attackRc, 10, ATTACK_TYPE::HIT1))
 					{
 						EFFECT_MANAGER->playZ("effect_4", Vector3((_attackRc.left + _attackRc.right) / 2, (_attackRc.top + _attackRc.bottom) / 2, position.z + player.getSize().z / 2), 1);
-						if ( KEY_MANAGER->isOnceKeyDown('Z'))
-						{
-							_img = IMAGE_MANAGER->findImage("Kyoko_attack2");
-
-							_ani->init(_img->getWidth(), _img->getHeight(), _img->getMaxFrameX(), _img->getMaxFrameY());
-							if (player.getDirection() == DIRECTION::RIGHT)
-							{
-								_ani->setPlayFrame(0, 7, false, false);
-							}
-							else
-							{
-								_ani->setPlayFrame(7, 14, false, false);
-							}
-							_ani->setFPS(15);
-							_ani->start();
-
-
-							_skill = ATTACK_SKILL::QC2;
-							_initTime = 0;
-
-						}
+						_isCombo = true;
 					}
 				}
+				if (_isCombo && _ani->getPlayIndex() > 4)
+				{
+					if (KEY_MANAGER->isOnceKeyDown('Z'))
+					{
+						_img = IMAGE_MANAGER->findImage("Kyoko_attack2");
 
+						_ani->init(_img->getWidth(), _img->getHeight(), _img->getMaxFrameX(), _img->getMaxFrameY());
+						if (player.getDirection() == DIRECTION::RIGHT)
+						{
+							_ani->setPlayFrame(0, 7, false, false);
+						}
+						else
+						{
+							_ani->setPlayFrame(7, 14, false, false);
+						}
+						_ani->setFPS(15);
+						_ani->start();
+
+
+						_skill = ATTACK_SKILL::QC2;
+						_initTime = 0;
+
+					}
+				}
 				
 			}
 			break;
@@ -427,7 +485,7 @@ PlayerState * AttackState::update(Player & player)
 				{
 					if (KEY_MANAGER->isStayKeyDown(VK_RIGHT) || KEY_MANAGER->isStayKeyDown(VK_LEFT))return new WalkState;
 					else return new IdleState;
-
+					SOUND_MANAGER->stop("KYOKO_HeavyAtkKick");
 				}
 				else
 				{
@@ -447,8 +505,8 @@ PlayerState * AttackState::update(Player & player)
 
 						_viewRc = FloatRect(_attackRc.left, position.z + _attackRc.top,
 							_attackRc.right, position.z + _attackRc.bottom);
-						player.attack(player.getPosition(), player.getSize(), OBJECT_TEAM::PLAYER, _attackRc, 10, ATTACK_TYPE::KNOCKDOWN);
-						if (player.attack(player.getPosition(), player.getSize(), OBJECT_TEAM::PLAYER, _attackRc, 10, ATTACK_TYPE::HIT1))
+						
+						if (player.attack(player.getPosition(), player.getSize(), OBJECT_TEAM::PLAYER, _attackRc, 10, ATTACK_TYPE::KNOCKDOWN))
 						{
 							EFFECT_MANAGER->playZ("effect_4", Vector3((_attackRc.left + _attackRc.right) / 2, (_attackRc.top + _attackRc.bottom) / 2, position.z + player.getSize().z / 2), 1);
 						}
@@ -462,7 +520,7 @@ PlayerState * AttackState::update(Player & player)
 				{
 					if (KEY_MANAGER->isStayKeyDown(VK_RIGHT) || KEY_MANAGER->isStayKeyDown(VK_LEFT))return new WalkState;
 					else return new IdleState;
-					SOUND_MANAGER->stop("KYOKO_Dive");
+					SOUND_MANAGER->stop("KYOKO_Dive" + to_string(num2));
 				}
 				else
 				{
@@ -487,8 +545,8 @@ PlayerState * AttackState::update(Player & player)
 
 						_viewRc = FloatRect(_attackRc.left, position.z + _attackRc.top,
 							_attackRc.right, position.z + _attackRc.bottom);
-						player.attack(player.getPosition(), player.getSize(), OBJECT_TEAM::PLAYER, _attackRc, 10, ATTACK_TYPE::KNOCKDOWN);
-						if (player.attack(player.getPosition(), player.getSize(), OBJECT_TEAM::PLAYER, _attackRc, 10, ATTACK_TYPE::HIT1))
+						
+						if (player.attack(player.getPosition(), player.getSize(), OBJECT_TEAM::PLAYER, _attackRc, 10, ATTACK_TYPE::KNOCKDOWN))
 						{
 							EFFECT_MANAGER->playZ("effect_4", Vector3((_attackRc.left + _attackRc.right) / 2, (_attackRc.top + _attackRc.bottom) / 2, position.z + player.getSize().z / 2), 1);
 						}
@@ -501,6 +559,7 @@ PlayerState * AttackState::update(Player & player)
 				
 				break;
 			case ATTACK_SKILL::JUMP_HC:
+				
 				
 
 				if (_ani->getPlayIndex() == 6)
@@ -522,21 +581,19 @@ PlayerState * AttackState::update(Player & player)
 
 					_viewRc = FloatRect(_attackRc.left, player.getPosition().z + _attackRc.top,
 						_attackRc.right, player.getPosition().z + _attackRc.bottom);
-					player.attack(player.getPosition(), player.getSize(), OBJECT_TEAM::PLAYER, _attackRc, 10, ATTACK_TYPE::KNOCKDOWN);
-					if (player.attack(player.getPosition(), player.getSize(), OBJECT_TEAM::PLAYER, _attackRc, 10, ATTACK_TYPE::HIT1))
+					
+					if (player.attack(player.getPosition(), player.getSize(), OBJECT_TEAM::PLAYER, _attackRc, 10, ATTACK_TYPE::KNOCKDOWN))
 					{
 						EFFECT_MANAGER->playZ("effect_4", Vector3((_attackRc.left + _attackRc.right) / 2, (_attackRc.top + _attackRc.bottom) / 2, position.z + player.getSize().z / 2), 1);
+						_isStep = true;
+						_currJumpPower = -_currJumpPower;
 					}
 				}
+				
 
 				moveDir.x += _currMoveDirX;
 				moveDir.y -= _currJumpPower;
 				_currJumpPower -= player.getGravity();
-
-				if (player.attack(player.getPosition(), player.getSize(), OBJECT_TEAM::PLAYER, _attackRc, 10, ATTACK_TYPE::KNOCKDOWN))
-				{
-					_currJumpPower += 10;
-				}
 
 				if (KEY_MANAGER->isStayKeyDown(VK_RIGHT))
 				{

@@ -297,12 +297,14 @@ HRESULT playGround::init()
 	SOUND_MANAGER->addSound("UI_confirm",					"resources/sound/UISound/confirm.mp3", false, false);
 	SOUND_MANAGER->addSound("UI_PhoneMenu",					"resources/sound/UISound/PhoneMenu.mp3", false, false);
 	SOUND_MANAGER->addSound("UI_scroll",					"resources/sound/UISound/scroll.mp3", false, false);
+	
 	// * Stage_Sound
 	SOUND_MANAGER->addSound("STAGE_getEXP",					"resources/sound/stageSound/getEXP.mp3", false, false);
 	SOUND_MANAGER->addSound("STAGE_getMoney",				"resources/sound/stageSound/getMoney.mp3", false, false);
 	SOUND_MANAGER->addSound("STAGE_HitSound",				"resources/sound/stageSound/HitSound.mp3", false, false);
 	SOUND_MANAGER->addSound("STAGE_HitSound2",				"resources/sound/stageSound/HitSound2.mp3", false, false);
 	SOUND_MANAGER->addSound("STAGE_HitSound3",				"resources/sound/stageSound/HitSound3.mp3", false, false);
+	SOUND_MANAGER->addSound("GameOver",                     "resources/sound/stageSound/gameOver.mp3", false, false);
 	// * Kyoko
 	
 	SOUND_MANAGER->addSound("KYOKO_BackElbow1",				"resources/sound/stageSound/Kyoko/KyokoBackElbow.mp3", false, false);
@@ -313,8 +315,9 @@ HRESULT playGround::init()
 	SOUND_MANAGER->addSound("KYOKO_Combo",					"resources/sound/stageSound/Kyoko/KyokoCombo3.mp3", false, false);
 	SOUND_MANAGER->addSound("KYOKO_Dive1",					"resources/sound/stageSound/Kyoko/KyokoDive.mp3", false, false);
 	SOUND_MANAGER->addSound("KYOKO_Dive2",					"resources/sound/stageSound/Kyoko/KyokoDive2.mp3", false, false);
-	SOUND_MANAGER->addSound("KYOKO_GameOver",				"resources/sound/stageSound/Kyoko/KyokoGameOver.mp3", false, true);
-	SOUND_MANAGER->addSound("KYOKO_GetHit1",					"resources/sound/stageSound/Kyoko/KyokoGetHit.mp3", false, false);
+	SOUND_MANAGER->addSound("KYOKO_GameOver1",               "resources/sound/stageSound/Kyoko/KyokoGameOver1.mp3", false, false);
+	SOUND_MANAGER->addSound("KYOKO_GameOver2",               "resources/sound/stageSound/Kyoko/KyokoGameOver2.mp3", false, false);
+	SOUND_MANAGER->addSound("KYOKO_GetHit1",				"resources/sound/stageSound/Kyoko/KyokoGetHit.mp3", false, false);
 	SOUND_MANAGER->addSound("KYOKO_GetHit2",				"resources/sound/stageSound/Kyoko/KyokoGetHit2.mp3", false, false);
 	SOUND_MANAGER->addSound("KYOKO_Grab",					"resources/sound/stageSound/Kyoko/KyoKoGrab.mp3", false, false);
 	SOUND_MANAGER->addSound("KYOKO_GrabHit1",				"resources/sound/stageSound/Kyoko/KyokoGrabHit.mp3", false, false);
