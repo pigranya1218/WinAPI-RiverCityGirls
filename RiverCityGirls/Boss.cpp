@@ -757,26 +757,9 @@ void Boss::render()
 		}
 		break;
 		}
-	}
-	if (_phase == BOSS_PHASE::PHASE_2 )
-	{
-		
-		if (_electricTime < 0 && _bossState == BOSS_STATE::ROAR)
-		{
-			
-			EFFECT_MANAGER->playZ("effect_faseChange", Vector3(_position.x , -110.0, _position.z - 20), 4);			
-			_electricTime = 3.0;
-		}
-	}
+	}	
 	if (_phase == BOSS_PHASE::PHASE_3)
 	{
-
-		if (_electricTime < 0 && _bossState == BOSS_STATE::ROAR)
-		{
-
-			EFFECT_MANAGER->playZ("effect_faseChange", Vector3(_position.x, -110.0, _position.z - 20), 4);
-			_electricTime = 3.0;
-		}
 
 		if (_electricTime < 0 && _bossState != BOSS_STATE::METEOR_ATTACK &&  _bossState != BOSS_STATE::ROAR)
 		{
@@ -797,8 +780,6 @@ void Boss::render()
 		}
 		
 	}
-	
-	
 
 	switch (_bossState) // 그림자 그리기
 	{
