@@ -70,7 +70,7 @@ void StartStage::enter()
 {
 	Stage::enter();
 	SOUND_MANAGER->stop("BGM_Classroom");
-	SOUND_MANAGER->play("BGM_Classroom", 0.7f);
+	SOUND_MANAGER->play("BGM_Classroom", 0.3f);
 }
 
 void StartStage::exit()

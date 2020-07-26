@@ -302,6 +302,7 @@ HRESULT playGround::init()
 	SOUND_MANAGER->addSound("UI_confirm",					"resources/sound/UISound/confirm.mp3", false, false);
 	SOUND_MANAGER->addSound("UI_PhoneMenu",					"resources/sound/UISound/PhoneMenu.mp3", false, false);
 	SOUND_MANAGER->addSound("UI_scroll",					"resources/sound/UISound/scroll.mp3", false, false);
+	SOUND_MANAGER->addSound("UI_lock",						"resources/sound/UISound/lock.mp3", false, false);
 	
 	// * Stage_Sound
 	SOUND_MANAGER->addSound("STAGE_getEXP",					"resources/sound/stageSound/getEXP.mp3", false, false);

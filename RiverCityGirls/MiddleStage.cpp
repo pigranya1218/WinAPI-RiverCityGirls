@@ -62,7 +62,7 @@ void MiddleStage::init(Image * background, float bgScale)
 	_objectManager->spawnObject(OBJECT_TYPE::workingFemaleA, Vector3(2500, 0, 900), DIRECTION::RIGHT);
 	_objectManager->spawnObject(OBJECT_TYPE::workingMaleD, Vector3(2700, 0, 900), DIRECTION::LEFT);
 
-	_isQuestClear = true;
+	_isQuestClear = false;
 	_isQuesting = false;
 	_maxRestCount = 4;
 	_restCount = _maxRestCount;
@@ -105,7 +105,7 @@ void MiddleStage::enter()
 {
 	Stage::enter();
 	SOUND_MANAGER->stop("BGM_Hall");
-	SOUND_MANAGER->play("BGM_Hall", 1.0f);
+	SOUND_MANAGER->play("BGM_Hall", 0.3f);
 }
 
 void MiddleStage::exit()
@@ -143,14 +143,12 @@ Stage * MiddleStage::update()
 		}
 	}
 
-
-	
 	_lastEnemyNum = _enemyManager->getEnemyCount();
 	_objectManager->update();
 	_objectManager->isEat(_player);
 	_enemyManager->update();
 
-	if (!_isQuestClear && !_isQuesting && _player->getPosition().x >= 1300)
+	if (!_isQuestClear && !_isQuesting && _player->getPosition().x >= 1350)
 	{
 		// Äù½ºÆ® ½ÃÀÛ
 		_isQuesting = true;
@@ -184,29 +182,36 @@ Stage * MiddleStage::update()
 		if (_lastEnemyNum != _enemyManager->getEnemyCount())
 		{
 			_deadNum++;
-		}
-
-		if (_deadNum == 4)
-		{
-			_isQuesting = false;
-			_isQuestClear = true;
-			_stageManager->setLockLevel(0);
-			_restrictLines.erase(_restrictLines.end() - 1);
-			_restrictLines.erase(_restrictLines.end() - 1);
-			_doorInfos[2].doorState = DOOR_STATE::UNLOCK;
-			_stageManager->setDoorInfo(_doorInfos);
-		}
-		else if (_deadNum == 3)
-		{
-			_stageManager->setLockLevel(1);
-		}
-		else if (_deadNum == 2)
-		{
-			_stageManager->setLockLevel(2);
-		}
-		else if (_deadNum == 1)
-		{
-			_stageManager->setLockLevel(3);
+			if (_deadNum == 4)
+			{
+				SOUND_MANAGER->stop("UI_lock");
+				SOUND_MANAGER->play("UI_lock", 1);
+				_isQuesting = false;
+				_isQuestClear = true;
+				_stageManager->setLockLevel(0);
+				_restrictLines.erase(_restrictLines.end() - 1);
+				_restrictLines.erase(_restrictLines.end() - 1);
+				_doorInfos[2].doorState = DOOR_STATE::UNLOCK;
+				_stageManager->setDoorInfo(_doorInfos);
+			}
+			else if (_deadNum == 3)
+			{
+				SOUND_MANAGER->stop("UI_lock");
+				SOUND_MANAGER->play("UI_lock", 1);
+				_stageManager->setLockLevel(1);
+			}
+			else if (_deadNum == 2)
+			{
+				SOUND_MANAGER->stop("UI_lock");
+				SOUND_MANAGER->play("UI_lock", 1);
+				_stageManager->setLockLevel(2);
+			}
+			else if (_deadNum == 1)
+			{
+				SOUND_MANAGER->stop("UI_lock");
+				SOUND_MANAGER->play("UI_lock", 1);
+				_stageManager->setLockLevel(3);
+			}
 		}
 
 		if (_enemyManager->getEnemyCount() < 3 && _respawnCool < 0 && _restCount > 0)
