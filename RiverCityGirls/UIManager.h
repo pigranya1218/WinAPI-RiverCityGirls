@@ -422,14 +422,20 @@ public:
 
 			if (KEY_MANAGER->isOnceKeyDown(VK_DOWN))
 			{				
+				SOUND_MANAGER->stop("UI_scroll");
+				SOUND_MANAGER->play("UI_scroll");
 				if (++currentList >= SHOPLISTMAX) currentList = 0;
 			}
 			if (KEY_MANAGER->isOnceKeyDown(VK_UP))
 			{				
+				SOUND_MANAGER->stop("UI_scroll");
+				SOUND_MANAGER->play("UI_scroll");
 				if (--currentList < 0) currentList = SHOPLISTMAX - 1;
 			}
 			if (KEY_MANAGER->isOnceKeyDown('X'))
 			{				
+				SOUND_MANAGER->stop("UI_cancel");
+				SOUND_MANAGER->play("UI_cancel");
 				active = false;
 			}
 			if (KEY_MANAGER->isOnceKeyDown('Z'))
@@ -437,13 +443,20 @@ public:
 				// 돈이 부족하면 살 수 없음
 				if (money >= vItem[currentList].price)
 				{
+					SOUND_MANAGER->stop("UI_confirm");
+					SOUND_MANAGER->play("UI_confirm");
 					// 돈계산
 					player->setMoney((int)(money - vItem[currentList].price));
 					// 체력 회복	
 					player->setHp(player->getHp() + (vItem[currentList].recovery * player->getMaxHp() / 100));
 					// 최대 체력 초과 방지
 					if (player->getHp() > player->getMaxHp()) player->setHp(player->getMaxHp());
-				}				
+				}		
+				else
+				{
+					SOUND_MANAGER->stop("UI_cancel");
+					SOUND_MANAGER->play("UI_cancel");
+				}
 			}
 		}
 	}
@@ -619,7 +632,7 @@ public:
 				if(active) break;
 
 				active = true;
-				chainSetting("chainLock");
+				chainSetting("chainLock");				
 				break;
 			}
 			case LOCK_STATE::LOCK_0:

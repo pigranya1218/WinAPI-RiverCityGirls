@@ -297,11 +297,12 @@ HRESULT playGround::init()
 	SOUND_MANAGER->addSound("BGM_Classroom",				"resources/sound/Classroom.mp3", false, true);
 	SOUND_MANAGER->addSound("BGM_Hall",						"resources/sound/Hall.mp3", false, true);
 	// * UI_Sound
-	SOUND_MANAGER->addSound("UI_cancel",					"resources/sound/UISound/cancel.mp3", false, false);
-	SOUND_MANAGER->addSound("UI_characterSelect",			"resources/sound/UISound/characterSelect.mp3", false, false);
-	SOUND_MANAGER->addSound("UI_confirm",					"resources/sound/UISound/confirm.mp3", false, false);
-	SOUND_MANAGER->addSound("UI_PhoneMenu",					"resources/sound/UISound/PhoneMenu.mp3", false, false);
-	SOUND_MANAGER->addSound("UI_scroll",					"resources/sound/UISound/scroll.mp3", false, false);
+	SOUND_MANAGER->addSound("UI_cancel"						, "resources/sound/UISound/cancel.mp3"			, false, false);
+	SOUND_MANAGER->addSound("UI_characterSelect"			, "resources/sound/UISound/characterSelect.mp3"	, false, false);
+	SOUND_MANAGER->addSound("UI_confirm"					, "resources/sound/UISound/confirm.mp3"			, false, false);
+	SOUND_MANAGER->addSound("UI_PhoneMenu"					, "resources/sound/UISound/PhoneMenu.mp3"		, false, false);
+	SOUND_MANAGER->addSound("UI_scroll"						, "resources/sound/UISound/scroll.mp3"			, false, false);
+	SOUND_MANAGER->addSound("UI_lock"						, "resources/sound/UISound/LockSound.mp3"		, false, false);
 	
 	// * Stage_Sound
 	SOUND_MANAGER->addSound("STAGE_getEXP",					"resources/sound/stageSound/getEXP.mp3", false, false);
