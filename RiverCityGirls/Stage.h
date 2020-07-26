@@ -55,6 +55,7 @@ public:
 	void setBossUi(float currHp, float maxHp);
 	void startDialogue(BossChapter chapter);
 	bool isDialoging();
+	void setHeart(bool isVisible);
 
 	float getCenterBottom(Vector3 pos);
 	Vector3 getPlayerPosition();

@@ -635,14 +635,14 @@ void CheerGirl::render()
 			}
 
 			Vector3 drowPos = _position;
-			drowPos.y = _position.y ;
+			drowPos.y = _position.y - 30;
 			_enemyImg->setScale(3);
 			CAMERA_MANAGER->aniRenderZ(_enemyImg, drowPos, _size, _ani);
 		}
 		else
 		{
 			Vector3 drowPos = _position;
-			drowPos.y = _position.y ;
+			drowPos.y = _position.y - 30;
 			_enemyImg->setScale(3);
 			CAMERA_MANAGER->aniRenderZ(_enemyImg, drowPos, _size, _ani);
 		}

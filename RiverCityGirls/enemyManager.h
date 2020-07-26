@@ -25,7 +25,6 @@ private:
 	Stage* _stage;
 
 	vector<Enemy*> _enemies;
-	vector<POINT> _enemyRespawnPos;
 
 protected:
 
@@ -55,5 +54,6 @@ public:
 	bool enemyAttackObject(Vector3 pos, Vector3 size, OBJECT_TEAM team, FloatRect attackRc, float damage, ATTACK_TYPE type);
 	void startDialogue(BossChapter key);
 	bool isDialoging();
+	void setHeart(bool isVisible);
 };
 

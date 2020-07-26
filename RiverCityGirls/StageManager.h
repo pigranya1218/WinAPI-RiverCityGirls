@@ -42,5 +42,6 @@ public:
 	void openShop();
 	void startDialogue(BossChapter chapter);
 	bool isDialoging();
+	void setHeart(bool isVisible);
 };
 

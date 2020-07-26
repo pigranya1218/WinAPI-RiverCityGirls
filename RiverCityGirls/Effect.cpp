@@ -14,7 +14,7 @@ Effect::~Effect()
 {
 }
 
-void Effect::init(Image * effectImage, int frameW, int frameH, int fps)
+void Effect::init(Image * effectImage, int fps)
 {
 	if (!effectImage) return;
 
@@ -25,7 +25,7 @@ void Effect::init(Image * effectImage, int frameW, int frameH, int fps)
 	if (!_effectAnimation) _effectAnimation = new Animation;
 
 	_effectAnimation->init(_effectImage->getWidth(), _effectImage->getHeight(),
-		frameW, frameH);
+		_effectImage->getMaxFrameX(), _effectImage->getMaxFrameY());
 	_effectAnimation->setDefPlayFrame(false, false);
 	_effectAnimation->setFPS(fps);
 	_effectAnimation->stop();
@@ -52,7 +52,7 @@ void Effect::render()
 	if (!_isRunning) return;
 
 	_effectImage->setScale(_scale);
-	CAMERA_MANAGER->aniRenderZ(_effectImage, _position, Vector3(10, 10, 10), _effectAnimation);
+	CAMERA_MANAGER->aniRenderZ(_effectImage, _position, Vector3(10, 10, 30), _effectAnimation);
 }
 
 //void Effect::startEffect(int x, int y)

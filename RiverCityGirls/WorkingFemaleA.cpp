@@ -33,7 +33,7 @@ void WorkingFemaleA::release()
 
 void WorkingFemaleA::render()
 {
-	_img->setScale(3);
+	Object::render();
 	CAMERA_MANAGER->aniRenderZ(_img, _position, _size, _idleAni);
 }
 

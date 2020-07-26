@@ -35,8 +35,10 @@ private:
 	BOSS_STATE _bossState;
 
 	float _combo; // 3단 콤보까지는 맞아줌
+	float _electricTime;
 	int _count; // 여러 방면에서 여러 상태에서 사용되는 카운트
 
+	bool _checkDialog;
 	int _maxHp;
 
 public:

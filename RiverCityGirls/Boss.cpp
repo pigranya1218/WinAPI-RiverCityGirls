@@ -15,6 +15,7 @@ void Boss::init()
 	_maxHp = 300;
 	_hp = _maxHp;
 	_isActive = true;
+	_checkDialog = false;
 }
 
 void Boss::release()
@@ -40,6 +41,12 @@ void Boss::update()
 			_ani->start();
 			_enemyManager->setBossUiVisible(false);
 			_enemyManager->startDialogue(BossChapter::BATTLE_AFTER);
+			_checkDialog = true;
+		}
+
+		if (!_enemyManager->isDialoging() && _checkDialog)
+		{
+			_enemyManager->setHeart(true);
 		}
 	}
 	else
@@ -55,6 +62,7 @@ void Boss::update()
 		float distanceFromPlayer = sqrt(pow(playerPos.x - _position.x, 2) + pow(playerPos.z - _position.z, 2)); // 플레이어와 xz 거리
 		Vector3 moveDir = Vector3(0, 0, 0);
 		_elapsedTime += TIME_MANAGER->getElapsedTime();
+		_electricTime -= TIME_MANAGER->getElapsedTime();
 
 
 		// 상태에 따른 행동 및 상태 전이
@@ -75,7 +83,10 @@ void Boss::update()
 			moveDir.x += (_direction == DIRECTION::RIGHT) ? 1 : -1;
 			moveDir.z += (playerPos.z >= _position.z + 10) ? 1 : ((playerPos.z <= _position.z - 10) ? -1 : 0);
 			moveDir = Vector3::normalize(&moveDir);
-			moveDir = moveDir * 3;
+
+			float speed = (_phase == BOSS_PHASE::PHASE_3) ? 5 : 3;
+
+			moveDir = moveDir * speed;
 
 			_enemyManager->moveEnemy(this, moveDir);
 
@@ -121,7 +132,6 @@ void Boss::update()
 
 			if (!_ani->isPlay())
 			{
-				_combo++;
 				_gravity = 0;
 				setState(BOSS_STATE::GROUND, _direction, false);
 			}
@@ -451,11 +461,11 @@ void Boss::render()
 		{
 			if (_direction == DIRECTION::LEFT)
 			{
-				_ani->setPlayFrame(_enemyImg->getMaxFrameX() + 3 * _combo, _enemyImg->getMaxFrameX() + 3 * _combo + 1, false, false);
+				_ani->setPlayFrame(_enemyImg->getMaxFrameX() + 3 * (_combo - 1), _enemyImg->getMaxFrameX() + 3 * _combo, false, false);
 			}
 			else
 			{
-				_ani->setPlayFrame(3 * _combo, 3 * _combo + 1, false, false);
+				_ani->setPlayFrame(3 * (_combo - 1), 3 * _combo, false, false);
 			}
 		}
 		break;
@@ -616,6 +626,15 @@ void Boss::render()
 			CAMERA_MANAGER->aniRenderZ(_enemyImg, _position, _size, _ani);
 		}
 		break;
+		}
+	}
+
+	if (_phase == BOSS_PHASE::PHASE_3)
+	{
+		if (_electricTime < 0 && _bossState != BOSS_STATE::METEOR_ATTACK)
+		{
+			EFFECT_MANAGER->playZ("effect_electric", Vector3(_position.x, -310.0, _position.z - 20), 1);
+			_electricTime = 0.5;
 		}
 	}
 	
@@ -793,9 +812,11 @@ void Boss::hitEffect(Vector3 pos, Vector3 size, OBJECT_TEAM team, FloatRect atta
 		_hp = max(0, _hp - damage);
 	}
 
+	_combo++;
+
 	if (_bossState == BOSS_STATE::IDLE || _bossState == BOSS_STATE::WALK || _bossState == BOSS_STATE::LAUGH) // 빈틈
 	{
-		if (_combo > 2 || type == ATTACK_TYPE::KNOCKDOWN)
+		if (_combo > 3 || type == ATTACK_TYPE::KNOCKDOWN)
 		{
 			_combo = 0;
 			setState(BOSS_STATE::KNOCKDOWN, _direction, true);

@@ -67,17 +67,20 @@ void UIManager::render()
 {
 	_lock.render();
 
-	
-	_bossInfo.render();
-	_levelInfo.render();
-
 	if (!_vDoor.empty())
 	{
 		for (int i = 0; i < _vDoor.size(); i++)
 		{
 			_vDoor[i].render();
 		}
-	}		
+	}
+
+	CAMERA_MANAGER->fillOutline();
+	
+	_bossInfo.render();
+
+	_levelInfo.render();
+	
 	_heart.render();
 
 	 _shop.render();	

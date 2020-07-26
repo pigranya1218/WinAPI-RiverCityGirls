@@ -133,3 +133,8 @@ bool StageManager::isDialoging()
 {
 	return _dgManager->getIsPlay();
 }
+
+void StageManager::setHeart(bool isVisible)
+{
+	_uiManager->setHeart(isVisible);
+}

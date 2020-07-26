@@ -222,6 +222,7 @@ HRESULT playGround::init()
 	IMAGE_MANAGER->addFrameImage("boss_faseupdate", L"resources/images/characters/boss_misuzu/RCG_Misuzu_roar.png", 12, 2);
 	IMAGE_MANAGER->addFrameImage("boss_tackle_init", L"resources/images/characters/boss_misuzu/RCG_Misuzu_tackle_initial.png", 5, 2);
 	IMAGE_MANAGER->addFrameImage("boss_tackle_loop", L"resources/images/characters/boss_misuzu/RCG_Misuzu_tackle_loop.png", 11, 2);
+	IMAGE_MANAGER->addFrameImage("boss_electric", L"resources/images/characters/boss_misuzu/electric.png", 2, 2);
 
 
 	// * 스테이지
@@ -401,13 +402,19 @@ HRESULT playGround::init()
 	IMAGE_MANAGER->addFrameImage("effect_2", L"resources/images/effect/effect_2.png", 15, 1);
 	IMAGE_MANAGER->addFrameImage("effect_3", L"resources/images/effect/effect_3.png",  4, 4);
 	IMAGE_MANAGER->addFrameImage("effect_4", L"resources/images/effect/effect_4.png",  5, 3);
+	IMAGE_MANAGER->addFrameImage("effect_explosion", L"resources/images/effect/explosion.png",  4, 4);
+	IMAGE_MANAGER->addFrameImage("effect_guard", L"resources/images/effect/effect_guard.png",  5, 8);
 	// 이펙트 매니저에 등록
 	for (int i = 1; i < 5; i++)
 	{
 		string name = "effect_" + to_string(i);
 		Image* img = IMAGE_MANAGER->findImage(name);
-		EFFECT_MANAGER->addEffect(name, name.c_str(), img->getWidth(), img->getHeight(), img->getMaxFrameX(), img->getMaxFrameY(), 40, 10);
+		EFFECT_MANAGER->addEffect(name, name.c_str(), 40, 10);
 	}		
+
+	EFFECT_MANAGER->addEffect("effect_electric", "boss_electric", 30, 10);
+	EFFECT_MANAGER->addEffect("effect_explosion", "effect_explosion", 20, 10);
+	EFFECT_MANAGER->addEffect("effect_guard", "effect_guard", 50, 20);
 
 	D2D_RENDERER->addTextFormat(L"메이플스토리");		// 폰트 갖고옴	
 	

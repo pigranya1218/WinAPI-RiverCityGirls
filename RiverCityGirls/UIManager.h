@@ -273,7 +273,7 @@ struct tagHeartInfo
 
 			heartRc = rectMakePivot(playerPos, Vector2(img->getWidth() * scale, img->getHeight() * scale), Pivot::Center);
 
-			scale -= 0.01f;
+			scale -= 0.02f;
 			if (scale < 0)
 			{
 				active = false;
@@ -690,7 +690,8 @@ public:
 	// ¹® ¼¼ÆÃ
 	void setDoor(vector<tagDoorInfo> doors);
 
-	void setHart(bool active)	{ _heart.active = active; }
+	void setHeart(bool active)	{ _heart.active = active; }
+	bool getHeart()	{return _heart.active; }
 
 	void setShopUI(bool active) { _shop.active = active; }
 	bool getShopUI()			{ return _shop.active; }
