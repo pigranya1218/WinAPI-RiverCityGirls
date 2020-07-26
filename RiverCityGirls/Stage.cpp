@@ -161,6 +161,10 @@ void Stage::setHeart(bool isVisible)
 	_stageManager->setHeart(isVisible);
 }
 
+void Stage::gameOver()
+{
+}
+
 void Stage::spawnMoney(Vector3 pos)
 {
 	_objectManager->spawnMoney(pos);

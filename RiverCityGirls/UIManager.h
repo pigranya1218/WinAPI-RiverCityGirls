@@ -621,8 +621,12 @@ public:
 
 	void init(LOCK_STATE state)
 	{		
-		if (state == LOCK_STATE::NORMAL) return;
-
+		if (state == LOCK_STATE::NORMAL)
+		{
+			active = false;
+			curState = LOCK_STATE::NORMAL;
+			return;
+		}
 		else if (state == curState) return;
 		switch (state)
 		{

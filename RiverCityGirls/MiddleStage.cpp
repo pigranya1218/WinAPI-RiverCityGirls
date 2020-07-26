@@ -179,6 +179,7 @@ Stage * MiddleStage::update()
 	}
 	else
 	{
+		CAMERA_MANAGER->setXY(Vector2(1350, 670));
 		if (_lastEnemyNum != _enemyManager->getEnemyCount())
 		{
 			_deadNum++;
@@ -263,4 +264,22 @@ void MiddleStage::render()
 
 	_objectManager->render();
 	_enemyManager->render();
+}
+
+void MiddleStage::gameOver()
+{
+	Stage::enter();
+	_enemyManager->clearEnemy();
+	if (_isQuesting)
+	{
+		_stageManager->setLockLevel(-1);
+		_restrictLines.erase(_restrictLines.end() - 1);
+		_restrictLines.erase(_restrictLines.end() - 1);
+	}
+	_isQuesting = false;
+	_restCount = _maxRestCount;
+	_player->setPosition(Vector3(200, -(_player->getSize().y * 0.5), 670));
+	_player->setHp(_player->getMaxHp());
+	_player->setIdleState();
+	_respawnCool = 2;
 }

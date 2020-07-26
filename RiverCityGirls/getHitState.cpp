@@ -25,6 +25,7 @@ void getHitState::enter(Player & player)
 	_airBorne = 1;
 	_hitDelay = 0;
 	_stunTime = 0;
+	_isDead = false;
 	player.setHp(player.getHp() - player.getDamage());//플레이어 체력 깍는 것
 	player.setIsHit(true);
 }
@@ -178,10 +179,9 @@ PlayerState * getHitState::update(Player & player)
 		}
 		break;
 	case GET_HIT_STATE::GAME_OVER:
-		
-		
-		if (!_ani->isPlay())
+		if (!_ani->isPlay() && !_isDead)
 		{
+			_isDead = true;
 			player.gameOver();
 		}
 		break;
