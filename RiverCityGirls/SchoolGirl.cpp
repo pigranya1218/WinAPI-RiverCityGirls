@@ -364,27 +364,27 @@ void SchoolGirl::update()
 	{
 	
 		_gravity += 1;
-		if(_hp > 0 && _ani->isPlay()){
-		moveDir.x += (_direction == DIRECTION::RIGHT) ? -1 : 1;		
+		if (_hp > 0 && _ani->isPlay() && _elapsedTime < 1) {
+			moveDir.x += (_direction == DIRECTION::RIGHT) ? -1 : 1;
 		}
 		moveDir.y += _gravity;
+
 		float lastY = _position.y;
 		_enemyManager->moveEnemy(this, moveDir);
 		float currY = _position.y;
 
-		if (lastY != currY) // ¶³¾îÁü
-		{
-		}
-		else // ¶³¾îÁöÁö ¾ÊÀ½
+		if (moveDir.y > 1 && lastY == currY) // ¶¥¿¡ ºÎµúÈû
 		{
 			_gravity = 0;
-			int randomCount = RANDOM->getInt(10);
-			
-			if (_elapsedTime > 1.5f && _hp > 0 )
+
+			if (_elapsedTime > 3 && _hp > 0)
 			{
 				setState(ENEMY_STATE::STANDUP, _direction);
 			}
-		
+			else if (_hp <= 0 && !_ani->isPlay())
+			{
+				_isActive = false;
+			}
 		}
 	}
 	break;
@@ -767,7 +767,7 @@ void SchoolGirl::setState(ENEMY_STATE state, DIRECTION direction)
 		_enemyImg = IMAGE_MANAGER->findImage("schoolgirl_getHit");
 		_ani->init(_enemyImg->getWidth(), _enemyImg->getHeight(),
 			_enemyImg->getMaxFrameX(), _enemyImg->getMaxFrameY());
-		_ani->setFPS(8);
+		_ani->setFPS(10);
 		_ani->start();
 
 		SOUND_MANAGER->stop("SchoolGirl_GetHit3");

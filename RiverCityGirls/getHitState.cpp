@@ -300,7 +300,7 @@ void getHitState::setGetHitAni(Player& player)
 		_img = IMAGE_MANAGER->findImage("Kyoko_gameover");
 		_ani = new Animation;
 		_ani->init(_img->getWidth(), _img->getHeight(), _img->getMaxFrameX(), _img->getMaxFrameY());
-		_ani->setFPS(15);
+		_ani->setFPS(10);
 		if (player.getDirection() == DIRECTION::RIGHT)
 		{
 			_ani->setPlayFrame(0, 26, false, false); //
