@@ -15,6 +15,7 @@ void Boss::init()
 	_maxHp = 300;
 	_hp = _maxHp;
 	_isActive = true;
+	_checkDialog = false;
 }
 
 void Boss::release()
@@ -40,6 +41,12 @@ void Boss::update()
 			_ani->start();
 			_enemyManager->setBossUiVisible(false);
 			_enemyManager->startDialogue(BossChapter::BATTLE_AFTER);
+			_checkDialog = true;
+		}
+
+		if (!_enemyManager->isDialoging() && _checkDialog)
+		{
+			_enemyManager->setHeart(true);
 		}
 	}
 	else

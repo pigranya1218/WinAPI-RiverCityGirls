@@ -156,6 +156,11 @@ bool Stage::isDialoging()
 	return _stageManager->isDialoging();
 }
 
+void Stage::setHeart(bool isVisible)
+{
+	_stageManager->setHeart(isVisible);
+}
+
 float Stage::getCenterBottom(Vector3 pos)
 {
 	Vector2 centerPos = Vector2(pos.x, pos.z);
