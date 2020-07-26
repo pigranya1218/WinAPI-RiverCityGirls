@@ -225,3 +225,12 @@ void Player::setIdleState()
 	_state = state;
 	state->enter(*this);
 }
+
+void Player::setStartState()
+{
+	PlayerState* state = new StartState;
+	_state->exit(*this);
+	delete _state;
+	_state = state;
+	state->enter(*this);
+}

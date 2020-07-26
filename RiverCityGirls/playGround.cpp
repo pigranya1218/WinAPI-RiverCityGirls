@@ -122,6 +122,7 @@ HRESULT playGround::init()
 	IMAGE_MANAGER->addFrameImage("OBJECT_workingMaleD_reaction",	L"resources/images/object/objectHuman_update/WorkingMaleD_react.png", 3, 2);
 
 	// * Player
+	IMAGE_MANAGER->addFrameImage("Kyoko_battle_start", L"resources/images/characters/kyoko/Kyoko_battle_start.png", 26, 2);
 	IMAGE_MANAGER->addFrameImage("Kyoko_idle", L"resources/images/characters/kyoko/Kyoko_idle.png", 12, 2);
 	IMAGE_MANAGER->addFrameImage("Kyoko_walk", L"resources/images/characters/kyoko/Kyoko_walk.png",12,2);
 	IMAGE_MANAGER->addFrameImage("Kyoko_run", L"resources/images/characters/kyoko/Kyoko_run.png", 16, 2);
