@@ -129,7 +129,7 @@ bool Player::getHit(Vector3 pos, Vector3 size, OBJECT_TEAM team, FloatRect attac
 		
 		if (_guarding)
 		{
-			if (pos.x > _position.x && attackRc.right < getHitRc.getCenter().x)
+			if (pos.x > _position.x && _direction == DIRECTION::LEFT)
 			{
 				if (pos.x > _position.x)
 				{
@@ -146,7 +146,7 @@ bool Player::getHit(Vector3 pos, Vector3 size, OBJECT_TEAM team, FloatRect attac
 				state->enter(*this);
 				return true;
 			}
-			if (pos.x < _position.x && attackRc.left > getHitRc.getCenter().x)
+			if (pos.x < _position.x && _direction == DIRECTION::RIGHT)
 			{
 				if (pos.x > _position.x)
 				{
@@ -183,6 +183,7 @@ bool Player::getHit(Vector3 pos, Vector3 size, OBJECT_TEAM team, FloatRect attac
 				_direction = DIRECTION::LEFT;
 			}
 
+			EFFECT_MANAGER->playZ("effect_4", Vector3(attackRc.getCenter().x, attackRc.getCenter().y, _position.z + _size.z / 2), 1);
 			_state->exit(*this);
 			delete _state;
 			_state = state;

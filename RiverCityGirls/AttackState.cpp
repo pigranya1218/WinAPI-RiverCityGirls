@@ -237,7 +237,14 @@ PlayerState * AttackState::update(Player & player)
 				_viewRc = FloatRect(_attackRc.left, position.z + _attackRc.top,
 					_attackRc.right, position.z + _attackRc.bottom);
 				player.attack(player.getPosition(), player.getSize(), OBJECT_TEAM::PLAYER, _attackRc, 10, ATTACK_TYPE::HIT2);
+				
+				if (player.attack(player.getPosition(), player.getSize(), OBJECT_TEAM::PLAYER, _attackRc, 10, ATTACK_TYPE::HIT1))
+				{
+					EFFECT_MANAGER->playZ("effect_4", Vector3((_attackRc.left + _attackRc.right) / 2, (_attackRc.top + _attackRc.bottom) / 2, position.z + player.getSize().z / 2), 1);
+				}
 			}
+
+
 
 			_initTime += TIME_MANAGER->getElapsedTime();
 				
@@ -308,10 +315,15 @@ PlayerState * AttackState::update(Player & player)
 					}
 
 					_viewRc = FloatRect(_attackRc.left, position.z + _attackRc.top,
-							_attackRc.right, position.z + _attackRc.bottom);
-						player.attack(player.getPosition(), player.getSize(), OBJECT_TEAM::PLAYER, _attackRc, 10, ATTACK_TYPE::KNOCKDOWN);
+						_attackRc.right, position.z + _attackRc.bottom);
+					
+					if (player.attack(player.getPosition(), player.getSize(), OBJECT_TEAM::PLAYER, _attackRc, 10, ATTACK_TYPE::KNOCKDOWN))
+					{
+						EFFECT_MANAGER->playZ("effect_4",Vector3(_attackRc.getCenter().x,_attackRc.getCenter().y,position.z+player.getSize().z/2),1);
 					}
-					else if (_initTime >= 0.2 &&KEY_MANAGER->isOnceKeyDown('S'))
+				}
+			
+				else if (_initTime >= 0.2 &&KEY_MANAGER->isOnceKeyDown('S'))
 					{
 						_img = IMAGE_MANAGER->findImage("Kyoko_axekick");
 						_ani->init(_img->getWidth(), _img->getHeight(), _img->getMaxFrameX(), _img->getMaxFrameY());
@@ -330,7 +342,7 @@ PlayerState * AttackState::update(Player & player)
 						_skill = ATTACK_SKILL::HC;
 						_initTime = 0;
 					}
-				}
+			}
 			break;
 
 		case ATTACK_SKILL::RUN_QC:
@@ -523,6 +535,11 @@ PlayerState * AttackState::update(Player & player)
 				moveDir.y -= _currJumpPower;
 				_currJumpPower -= player.getGravity();
 
+				if (player.attack(player.getPosition(), player.getSize(), OBJECT_TEAM::PLAYER, _attackRc, 10, ATTACK_TYPE::KNOCKDOWN))
+				{
+					_currJumpPower += 10;
+				}
+
 				if (KEY_MANAGER->isStayKeyDown(VK_RIGHT))
 				{
 					moveDir.x += player.getSpeed();
@@ -627,12 +644,7 @@ void AttackState::render(Player & player)
 
 void AttackState::exit(Player & paleyr)
 {
-	SOUND_MANAGER->stop("KYOKO_Chop" );
-	SOUND_MANAGER->stop("KYOKO_BackElbow" );
-	SOUND_MANAGER->stop("KYOKO_HipAttack" );
-	SOUND_MANAGER->stop("KYOKO_JumpKick");
-	SOUND_MANAGER->stop("KYOKO_Dive");
-	SOUND_MANAGER->stop("KYOKO_HeavyAtkKick");
+	
 	_ani->release();
 	SAFE_DELETE(_ani);
 }
