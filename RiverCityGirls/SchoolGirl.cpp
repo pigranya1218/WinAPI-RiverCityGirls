@@ -33,7 +33,11 @@ void SchoolGirl::update()
 	float distanceFromPlayer = sqrt(pow(playerPos.x - _position.x, 2) + pow(playerPos.z - _position.z, 2)); // 플레이어와 xz 거리
 	Vector3 moveDir = Vector3(0, 0, 0);
 	_elapsedTime += TIME_MANAGER->getElapsedTime();
-
+	float playerHp = _enemyManager->getPlayerHp();
+	if (playerHp <= 0)
+	{
+		setState(ENEMY_STATE::IDLE, _direction);
+	}
 	if (_elapsedTime >1)
 	{
 		_hitCount = 0;

@@ -113,6 +113,12 @@ Vector3 EnemyManager::getPlayerPosition()
 	return _stage->getPlayerPosition();
 }
 
+float EnemyManager::getPlayerHp()
+{
+	
+	return _stage->getPlayerHp();
+}
+
 float EnemyManager::getCenterBottom(Vector3 pos)
 {
 	return _stage->getCenterBottom(pos);

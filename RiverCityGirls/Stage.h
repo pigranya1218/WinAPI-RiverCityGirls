@@ -62,4 +62,5 @@ public:
 
 	float getCenterBottom(Vector3 pos);
 	Vector3 getPlayerPosition();
+	float getPlayerHp();
 };

@@ -24,10 +24,16 @@ void CheerGirl::release()
 void CheerGirl::update()
 {
 	
+
 	Vector3 playerPos = _enemyManager->getPlayerPosition(); // 플레이어의 위치
 	float distanceFromPlayer = sqrt(pow(playerPos.x - _position.x, 2) + pow(playerPos.z - _position.z, 2)); // 플레이어와 xz 거리
 	Vector3 moveDir = Vector3(0, 0, 0);
 	_elapsedTime += TIME_MANAGER->getElapsedTime();
+	float playerHp = _enemyManager->getPlayerHp();
+	if (playerHp <= 0)
+	{
+		setState(ENEMY_STATE::IDLE, _direction);
+	}
 
 	if (_elapsedTime >1)
 	{

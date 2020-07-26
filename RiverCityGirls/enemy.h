@@ -29,7 +29,8 @@ class Enemy : public GameObject
 {
 protected:
 	EnemyManager* _enemyManager;
-
+	
+	
 	FloatRect _attackRc;	// 공격 판정 렉트
 	FloatRect _viewRc;		
 	int _attackS;	// 공격 판정할 프레임 저장용
@@ -68,9 +69,9 @@ public:
 	bool getHit(Vector3 pos, Vector3 size, OBJECT_TEAM team, FloatRect attackRc, float damage, ATTACK_TYPE type);
 	bool enemyAttack(Vector3 pos, Vector3 size, OBJECT_TEAM team, FloatRect attackRc, float damage, ATTACK_TYPE type);
 	virtual bool hitEffect(Vector3 pos, Vector3 size, OBJECT_TEAM team, FloatRect attackRc, float damage, ATTACK_TYPE type);
-
+	//Vector3 playerPos = _enemyManager->getPlayerPosition(); // 플레이어의 위치
 	void setDirectionToPlayer();
-
+	
 	bool isActive() { return _isActive; }
 
 
