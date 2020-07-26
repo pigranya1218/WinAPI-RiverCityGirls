@@ -55,6 +55,7 @@ void Boss::update()
 		float distanceFromPlayer = sqrt(pow(playerPos.x - _position.x, 2) + pow(playerPos.z - _position.z, 2)); // 플레이어와 xz 거리
 		Vector3 moveDir = Vector3(0, 0, 0);
 		_elapsedTime += TIME_MANAGER->getElapsedTime();
+		_electricTime -= TIME_MANAGER->getElapsedTime();
 
 
 		// 상태에 따른 행동 및 상태 전이
@@ -75,7 +76,10 @@ void Boss::update()
 			moveDir.x += (_direction == DIRECTION::RIGHT) ? 1 : -1;
 			moveDir.z += (playerPos.z >= _position.z + 10) ? 1 : ((playerPos.z <= _position.z - 10) ? -1 : 0);
 			moveDir = Vector3::normalize(&moveDir);
-			moveDir = moveDir * 3;
+
+			float speed = (_phase == BOSS_PHASE::PHASE_3) ? 5 : 3;
+
+			moveDir = moveDir * speed;
 
 			_enemyManager->moveEnemy(this, moveDir);
 
@@ -616,6 +620,15 @@ void Boss::render()
 			CAMERA_MANAGER->aniRenderZ(_enemyImg, _position, _size, _ani);
 		}
 		break;
+		}
+	}
+
+	if (_phase == BOSS_PHASE::PHASE_3)
+	{
+		if (_electricTime < 0 && _bossState != BOSS_STATE::METEOR_ATTACK)
+		{
+			EFFECT_MANAGER->playZ("effect_electric", Vector3(_position.x, -310.0, _position.z - 20), 1);
+			_electricTime = 0.5;
 		}
 	}
 	

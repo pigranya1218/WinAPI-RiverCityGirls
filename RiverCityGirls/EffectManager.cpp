@@ -52,7 +52,7 @@ void EffectManager::render()
 	}
 }
 
-void EffectManager::addEffect(string effectName, const char * imageName, int imageWidth, int imageHeight, int effectWidth, int effectHeight, int fps, int buffer)
+void EffectManager::addEffect(string effectName, const char * imageName, int fps, int buffer)
 {
 	Image* img;
 	vEffects vEffectBuffer;
@@ -69,7 +69,7 @@ void EffectManager::addEffect(string effectName, const char * imageName, int ima
 	for (int i = 0; i < buffer; ++i)
 	{
 		vEffectBuffer.push_back(new Effect);
-		vEffectBuffer[i]->init(img, effectWidth, effectHeight, fps);
+		vEffectBuffer[i]->init(img, fps);
 	}
 
 	_totalEffect.insert(pair<string, vEffects>(effectName, vEffectBuffer));
