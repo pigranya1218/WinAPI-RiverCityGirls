@@ -199,7 +199,7 @@ HRESULT playGround::init()
 	IMAGE_MANAGER->addFrameImage("cheergirl_walk", L"resources/images/characters/enemy_cheergirl/walk.png", 12, 2);
 	IMAGE_MANAGER->addFrameImage("cheergirl_jumpAttack1", L"resources/images/characters/enemy_cheergirl/divekick_start.png", 6, 2);
 	IMAGE_MANAGER->addFrameImage("cheergirl_jumpAttack2", L"resources/images/characters/enemy_cheergirl/divekick_middle.png", 7, 2);
-	IMAGE_MANAGER->addFrameImage("cheergirl_jumpAttack3", L"resources/images/characters/enemy_cheergirl/divekick_end.png", 13, 2);
+	IMAGE_MANAGER->addFrameImage("cheergirl_jumpAttack3", L"resources/images/characters/enemy_cheergirl/divekick.png", 26, 2);
 	//º¸½º
 	IMAGE_MANAGER->addFrameImage("boss_block", L"resources/images/characters/boss_misuzu/Misuzu_block.png", 4, 2);
 	IMAGE_MANAGER->addFrameImage("boss_walk", L"resources/images/characters/boss_misuzu/MizusuWalk.png", 10, 2);
