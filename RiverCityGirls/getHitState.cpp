@@ -168,7 +168,7 @@ PlayerState * getHitState::update(Player & player)
 	case GET_HIT_STATE::STUN:
 		
 		EFFECT_MANAGER->playZ("effect_stun", Vector3( player.getPosition().x,player
-		.getPosition().y-140, player.getPosition().z + player.getSize().z/2), 1);
+		.getPosition().y-140, player.getPosition().z + player.getSize().z/2), 0.8);
 		_stunTime += TIME_MANAGER->getElapsedTime();
 
 		if (_stunTime>3)
