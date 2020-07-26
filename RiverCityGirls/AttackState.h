@@ -27,6 +27,7 @@ private:
 	FloatRect _viewRc;
 	float _initTime;
 	float _lastPlayerY;
+	bool _isCombo;
 
 public:
 	virtual void enter(Player&player);

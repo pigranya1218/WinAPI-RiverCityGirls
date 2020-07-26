@@ -5,6 +5,7 @@ void AttackState::enter(Player & player)
 {
 	int num2 = RANDOM->getFromIntTo(1, 3);
 	int num3 = RANDOM->getFromIntTo(1, 4);
+	_isCombo = false;
 
 	switch (_skill)
 	{
@@ -167,37 +168,40 @@ PlayerState * AttackState::update(Player & player)
 				_attackRc = FloatRect(position.x - 130, position.y - 45,
 					position.x - 20, position.y + 10);
 			}
-				
+
 			_viewRc = FloatRect(_attackRc.left, position.z + _attackRc.top,
 				_attackRc.right, position.z + _attackRc.bottom);
 			if (player.attack(player.getPosition(), player.getSize(), OBJECT_TEAM::PLAYER, _attackRc, 10, ATTACK_TYPE::HIT1))
 			{
-				EFFECT_MANAGER->playZ("effect_4", Vector3((_attackRc.left + _attackRc.right) / 2, (_attackRc.top + _attackRc.bottom) / 2, position.z + player.getSize().z / 2) , 1);
-				if (_initTime >= 0.13 && KEY_MANAGER->isOnceKeyDown('Z'))
-				{
-					SOUND_MANAGER->play("KYOKO_Chop2", 1.0f);
-					_img = IMAGE_MANAGER->findImage("Kyoko_attack2");
-
-					_ani->init(_img->getWidth(), _img->getHeight(), _img->getMaxFrameX(), _img->getMaxFrameY());
-					if (player.getDirection() == DIRECTION::RIGHT)
-					{
-						_ani->setPlayFrame(0, 7, false, false);
-					}
-					else
-					{
-						_ani->setPlayFrame(7, 14, false, false);
-					}
-					_ani->setFPS(15);
-					_ani->start();
-
-
-					_skill = ATTACK_SKILL::QC2;
-					_initTime = 0;
-				}
-				
+				EFFECT_MANAGER->playZ("effect_4", Vector3((_attackRc.left + _attackRc.right) / 2, (_attackRc.top + _attackRc.bottom) / 2, position.z + player.getSize().z / 2), 1);
+				SOUND_MANAGER->play("KYOKO_Chop2", 1.0f);
+				_isCombo = true;
 			}
-			
 		}
+		if (_isCombo)
+		{
+			if (KEY_MANAGER->isOnceKeyDown('Z'))
+			{
+				_img = IMAGE_MANAGER->findImage("Kyoko_attack2");
+
+				_ani->init(_img->getWidth(), _img->getHeight(), _img->getMaxFrameX(), _img->getMaxFrameY());
+				if (player.getDirection() == DIRECTION::RIGHT)
+				{
+					_ani->setPlayFrame(0, 7, false, false);
+				}
+				else
+				{
+					_ani->setPlayFrame(7, 14, false, false);
+				}
+				_ani->setFPS(15);
+				_ani->start();
+
+
+				_skill = ATTACK_SKILL::QC2;
+				_initTime = 0;
+			}
+		}
+		
 	}
 			
 		
