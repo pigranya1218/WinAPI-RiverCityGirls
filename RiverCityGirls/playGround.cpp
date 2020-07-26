@@ -331,6 +331,7 @@ HRESULT playGround::init()
 	SOUND_MANAGER->addSound("KYOKO_HeavyAtkKick",			"resources/sound/stageSound/Kyoko/KyokoHeavyAtkKick.mp3", false, false);
 	SOUND_MANAGER->addSound("KYOKO_HipAttack1",				"resources/sound/stageSound/Kyoko/KyokoHipAttack.mp3", false, false);
 	SOUND_MANAGER->addSound("KYOKO_HipAttack2",	            "resources/sound/stageSound/Kyoko/KyokoHipAttackWithoutVoice.mp3", false, false);
+	SOUND_MANAGER->addSound("KYOKO_Jump",					"resources/sound/stageSound/Kyoko/KyokoJump.mp3", false, false);
 	SOUND_MANAGER->addSound("KYOKO_JumpKick",				"resources/sound/stageSound/Kyoko/KyokoJumpKick.mp3", false, false);
 	SOUND_MANAGER->addSound("KYOKO_LevelUP",				"resources/sound/stageSound/Kyoko/KyokoLevelUP.mp3", false, false);
 	SOUND_MANAGER->addSound("KYOKO_Run",					"resources/sound/stageSound/Kyoko/KyokoRun.mp3", false, true);

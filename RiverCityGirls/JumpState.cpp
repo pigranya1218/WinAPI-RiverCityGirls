@@ -111,7 +111,8 @@ PlayerState * JumpState::update(Player & player)
 	case JUMP_TYPE::WALL_JUMP:
 		if (!_ani->isPlay())
 		{
-			_ani->release();
+			SOUND_MANAGER->stop("KYOKO_Jump");
+			SOUND_MANAGER->play("KYOKO_Jump", 1.0f);
 
 			_img = IMAGE_MANAGER->findImage("Kyoko_jump");
 			_ani->init(_img->getWidth(), _img->getHeight(), _img->getMaxFrameX(), _img->getMaxFrameY());
