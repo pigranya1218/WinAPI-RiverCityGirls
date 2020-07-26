@@ -58,6 +58,8 @@ public:
 	void setHeart(bool isVisible);
 	void spawnMoney(Vector3 pos);
 
+	virtual void gameOver();
+
 	float getCenterBottom(Vector3 pos);
 	Vector3 getPlayerPosition();
 };

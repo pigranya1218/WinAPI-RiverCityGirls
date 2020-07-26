@@ -22,6 +22,8 @@ private:
 	float _hitDelay;
 	float _stunTime;
 
+	bool _isDead;
+
 	ATTACK_TYPE _getHitType;
 	Synthesize(GET_HIT_STATE, _getHitState,GetHitState)
 

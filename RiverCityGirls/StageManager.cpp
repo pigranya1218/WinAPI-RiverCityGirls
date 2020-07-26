@@ -27,10 +27,13 @@ void StageManager::init()
 	_stageMap["BOSS_STAGE"] = stage_3;
 
 	_currStage = _stageMap["START_STAGE"];
+	//_currStage = _stageMap["MIDDLE_STAGE"];
 	//_currStage = _stageMap["BOSS_STAGE"];
 	_currStage->enter();
 	_player->setStartState();
 	
+	_isGameOver = false;
+
 	TIME_MANAGER->update(60);
 }
 
@@ -46,6 +49,11 @@ void StageManager::release()
  
 void StageManager::update()
 {
+	if (_isGameOver && !_uiManager->getHeart())
+	{
+		_currStage->gameOver();
+		_isGameOver = false;
+	}
 	if (!_dgManager->getIsPlay() && !_uiManager->getShopUI())
 	{
 		if (_stageBuffer != nullptr)
@@ -113,6 +121,11 @@ void StageManager::setLockLevel(int level)
 		_uiManager->setLock(LOCK_STATE::LOCK_0);
 	}
 	break;
+	case -1:
+	{
+		_uiManager->setLock(LOCK_STATE::NORMAL);
+	}
+	break;
 	}
 }
 
@@ -145,4 +158,8 @@ void StageManager::setHeart(bool isVisible)
 
 void StageManager::gameOver()
 {
+	_isGameOver = true;
+	SOUND_MANAGER->stop("GameOver");
+	SOUND_MANAGER->play("GameOver", 1);
+	_uiManager->setHeart(true);
 }

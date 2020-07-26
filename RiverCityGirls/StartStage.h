@@ -14,5 +14,7 @@ public:
 	virtual void exit();
 	virtual Stage* update();
 	virtual void render();
+
+	virtual void gameOver();
 };
 
