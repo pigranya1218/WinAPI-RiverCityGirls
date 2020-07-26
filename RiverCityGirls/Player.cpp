@@ -31,7 +31,7 @@ void Player::init()
 	_jumpPower = 25;
 	_gravity = 1.0f;
 	_speed = 5;
-	_maxHp = 100;
+	_maxHp = 10;
 	_hp = _maxHp;
 	_money = 0;
 	_onObject = false;

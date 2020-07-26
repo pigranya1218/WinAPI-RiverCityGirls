@@ -15,6 +15,7 @@ private:
 	Player* _player;
 	UIManager* _uiManager;
 	DialogueManager* _dgManager;
+	bool _isGameOver;
 
 public:
 	void init();

@@ -153,3 +153,13 @@ void StartStage::render()
 	_objectManager->render();
 	_enemyManager->render();
 }
+
+void StartStage::gameOver()
+{
+	Stage::enter();
+	_enemyManager->clearEnemy();
+	_player->setPosition(Vector3(330, -105, 600));
+	_player->setHp(_player->getMaxHp());
+	_player->setStartState();
+	_respawnCool = 2;
+}
