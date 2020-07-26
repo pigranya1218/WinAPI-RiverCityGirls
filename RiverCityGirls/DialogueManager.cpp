@@ -276,14 +276,17 @@ void DialogueManager::keyReaction()
 	}
 
 	if (_skip.curGauge > _skip.maxGauge)
-	{
-		_skip.curGauge = 0;
-
-		for (int i = 0; !_qCharacterImg.empty(); i++)
+	{		
+		while (!_qCharacterImg.empty() && !_qCharacterMsg.empty())
 		{
 			_qCharacterImg.pop();
 			_qCharacterMsg.pop();
+
+			_writeText.clear();
+			_stringNum = 0;
 		}
+
+		_skip.curGauge = 0;
 		_isPlay = false;
 	}
 }
