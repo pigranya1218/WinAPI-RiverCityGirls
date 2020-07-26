@@ -210,6 +210,8 @@ void getHitState::render(Player & player)
 	}
 	_img->setScale(3);
 	CAMERA_MANAGER->aniRenderZ(_img, position, player.getSize(), _ani);
+	CAMERA_MANAGER->drawShadowZ(player.getPosition(), Vector3(120.0, player.getSize().y, 25.0), -(player.getPosition().y + (player.getSize().y / 2)));
+
 }
 
 void getHitState::setGetHitAni(Player& player)
