@@ -714,22 +714,22 @@ public:
 	void render();	
 
 	// 플레이어 체력 및 경험치
-	void setPlayerHpActive(bool active) { _playerInfo.active = active; }
-	void setPlayerHp(float currentHp, float maxHp) { _playerInfo.currentHp = currentHp; _playerInfo.maxHp = maxHp; }
-	void setPlayerExp(float currentExp, float maxExp) { _playerInfo.currentExp = currentExp; _playerInfo.maxExp = maxExp; }
+	void setPlayerHpActive(bool active)					{ _playerInfo.active = active; }
+	void setPlayerHp(float currentHp, float maxHp)		{ _playerInfo.currentHp = currentHp; _playerInfo.maxHp = maxHp; }
+	void setPlayerExp(float currentExp, float maxExp)	{ _playerInfo.currentExp = currentExp; _playerInfo.maxExp = maxExp; }
 
 	// 레벨업 출력
 	void setLevelUp(bool active);	
 
 	// 보스 체력
-	void setBossHpActive(bool active) { _bossInfo.active = active; }
-	void setBossHp(float currentHp, float maxHp) { _bossInfo.currentHp = currentHp; _bossInfo.maxHp = maxHp; }
+	void setBossHpActive(bool active)				{ _bossInfo.active = active; }
+	void setBossHp(float currentHp, float maxHp)	{ _bossInfo.currentHp = currentHp; _bossInfo.maxHp = maxHp; }
 
 	// 문 세팅
 	void setDoor(vector<tagDoorInfo> doors);
 
 	void setHeart(bool active)	{ _heart.active = active; }
-	bool getHeart() { return _heart.active; }
+	bool getHeart()				{ return _heart.active; }
 
 	void setShopUI(bool active) { _shop.active = active; }
 	bool getShopUI()			{ return _shop.active; }
