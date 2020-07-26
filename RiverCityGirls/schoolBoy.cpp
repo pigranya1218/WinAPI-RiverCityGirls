@@ -601,7 +601,7 @@ void SchoolBoy::render()
 }
 
 //ÇÇ°Ý
-void SchoolBoy::hitEffect(Vector3 pos, Vector3 size, OBJECT_TEAM team, FloatRect attackRc, float damage, ATTACK_TYPE type)
+bool SchoolBoy::hitEffect(Vector3 pos, Vector3 size, OBJECT_TEAM team, FloatRect attackRc, float damage, ATTACK_TYPE type)
 {
 
 	_hitType = type;
@@ -623,7 +623,9 @@ void SchoolBoy::hitEffect(Vector3 pos, Vector3 size, OBJECT_TEAM team, FloatRect
 			_hp -= damage;
 			setState(ENEMY_STATE::STUN, _direction);
 		}
+		return true;
 	}
+	return false;
 }
 
 

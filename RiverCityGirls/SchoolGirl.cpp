@@ -618,7 +618,7 @@ void SchoolGirl::render()
 }
 
 
-void SchoolGirl::hitEffect(Vector3 pos, Vector3 size, OBJECT_TEAM team, FloatRect attackRc, float damage, ATTACK_TYPE type)
+bool SchoolGirl::hitEffect(Vector3 pos, Vector3 size, OBJECT_TEAM team, FloatRect attackRc, float damage, ATTACK_TYPE type)
 {
 
 	
@@ -644,7 +644,9 @@ void SchoolGirl::hitEffect(Vector3 pos, Vector3 size, OBJECT_TEAM team, FloatRec
 		{
 			setState(ENEMY_STATE::STUN, _direction);
 		}
+		return true;
 	}
+	return false;
 }
 
 void SchoolGirl::setState(ENEMY_STATE state, DIRECTION direction)

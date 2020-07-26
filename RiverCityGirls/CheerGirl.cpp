@@ -627,11 +627,9 @@ void CheerGirl::render()
 	
 }
 
-void CheerGirl::hitEffect(Vector3 pos, Vector3 size, OBJECT_TEAM team, FloatRect attackRc, float damage, ATTACK_TYPE type)
+bool CheerGirl::hitEffect(Vector3 pos, Vector3 size, OBJECT_TEAM team, FloatRect attackRc, float damage, ATTACK_TYPE type)
 {
-	
-
-	if (_state == ENEMY_STATE::SKILL) return;
+	if (_state == ENEMY_STATE::SKILL) return false;
 
 	_hitType = type;
 	if (_state != ENEMY_STATE::HIT && _state != ENEMY_STATE::KNOCKDOWN && _state != ENEMY_STATE::STANDUP)
@@ -653,7 +651,9 @@ void CheerGirl::hitEffect(Vector3 pos, Vector3 size, OBJECT_TEAM team, FloatRect
 		{
 			setState(ENEMY_STATE::STUN, _direction);
 		}
+		return true;
 	}
+	return false;
 }
 
 void CheerGirl::setState(ENEMY_STATE state, DIRECTION direction)
