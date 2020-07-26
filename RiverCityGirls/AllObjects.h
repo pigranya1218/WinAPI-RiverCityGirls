@@ -14,3 +14,4 @@
 #include "SnackMachineObject.h"
 #include "ParticleObject.h"
 #include "FoodObject.h"
+#include "MoneyObject.h"

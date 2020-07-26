@@ -2,13 +2,11 @@
 #include "Enemy.h"
 #include "EnemyManager.h"
 
-
 class CheerGirl :public Enemy
 {
 
 private:
 	int _attackS, _attackE;
-
 public:
 	CheerGirl() {};
 	~CheerGirl() {};
