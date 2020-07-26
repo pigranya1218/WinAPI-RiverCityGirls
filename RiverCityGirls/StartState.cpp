@@ -11,9 +11,9 @@ void StartState::enter(Player& player)
 	_img->setScale(3);
 	_ani = new Animation;
 	_ani->init(_img->getWidth(), _img->getHeight(), _img->getMaxFrameX(), _img->getMaxFrameY());
-	_ani->setFPS(15);
+	_ani->setFPS(20);
 
-	_ani->setPlayFrame(0, 26, false, true);
+	_ani->setPlayFrame(0, 26, false, false);
 	
 	//스폰 장소가 스테이지기준 좌측인지 우측인지에 따라 나눌수 있지만
 	//굳이 하기 귀찮다면 왼쪽에서 나타나는 걸로
@@ -39,18 +39,10 @@ void StartState::exit(Player& player)
 
 PlayerState* StartState::update(Player& player)
 {
-	Vector3 moveDir = Vector3(0, 0, 0);
-
 	if (!_ani->isPlay())
 	{
 		return new IdleState;
 	}
-	else
-	{
-		moveDir.x = 2;
-		moveDir.y = 2;
-	}
-	player.move(moveDir);
 
 	_ani->frameUpdate(TIME_MANAGER->getElapsedTime());
 	return nullptr;
@@ -58,6 +50,10 @@ PlayerState* StartState::update(Player& player)
 
 void StartState::render(Player& player)
 {
+	PlayerState::render(player);
+
+	_img->setScale(3);
 	Vector3 position = player.getPosition();
 	CAMERA_MANAGER->aniRenderZ(_img, position, player.getSize(), _ani);
+	CAMERA_MANAGER->drawShadowZ(player.getPosition(), Vector3(120.0, player.getSize().y, 25.0), -(player.getPosition().y + (player.getSize().y / 2)));
 }

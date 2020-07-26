@@ -177,11 +177,10 @@ bool Player::getHit(Vector3 pos, Vector3 size, OBJECT_TEAM team, FloatRect attac
 			}
 			else 
 			{
-				EFFECT_MANAGER->playZ("effect_1", Vector3(attackRc.getCenter().x, attackRc.getCenter().y, _position.z + _size.z / 2), 1);
+				EFFECT_MANAGER->playZ("effect_guard", Vector3(attackRc.getCenter().x, attackRc.getCenter().y, _position.z + _size.z / 2), 0.2);
 				int num = RANDOM->getFromIntTo(1, 4);
 				SOUND_MANAGER->stop("STAGE_HitSound" + to_string(num));
 				SOUND_MANAGER->play("STAGE_HitSound" + to_string(num), 1.0f);
-				EFFECT_MANAGER->playZ("effect_guard", Vector3((attackRc.left + attackRc.right) / 2, (attackRc.top + attackRc.bottom) / 2, _position.z + _size.z / 2), 0.3);
 				_state->exit(*this);
 				delete _state;
 				_state = gdState;
@@ -191,7 +190,6 @@ bool Player::getHit(Vector3 pos, Vector3 size, OBJECT_TEAM team, FloatRect attac
 		}
 		else
 		{
-			EFFECT_MANAGER->playZ("effect_4", Vector3((attackRc.left + attackRc.right) / 2, (attackRc.top + attackRc.bottom) / 2, _position.z + _size.z / 2), 1);
 			if (pos.x > _position.x)
 			{
 				_direction == DIRECTION::RIGHT;

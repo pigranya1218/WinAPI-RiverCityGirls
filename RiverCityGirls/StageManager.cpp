@@ -28,6 +28,9 @@ void StageManager::init()
 
 	_currStage = _stageMap["START_STAGE"];
 	_currStage->enter();
+	_player->setStartState();
+	
+	TIME_MANAGER->update(60);
 }
 
 void StageManager::release()
