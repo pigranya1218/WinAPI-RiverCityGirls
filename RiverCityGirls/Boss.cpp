@@ -132,7 +132,6 @@ void Boss::update()
 
 			if (!_ani->isPlay())
 			{
-				_combo++;
 				_gravity = 0;
 				setState(BOSS_STATE::GROUND, _direction, false);
 			}
@@ -462,11 +461,11 @@ void Boss::render()
 		{
 			if (_direction == DIRECTION::LEFT)
 			{
-				_ani->setPlayFrame(_enemyImg->getMaxFrameX() + 3 * _combo, _enemyImg->getMaxFrameX() + 3 * _combo + 1, false, false);
+				_ani->setPlayFrame(_enemyImg->getMaxFrameX() + 3 * (_combo - 1), _enemyImg->getMaxFrameX() + 3 * _combo, false, false);
 			}
 			else
 			{
-				_ani->setPlayFrame(3 * _combo, 3 * _combo + 1, false, false);
+				_ani->setPlayFrame(3 * (_combo - 1), 3 * _combo, false, false);
 			}
 		}
 		break;
@@ -813,9 +812,11 @@ void Boss::hitEffect(Vector3 pos, Vector3 size, OBJECT_TEAM team, FloatRect atta
 		_hp = max(0, _hp - damage);
 	}
 
+	_combo++;
+
 	if (_bossState == BOSS_STATE::IDLE || _bossState == BOSS_STATE::WALK || _bossState == BOSS_STATE::LAUGH) // ºóÆ´
 	{
-		if (_combo > 2 || type == ATTACK_TYPE::KNOCKDOWN)
+		if (_combo > 3 || type == ATTACK_TYPE::KNOCKDOWN)
 		{
 			_combo = 0;
 			setState(BOSS_STATE::KNOCKDOWN, _direction, true);
