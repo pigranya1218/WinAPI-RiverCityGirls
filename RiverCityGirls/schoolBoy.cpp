@@ -343,9 +343,8 @@ void SchoolBoy::update()
 	case ENEMY_STATE::KNOCKDOWN: // 쓰러지는 경직
 	{
 		_gravity += 1;
-		if (_gravity != 1)
-		{
-			moveDir.x += (_direction == DIRECTION::RIGHT) ? -2 : 2;
+		if (_hp > 0 && _ani->isPlay() && _elapsedTime <1) {
+			moveDir.x += (_direction == DIRECTION::RIGHT) ? -1 : 1;
 		}
 		moveDir.y += _gravity;
 
