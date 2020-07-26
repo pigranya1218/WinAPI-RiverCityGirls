@@ -152,7 +152,10 @@ PlayerState * AttackState::update(Player & player)
 				
 			_viewRc = FloatRect(_attackRc.left, position.z + _attackRc.top,
 				_attackRc.right, position.z + _attackRc.bottom);
-			player.attack(player.getPosition(), player.getSize(), OBJECT_TEAM::PLAYER, _attackRc, 10, ATTACK_TYPE::HIT1);
+			if (player.attack(player.getPosition(), player.getSize(), OBJECT_TEAM::PLAYER, _attackRc, 10, ATTACK_TYPE::HIT1))
+			{
+				EFFECT_MANAGER->playZ("effect_4", Vector3((_attackRc.left + _attackRc.right) / 2, (_attackRc.top + _attackRc.bottom) / 2, position.z + player.getSize().z / 2) , 1);
+			}
 		}
 			
 		if (_initTime>=0.2 &&KEY_MANAGER->isOnceKeyDown('Z'))

@@ -51,35 +51,46 @@ void Effect::render()
 {
 	if (!_isRunning) return;
 
-	CAMERA_MANAGER->aniRender(_effectImage, _position, _effectAnimation);
+	_effectImage->setScale(_scale);
+	CAMERA_MANAGER->aniRenderZ(_effectImage, _position, Vector3(10, 10, 10), _effectAnimation);
 }
 
-void Effect::startEffect(int x, int y)
+//void Effect::startEffect(int x, int y)
+//{
+//	if (!_effectImage || !_effectAnimation) return;
+//
+//	_position = Vector2(x - (_effectAnimation->getFrameWidth() / 2), 
+//		y - (_effectAnimation->getFrameHeight() / 2));
+//	_size = Vector2(_effectAnimation->getFrameWidth(), 
+//		_effectAnimation->getFrameHeight());
+//
+//	_isRunning = true;
+//
+//	_effectAnimation->start();
+//}
+//
+//void Effect::startEffect(int x, int y, int width, int height)
+//{
+//	//이펙트 이미지 또는 이펙트 애니메이션이 없으면 실행하지마라
+//	if (!_effectImage || !_effectAnimation) return;
+//
+//	_position = Vector2(x - (_effectAnimation->getFrameWidth() / 2),
+//		y - (_effectAnimation->getFrameHeight() / 2));
+//	_size = Vector2(width,
+//		height);
+//
+//	_isRunning = true;
+//
+//	_effectAnimation->start();
+//}
+
+void Effect::startEffectZ(Vector3 pos, float scale)
 {
 	if (!_effectImage || !_effectAnimation) return;
 
-	_position = Vector2(x - (_effectAnimation->getFrameWidth() / 2), 
-		y - (_effectAnimation->getFrameHeight() / 2));
-	_size = Vector2(_effectAnimation->getFrameWidth(), 
-		_effectAnimation->getFrameHeight());
-
+	_position = pos;
+	_scale = scale;
 	_isRunning = true;
-
-	_effectAnimation->start();
-}
-
-void Effect::startEffect(int x, int y, int width, int height)
-{
-	//이펙트 이미지 또는 이펙트 애니메이션이 없으면 실행하지마라
-	if (!_effectImage || !_effectAnimation) return;
-
-	_position = Vector2(x - (_effectAnimation->getFrameWidth() / 2),
-		y - (_effectAnimation->getFrameHeight() / 2));
-	_size = Vector2(width,
-		height);
-
-	_isRunning = true;
-
 	_effectAnimation->start();
 }
 

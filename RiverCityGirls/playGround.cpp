@@ -404,7 +404,7 @@ HRESULT playGround::init()
 	{
 		string name = "effect_" + to_string(i);
 		Image* img = IMAGE_MANAGER->findImage(name);
-		EFFECT_MANAGER->addEffect(name, name.c_str(), img->getWidth(), img->getHeight(), img->getMaxFrameX(), img->getMaxFrameY(), 10, 10);
+		EFFECT_MANAGER->addEffect(name, name.c_str(), img->getWidth(), img->getHeight(), img->getMaxFrameX(), img->getMaxFrameY(), 40, 10);
 	}		
 
 	D2D_RENDERER->addTextFormat(L"메이플스토리");		// 폰트 갖고옴	
