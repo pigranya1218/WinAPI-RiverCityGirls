@@ -465,10 +465,7 @@ void CheerGirl::update()
 }
 
 void CheerGirl::render()
-{
-	char str[1000];
-	sprintf_s(str, "[치어걸] _hp : %d, _hitCount : %f", _hp, _hitCount);
-	TextOut(_hdc, 500, 40, str, strlen(str));
+{	
 
 	//좌우에 따른 애니메이션 프레임 및 루프 조정
 	switch (_state)
