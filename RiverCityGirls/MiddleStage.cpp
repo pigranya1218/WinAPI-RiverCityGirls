@@ -50,6 +50,9 @@ void MiddleStage::init(Image * background, float bgScale)
 	_objectManager->spawnObject(OBJECT_TYPE::TABLE07, Vector3(1740, 0, 750), DIRECTION::LEFT);
 	_objectManager->spawnObject(OBJECT_TYPE::TABLE03, Vector3(2360, 0, 680), DIRECTION::LEFT);
 
+	_objectManager->spawnObject(OBJECT_TYPE::TABLE_CHAIR01, Vector3(750, 0, 600), DIRECTION::LEFT);
+	_objectManager->spawnObject(OBJECT_TYPE::TABLE_CHAIR02, Vector3(2000, 0, 550), DIRECTION::LEFT);
+
 	_objectManager->spawnObject(OBJECT_TYPE::schoolGirlA_idle01, Vector3(300, 0, 500), DIRECTION::RIGHT);
 	_objectManager->spawnObject(OBJECT_TYPE::schoolGirlE_idle01, Vector3(400, 0, 500), DIRECTION::LEFT);
 
@@ -59,9 +62,12 @@ void MiddleStage::init(Image * background, float bgScale)
 	_objectManager->spawnObject(OBJECT_TYPE::schoolBoyE_idle01, Vector3(2100, 0, 470), DIRECTION::RIGHT);
 	_objectManager->spawnObject(OBJECT_TYPE::schoolGirlA_idle01, Vector3(2200, 0, 470), DIRECTION::LEFT);
 
+	_objectManager->spawnObject(OBJECT_TYPE::workingFemaleA, Vector3(2500, 0, 900), DIRECTION::RIGHT);
+	_objectManager->spawnObject(OBJECT_TYPE::workingMaleD, Vector3(2700, 0, 900), DIRECTION::LEFT);
+
 	_isQuestClear = true;
 	_isQuesting = false;
-	_maxRestCount = 8;
+	_maxRestCount = 4;
 	_restCount = _maxRestCount;
 
 	DOOR_STATE doorStates[3] = {DOOR_STATE::UNLOCK, DOOR_STATE::SHOP, (_isQuestClear)?DOOR_STATE::UNLOCK:DOOR_STATE::LOCK};
@@ -183,7 +189,7 @@ Stage * MiddleStage::update()
 			_deadNum++;
 		}
 
-		if (_deadNum == 8)
+		if (_deadNum == 4)
 		{
 			_isQuesting = false;
 			_isQuestClear = true;
@@ -193,15 +199,15 @@ Stage * MiddleStage::update()
 			_doorInfos[2].doorState = DOOR_STATE::UNLOCK;
 			_stageManager->setDoorInfo(_doorInfos);
 		}
-		else if (_deadNum == 6)
+		else if (_deadNum == 3)
 		{
 			_stageManager->setLockLevel(1);
 		}
-		else if (_deadNum == 4)
+		else if (_deadNum == 2)
 		{
 			_stageManager->setLockLevel(2);
 		}
-		else if (_deadNum == 2)
+		else if (_deadNum == 1)
 		{
 			_stageManager->setLockLevel(3);
 		}

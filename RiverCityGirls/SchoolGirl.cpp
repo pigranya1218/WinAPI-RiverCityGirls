@@ -34,7 +34,7 @@ void SchoolGirl::update()
 	Vector3 moveDir = Vector3(0, 0, 0);
 	_elapsedTime += TIME_MANAGER->getElapsedTime();
 
-	if (_state != ENEMY_STATE::HIT)
+	if (_elapsedTime >1)
 	{
 		_hitCount = 0;
 	}
@@ -344,7 +344,7 @@ void SchoolGirl::update()
 					_gravity = -16.0f;
 					setState(ENEMY_STATE::KNOCKDOWN, _direction);
 				}
-				else if (_hitCount > 40)
+				else if (_hitCount > 60)
 				{
 					
 					_gravity = -16.0f;
@@ -618,7 +618,7 @@ void SchoolGirl::render()
 }
 
 
-void SchoolGirl::hitEffect(Vector3 pos, Vector3 size, OBJECT_TEAM team, FloatRect attackRc, float damage, ATTACK_TYPE type)
+bool SchoolGirl::hitEffect(Vector3 pos, Vector3 size, OBJECT_TEAM team, FloatRect attackRc, float damage, ATTACK_TYPE type)
 {
 
 	
@@ -644,7 +644,9 @@ void SchoolGirl::hitEffect(Vector3 pos, Vector3 size, OBJECT_TEAM team, FloatRec
 		{
 			setState(ENEMY_STATE::STUN, _direction);
 		}
+		return true;
 	}
+	return false;
 }
 
 void SchoolGirl::setState(ENEMY_STATE state, DIRECTION direction)
@@ -727,7 +729,13 @@ void SchoolGirl::setState(ENEMY_STATE state, DIRECTION direction)
 			_enemyImg->getMaxFrameX(), _enemyImg->getMaxFrameY());
 		_ani->setFPS(10);
 		_ani->start();	
-		
+
+		char soundNameNum[128];
+		sprintf_s(soundNameNum, "SchoolGirl_Attack%d", i);
+		/*SOUND_MANAGER->stop("SchoolGirl_Attack");
+		SOUND_MANAGER->stop("SchoolGirl_Attack2");
+		SOUND_MANAGER->stop("SchoolGirl_Attack3");
+		SOUND_MANAGER->play(soundNameNum, 0.7f);*/
 	}
 	break;
 	case ENEMY_STATE::DASHATTACK:

@@ -10,15 +10,15 @@ WorkingMaleD::WorkingMaleD(Vector3 position, DIRECTION direction)
 	_idleAni = new Animation;
 	_img = IMAGE_MANAGER->findImage("OBJECT_workingMaleD_idle01");
 	_idleAni->init(_img->getWidth(), _img->getHeight(), _img->getMaxFrameX(), _img->getMaxFrameY());
-	if (_direction == DIRECTION::LEFT)
+	if (_direction == DIRECTION::RIGHT)
 	{
 		_idleAni->setPlayFrame(0, 12, 0, 1);
 	}
-	if (_direction == DIRECTION::RIGHT)
+	if (_direction == DIRECTION::LEFT)
 	{
 		_idleAni->setPlayFrame(12, 24, 0, 1);
 	}
-	_idleAni->setFPS(10);
+	_idleAni->setFPS(3);
 	_idleAni->start();
 }
 
@@ -33,7 +33,7 @@ void WorkingMaleD::release()
 
 void WorkingMaleD::render()
 {
-	_img->setScale(3);
+	Object::render();
 	CAMERA_MANAGER->aniRenderZ(_img, _position, _size, _idleAni);
 }
 

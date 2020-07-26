@@ -8,3 +8,4 @@
 #include "AttackState.h"
 #include "GetHitState.h"
 #include "GuardState.h"
+#include "StartState.h"

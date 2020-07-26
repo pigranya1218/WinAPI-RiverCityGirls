@@ -37,8 +37,7 @@ bool Enemy::getHit(Vector3 pos, Vector3 size, OBJECT_TEAM team, FloatRect attack
 	FloatRect victimRc = FloatRect(_position.x - (_size.x / 2), _position.y - (_size.y / 2), _position.x + (_size.x / 2), _position.y + (_size.y / 2));
 	if (FloatRect::intersect(victimRc, attackRc))
 	{
-		hitEffect(pos, size, team, attackRc, damage, type);
-		return true;
+		return hitEffect(pos, size, team, attackRc, damage, type);
 	}
 	return false;
 }
@@ -48,9 +47,9 @@ bool Enemy::enemyAttack(Vector3 pos, Vector3 size, OBJECT_TEAM team, FloatRect a
 	return _enemyManager->enemyAttack(pos, size, team, attackRc, damage, type);
 }
 
-void Enemy::hitEffect(Vector3 pos, Vector3 size, OBJECT_TEAM team, FloatRect attackRc, float damage, ATTACK_TYPE type)
+bool Enemy::hitEffect(Vector3 pos, Vector3 size, OBJECT_TEAM team, FloatRect attackRc, float damage, ATTACK_TYPE type)
 {
-
+	return false;
 }
 
 void Enemy::setDirectionToPlayer()

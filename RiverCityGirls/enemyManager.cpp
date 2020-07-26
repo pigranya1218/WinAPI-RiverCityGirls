@@ -163,3 +163,8 @@ bool EnemyManager::isDialoging()
 {
 	return _stage->isDialoging();
 }
+
+void EnemyManager::setHeart(bool isVisible)
+{
+	_stage->setHeart(isVisible);
+}

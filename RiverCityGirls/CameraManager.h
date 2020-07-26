@@ -127,4 +127,7 @@ public:
 
 	// 정렬 및 그리기
 	void renderZList();
+
+	// 테두리 칠하기
+	void fillOutline();
 };

@@ -4,6 +4,20 @@
 
 void PlayerState::enter(Player & player)
 {
+	_img = IMAGE_MANAGER->findImage("Kyoko_idle");
+	_img->setScale(3);
+	_ani = new Animation;
+	_ani->init(_img->getWidth(), _img->getHeight(), _img->getMaxFrameX(), _img->getMaxFrameY());
+	_ani->setFPS(15);
+	if (player.getDirection() == DIRECTION::RIGHT)
+	{
+		_ani->setPlayFrame(0, 12, false, true); // 0 ~ 11
+	}
+	else if (player.getDirection() == DIRECTION::LEFT)
+	{
+		_ani->setPlayFrame(12, 24, false, true); // 12 ~ 23
+	}
+	_ani->start();
 }
 
 void PlayerState::exit(Player & player)

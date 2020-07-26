@@ -77,7 +77,6 @@ void StartStage::exit()
 {
 	Stage::exit();
 	SOUND_MANAGER->stop("BGM_Classroom");
-	//SOUND_MANAGER->stop("BGM_Classroom");
 }
 
 Stage * StartStage::update()
@@ -99,7 +98,7 @@ Stage * StartStage::update()
 
 	_respawnCool -= TIME_MANAGER->getElapsedTime();
 
-	if (_enemyManager->getEnemyCount() < 1 && _respawnCool <= 0) // 적 수가 3 이하라면 소환
+	if (_enemyManager->getEnemyCount() < 3 && _respawnCool <= 0) // 적 수가 3 이하라면 소환
 	{
 		_respawnCool = 1;
 		int randomType = RANDOM->getInt(3);

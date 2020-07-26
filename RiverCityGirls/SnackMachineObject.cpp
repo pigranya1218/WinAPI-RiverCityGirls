@@ -76,6 +76,9 @@ void SnackMachineObject::hitEffect(Vector3 pos, Vector3 size, OBJECT_TEAM team, 
 	if (_state != OBJECT_STATE::BROKEN)
 	{
 		_state = OBJECT_STATE::BROKEN;
+		EFFECT_MANAGER->playZ("effect_explosion", Vector3(_position.x, _position.y, _position.z + (_size.z / 2)), 3);
+		CAMERA_MANAGER->pushShakeEvent(-20, 0.06, 0.24);
+
 		if (_direction == DIRECTION::LEFT)
 		{
 			_img = IMAGE_MANAGER->findImage("OBJECT_SNACKMACHINE_LEFT_BROKEN");
@@ -85,14 +88,11 @@ void SnackMachineObject::hitEffect(Vector3 pos, Vector3 size, OBJECT_TEAM team, 
 				Vector2(0, 0), 
 				Vector2(PI2, PI), 
 				5, 6, 3, 5);
-			CAMERA_MANAGER->pushShakeEvent(-20, 0.06, 0.24);
 			_objectManager->spawnFood(Vector3(_position.x, 25.0, _position.z + 60));
 		}
 		if (_direction == DIRECTION::RIGHT)
 		{
 			_img = IMAGE_MANAGER->findImage("OBJECT_SNACKMACHINE_RIGHT_BROKEN");
-			CAMERA_MANAGER->pushShakeEvent(-20, 0.06, 0.24);
-
 			_objectManager->makeParticle(PARTICLE_TYPE::PIECE_SNACKMACHINE, 10,
 				Vector3(_position.x - (_size.x / 2), _position.y, _position.z),
 				Vector3(_position.x + (_size.x / 2), _position.y + (_size.y / 2), _position.z + (_size.z / 2)),

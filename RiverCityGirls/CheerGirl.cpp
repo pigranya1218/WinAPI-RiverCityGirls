@@ -30,9 +30,10 @@ void CheerGirl::update()
 	Vector3 moveDir = Vector3(0, 0, 0);
 	_elapsedTime += TIME_MANAGER->getElapsedTime();
 
-	if (_state != ENEMY_STATE::HIT)
+	if (_elapsedTime >1)
 	{
 		_hitCount = 0;
+
 	}
 
 	// 상태에 따른 행동 및 상태 전이
@@ -42,7 +43,7 @@ void CheerGirl::update()
 	{
 		setDirectionToPlayer(); // 플레이어 바라보기
 
-		if (_elapsedTime > 1)
+		if (_elapsedTime > 1 && _state != ENEMY_STATE::JUMPATTACK)
 		{
 			if (distanceFromPlayer > 400)
 			{
@@ -115,7 +116,7 @@ void CheerGirl::update()
 			}
 			else if (_elapsedTime >= 5) // 오랜 쫓음으로 인해 한번 점프해본다
 			{
-				setState(ENEMY_STATE::JUMP, _direction);
+				setState(ENEMY_STATE::JUMPATTACK, _direction);
 				_gravity = -24;
 			}
 		}
@@ -226,6 +227,33 @@ void CheerGirl::update()
 		}
 	}
 	break;
+	case ENEMY_STATE::JUMPATTACK:
+	{
+		_gravity += 1;
+		moveDir.x += (_direction == DIRECTION::RIGHT) ? 1 : -1;
+		moveDir.z += (playerPos.z >= _position.z + 10) ? 1 : ((playerPos.z <= _position.z - 10) ? -1 : 0);
+		moveDir = Vector3::normalize(&moveDir);
+		moveDir = moveDir * 2;
+		moveDir.y += _gravity;
+
+		float lastY = _position.y;
+		_enemyManager->moveEnemy(this, moveDir);
+		float currY = _position.y;
+
+		if (_gravity > 1 && lastY == currY) // 착지한 경우
+		{
+			_gravity = 0;
+			if (distanceFromPlayer > 400)
+			{
+				setState(ENEMY_STATE::RUN, _direction); // 플레이어에게 달려가기
+			}
+			else
+			{
+				setState(ENEMY_STATE::WALK, _direction); // 플레이어에게 걸어가기
+			}
+		}
+	}
+	break;
 
 	case ENEMY_STATE::SKILL:
 	{
@@ -319,6 +347,7 @@ void CheerGirl::update()
 
 	case ENEMY_STATE::HIT: // 작은 경직
 	{
+		
 		_gravity += 1;
 		moveDir.x += (_direction == DIRECTION::RIGHT) ? -1 : 1;
 		moveDir.y += _gravity;
@@ -342,7 +371,7 @@ void CheerGirl::update()
 				_gravity = -16.0f;
 				setState(ENEMY_STATE::KNOCKDOWN, _direction);
 			}
-			else if (_hitCount > 40)
+			else if (_hitCount > 60)
 			{
 				_gravity = -16.0f;
 				setState(ENEMY_STATE::KNOCKDOWN, _direction);
@@ -412,6 +441,10 @@ void CheerGirl::update()
 
 void CheerGirl::render()
 {
+	char str[1000];
+	sprintf_s(str, "[스쿨걸] elapsedTime : %f, _hitCount : %f", _elapsedTime, _hitCount);
+	TextOut(_hdc, 500, 40, str, strlen(str));
+
 	//좌우에 따른 애니메이션 프레임 및 루프 조정
 	switch (_state)
 	{
@@ -550,6 +583,7 @@ void CheerGirl::render()
 	case ENEMY_STATE::SKILL:
 	case ENEMY_STATE::WALK:
 	case ENEMY_STATE::STUN:
+	case ENEMY_STATE::JUMPATTACK:
 	case ENEMY_STATE::RETURN:
 	{
 		CAMERA_MANAGER->aniRenderZ(_enemyImg, _position, _size, _ani, -(_position.y + (_size.y / 2)));
@@ -576,14 +610,14 @@ void CheerGirl::render()
 			}
 
 			Vector3 drowPos = _position;
-			drowPos.y = _position.y ;
+			drowPos.y = _position.y - 30;
 			_enemyImg->setScale(3);
 			CAMERA_MANAGER->aniRenderZ(_enemyImg, drowPos, _size, _ani);
 		}
 		else
 		{
 			Vector3 drowPos = _position;
-			drowPos.y = _position.y ;
+			drowPos.y = _position.y - 30;
 			_enemyImg->setScale(3);
 			CAMERA_MANAGER->aniRenderZ(_enemyImg, drowPos, _size, _ani);
 		}
@@ -593,9 +627,9 @@ void CheerGirl::render()
 	
 }
 
-void CheerGirl::hitEffect(Vector3 pos, Vector3 size, OBJECT_TEAM team, FloatRect attackRc, float damage, ATTACK_TYPE type)
+bool CheerGirl::hitEffect(Vector3 pos, Vector3 size, OBJECT_TEAM team, FloatRect attackRc, float damage, ATTACK_TYPE type)
 {
-	if (_state == ENEMY_STATE::SKILL) return;
+	if (_state == ENEMY_STATE::SKILL) return false;
 
 	_hitType = type;
 	if (_state != ENEMY_STATE::HIT && _state != ENEMY_STATE::KNOCKDOWN && _state != ENEMY_STATE::STANDUP)
@@ -617,7 +651,9 @@ void CheerGirl::hitEffect(Vector3 pos, Vector3 size, OBJECT_TEAM team, FloatRect
 		{
 			setState(ENEMY_STATE::STUN, _direction);
 		}
+		return true;
 	}
+	return false;
 }
 
 void CheerGirl::setState(ENEMY_STATE state, DIRECTION direction)
@@ -698,11 +734,13 @@ void CheerGirl::setState(ENEMY_STATE state, DIRECTION direction)
 	break;
 	case ENEMY_STATE::JUMPATTACK:
 	{
-		_enemyImg = IMAGE_MANAGER->findImage("cheergirl_jumpAttack2");
+		
+		_enemyImg = IMAGE_MANAGER->findImage("cheergirl_jumpAttack3");
 		_ani->init(_enemyImg->getWidth(), _enemyImg->getHeight(),
 			_enemyImg->getMaxFrameX(), _enemyImg->getMaxFrameY());
 		_ani->setFPS(10);
 		_ani->start();
+		
 	}
 	break;
 	case ENEMY_STATE::HIT:

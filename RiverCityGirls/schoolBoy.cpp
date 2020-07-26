@@ -10,11 +10,13 @@ void SchoolBoy::init()
 	_direction = DIRECTION::RIGHT;
 	_ani = new Animation;
 	setState(_state, _direction);
-
+	_hitCount = 0;
+	_attackCount = 0;
 	_gravity = 0;
 	_jumpPower = 0;
 	_hp = 100;
 	_isActive = true;
+	_isAttack = false;
 }
 
 void SchoolBoy::release()
@@ -39,20 +41,31 @@ void SchoolBoy::update()
 		setState(ENEMY_STATE::KNOCKDOWN, _direction);
 	}
 
+	//피격 카운트 초기화
+	if (_elapsedTime > 1.5)
+	{
+		_hitCount = 0;
+	}
+
+	//공격 카운트 초기화
+	if (_elapsedTime > 1.5)
+	{
+		_attackCount = 0;
+	}
+
 	// 상태에 따른 행동 및 상태 전이
 	switch (_state)
 	{
 	case ENEMY_STATE::IDLE: // 대기 상태
 	{
 		setDirectionToPlayer(); // 플레이어 바라보기
-
 		if (_elapsedTime > 1)
 		{
 			if (distanceFromPlayer > 400)
 			{
 				setState(ENEMY_STATE::RUN, _direction); // 플레이어에게 달려가기
 			}
-			else
+			else //if(distanceFromPlayer > 100)
 			{
 				setState(ENEMY_STATE::WALK, _direction); // 플레이어에게 걸어가기
 			}
@@ -190,7 +203,12 @@ void SchoolBoy::update()
 	{
 		if (!_ani->isPlay()) // 공격 모션이 끝났다면
 		{
-			setState(ENEMY_STATE::IDLE, _direction);
+			if (_attackCount < 100) setState(ENEMY_STATE::ATTACK, _direction);
+			else
+			{
+				_attackCount = 0;
+				setState(ENEMY_STATE::IDLE, _direction);
+			}
 		}
 		else
 		{
@@ -198,7 +216,6 @@ void SchoolBoy::update()
 			{
 				_attackRc = FloatRect(_position.x - 130, _position.y - 35,
 					_position.x - 20, _position.y + 20);
-				
 			}
 			else if (_direction == DIRECTION::RIGHT && _ani->getPlayIndex() == _attackS)
 			{
@@ -212,7 +229,17 @@ void SchoolBoy::update()
 			}
 			_viewRc = FloatRect(_attackRc.left, _position.z + _attackRc.top,
 				_attackRc.right, _position.z + _attackRc.bottom);
-			enemyAttack(_position, _size, OBJECT_TEAM::ENEMY, _attackRc, 5, ATTACK_TYPE::HIT1);
+			ATTACK_TYPE type;
+			if (_attackCount > 0 && _attackCount % 100 == 0)
+			{
+				type = ATTACK_TYPE::KNOCKDOWN;
+			} 
+			else
+			{
+				type = ATTACK_TYPE::HIT1;
+				_attackCount += 1;
+			}
+			enemyAttack(_position, _size, OBJECT_TEAM::ENEMY, _attackRc, 5, type);
 		}
 	}
 	break;
@@ -291,7 +318,7 @@ void SchoolBoy::update()
 		float lastY = _position.y;
 		_enemyManager->moveEnemy(this, moveDir);
 		float currY = _position.y;
-
+		_hitCount += 1;
 		if (lastY != currY) // 떨어지는 중
 		{
 			setState(ENEMY_STATE::JUMP, _direction);
@@ -301,6 +328,13 @@ void SchoolBoy::update()
 			if (!_ani->isPlay())
 			{
 				setState(ENEMY_STATE::IDLE, _direction);
+			}
+			_hitCount += 1;
+			if (_hitCount > 100)
+			{
+				_hitCount = 0;
+				_gravity = -16.0f;
+				setState(ENEMY_STATE::KNOCKDOWN, _direction);
 			}
 		}
 	}
@@ -448,7 +482,7 @@ void SchoolBoy::render()
 		sprintf_s(str, "[스쿨보이] state : %d, jumpPower : %d, gravity : %d", (int)_state, _jumpPower, _gravity);
 		TextOut(_hdc, 500, 0, str, strlen(str));
 
-		sprintf_s(str, "[스쿨보이] elapsedTime : %f", _elapsedTime);
+		sprintf_s(str, "[스쿨보이] elapsedTime : %f, hitCount : %f, attackCount : %d", _elapsedTime, _hitCount, _attackCount);
 		TextOut(_hdc, 500, 20, str, strlen(str));
 	}
 
@@ -475,14 +509,21 @@ void SchoolBoy::render()
 	case ENEMY_STATE::ATTACK:
 	{
 		Vector3 drawPos = _position;
-		//if (_enemyImg == IMAGE_MANAGER->findImage("schoolboy_attack1")) _drawYFix = 0;
-		//else if (_enemyImg == IMAGE_MANAGER->findImage("schoolboy_attack2")) _drawYFix = -3;
-		//else if (_enemyImg == IMAGE_MANAGER->findImage("schoolboy_attack3")) _drawYFix = -10;
-		drawPos.y -= 5;
+		/*if (_enemyImg == IMAGE_MANAGER->findImage("schoolboy_attack1")) _drawYFix = 0;
+		if (_enemyImg == IMAGE_MANAGER->findImage("schoolboy_attack2")) _drawYFix = -3;
+		if (_enemyImg == IMAGE_MANAGER->findImage("schoolboy_attack3")) _drawYFix = -10;*/
+		drawPos.y += _drawYFix;
 		CAMERA_MANAGER->aniRenderZ(_enemyImg, drawPos, _size, _ani, -(_position.y + (_size.y / 2)));
 	}
 	break;
 	case ENEMY_STATE::DASHATTACK:
+	case ENEMY_STATE::SKILL:
+	{
+		Vector3 drawPos = _position;
+		drawPos.y += 10;
+		CAMERA_MANAGER->aniRenderZ(_enemyImg, drawPos, _size, _ani, -(_position.y + (_size.y / 2)));
+	}
+	break;
 	case ENEMY_STATE::GUARD:
 	case ENEMY_STATE::HIT:
 	case ENEMY_STATE::KNOCKDOWN: //사망 처리
@@ -504,7 +545,7 @@ void SchoolBoy::render()
 		else
 		{
 			Vector3 drowPos = _position;
-			drowPos.y = _position.y + 30;
+			drowPos.y = _position.y + 15;
 			CAMERA_MANAGER->aniRenderZ(_enemyImg, drowPos, _size, _ani, -(_position.y + (_size.y / 2)));
 		}
 	}
@@ -514,7 +555,7 @@ void SchoolBoy::render()
 		if (_hp > 0)
 		{
 			Vector3 drawPos = _position;
-			drawPos.y += 10;
+			drawPos.y += 5;
 			CAMERA_MANAGER->aniRenderZ(_enemyImg, drawPos, _size, _ani, -(_position.y + (_size.y / 2)));
 		}
 		else _isActive = false;
@@ -535,6 +576,13 @@ void SchoolBoy::render()
 	{
 	case ENEMY_STATE::JUMP:
 	case ENEMY_STATE::JUMPATTACK:
+	case ENEMY_STATE::ATTACK:
+	{
+		Vector3 shadowPos = _position;
+		shadowPos.y = _enemyManager->getCenterBottom(_position);
+		CAMERA_MANAGER->drawShadowZ(shadowPos, Vector3(120.0, 0, 25.0), -shadowPos.y);
+	}
+	break;
 	case ENEMY_STATE::KNOCKDOWN:
 	{
 		Vector3 shadowPos = _position;
@@ -553,7 +601,7 @@ void SchoolBoy::render()
 }
 
 //피격
-void SchoolBoy::hitEffect(Vector3 pos, Vector3 size, OBJECT_TEAM team, FloatRect attackRc, float damage, ATTACK_TYPE type)
+bool SchoolBoy::hitEffect(Vector3 pos, Vector3 size, OBJECT_TEAM team, FloatRect attackRc, float damage, ATTACK_TYPE type)
 {
 
 	_hitType = type;
@@ -575,7 +623,9 @@ void SchoolBoy::hitEffect(Vector3 pos, Vector3 size, OBJECT_TEAM team, FloatRect
 			_hp -= damage;
 			setState(ENEMY_STATE::STUN, _direction);
 		}
+		return true;
 	}
+	return false;
 }
 
 
@@ -584,7 +634,7 @@ void SchoolBoy::setState(ENEMY_STATE state, DIRECTION direction)
 	_state = state;
 	_elapsedTime = 0;
 
-	//디렉션에 따른 애니메이션
+	//스테이트에 따른 애니메이션 및 사운드 재생
 	switch (state)
 	{
 	case ENEMY_STATE::IDLE:
@@ -627,14 +677,22 @@ void SchoolBoy::setState(ENEMY_STATE state, DIRECTION direction)
 	break;
 	case ENEMY_STATE::ATTACK:
 	{
+		SOUND_MANAGER->play("SchoolBoy_Attack", 1.f);
 		int i = RANDOM->getFromIntTo(1, 4);
 		if (i == 3)
 		{
 			_attackS = 3;
+			_drawYFix = -30;
+		}
+		else if (i == 2)
+		{
+			_attackS = 2;
+			_drawYFix = -15;
 		}
 		else
 		{
 			_attackS = 2;
+			_drawYFix = 5;
 		}
 		char imgNameNum[128];
 		sprintf_s(imgNameNum, "schoolboy_attack%d", i);
@@ -647,6 +705,7 @@ void SchoolBoy::setState(ENEMY_STATE state, DIRECTION direction)
 	break;
 	case ENEMY_STATE::DASHATTACK:
 	{
+		SOUND_MANAGER->play("SchoolBoy_Attack", 1.f);
 		_attackS = 2;
 		_enemyImg = IMAGE_MANAGER->findImage("schoolboy_runAttack");
 		_ani->init(_enemyImg->getWidth(), _enemyImg->getHeight(),
@@ -657,6 +716,7 @@ void SchoolBoy::setState(ENEMY_STATE state, DIRECTION direction)
 	break;
 	case ENEMY_STATE::JUMPATTACK:
 	{
+		SOUND_MANAGER->play("SchoolBoy_Attack", 1.f);
 		_attackS = 2;
 		_enemyImg = IMAGE_MANAGER->findImage("schoolboy_jumpAttack");
 		_ani->init(_enemyImg->getWidth(), _enemyImg->getHeight(),
@@ -676,6 +736,17 @@ void SchoolBoy::setState(ENEMY_STATE state, DIRECTION direction)
 	break;
 	case ENEMY_STATE::HIT:
 	{
+		if (_hitType == ATTACK_TYPE::HIT1)
+		{
+			SOUND_MANAGER->play("SchoolBoy_GetHit", 1.f);
+		}
+		else if (_hitType == ATTACK_TYPE::HIT2)
+		{
+			int playRate = RANDOM->getFromIntTo(3, 5);
+			char str[128];
+			sprintf_s(str, "SchoolBoy_GetHit%d", playRate);
+			SOUND_MANAGER->play(str, 1.f);
+		}
 		_enemyImg = IMAGE_MANAGER->findImage("schoolboy_getHit");
 		_ani->init(_enemyImg->getWidth(), _enemyImg->getHeight(),
 			_enemyImg->getMaxFrameX(), _enemyImg->getMaxFrameY());
@@ -694,6 +765,7 @@ void SchoolBoy::setState(ENEMY_STATE state, DIRECTION direction)
 	break;
 	case ENEMY_STATE::KNOCKDOWN:
 	{
+		SOUND_MANAGER->play("SchoolBoy_GetHit2", 1.f);	
 		_enemyImg = IMAGE_MANAGER->findImage("schoolboy_knockDown");
 		_ani->init(_enemyImg->getWidth(), _enemyImg->getHeight(),
 			_enemyImg->getMaxFrameX(), _enemyImg->getMaxFrameY());
@@ -716,6 +788,7 @@ void SchoolBoy::setState(ENEMY_STATE state, DIRECTION direction)
 	break;
 	case ENEMY_STATE::SKILL:
 	{
+		SOUND_MANAGER->play("SchoolBoy_SandToss", 1.f);
 		_attackS = 5;
 		_enemyImg = IMAGE_MANAGER->findImage("schoolboy_skill");
 		_ani->init(_enemyImg->getWidth(), _enemyImg->getHeight(),
