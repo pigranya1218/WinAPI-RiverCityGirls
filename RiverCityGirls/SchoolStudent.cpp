@@ -229,7 +229,7 @@ bool SchoolStudent::hitEffect(Vector3 pos, Vector3 size, OBJECT_TEAM team, Float
 		}
 		_ani->setFPS(5);
 		_ani->start();
-		return true;
+		//return true;
 	}
 
 	return false;
