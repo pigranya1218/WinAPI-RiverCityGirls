@@ -520,11 +520,16 @@ PlayerState * AttackState::update(Player & player)
 				moveDir.y -= _currJumpPower;
 				_currJumpPower -= player.getGravity();
 
+				if (player.attack(player.getPosition(), player.getSize(), OBJECT_TEAM::PLAYER, _attackRc, 10, ATTACK_TYPE::KNOCKDOWN))
+				{
+					_currJumpPower += 10;
+				}
+
 				if (KEY_MANAGER->isStayKeyDown(VK_RIGHT))
 				{
 					moveDir.x += player.getSpeed();
 				}
-				if (KEY_MANAGER->isStayKeyDown(VK_LEFT))
+				else if (KEY_MANAGER->isStayKeyDown(VK_LEFT))
 				{
 					moveDir.x -= player.getSpeed();
 				}
