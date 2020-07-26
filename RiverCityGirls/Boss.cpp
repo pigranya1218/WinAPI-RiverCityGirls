@@ -492,7 +492,7 @@ void Boss::update()
 					int speedX = (_phase == BOSS_PHASE::PHASE_2)? 6: 10;
 					int speedZ = (_phase == BOSS_PHASE::PHASE_2) ? 2 : 3;
 					moveDir.x += (_direction == DIRECTION::RIGHT) ? speedX : -speedX;
-					moveDir.z += (playerPos.z >= _position.z + 10) ? speedZ : ((playerPos.z <= _position.z - 10) ? -speedZ : 0);
+					moveDir.z += (playerPos.z >= _position.z + 90) ? speedZ : ((playerPos.z <= _position.z - 90) ? -speedZ : 0);
 
 					_enemyManager->moveEnemy(this, moveDir);
 

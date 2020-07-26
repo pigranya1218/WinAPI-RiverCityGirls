@@ -622,9 +622,8 @@ bool SchoolBoy::hitEffect(Vector3 pos, Vector3 size, OBJECT_TEAM team, FloatRect
 			_hp -= damage;
 			setState(ENEMY_STATE::STUN, _direction);
 		}
-		return true;
 	}
-	return false;
+	return true;
 }
 
 
