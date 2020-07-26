@@ -164,7 +164,8 @@ PlayerState * AttackState::update(Player & player)
 			player.attack(player.getPosition(), player.getSize(), OBJECT_TEAM::PLAYER, _attackRc, 10, ATTACK_TYPE::HIT1);
 		}
 			
-		if (_initTime>=0.2 &&KEY_MANAGER->isOnceKeyDown('Z'))
+		if (_initTime>=0.13 &&KEY_MANAGER->isOnceKeyDown('Z')&&player.attack(player.getPosition(), player.getSize(), 
+			OBJECT_TEAM::PLAYER, _attackRc, 10, ATTACK_TYPE::HIT1))
 		{
 			SOUND_MANAGER->play("KYOKO_Chop2", 1.0f);
 			_img = IMAGE_MANAGER->findImage("Kyoko_attack2");
@@ -237,7 +238,8 @@ PlayerState * AttackState::update(Player & player)
 
 			_initTime += TIME_MANAGER->getElapsedTime();
 				
-			if (_initTime>=0.25 &&KEY_MANAGER->isOnceKeyDown('Z'))
+			if (_initTime>=0.15 &&KEY_MANAGER->isOnceKeyDown('Z') && player.attack(player.getPosition(), player.getSize(),
+				OBJECT_TEAM::PLAYER, _attackRc, 10, ATTACK_TYPE::HIT1))
 			{
 				_img = IMAGE_MANAGER->findImage("Kyoko_attack3");
 
@@ -621,6 +623,12 @@ void AttackState::render(Player & player)
 
 void AttackState::exit(Player & paleyr)
 {
+	SOUND_MANAGER->stop("KYOKO_Chop" );
+	SOUND_MANAGER->stop("KYOKO_BackElbow" );
+	SOUND_MANAGER->stop("KYOKO_HipAttack" );
+	SOUND_MANAGER->stop("KYOKO_JumpKick");
+	SOUND_MANAGER->stop("KYOKO_Dive");
+	SOUND_MANAGER->stop("KYOKO_HeavyAtkKick");
 	_ani->release();
 	SAFE_DELETE(_ani);
 }

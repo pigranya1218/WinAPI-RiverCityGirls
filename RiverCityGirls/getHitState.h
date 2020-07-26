@@ -20,6 +20,7 @@ private:
 	float _downTime;
 	float _airBorne;
 	float _hitDelay;
+	float _stunTime;
 
 	ATTACK_TYPE _getHitType;
 	Synthesize(GET_HIT_STATE, _getHitState,GetHitState)

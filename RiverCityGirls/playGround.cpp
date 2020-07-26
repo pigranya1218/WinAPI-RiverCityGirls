@@ -139,6 +139,8 @@ HRESULT playGround::init()
 	IMAGE_MANAGER->addFrameImage("Kyoko_guard", L"resources/images/characters/kyoko/Kyoko_guard.png", 3, 2);
 	IMAGE_MANAGER->addFrameImage("Kyoko_standup", L"resources/images/characters/kyoko/Kyoko_standup.png", 9, 2);
 	IMAGE_MANAGER->addFrameImage("Kyoko_knockout", L"resources/images/characters/kyoko/Kyoko_knockout.png", 24, 2);
+	IMAGE_MANAGER->addFrameImage("Kyoko_stun", L"resources/images/characters/kyoko/Kyoko_stun.png", 4, 2);
+	IMAGE_MANAGER->addFrameImage("Kyoko_gameover", L"resources/images/characters/kyoko/Kyoko_gameover.png", 26, 2);
 
 	//Enemy ÀÌ¹ÌÁö 
     //schoolBoy
@@ -297,6 +299,7 @@ HRESULT playGround::init()
 	SOUND_MANAGER->addSound("STAGE_HitSound2",				"resources/sound/stageSound/HitSound2.mp3", false, false);
 	SOUND_MANAGER->addSound("STAGE_HitSound3",				"resources/sound/stageSound/HitSound3.mp3", false, false);
 	// * Kyoko
+	
 	SOUND_MANAGER->addSound("KYOKO_BackElbow1",				"resources/sound/stageSound/Kyoko/KyokoBackElbow.mp3", false, false);
 	SOUND_MANAGER->addSound("KYOKO_BackElbow2",				"resources/sound/stageSound/Kyoko/KyokoBackElbow2.mp3", false, false);
 	SOUND_MANAGER->addSound("KYOKO_Chop1",					"resources/sound/stageSound/Kyoko/KyokoChop.mp3", false, false);

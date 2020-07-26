@@ -28,6 +28,7 @@ void getHitState::enter(Player & player)
 	_downTime = 0;
 	_airBorne = 1;
 	_hitDelay = 0;
+	_stunTime = 0;
 	player.setHp(player.getHp() - player.getDamage());//플레이어 체력 깍는 것
 	player.setIsHit(true);
 }
@@ -126,9 +127,25 @@ PlayerState * getHitState::update(Player & player)
 		
 		if (!_ani->isPlay())
 		{
-			return new IdleState;
+			int stunPer = RANDOM->getInt(100);
+
+			if (stunPer < 10)
+			{
+				_getHitState = GET_HIT_STATE::STUN;
+				setGetHitAni(player);
+			}
+			else return new IdleState;
 		}
 
+		break;
+	case GET_HIT_STATE::STUN:
+		
+		_stunTime += TIME_MANAGER->getElapsedTime();
+		if (_stunTime>3)
+		{
+			return new IdleState;
+			
+		}
 		break;
 	case GET_HIT_STATE::GAME_OVER:
 
@@ -225,6 +242,19 @@ void getHitState::setGetHitAni(Player& player)
 		_ani->start();
 		break;
 	case GET_HIT_STATE::STUN:
+		_img = IMAGE_MANAGER->findImage("Kyoko_stun");
+		_ani = new Animation;
+		_ani->init(_img->getWidth(), _img->getHeight(), _img->getMaxFrameX(), _img->getMaxFrameY());
+		_ani->setFPS(20);
+		if (player.getDirection() == DIRECTION::RIGHT)
+		{
+			_ani->setPlayFrame(0, 4, false, true); //
+		}
+		else if (player.getDirection() == DIRECTION::LEFT)
+		{
+			_ani->setPlayFrame(4, 8, false, true); // 
+		}
+		_ani->start();
 		break;
 	case GET_HIT_STATE::GAME_OVER:
 		_img = IMAGE_MANAGER->findImage("Kyoko_gameover");
