@@ -102,8 +102,8 @@ Stage * StartStage::update()
 	if (_enemyManager->getEnemyCount() < 1 && _respawnCool <= 0) // 적 수가 3 이하라면 소환
 	{
 		_respawnCool = 1;
-		int randomType = RANDOM->getInt(3);
-		//int randomType = 0;
+		//int randomType = RANDOM->getInt(3);
+		int randomType = 0;
 		int randomRespawn = RANDOM->getInt(4);
 		switch (randomType)
 		{
