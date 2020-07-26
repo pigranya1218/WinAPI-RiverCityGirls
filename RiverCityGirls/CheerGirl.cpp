@@ -252,6 +252,32 @@ void CheerGirl::update()
 				setState(ENEMY_STATE::WALK, _direction); // 플레이어에게 걸어가기
 			}
 		}
+
+		if (!_ani->isPlay()) // 공격 모션이 끝났다면
+		{
+			setState(ENEMY_STATE::IDLE, _direction);
+		}
+		else
+		{
+			if (_direction == DIRECTION::LEFT && _ani->getPlayIndex() == _attackS)
+			{
+				_attackRc = FloatRect(_position.x - 130, _position.y - 35,
+					_position.x - 20, _position.y + 20);
+			}
+			else if (_direction == DIRECTION::RIGHT && _ani->getPlayIndex() == _attackS)
+			{
+				_attackRc = FloatRect(_position.x + 20, _position.y - 35,
+					_position.x + 100, _position.y + 20);
+			}
+			else
+			{
+				_attackRc = FloatRect(0, 0, 0, 0);
+				_viewRc = FloatRect(0, 0, 0, 0);
+			}
+			_viewRc = FloatRect(_attackRc.left, _position.z + _attackRc.top,
+				_attackRc.right, _position.z + _attackRc.bottom);
+			enemyAttack(_position, _size, OBJECT_TEAM::ENEMY, _attackRc, 5, ATTACK_TYPE::HIT2);
+		}
 	}
 	break;
 
@@ -734,8 +760,8 @@ void CheerGirl::setState(ENEMY_STATE state, DIRECTION direction)
 	break;
 	case ENEMY_STATE::JUMPATTACK:
 	{
-		
-		_enemyImg = IMAGE_MANAGER->findImage("cheergirl_jumpAttack3");
+		_attackS = 8;
+		_enemyImg = IMAGE_MANAGER->findImage("cheergirl_jumpAttack");
 		_ani->init(_enemyImg->getWidth(), _enemyImg->getHeight(),
 			_enemyImg->getMaxFrameX(), _enemyImg->getMaxFrameY());
 		_ani->setFPS(10);

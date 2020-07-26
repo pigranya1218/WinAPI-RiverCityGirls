@@ -198,10 +198,8 @@ HRESULT playGround::init()
 	IMAGE_MANAGER->addFrameImage("cheergirl_heldRelease", L"resources/images/characters/enemy_cheergirl/grab_release.png", 4, 2);
 	IMAGE_MANAGER->addFrameImage("cheergirl_groundUp", L"resources/images/characters/enemy_cheergirl/groundup.png", 11, 2);
 	IMAGE_MANAGER->addFrameImage("cheergirl_stun", L"resources/images/characters/enemy_cheergirl/stun.png", 5, 2);
-	IMAGE_MANAGER->addFrameImage("cheergirl_walk", L"resources/images/characters/enemy_cheergirl/walk.png", 12, 2);
-	IMAGE_MANAGER->addFrameImage("cheergirl_jumpAttack1", L"resources/images/characters/enemy_cheergirl/divekick_start.png", 6, 2);
-	IMAGE_MANAGER->addFrameImage("cheergirl_jumpAttack2", L"resources/images/characters/enemy_cheergirl/divekick_middle.png", 7, 2);
-	IMAGE_MANAGER->addFrameImage("cheergirl_jumpAttack3", L"resources/images/characters/enemy_cheergirl/divekick.png", 26, 2);
+	IMAGE_MANAGER->addFrameImage("cheergirl_walk", L"resources/images/characters/enemy_cheergirl/walk.png", 12, 2);	
+	IMAGE_MANAGER->addFrameImage("cheergirl_jumpAttack", L"resources/images/characters/enemy_cheergirl/divekick.png", 13, 2);
 	//º¸½º
 	IMAGE_MANAGER->addFrameImage("boss_block", L"resources/images/characters/boss_misuzu/Misuzu_block.png", 4, 2);
 	IMAGE_MANAGER->addFrameImage("boss_walk", L"resources/images/characters/boss_misuzu/MizusuWalk.png", 10, 2);
