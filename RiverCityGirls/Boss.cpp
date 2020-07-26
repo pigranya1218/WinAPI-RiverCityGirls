@@ -339,10 +339,11 @@ void Boss::update()
 			}
 			else
 			{
+				//standup 공격 렉트
 				if (_ani->getPlayIndex() == _attackS)
 				{
-					_attackRc = FloatRect(_position.x - 50, _position.y - 50,
-						_position.x + 50, _position.y + 50);
+					_attackRc = FloatRect(_position.x - 100, _position.y - 100,
+						_position.x + 100, _position.y + 100);
 				}
 				else
 				{
@@ -364,10 +365,11 @@ void Boss::update()
 			}
 			else
 			{
+				//roar 공격 렉트
 				if (_ani->getPlayIndex() == _attackS)
 				{
-					_attackRc = FloatRect(_position.x - 50, _position.y - 50,
-						_position.x + 50, _position.y + 50);
+					_attackRc = FloatRect(_position.x - 100, _position.y - 100,
+						_position.x + 100, _position.y + 100);
 				}
 				else
 				{
@@ -508,6 +510,8 @@ void Boss::update()
 					{
 						attackRc = FloatRect(_position.x, _position.y - 100, _position.x + 90, _position.y);
 					}
+					_viewRc = FloatRect(attackRc.left, _position.z + attackRc.top,
+						attackRc.right, _position.z + attackRc.bottom);
 
 					if (_enemyManager->enemyAttack(_position, attackSize, OBJECT_TEAM::BOSS, attackRc, 10, ATTACK_TYPE::KNOCKDOWN) ||
 						_enemyManager->enemyAttackObject(_position, attackSize, OBJECT_TEAM::BOSS, attackRc, 10, ATTACK_TYPE::KNOCKDOWN)) // 사물이나 플레이어에게 부딪힘
