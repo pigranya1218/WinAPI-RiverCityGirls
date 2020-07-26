@@ -157,6 +157,7 @@ PlayerState * getHitState::update(Player & player)
 
 			if (stunPer < 20)
 			{
+				
 				_getHitState = GET_HIT_STATE::STUN;
 				setGetHitAni(player);
 			}
@@ -166,7 +167,10 @@ PlayerState * getHitState::update(Player & player)
 		break;
 	case GET_HIT_STATE::STUN:
 		
+		EFFECT_MANAGER->playZ("effect_stun", Vector3( player.getPosition().x,player
+		.getPosition().y-140, player.getPosition().z + player.getSize().z/2), 1);
 		_stunTime += TIME_MANAGER->getElapsedTime();
+
 		if (_stunTime>3)
 		{
 			return new IdleState;
@@ -283,7 +287,7 @@ void getHitState::setGetHitAni(Player& player)
 		_img = IMAGE_MANAGER->findImage("Kyoko_stun");
 		_ani = new Animation;
 		_ani->init(_img->getWidth(), _img->getHeight(), _img->getMaxFrameX(), _img->getMaxFrameY());
-		_ani->setFPS(15);
+		_ani->setFPS(10);
 		if (player.getDirection() == DIRECTION::RIGHT)
 		{
 			_ani->setPlayFrame(0, 4, false, true); //
