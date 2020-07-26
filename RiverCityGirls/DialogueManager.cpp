@@ -68,6 +68,10 @@ void DialogueManager::update()
 				_writeText = _qCharacterMsg.front();
 				_stringNum = _qCharacterMsg.front().length();
 				_textTerm = 0.8f;	// 자동 완성 시 속도를 약간 느리게
+				if (_writeText.find("\n") != string::npos)
+				{
+					_textY = WINSIZEY - _qCharacterImg.front().name->getHeight() * 2.0f - 20;
+				}
 			}			
 			if (_stringNum < _qCharacterMsg.front().length())
 			{				
