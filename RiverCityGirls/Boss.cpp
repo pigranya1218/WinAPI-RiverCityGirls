@@ -249,7 +249,7 @@ void Boss::update()
 						}
 						_viewRc = FloatRect(_attackRc.left, _position.z + _attackRc.top,
 							_attackRc.right, _position.z + _attackRc.bottom);
-						enemyAttack(_position, _size, OBJECT_TEAM::ENEMY, _attackRc, 5, ATTACK_TYPE::STUN);
+						enemyAttack(_position, _size, _team, _attackRc, 5, ATTACK_TYPE::STUN);
 					}
 					else setState(BOSS_STATE::LAUGH, _direction, true);
 				}
@@ -282,7 +282,7 @@ void Boss::update()
 				}
 				_viewRc = FloatRect(_attackRc.left, _position.z + _attackRc.top,
 					_attackRc.right, _position.z + _attackRc.bottom);
-				enemyAttack(_position, _size, OBJECT_TEAM::ENEMY, _attackRc, 5, ATTACK_TYPE::STUN);
+				enemyAttack(_position, _size, _team, _attackRc, 5, ATTACK_TYPE::STUN);
 			}
 		}
 		break;
@@ -313,7 +313,7 @@ void Boss::update()
 				}
 				_viewRc = FloatRect(_attackRc.left, _position.z + _attackRc.top,
 					_attackRc.right, _position.z + _attackRc.bottom);
-				enemyAttack(_position, _size, OBJECT_TEAM::ENEMY, _attackRc, 5, ATTACK_TYPE::STUN);
+				enemyAttack(_position, _size, _team, _attackRc, 5, ATTACK_TYPE::STUN);
 			}
 		}
 		break;
@@ -337,6 +337,22 @@ void Boss::update()
 					setState(BOSS_STATE::IDLE, _direction, true);
 				}
 			}
+			else
+			{
+				if (_ani->getPlayIndex() == _attackS)
+				{
+					_attackRc = FloatRect(_position.x - 50, _position.y - 50,
+						_position.x + 50, _position.y + 50);
+				}
+				else
+				{
+					_attackRc = FloatRect(0, 0, 0, 0);
+					_viewRc = FloatRect(0, 0, 0, 0);
+				}
+				_viewRc = FloatRect(_attackRc.left, _position.z + _attackRc.top,
+					_attackRc.right, _position.z + _attackRc.bottom);
+				enemyAttack(_position, _size, _team, _attackRc, 5, ATTACK_TYPE::STUN);
+			}
 		}
 		break;
 
@@ -345,6 +361,22 @@ void Boss::update()
 			if (!_ani->isPlay())
 			{
 				setState(BOSS_STATE::IDLE, _direction, true);
+			}
+			else
+			{
+				if (_ani->getPlayIndex() == _attackS)
+				{
+					_attackRc = FloatRect(_position.x - 50, _position.y - 50,
+						_position.x + 50, _position.y + 50);
+				}
+				else
+				{
+					_attackRc = FloatRect(0, 0, 0, 0);
+					_viewRc = FloatRect(0, 0, 0, 0);
+				}
+				_viewRc = FloatRect(_attackRc.left, _position.z + _attackRc.top,
+					_attackRc.right, _position.z + _attackRc.bottom);
+				enemyAttack(_position, _size, _team, _attackRc, 5, ATTACK_TYPE::STUN);
 			}
 		}
 		break;
@@ -423,6 +455,7 @@ void Boss::update()
 					attackSize.z = 150;
 
 					_enemyManager->enemyAttackObject(_position, attackSize, OBJECT_TEAM::BOSS, FloatRect(_position.x - 150, _position.y - 100, _position.x + 150, _position.y + 100), 10, ATTACK_TYPE::KNOCKDOWN);
+					enemyAttack(_position, attackSize, OBJECT_TEAM::BOSS, FloatRect(_position.x - 150, _position.y - 100, _position.x + 150, _position.y + 100), 10, ATTACK_TYPE::KNOCKDOWN);
 					CAMERA_MANAGER->pushShakeEvent(-20, 0.06, 0.24);
 				}
 			}
@@ -820,6 +853,7 @@ void Boss::setState(BOSS_STATE state, DIRECTION direction, bool initTime)
 	break;
 	case BOSS_STATE::STAND_UP:
 	{
+		_attackS = 5;
 		_enemyImg = IMAGE_MANAGER->findImage("boss_getup");
 		_ani->init(_enemyImg->getWidth(), _enemyImg->getHeight(),
 			_enemyImg->getMaxFrameX(), _enemyImg->getMaxFrameY());
@@ -829,6 +863,7 @@ void Boss::setState(BOSS_STATE state, DIRECTION direction, bool initTime)
 	break;
 	case BOSS_STATE::ROAR:
 	{
+		_attackS = 5;
 		_enemyImg = IMAGE_MANAGER->findImage("boss_roar");
 		_ani->init(_enemyImg->getWidth(), _enemyImg->getHeight(),
 			_enemyImg->getMaxFrameX(), _enemyImg->getMaxFrameY());
