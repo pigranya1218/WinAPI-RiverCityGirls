@@ -439,7 +439,7 @@ HRESULT playGround::init()
 	EFFECT_MANAGER->addEffect("effect_guard", "effect_guard", 50, 20);
 	EFFECT_MANAGER->addEffect("effect_spark", "effect_spark", 20, 10);
 	EFFECT_MANAGER->addEffect("effect_faseChange", "effect_faseChange", 30, 10);
-	EFFECT_MANAGER->addEffect("effect_standUpEffect", "effect_standUpEffect", 30, 10);
+	EFFECT_MANAGER->addEffect("effect_standUpEffect", "effect_standUpEffect", 8, 3);
 	EFFECT_MANAGER->addEffect("effect_dashAttackEffect", "effect_dashAttackEffect", 10, 7);
 
 

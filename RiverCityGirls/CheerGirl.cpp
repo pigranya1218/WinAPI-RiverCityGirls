@@ -275,7 +275,7 @@ void CheerGirl::update()
 			}
 			_viewRc = FloatRect(_attackRc.left, _position.z + _attackRc.top,
 				_attackRc.right, _position.z + _attackRc.bottom);
-			enemyAttack(_position, _size, OBJECT_TEAM::ENEMY, _attackRc, 5, ATTACK_TYPE::HIT2);
+			enemyAttack(_position, _size, OBJECT_TEAM::ENEMY, _attackRc, 5, ATTACK_TYPE::KNOCKDOWN);
 		}
 	}
 	break;

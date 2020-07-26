@@ -348,7 +348,7 @@ void Boss::update()
 				//standup 이펙트
 				if (_ani->getPlayIndex() >= _attackS)
 				{
-					EFFECT_MANAGER->playZ("effect_standUpEffect", Vector3(_position.x, _position.y + 50, _position.z + 30), 3.5f);
+					EFFECT_MANAGER->playZ("effect_standUpEffect", Vector3(_position.x, _position.y + 50, _position.z + 30), 5.0f);
 				}
 				//standup 공격 렉트
 				if (_ani->getPlayIndex() == _attackS)
