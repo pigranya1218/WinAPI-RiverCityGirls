@@ -103,7 +103,7 @@ Stage * BossStage::update()
 				case DOOR_STATE::UNLOCK:
 				{
 					_player->setPosition(_doorDestination[i].destPos);
-					_player->setIdleState();
+					//_player->setIdleState();
 					return _stageManager->getStage(_doorDestination[i].destName);
 				}
 				}
