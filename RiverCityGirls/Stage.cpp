@@ -161,6 +161,11 @@ void Stage::setHeart(bool isVisible)
 	_stageManager->setHeart(isVisible);
 }
 
+void Stage::spawnMoney(Vector3 pos)
+{
+	_objectManager->spawnMoney(pos);
+}
+
 float Stage::getCenterBottom(Vector3 pos)
 {
 	Vector2 centerPos = Vector2(pos.x, pos.z);

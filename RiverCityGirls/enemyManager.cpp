@@ -29,6 +29,7 @@ void EnemyManager::update()
 		_enemies[i]->update();
 		if (!_enemies[i]->isActive())
 		{
+			_stage->spawnMoney(_enemies[i]->getPosition());
 			_enemies[i]->release();
 			delete _enemies[i];
 			_enemies.erase(_enemies.begin() + i);
@@ -157,6 +158,11 @@ bool EnemyManager::enemyAttackObject(Vector3 pos, Vector3 size, OBJECT_TEAM team
 void EnemyManager::startDialogue(BossChapter key)
 {
 	_stage->startDialogue(key);
+}
+
+void EnemyManager::spawnMoney(Vector3 pos)
+{
+	_stage->spawnMoney(pos);
 }
 
 bool EnemyManager::isDialoging()

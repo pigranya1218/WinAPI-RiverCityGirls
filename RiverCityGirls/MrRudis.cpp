@@ -75,7 +75,7 @@ void MrRudis::collision(Vector3 ** pos)
 {
 }
 
-void MrRudis::hitEffect(Vector3 pos, Vector3 size, OBJECT_TEAM team, FloatRect attackRc, float damage, ATTACK_TYPE type)
+bool MrRudis::hitEffect(Vector3 pos, Vector3 size, OBJECT_TEAM team, FloatRect attackRc, float damage, ATTACK_TYPE type)
 {
 	if (_state != OBJECT_STATE::REACTION)
 	{
@@ -92,5 +92,8 @@ void MrRudis::hitEffect(Vector3 pos, Vector3 size, OBJECT_TEAM team, FloatRect a
 		}
 		_ani->setFPS(15);
 		_ani->start();
+		return true;
 	}
+
+	return false;
 }

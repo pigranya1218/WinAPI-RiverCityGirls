@@ -675,7 +675,8 @@ bool CheerGirl::hitEffect(Vector3 pos, Vector3 size, OBJECT_TEAM team, FloatRect
 			setState(ENEMY_STATE::STUN, _direction);
 		}
 	}
-	
+
+	return true;
 }
 
 void CheerGirl::setState(ENEMY_STATE state, DIRECTION direction)

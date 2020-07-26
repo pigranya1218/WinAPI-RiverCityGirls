@@ -128,8 +128,4 @@ void DeskObject::collision(Vector3 * newPoses, GameObject* gameObject)
 	_restrictRect->checkCollision(newPoses, gameObject);
 }
 
-void DeskObject::hitEffect(Vector3 pos, Vector3 size, OBJECT_TEAM team, FloatRect attackRc, float damage, ATTACK_TYPE type)
-{
-	
-}
 

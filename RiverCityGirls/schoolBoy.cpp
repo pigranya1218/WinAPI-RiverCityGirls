@@ -630,6 +630,7 @@ bool SchoolBoy::hitEffect(Vector3 pos, Vector3 size, OBJECT_TEAM team, FloatRect
 		}
 	}
 	
+	return true;
 }
 
 
