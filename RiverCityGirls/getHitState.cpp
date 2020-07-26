@@ -132,6 +132,7 @@ PlayerState * getHitState::update(Player & player)
 
 void getHitState::render(Player & player)
 {
+	PlayerState::render(player);
 	_img->setScale(3);
 	CAMERA_MANAGER->aniRenderZ(_img, player.getPosition(), player.getSize(), _ani);
 }

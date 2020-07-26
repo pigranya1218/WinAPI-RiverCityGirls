@@ -26,7 +26,7 @@ public:
 	void spawnFood(Vector3 pos);
 	
 	void isEat(Player* player);
-	void getHit(GameObject* hitter, FloatRect attackRc, float damage, ATTACK_TYPE type);
+	bool getHit(Vector3 pos, Vector3 size, OBJECT_TEAM team, FloatRect attackRc, float damage, ATTACK_TYPE type);
 
 	float getCenterBottom(Vector2 pos);
 

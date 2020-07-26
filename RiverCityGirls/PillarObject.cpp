@@ -73,9 +73,9 @@ void PillarObject::collision(Vector3 * newPoses, GameObject* gameObject)
 	_restrictRect->checkCollision(newPoses, gameObject);
 }
 
-void PillarObject::hitEffect(GameObject * hitter, FloatRect attackRc, float damage, ATTACK_TYPE type)
+void PillarObject::hitEffect(Vector3 pos, Vector3 size, OBJECT_TEAM team, FloatRect attackRc, float damage, ATTACK_TYPE type)
 {
-	if (hitter->getTeam() != OBJECT_TEAM::BOSS) return; // 보스가 때린 게 아니라면 패스
+	if (team != OBJECT_TEAM::BOSS) return; // 보스가 때린 게 아니라면 패스
 
 	if (_state != OBJECT_STATE::INACTIVE)
 	{
@@ -86,6 +86,5 @@ void PillarObject::hitEffect(GameObject * hitter, FloatRect attackRc, float dama
 			Vector2(PI2, PI),
 			5, 6, 3, 5);
 		_state = OBJECT_STATE::INACTIVE;
-		CAMERA_MANAGER->pushShakeEvent(-20, 0.06, 0.24);
 	}
 }

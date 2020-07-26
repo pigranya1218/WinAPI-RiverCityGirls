@@ -9,6 +9,7 @@ void Boss::init()
 	_direction = DIRECTION::LEFT;
 	setState(BOSS_STATE::IDLE, _direction, true);
 
+	_team = OBJECT_TEAM::BOSS;
 	_gravity = 0;
 	_jumpPower = 0;
 	_maxHp = 300;
@@ -24,9 +25,6 @@ void Boss::release()
 
 void Boss::update()
 {
-	_enemyManager->setBossUiVisible(true);
-	_enemyManager->setBossUi(_hp, _maxHp);
-
 	if (_phase == BOSS_PHASE::DEFEAT)
 	{
 		if (!_ani->isPlay())
@@ -40,10 +38,19 @@ void Boss::update()
 				_ani->setPlayFrame(10, 13, false, true);
 			}
 			_ani->start();
+			_enemyManager->setBossUiVisible(false);
+			_enemyManager->startDialogue(BossChapter::BATTLE_AFTER);
 		}
 	}
 	else
 	{
+		if (!_enemyManager->isDialoging())
+		{
+			_enemyManager->setBossUiVisible(true);
+			_enemyManager->setBossUi(_hp, _maxHp);
+		}
+		
+
 		Vector3 playerPos = _enemyManager->getPlayerPosition(); // 플레이어의 위치
 		float distanceFromPlayer = sqrt(pow(playerPos.x - _position.x, 2) + pow(playerPos.z - _position.z, 2)); // 플레이어와 xz 거리
 		Vector3 moveDir = Vector3(0, 0, 0);
@@ -72,10 +79,7 @@ void Boss::update()
 
 			_enemyManager->moveEnemy(this, moveDir);
 
-			if (distanceFromPlayer <= 100) // 근접 시 공격이나 스킬
-			{
-				setAttackState(_phase);
-			}
+			setAttackState(_phase, distanceFromPlayer);
 		}
 		break;
 		case BOSS_STATE::LAUGH:
@@ -285,11 +289,12 @@ void Boss::update()
 			else if (_count == 1) // 플레이어와 근접한 방향으로 이동
 			{
 				setDirectionToPlayer();
+				int speed = (_phase == BOSS_PHASE::PHASE_2) ? 8 : 16;
 
 				moveDir.x += (_direction == DIRECTION::RIGHT) ? 1 : -1;
 				moveDir.z += (playerPos.z >= _position.z + 10) ? 1 : ((playerPos.z <= _position.z - 10) ? -1 : 0);
 				moveDir = Vector3::normalize(&moveDir);
-				moveDir = moveDir * 8;
+				moveDir = moveDir * speed;
 
 				_enemyManager->moveEnemy(this, moveDir);
 
@@ -316,7 +321,102 @@ void Boss::update()
 				{
 					_gravity = 0;
 					_jumpPower = 0;
-					setState(BOSS_STATE::METEOR_ATTACK_DELAY, _direction, true);
+					if (_phase == BOSS_PHASE::PHASE_2)
+					{
+						setState(BOSS_STATE::METEOR_ATTACK_DELAY, _direction, true);
+					}
+					else
+					{
+						int randomCount = RANDOM->getInt(100);
+						if (randomCount < 50)
+						{
+							_jumpPower = -70;
+							setState(BOSS_STATE::METEOR_ATTACK, _direction, true);
+						}
+						else
+						{
+							setState(BOSS_STATE::METEOR_ATTACK_DELAY, _direction, true);
+						}
+					}
+
+					Vector3 attackSize = _size;
+					attackSize.z = 150;
+
+					_enemyManager->enemyAttackObject(_position, attackSize, OBJECT_TEAM::BOSS, FloatRect(_position.x - 150, _position.y - 100, _position.x + 150, _position.y + 100), 10, ATTACK_TYPE::KNOCKDOWN);
+					CAMERA_MANAGER->pushShakeEvent(-20, 0.06, 0.24);
+				}
+			}
+		}
+		break;
+
+		case BOSS_STATE::DASH_ATTACK:
+		{
+			if (_count == 0)
+			{
+				if (!_ani->isPlay())
+				{
+					_enemyImg = IMAGE_MANAGER->findImage("boss_tackle_loop");
+					_ani->init(_enemyImg->getWidth(), _enemyImg->getHeight(),
+						_enemyImg->getMaxFrameX(), _enemyImg->getMaxFrameY());
+					_ani->setFPS(10);
+					_ani->start();
+					_count++;
+				}
+			}
+			else if (_count == 1)
+			{
+				DIRECTION lastDir = _direction;
+				setDirectionToPlayer();
+				DIRECTION currDir = _direction;
+
+				if (lastDir != currDir) // 방향 전환
+				{
+					_count++;
+					_ani->start();
+				}
+				else
+				{
+					int speedX = (_phase == BOSS_PHASE::PHASE_2)? 6: 10;
+					int speedZ = (_phase == BOSS_PHASE::PHASE_2) ? 2 : 3;
+					moveDir.x += (_direction == DIRECTION::RIGHT) ? speedX : -speedX;
+					moveDir.z += (playerPos.z >= _position.z + 10) ? speedZ : ((playerPos.z <= _position.z - 10) ? -speedZ : 0);
+
+					_enemyManager->moveEnemy(this, moveDir);
+
+					Vector3 attackSize = _size;
+					attackSize.z = 50;
+
+					FloatRect attackRc;
+					if (_direction == DIRECTION::LEFT)
+					{
+						attackRc = FloatRect(_position.x - 90, _position.y - 100, _position.x, _position.y);
+					}
+					else
+					{
+						attackRc = FloatRect(_position.x, _position.y - 100, _position.x + 90, _position.y);
+					}
+
+					if (_enemyManager->enemyAttack(_position, attackSize, OBJECT_TEAM::BOSS, attackRc, 10, ATTACK_TYPE::KNOCKDOWN) ||
+						_enemyManager->enemyAttackObject(_position, attackSize, OBJECT_TEAM::BOSS, attackRc, 10, ATTACK_TYPE::KNOCKDOWN)) // 사물이나 플레이어에게 부딪힘
+					{
+						setState(BOSS_STATE::LAUGH, _direction, true);
+						CAMERA_MANAGER->pushShakeEvent(-20, 0.06, 0.24);
+					}
+				}
+			}
+			else if (_count == 2)
+			{
+				int speedX = (_phase == BOSS_PHASE::PHASE_2) ? 1 : 4;
+				int speedZ = (_phase == BOSS_PHASE::PHASE_2) ? 1 : 2;
+				moveDir.x += (_direction == DIRECTION::RIGHT) ? -speedX : +speedX;
+				moveDir.z += (playerPos.z >= _position.z + 10) ? speedZ : ((playerPos.z <= _position.z - 10) ? -speedZ : 0);
+
+				_enemyManager->moveEnemy(this, moveDir);
+
+				if (!_ani->isPlay())
+				{
+					_count--;
+					_ani->start();
 				}
 			}
 		}
@@ -385,6 +485,46 @@ void Boss::render()
 			}
 		}
 		break;
+		case BOSS_STATE::DASH_ATTACK:
+		{
+			if (_count == 0)
+			{
+				if (_direction == DIRECTION::LEFT)
+				{
+					_ani->setPlayFrame(_enemyImg->getMaxFrameX(), _enemyImg->getMaxFrameX() * 2, false, false);
+				}
+				else
+				{
+					_ani->setPlayFrame(0, _enemyImg->getMaxFrameX(), false, false);
+				}
+			}
+			else if (_count == 1)
+			{
+				_ani->setFPS(20);
+				if (_direction == DIRECTION::LEFT)
+				{
+					_ani->setPlayFrame(_enemyImg->getMaxFrameX(), _enemyImg->getMaxFrameX() + 8, false, true);
+				}
+				else
+				{
+					_ani->setPlayFrame(0, 8, false, true);
+				}
+			}
+			else if (_count == 2)
+			{
+				_ani->setFPS(10);
+
+				if (_direction == DIRECTION::RIGHT)
+				{
+					_ani->setPlayFrame(_enemyImg->getMaxFrameX() + 8, _enemyImg->getMaxFrameX() * 2, false, false);
+				}
+				else
+				{
+					_ani->setPlayFrame(8, _enemyImg->getMaxFrameX(), false, false);
+				}
+			}
+		}
+		break;
 		default:
 		{
 			if (_direction == DIRECTION::LEFT)
@@ -425,14 +565,21 @@ void Boss::render()
 		{
 			Vector3 drawPos = _position;
 			drawPos.y -= 35;
-			CAMERA_MANAGER->aniRenderZ(_enemyImg, drawPos, _size, _ani, -(_position.y + (_size.y / 2)));
+			CAMERA_MANAGER->aniRenderZ(_enemyImg, drawPos, _size, _ani);
 		}
 		break;
 		case BOSS_STATE::IDLE:
 		{
 			Vector3 drawPos = _position;
 			drawPos.y -= 20;
-			CAMERA_MANAGER->aniRenderZ(_enemyImg, drawPos, _size, _ani, -(_position.y + (_size.y / 2)));
+			CAMERA_MANAGER->aniRenderZ(_enemyImg, drawPos, _size, _ani);
+		}
+		break;
+		case BOSS_STATE::STRONG_PUNCH:
+		{
+			Vector3 drawPos = _position;
+			drawPos.y += 10;
+			CAMERA_MANAGER->aniRenderZ(_enemyImg, drawPos, _size, _ani);
 		}
 		break;
 		case BOSS_STATE::WEAK_PUNCH_COMBO:
@@ -441,13 +588,13 @@ void Boss::render()
 			{
 				Vector3 drawPos = _position;
 				drawPos.y -= 15;
-				CAMERA_MANAGER->aniRenderZ(_enemyImg, drawPos, _size, _ani, -(_position.y + (_size.y / 2)));
+				CAMERA_MANAGER->aniRenderZ(_enemyImg, drawPos, _size, _ani);
 			}
 			else
 			{
 				Vector3 drawPos = _position;
 				drawPos.y -= 20;
-				CAMERA_MANAGER->aniRenderZ(_enemyImg, drawPos, _size, _ani, -(_position.y + (_size.y / 2)));
+				CAMERA_MANAGER->aniRenderZ(_enemyImg, drawPos, _size, _ani);
 			}
 		}
 		break;
@@ -461,12 +608,12 @@ void Boss::render()
 		{
 			Vector3 drawPos = _position;
 			drawPos.y -= 20;
-			CAMERA_MANAGER->aniRenderZ(_enemyImg, drawPos, _size, _ani, -(_position.y + (_size.y / 2)));
+			CAMERA_MANAGER->aniRenderZ(_enemyImg, drawPos, _size, _ani);
 		}
 		break;
 		default:
 		{
-			CAMERA_MANAGER->aniRenderZ(_enemyImg, _position, _size, _ani, -(_position.y + (_size.y / 2)));
+			CAMERA_MANAGER->aniRenderZ(_enemyImg, _position, _size, _ani);
 		}
 		break;
 		}
@@ -475,16 +622,11 @@ void Boss::render()
 
 	switch (_bossState) // 그림자 그리기
 	{
-	case BOSS_STATE::METEOR_ATTACK:
-	{
-		Vector3 shadowPos = _position;
-		shadowPos.y = _enemyManager->getCenterBottom(_position);
-		CAMERA_MANAGER->drawShadowZ(shadowPos, Vector3(180.0, 0, 40.0), -shadowPos.y);
-	}
-	break;
 	default:
 	{
-		CAMERA_MANAGER->drawShadowZ(_position, Vector3(180.0, _size.y, 40.0), -(_position.y + (_size.y / 2)));
+		Vector3 shadowPos = _position;
+		shadowPos.y = 0;
+		CAMERA_MANAGER->drawShadowZ(shadowPos, Vector3(200.0, 0, 40.0));
 	}
 	break;
 	}
@@ -621,10 +763,20 @@ void Boss::setState(BOSS_STATE state, DIRECTION direction, bool initTime)
 		_ani->start();
 	}
 	break;
+	case BOSS_STATE::DASH_ATTACK:
+	{
+		_count = 0;
+		_enemyImg = IMAGE_MANAGER->findImage("boss_tackle_init");
+		_ani->init(_enemyImg->getWidth(), _enemyImg->getHeight(),
+			_enemyImg->getMaxFrameX(), _enemyImg->getMaxFrameY());
+		_ani->setFPS(20);
+		_ani->start();
+	}
+	break;
 	}
 }
 
-void Boss::hitEffect(GameObject* hitter, FloatRect attackRc, float damage, ATTACK_TYPE type)
+void Boss::hitEffect(Vector3 pos, Vector3 size, OBJECT_TEAM team, FloatRect attackRc, float damage, ATTACK_TYPE type)
 {
 	if (_bossState == BOSS_STATE::GET_HIT || _bossState == BOSS_STATE::GROUND_HIT) return;
 
@@ -651,66 +803,101 @@ void Boss::hitEffect(GameObject* hitter, FloatRect attackRc, float damage, ATTAC
 		else
 		{
 			_jumpPower = -30;
+			_gravity = 0;
 			setState(BOSS_STATE::GET_HIT, _direction, true);
 		}
 	}
 	if (_bossState == BOSS_STATE::GROUND)
 	{
 		_jumpPower = -10;
+		_gravity = 0;
 		setState(BOSS_STATE::GROUND_HIT, _direction, false);
 	}
 }
 
-void Boss::setAttackState(BOSS_PHASE phase)
+void Boss::setAttackState(BOSS_PHASE phase, float playerDistance)
 {
 	switch (phase)
 	{
 	case BOSS_PHASE::PHASE_1:
 	{
-		int randomCount = RANDOM->getInt(100);
-		if (randomCount < 50)
+		if (playerDistance < 140)
 		{
-			setState(BOSS_STATE::STRONG_PUNCH, _direction, true);
-		} 
-		else
-		{
-			setState(BOSS_STATE::WEAK_PUNCH_COMBO, _direction, true);
+			int randomCount = RANDOM->getInt(100);
+			if (randomCount < 50)
+			{
+				setState(BOSS_STATE::STRONG_PUNCH, _direction, true);
+			}
+			else
+			{
+				setState(BOSS_STATE::WEAK_PUNCH_COMBO, _direction, true);
+			}
 		}
 	}
 	break;
 	case BOSS_PHASE::PHASE_2:
 	{
 		int randomCount = RANDOM->getInt(100);
-		if (randomCount < 10) // 10%
+		if (playerDistance < 140)
 		{
-			setState(BOSS_STATE::STRONG_PUNCH, _direction, true);
+			if (randomCount < 20) // 10%
+			{
+				setState(BOSS_STATE::STRONG_PUNCH, _direction, true);
+			}
+			else if (randomCount < 40) // 10%
+			{
+				setState(BOSS_STATE::WEAK_PUNCH_COMBO, _direction, true);
+			}
+			else  // 40%
+			{
+				_jumpPower = -50;
+				setState(BOSS_STATE::METEOR_ATTACK, _direction, true);
+			}
 		}
-		else if (randomCount < 20) // 10%
+		else
 		{
-			setState(BOSS_STATE::WEAK_PUNCH_COMBO, _direction, true);
-		}
-		else if (randomCount < 60) // 40%
-		{
-			_jumpPower = -50;
-			setState(BOSS_STATE::METEOR_ATTACK, _direction, true);
-		}
-		else // 40%
-		{
-			_jumpPower = -50;
-			setState(BOSS_STATE::METEOR_ATTACK, _direction, true);
+			if (randomCount < 2)
+			{
+				setState(BOSS_STATE::DASH_ATTACK, _direction, true);
+			}
+			else if (randomCount < 4)
+			{
+				_jumpPower = -50;
+				setState(BOSS_STATE::METEOR_ATTACK, _direction, true);
+			}
 		}
 	}
 	break;
 	case BOSS_PHASE::PHASE_3:
 	{
 		int randomCount = RANDOM->getInt(100);
-		if (randomCount < 50)
+		if (playerDistance < 140)
 		{
-			setState(BOSS_STATE::STRONG_PUNCH, _direction, true);
+			if (randomCount < 20) // 10%
+			{
+				setState(BOSS_STATE::STRONG_PUNCH, _direction, true);
+			}
+			else if (randomCount < 40) // 10%
+			{
+				setState(BOSS_STATE::WEAK_PUNCH_COMBO, _direction, true);
+			}
+			else  // 40%
+			{
+				_jumpPower = -70;
+				setState(BOSS_STATE::METEOR_ATTACK, _direction, true);
+			}
 		}
 		else
 		{
-			setState(BOSS_STATE::WEAK_PUNCH_COMBO, _direction, true);
+			if (randomCount < 2)
+			{
+				setState(BOSS_STATE::DASH_ATTACK, _direction, true);
+			}
+			else if (randomCount < 4)
+			{
+				_jumpPower = -70;
+				setState(BOSS_STATE::METEOR_ATTACK, _direction, true);
+			}
 		}
 	}
 	break;

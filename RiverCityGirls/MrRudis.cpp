@@ -75,7 +75,7 @@ void MrRudis::collision(Vector3 ** pos)
 {
 }
 
-void MrRudis::hitEffect(GameObject * hitter, FloatRect attackRc, float damage, ATTACK_TYPE type)
+void MrRudis::hitEffect(Vector3 pos, Vector3 size, OBJECT_TEAM team, FloatRect attackRc, float damage, ATTACK_TYPE type)
 {
 	if (_state != OBJECT_STATE::REACTION)
 	{

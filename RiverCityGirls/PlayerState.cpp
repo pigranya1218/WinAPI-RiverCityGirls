@@ -17,6 +17,10 @@ PlayerState * PlayerState::update(Player & player)
 
 void PlayerState::render(Player & player)
 {
+	if (DEBUG_MANAGER->isDebugMode(DEBUG_TYPE::PLAYER))
+	{
+		_img->setAlpha(0.5);
+	}
 }
 
 

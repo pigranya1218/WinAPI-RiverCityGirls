@@ -152,7 +152,7 @@ PlayerState * AttackState::update(Player & player)
 				
 			_viewRc = FloatRect(_attackRc.left, position.z + _attackRc.top,
 				_attackRc.right, position.z + _attackRc.bottom);
-			player.attack(_attackRc, 10, ATTACK_TYPE::HIT1);
+			player.attack(player.getPosition(), player.getSize(), OBJECT_TEAM::PLAYER, _attackRc, 10, ATTACK_TYPE::HIT1);
 		}
 			
 		if (_initTime>=0.2 &&KEY_MANAGER->isOnceKeyDown('Z'))
@@ -222,7 +222,7 @@ PlayerState * AttackState::update(Player & player)
 
 				_viewRc = FloatRect(_attackRc.left, position.z + _attackRc.top,
 					_attackRc.right, position.z + _attackRc.bottom);
-				player.attack(_attackRc, 10, ATTACK_TYPE::HIT2);
+				player.attack(player.getPosition(), player.getSize(), OBJECT_TEAM::PLAYER, _attackRc, 10, ATTACK_TYPE::HIT2);
 			}
 
 			_initTime += TIME_MANAGER->getElapsedTime();
@@ -294,7 +294,7 @@ PlayerState * AttackState::update(Player & player)
 
 					_viewRc = FloatRect(_attackRc.left, position.z + _attackRc.top,
 							_attackRc.right, position.z + _attackRc.bottom);
-						player.attack(_attackRc, 10, ATTACK_TYPE::KNOCKDOWN);
+						player.attack(player.getPosition(), player.getSize(), OBJECT_TEAM::PLAYER, _attackRc, 10, ATTACK_TYPE::KNOCKDOWN);
 					}
 					else if (_initTime >= 0.2 &&KEY_MANAGER->isOnceKeyDown('S'))
 					{
@@ -353,7 +353,7 @@ PlayerState * AttackState::update(Player & player)
 
 					_viewRc = FloatRect(_attackRc.left, position.z + _attackRc.top,
 						_attackRc.right, position.z + _attackRc.bottom);
-					player.attack(_attackRc, 10, ATTACK_TYPE::HIT1);
+					player.attack(player.getPosition(), player.getSize(), OBJECT_TEAM::PLAYER, _attackRc, 10, ATTACK_TYPE::HIT1);
 				}
 
 				if (_initTime >= 0.2 &&KEY_MANAGER->isOnceKeyDown('Z'))
@@ -398,7 +398,7 @@ PlayerState * AttackState::update(Player & player)
 
 				_viewRc = FloatRect(_attackRc.left, player.getPosition().z + _attackRc.top,
 					_attackRc.right, player.getPosition().z + _attackRc.bottom);
-				player.attack(_attackRc, 10, ATTACK_TYPE::KNOCKDOWN);
+				player.attack(player.getPosition(), player.getSize(), OBJECT_TEAM::PLAYER, _attackRc, 10, ATTACK_TYPE::KNOCKDOWN);
 			}
 
 			moveDir.y -= _currJumpPower;
@@ -434,7 +434,7 @@ PlayerState * AttackState::update(Player & player)
 
 						_viewRc = FloatRect(_attackRc.left, position.z + _attackRc.top,
 							_attackRc.right, position.z + _attackRc.bottom);
-						player.attack(_attackRc, 10, ATTACK_TYPE::KNOCKDOWN);
+						player.attack(player.getPosition(), player.getSize(), OBJECT_TEAM::PLAYER, _attackRc, 10, ATTACK_TYPE::KNOCKDOWN);
 					}
 
 				}
@@ -470,7 +470,7 @@ PlayerState * AttackState::update(Player & player)
 
 						_viewRc = FloatRect(_attackRc.left, position.z + _attackRc.top,
 							_attackRc.right, position.z + _attackRc.bottom);
-						player.attack(_attackRc, 10, ATTACK_TYPE::KNOCKDOWN);
+						player.attack(player.getPosition(), player.getSize(), OBJECT_TEAM::PLAYER, _attackRc, 10, ATTACK_TYPE::KNOCKDOWN);
 					}
 					else if (_ani->getPlayIndex() > 10)
 					{
@@ -501,7 +501,7 @@ PlayerState * AttackState::update(Player & player)
 
 					_viewRc = FloatRect(_attackRc.left, player.getPosition().z + _attackRc.top,
 						_attackRc.right, player.getPosition().z + _attackRc.bottom);
-					player.attack(_attackRc, 10, ATTACK_TYPE::KNOCKDOWN);
+					player.attack(player.getPosition(), player.getSize(), OBJECT_TEAM::PLAYER, _attackRc, 10, ATTACK_TYPE::KNOCKDOWN);
 				}
 
 				moveDir.x += _currMoveDirX;
@@ -551,6 +551,7 @@ PlayerState * AttackState::update(Player & player)
 
 void AttackState::render(Player & player)
 {
+	PlayerState::render(player);
 	_img->setScale(3);
 	Vector3 position = player.getPosition();
 	

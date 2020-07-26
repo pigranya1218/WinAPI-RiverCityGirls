@@ -199,7 +199,7 @@ HRESULT playGround::init()
 	IMAGE_MANAGER->addFrameImage("cheergirl_walk", L"resources/images/characters/enemy_cheergirl/walk.png", 12, 2);
 	IMAGE_MANAGER->addFrameImage("cheergirl_jumpAttack1", L"resources/images/characters/enemy_cheergirl/divekick_start.png", 6, 2);
 	IMAGE_MANAGER->addFrameImage("cheergirl_jumpAttack2", L"resources/images/characters/enemy_cheergirl/divekick_middle.png", 7, 2);
-	IMAGE_MANAGER->addFrameImage("cheergirl_jumpAttack3", L"resources/images/characters/enemy_cheergirl/divekick_end.png", 13, 2);
+	IMAGE_MANAGER->addFrameImage("cheergirl_jumpAttack3", L"resources/images/characters/enemy_cheergirl/divekick.png", 26, 2);
 	//보스
 	IMAGE_MANAGER->addFrameImage("boss_block", L"resources/images/characters/boss_misuzu/Misuzu_block.png", 4, 2);
 	IMAGE_MANAGER->addFrameImage("boss_walk", L"resources/images/characters/boss_misuzu/MizusuWalk.png", 10, 2);
@@ -220,8 +220,8 @@ HRESULT playGround::init()
 	IMAGE_MANAGER->addFrameImage("boss_fallingmiss", L"resources/images/characters/boss_misuzu/RCG_Misuzu_meteor_landed_miss.png", 19, 2);
 	IMAGE_MANAGER->addFrameImage("boss_jump", L"resources/images/characters/boss_misuzu/RCG_Misuzu_meteor_jump.png", 8, 2);
 	IMAGE_MANAGER->addFrameImage("boss_faseupdate", L"resources/images/characters/boss_misuzu/RCG_Misuzu_roar.png", 12, 2);
-	IMAGE_MANAGER->addFrameImage("boss_tackle1", L"resources/images/characters/boss_misuzu/RCG_Misuzu_tackle_initial.png", 5, 2);
-	IMAGE_MANAGER->addFrameImage("boss_tackle2", L"resources/images/characters/boss_misuzu/RCG_Misuzu_tackle_loop.png", 11, 2);
+	IMAGE_MANAGER->addFrameImage("boss_tackle_init", L"resources/images/characters/boss_misuzu/RCG_Misuzu_tackle_initial.png", 5, 2);
+	IMAGE_MANAGER->addFrameImage("boss_tackle_loop", L"resources/images/characters/boss_misuzu/RCG_Misuzu_tackle_loop.png", 11, 2);
 
 
 	// * 스테이지
@@ -257,8 +257,8 @@ HRESULT playGround::init()
 	IMAGE_MANAGER->addImage("playerExpFront", L"resources/images/UI/kyoko_exp_frontBar.png"	);	// 플레이어 경험치 앞
 	IMAGE_MANAGER->addImage("playerExpBack"	, L"resources/images/UI/kyoko_exp_backBar.png"	);	// 플레이어 경험치 뒤
 	IMAGE_MANAGER->addImage("playerHpFrame"	, L"resources/images/UI/kyoko_frontFrame.png"	);	// 플레이어 체력 프레임	
-	IMAGE_MANAGER->addImage("bossBackBar"	, L"resources/images/UI/boss_HP_backBar.png"	);	// 보스 체력 뒤
-	IMAGE_MANAGER->addImage("bossFrontBar"	, L"resources/images/UI/boss_HP_frontBar.png"	);	// 보스 체력 앞
+	IMAGE_MANAGER->addImage("bossBackBar"	, L"resources/images/UI/boss_hp_backBar.png"	);	// 보스 체력 뒤
+	IMAGE_MANAGER->addImage("bossFrontBar"	, L"resources/images/UI/boss_hp_frontBar.png"	);	// 보스 체력 앞
 	IMAGE_MANAGER->addImage("bossHpFrame"	, L"resources/images/UI/boss_HP_frame.png"		);	// 보스 체력 프레임
 	IMAGE_MANAGER->addImage("unlockDoor"	, L"resources/images/UI/door_unlock.png"		);	// 열린 문
 	IMAGE_MANAGER->addImage("lockDoor"		, L"resources/images/UI/door_lock.png"			);	// 닫힌 문

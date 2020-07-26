@@ -19,7 +19,7 @@ public:
 	virtual void render();
 
 	
-	virtual void hitEffect(GameObject* hitter, FloatRect attackRc, float damage, ATTACK_TYPE type);
+	virtual void hitEffect(Vector3 pos, Vector3 size, OBJECT_TEAM team, FloatRect attackRc, float damage, ATTACK_TYPE type);
 	void setState(ENEMY_STATE state, DIRECTION direction);
 	void setDirectionToPlayer();
 };

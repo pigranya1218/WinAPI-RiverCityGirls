@@ -47,6 +47,7 @@ public:
 	void render(const Vector2& position, const Vector2& sourPos, const Vector2& sourSize);	
 	void frameRender(const Vector2& position, const int frameX, const int frameY);
 	void aniRender(const Vector2& position, Animation* ani);
+	void maskRender(const Vector2& position, const Vector2& sourPos, const Vector2& sourSize, D2D1::ColorF::Enum color, float alpha);
 
 	void resetRenderOption();
 

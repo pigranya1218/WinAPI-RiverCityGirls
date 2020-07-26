@@ -139,7 +139,29 @@ void Image::aniRender(const Vector2 & position, Animation * ani)
 {
 	POINT sourPos = ani->getFramePos();
 	POINT sourSize = { ani->getFrameWidth(), ani->getFrameHeight() };
-	render(position, Vector2(sourPos), Vector2(sourSize));
+	//render(position, Vector2(sourPos), Vector2(sourSize));
+	maskRender(position, Vector2(sourPos), Vector2(sourSize), D2D1::ColorF::Red, 0.5);
+}
+
+void Image::maskRender(const Vector2& position, const Vector2& sourPos, const Vector2& sourSize, D2D1::ColorF::Enum color, float alpha)
+{
+	Vector2 size = _size * _scale;
+
+	D2D1::Matrix3x2F scaleMatrix = D2D1::Matrix3x2F::Scale(_scale, _scale, D2D1::Point2F(0, 0));
+	D2D1::Matrix3x2F rotateMatrix = D2D1::Matrix3x2F::Rotation(_angle, D2D1::Point2F(size.x / 2.f, size.y / 2.f));
+	D2D1::Matrix3x2F translateMatrix = D2D1::Matrix3x2F::Translation(position.x - size.x / 2.f, position.y - size.y / 2.f);
+	D2D1::Matrix3x2F skewMatrix = D2D1::Matrix3x2F::Skew(_skewAngle.x, _skewAngle.y, D2D1::Point2F(_skewPos.x, _skewPos.y));
+	
+	//그릴 영역 세팅 
+	D2D1_RECT_F dxArea = D2D1::RectF(0.0f, 0.0f, sourSize.x, sourSize.y);
+	D2D1_RECT_F dxSrc = D2D1::RectF(sourPos.x, sourPos.y, sourPos.x + sourSize.x, sourPos.y + sourSize.y);
+	//최종행렬 세팅
+	D2D_RENDERER->getRenderTarget()->SetTransform(scaleMatrix * rotateMatrix * skewMatrix * translateMatrix);
+	//렌더링 요청
+	D2D_RENDERER->getRenderTarget()->DrawBitmap(_bitmap, dxArea, _alpha,
+		D2D1_BITMAP_INTERPOLATION_MODE_NEAREST_NEIGHBOR, &dxSrc);
+
+	this->resetRenderOption();
 }
 
 /********************************************************************************

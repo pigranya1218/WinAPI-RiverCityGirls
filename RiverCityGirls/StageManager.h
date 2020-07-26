@@ -30,10 +30,11 @@ public:
 	void setUIManager(UIManager* uiManager) { _uiManager = uiManager; }
 	void setDialogueManager(DialogueManager* dgManager) { _dgManager = dgManager; }
 
-	void playerAttack(GameObject* hitter, FloatRect attackRc, float damage, ATTACK_TYPE type);
+	bool playerAttack(Vector3 pos, Vector3 size, OBJECT_TEAM team, FloatRect attackRc, float damage, ATTACK_TYPE type);
 
 	void setBossUiVisible(bool isVisible);
 	void setBossUi(float currHp, float maxHp);
+	void setLockLevel(int level);
 
 	float getCenterBottom(Vector3 pos) { return _currStage->getCenterBottom(pos); }
 	Stage* getStage(string keyName) { return _stageMap[keyName]; }

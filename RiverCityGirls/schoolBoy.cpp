@@ -212,7 +212,7 @@ void SchoolBoy::update()
 			}
 			_viewRc = FloatRect(_attackRc.left, _position.z + _attackRc.top,
 				_attackRc.right, _position.z + _attackRc.bottom);
-			enemyAttack(_attackRc, 5, ATTACK_TYPE::HIT1);
+			enemyAttack(_position, _size, OBJECT_TEAM::ENEMY, _attackRc, 5, ATTACK_TYPE::HIT1);
 		}
 	}
 	break;
@@ -242,7 +242,7 @@ void SchoolBoy::update()
 			}
 			_viewRc = FloatRect(_attackRc.left, _position.z + _attackRc.top,
 				_attackRc.right, _position.z + _attackRc.bottom);
-			enemyAttack(_attackRc, 5, ATTACK_TYPE::HIT2);
+			enemyAttack(_position, _size, OBJECT_TEAM::ENEMY, _attackRc, 5, ATTACK_TYPE::HIT2);
 		}
 	}
 	break;
@@ -278,7 +278,7 @@ void SchoolBoy::update()
 			}
 			_viewRc = FloatRect(_attackRc.left, _position.z + _attackRc.top,
 				_attackRc.right, _position.z + _attackRc.bottom);
-			enemyAttack(_attackRc, 5, ATTACK_TYPE::HIT1);
+			enemyAttack(_position, _size, OBJECT_TEAM::ENEMY, _attackRc, 5, ATTACK_TYPE::HIT1);
 		}
 	}
 	break;
@@ -553,7 +553,7 @@ void SchoolBoy::render()
 }
 
 //ÇÇ°Ý
-void SchoolBoy::hitEffect(GameObject * hitter, FloatRect attackRc, float damage, ATTACK_TYPE type)
+void SchoolBoy::hitEffect(Vector3 pos, Vector3 size, OBJECT_TEAM team, FloatRect attackRc, float damage, ATTACK_TYPE type)
 {
 
 	_hitType = type;

@@ -243,12 +243,18 @@ void ObjectManager::isEat(Player* player)
 	}
 }
 
-void ObjectManager::getHit(GameObject* hitter, FloatRect attackRc, float damage, ATTACK_TYPE type)
+bool ObjectManager::getHit(Vector3 pos, Vector3 size, OBJECT_TEAM team, FloatRect attackRc, float damage, ATTACK_TYPE type)
 {
+	bool result = false;
 	for (int i = 0; i < _objects.size(); i++)
 	{
-		_objects[i]->getHit(hitter, attackRc, damage, type);
+		if (_objects[i]->getHit(pos, size, team, attackRc, damage, type))
+		{
+			result = true;
+		}
+		
 	}
+	return result;
 }
 
 float ObjectManager::getCenterBottom(Vector2 pos)

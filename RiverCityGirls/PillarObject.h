@@ -16,6 +16,6 @@ public:
 	virtual void release();
 	virtual void render();
 	void collision(Vector3 * newPoses, GameObject * gameObject);
-	void hitEffect(GameObject * hitter, FloatRect attackRc, float damage, ATTACK_TYPE type);
+	void hitEffect(Vector3 pos, Vector3 size, OBJECT_TEAM team, FloatRect attackRc, float damage, ATTACK_TYPE type);
 };
 

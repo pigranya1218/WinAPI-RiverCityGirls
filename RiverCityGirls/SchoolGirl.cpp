@@ -34,7 +34,7 @@ void SchoolGirl::update()
 	Vector3 moveDir = Vector3(0, 0, 0);
 	_elapsedTime += TIME_MANAGER->getElapsedTime();
 
-	if (_state != ENEMY_STATE::HIT)
+	if (_elapsedTime >1)
 	{
 		_hitCount = 0;
 	}
@@ -227,7 +227,7 @@ void SchoolGirl::update()
 			}
 			_viewRc = FloatRect(_attackRc.left, _position.z + _attackRc.top,
 				_attackRc.right, _position.z + _attackRc.bottom);
-			attack(_attackRc, 5, ATTACK_TYPE::HIT1);
+			enemyAttack(_position, _size, OBJECT_TEAM::ENEMY, _attackRc, 5, ATTACK_TYPE::HIT1);
 		}
 	
 	}
@@ -258,7 +258,7 @@ void SchoolGirl::update()
 			}
 			_viewRc = FloatRect(_attackRc.left, _position.z + _attackRc.top,
 				_attackRc.right, _position.z + _attackRc.bottom);
-			 enemyAttack(_attackRc, 5, ATTACK_TYPE::HIT2);
+			 enemyAttack(_position, _size, OBJECT_TEAM::ENEMY, _attackRc, 5, ATTACK_TYPE::HIT2);
 		}
 		
 	}
@@ -312,7 +312,7 @@ void SchoolGirl::update()
 			}
 			_viewRc = FloatRect(_attackRc.left, _position.z + _attackRc.top,
 				_attackRc.right, _position.z + _attackRc.bottom);
-			enemyAttack(_attackRc, 5, ATTACK_TYPE::KNOCKDOWN);
+			enemyAttack(_position, _size, OBJECT_TEAM::ENEMY, _attackRc, 5, ATTACK_TYPE::KNOCKDOWN);
 		}
 	}
 	break;
@@ -344,7 +344,7 @@ void SchoolGirl::update()
 					_gravity = -16.0f;
 					setState(ENEMY_STATE::KNOCKDOWN, _direction);
 				}
-				else if (_hitCount > 40)
+				else if (_hitCount > 60)
 				{
 					
 					_gravity = -16.0f;
@@ -618,7 +618,7 @@ void SchoolGirl::render()
 }
 
 
-void SchoolGirl::hitEffect(GameObject * hitter, FloatRect attackRc, float damage, ATTACK_TYPE type)
+void SchoolGirl::hitEffect(Vector3 pos, Vector3 size, OBJECT_TEAM team, FloatRect attackRc, float damage, ATTACK_TYPE type)
 {
 
 	

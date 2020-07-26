@@ -3,6 +3,7 @@
 #include "GameObject.h"
 #include "RestrictMoveLine.h"
 #include "UIManager.h"
+#include "DialogueManager.h"
 
 class StageManager;
 class ObjectManager;
@@ -48,10 +49,12 @@ public:
 
 	// 게임 오브젝트를 가능한만큼 이동시킴
 	void moveGameObject(GameObject* gameObject, Vector3 move);
-	void attack(GameObject* hitter, FloatRect rc, float damage, ATTACK_TYPE type, vector<OBJECT_TEAM> getAttack);
+	bool attack(Vector3 pos, Vector3 size, OBJECT_TEAM team, FloatRect rc, float damage, ATTACK_TYPE type, vector<OBJECT_TEAM> getAttack);
 
 	void setBossUiVisible(bool isVisible);
 	void setBossUi(float currHp, float maxHp);
+	void startDialogue(BossChapter chapter);
+	bool isDialoging();
 
 	float getCenterBottom(Vector3 pos);
 	Vector3 getPlayerPosition();
