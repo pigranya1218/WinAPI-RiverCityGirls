@@ -71,9 +71,17 @@ void BossStage::release()
 void BossStage::enter()
 {
 	Stage::enter();
+	
 	if (_enemyManager->getEnemyCount() < 1)
 	{
+		SOUND_MANAGER->stop("Boss_TalkingBGM");
+		SOUND_MANAGER->play("Boss_TalkingBGM", 1.f);
 		_stageManager->startDialogue(BossChapter::BATTLE_BEFORE);
+	}
+	else
+	{
+		SOUND_MANAGER->stop("Boss_StageBGM");
+		SOUND_MANAGER->play("Boss_StageBGM", 1.f);
 	}
 }
 
