@@ -52,6 +52,8 @@ protected:
 	bool _isActive;			//적 개체 생존 여부
 	bool _isAttack;			//공격 처리
 
+	float _drawYFix;		//이미지 렌더 Y축 조정용
+
 	
 public:
 	Enemy() {};

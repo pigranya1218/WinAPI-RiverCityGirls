@@ -509,14 +509,19 @@ void SchoolBoy::render()
 	case ENEMY_STATE::ATTACK:
 	{
 		Vector3 drawPos = _position;
-		//if (_enemyImg == IMAGE_MANAGER->findImage("schoolboy_attack1")) _drawYFix = 0;
-		//else if (_enemyImg == IMAGE_MANAGER->findImage("schoolboy_attack2")) _drawYFix = -3;
-		//else if (_enemyImg == IMAGE_MANAGER->findImage("schoolboy_attack3")) _drawYFix = -10;
-		drawPos.y -= 5;
+		/*if (_enemyImg == IMAGE_MANAGER->findImage("schoolboy_attack1")) _drawYFix = 0;
+		if (_enemyImg == IMAGE_MANAGER->findImage("schoolboy_attack2")) _drawYFix = -3;
+		if (_enemyImg == IMAGE_MANAGER->findImage("schoolboy_attack3")) _drawYFix = -10;*/
+		drawPos.y += _drawYFix;
 		CAMERA_MANAGER->aniRenderZ(_enemyImg, drawPos, _size, _ani, -(_position.y + (_size.y / 2)));
 	}
 	break;
 	case ENEMY_STATE::DASHATTACK:
+	case ENEMY_STATE::SKILL:
+	{
+
+	}
+	break;
 	case ENEMY_STATE::GUARD:
 	case ENEMY_STATE::HIT:
 	case ENEMY_STATE::KNOCKDOWN: //»ç¸Á Ã³¸®
@@ -569,6 +574,13 @@ void SchoolBoy::render()
 	{
 	case ENEMY_STATE::JUMP:
 	case ENEMY_STATE::JUMPATTACK:
+	case ENEMY_STATE::ATTACK:
+	{
+		Vector3 shadowPos = _position;
+		shadowPos.y = _enemyManager->getCenterBottom(_position);
+		CAMERA_MANAGER->drawShadowZ(shadowPos, Vector3(120.0, 0, 25.0), -shadowPos.y);
+	}
+	break;
 	case ENEMY_STATE::KNOCKDOWN:
 	{
 		Vector3 shadowPos = _position;
@@ -665,10 +677,17 @@ void SchoolBoy::setState(ENEMY_STATE state, DIRECTION direction)
 		if (i == 3)
 		{
 			_attackS = 3;
+			_drawYFix = -10;
+		}
+		else if (i == 2)
+		{
+			_attackS = 2;
+			_drawYFix = -5;
 		}
 		else
 		{
 			_attackS = 2;
+			_drawYFix = 2;
 		}
 		char imgNameNum[128];
 		sprintf_s(imgNameNum, "schoolboy_attack%d", i);
