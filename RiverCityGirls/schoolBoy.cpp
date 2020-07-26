@@ -34,7 +34,11 @@ void SchoolBoy::update()
 	float distanceFromPlayer = sqrt(pow(playerPos.x - _position.x, 2) + pow(playerPos.z - _position.z, 2)); // 플레이어와 xz 거리
 	Vector3 moveDir = Vector3(0, 0, 0);
 	_elapsedTime += TIME_MANAGER->getElapsedTime();
-
+	float playerHp = _enemyManager->getPlayerHp();
+	if (playerHp <= 0)
+	{
+		setState(ENEMY_STATE::IDLE, _direction);
+	}
 	// 적 개체의 HP가 0이하
 	if (_hp <= 0 && _state != ENEMY_STATE::KNOCKDOWN)
 	{
@@ -606,6 +610,8 @@ void SchoolBoy::render()
 //피격
 bool SchoolBoy::hitEffect(Vector3 pos, Vector3 size, OBJECT_TEAM team, FloatRect attackRc, float damage, ATTACK_TYPE type)
 {
+	
+
 	if (_state == ENEMY_STATE::KNOCKDOWN || _state == ENEMY_STATE::STANDUP) {
 		return false;
 	}
