@@ -76,7 +76,8 @@ void FoodObject::render()
 
 void FoodObject::eatEffect(Player * player)
 {
-	
+	SOUND_MANAGER->stop("STAGE_getMoney");
+	SOUND_MANAGER->play("STAGE_getMoney", 1.0f);
 	switch (_randomSpawn)
 	{
 		case 0:
