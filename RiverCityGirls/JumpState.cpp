@@ -203,6 +203,7 @@ void JumpState::render(Player & player)
 
 void JumpState::enter(Player & player)
 {
+	SOUND_MANAGER->stop("KYOKO_Jump");
 	SOUND_MANAGER->play("KYOKO_Jump", 1.0f);
 	_img = IMAGE_MANAGER->findImage("Kyoko_jump");
 	_ani = new Animation;
