@@ -130,7 +130,7 @@ bool Player::getHit(Vector3 pos, Vector3 size, OBJECT_TEAM team, FloatRect attac
 		if (_guarding)
 		{
 			EFFECT_MANAGER->playZ("effect_guard", Vector3((attackRc.left + attackRc.right) / 2, (attackRc.top + attackRc.bottom) / 2, _position.z + _size.z / 2), 0.3);
-			if (pos.x > _position.x && attackRc.right < getHitRc.getCenter().x)
+			if (pos.x > _position.x && _direction == DIRECTION::LEFT)
 			{
 				if (pos.x > _position.x)
 				{
@@ -147,7 +147,7 @@ bool Player::getHit(Vector3 pos, Vector3 size, OBJECT_TEAM team, FloatRect attac
 				state->enter(*this);
 				return true;
 			}
-			if (pos.x < _position.x && attackRc.left > getHitRc.getCenter().x)
+			if (pos.x < _position.x && _direction == DIRECTION::RIGHT)
 			{
 				if (pos.x > _position.x)
 				{
