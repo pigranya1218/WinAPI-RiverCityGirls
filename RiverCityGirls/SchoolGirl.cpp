@@ -730,10 +730,10 @@ void SchoolGirl::setState(ENEMY_STATE state, DIRECTION direction)
 
 		char soundNameNum[128];
 		sprintf_s(soundNameNum, "SchoolGirl_Attack%d", i);
-		/*SOUND_MANAGER->stop("SchoolGirl_Attack");
+		SOUND_MANAGER->stop("SchoolGirl_Attack1");
 		SOUND_MANAGER->stop("SchoolGirl_Attack2");
 		SOUND_MANAGER->stop("SchoolGirl_Attack3");
-		SOUND_MANAGER->play(soundNameNum, 0.7f);*/
+		SOUND_MANAGER->play(soundNameNum, 0.7f);
 	}
 	break;
 	case ENEMY_STATE::DASHATTACK:
@@ -766,6 +766,9 @@ void SchoolGirl::setState(ENEMY_STATE state, DIRECTION direction)
 			_enemyImg->getMaxFrameX(), _enemyImg->getMaxFrameY());
 		_ani->setFPS(8);
 		_ani->start();
+
+		SOUND_MANAGER->stop("SchoolGirl_GetHit3");
+		SOUND_MANAGER->play("SchoolGirl_GetHit3", 0.7f);
 	}
 	break;
 	case ENEMY_STATE::STUN:
@@ -796,6 +799,8 @@ void SchoolGirl::setState(ENEMY_STATE state, DIRECTION direction)
 			_enemyImg->getMaxFrameX(), _enemyImg->getMaxFrameY());
 		_ani->setFPS(15);
 		_ani->start();
+		SOUND_MANAGER->stop("SchoolGirl_GetHit2");
+		SOUND_MANAGER->play("SchoolGirl_GetHit2", 0.7f);
 	}
 	break;
 	case ENEMY_STATE::STANDUP:
@@ -817,6 +822,8 @@ void SchoolGirl::setState(ENEMY_STATE state, DIRECTION direction)
 			_enemyImg->getMaxFrameX(), _enemyImg->getMaxFrameY());
 		_ani->setFPS(10);
 		_ani->start();
+		SOUND_MANAGER->stop("SchoolGirl_tornado");
+		SOUND_MANAGER->play("SchoolGirl_tornado", 0.7f);
 	}
 	break;
 	}

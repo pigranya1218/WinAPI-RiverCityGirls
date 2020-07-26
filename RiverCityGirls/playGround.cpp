@@ -294,17 +294,17 @@ HRESULT playGround::init()
 	// * Stage_Sound
 	SOUND_MANAGER->addSound("STAGE_getEXP",					"resources/sound/stageSound/getEXP.mp3", false, false);
 	SOUND_MANAGER->addSound("STAGE_getMoney",				"resources/sound/stageSound/getMoney.mp3", false, false);
-	SOUND_MANAGER->addSound("STAGE_HitSound",				"resources/sound/stageSound/HitSound.mp3", false, false);
+	SOUND_MANAGER->addSound("STAGE_HitSound1",				"resources/sound/stageSound/HitSound.mp3", false, false);
 	SOUND_MANAGER->addSound("STAGE_HitSound2",				"resources/sound/stageSound/HitSound2.mp3", false, false);
 	SOUND_MANAGER->addSound("STAGE_HitSound3",				"resources/sound/stageSound/HitSound3.mp3", false, false);
 	// * Kyoko
 	SOUND_MANAGER->addSound("KYOKO_BackElbow",				"resources/sound/stageSound/Kyoko/KyokoBackElbow.mp3", false, false);
 	SOUND_MANAGER->addSound("KYOKO_BackElbow2",				"resources/sound/stageSound/Kyoko/KyokoBackElbow2.mp3", false, false);
-	SOUND_MANAGER->addSound("KYOKO_Chop",					"resources/sound/stageSound/Kyoko/KyokoChop.mp3", false, false);
+	SOUND_MANAGER->addSound("KYOKO_Chop1",					"resources/sound/stageSound/Kyoko/KyokoChop.mp3", false, false);
 	SOUND_MANAGER->addSound("KYOKO_Chop2",					"resources/sound/stageSound/Kyoko/KyokoChop2.mp3", false, false);
 	SOUND_MANAGER->addSound("KYOKO_Chop3",					"resources/sound/stageSound/Kyoko/KyokoChop3.mp3", false, false);
 	SOUND_MANAGER->addSound("KYOKO_Combo",					"resources/sound/stageSound/Kyoko/KyokoCombo3.mp3", false, false);
-	SOUND_MANAGER->addSound("KYOKO_Dive",					"resources/sound/stageSound/Kyoko/KyokoDive.mp3", false, false);
+	SOUND_MANAGER->addSound("KYOKO_Dive1",					"resources/sound/stageSound/Kyoko/KyokoDive.mp3", false, false);
 	SOUND_MANAGER->addSound("KYOKO_Dive2",					"resources/sound/stageSound/Kyoko/KyokoDive2.mp3", false, false);
 	SOUND_MANAGER->addSound("KYOKO_GameOver",				"resources/sound/stageSound/Kyoko/KyokoGameOver.mp3", false, true);
 	SOUND_MANAGER->addSound("KYOKO_GetHit",					"resources/sound/stageSound/Kyoko/KyokoGetHit.mp3", false, false);
@@ -345,7 +345,7 @@ HRESULT playGround::init()
 	SOUND_MANAGER->addSound("BOSS_Voice_Laugh2",			"resources/sound/stageSound/Boss/voice/BossLaugh2.mp3", false, false);
 	SOUND_MANAGER->addSound("BOSS_Voice_Scream",			"resources/sound/stageSound/Boss/voice/BossScream.mp3", false, true);
 	// * CheerLeader
-	SOUND_MANAGER->addSound("CheerLeader_Attack",			"resources/sound/stageSound/cheerLeader/cheerAttack.mp3", false, false);
+	SOUND_MANAGER->addSound("CheerLeader_Attack1",			"resources/sound/stageSound/cheerLeader/cheerAttack.mp3", false, false);
 	SOUND_MANAGER->addSound("CheerLeader_Attack2",			"resources/sound/stageSound/cheerLeader/cheerAttack2.mp3", false, false);
 	SOUND_MANAGER->addSound("CheerLeader_Attack3",			"resources/sound/stageSound/cheerLeader/cheerAttack3.mp3", false, false);
 	SOUND_MANAGER->addSound("CheerLeader_Begging",			"resources/sound/stageSound/cheerLeader/cheerBegging.mp3", false, true);
@@ -355,13 +355,13 @@ HRESULT playGround::init()
 	// * SchoolBoy
 	SOUND_MANAGER->addSound("SchoolBoy_Attack",				"resources/sound/stageSound/SchoolBoy/schoolBoyAttack.mp3", false, false);
 	SOUND_MANAGER->addSound("SchoolBoy_Begging",			"resources/sound/stageSound/SchoolBoy/schoolBoyBegging.mp3", false, true);
-	SOUND_MANAGER->addSound("SchoolBoy_GetHit",				"resources/sound/stageSound/SchoolBoy/schoolBoyGetHit.mp3", false, false);
+	SOUND_MANAGER->addSound("SchoolBoy_GetHit1",			"resources/sound/stageSound/SchoolBoy/schoolBoyGetHit.mp3", false, false);
 	SOUND_MANAGER->addSound("SchoolBoy_GetHit2",			"resources/sound/stageSound/SchoolBoy/schoolBoyGetHit2.mp3", false, false);
 	SOUND_MANAGER->addSound("SchoolBoy_GetHit3",			"resources/sound/stageSound/SchoolBoy/schoolBoyGetHit3.mp3", false, false);
 	SOUND_MANAGER->addSound("SchoolBoy_GetHit4",			"resources/sound/stageSound/SchoolBoy/schoolBoyGetHit4.mp3", false, false);
 	SOUND_MANAGER->addSound("SchoolBoy_SandToss",			"resources/sound/stageSound/SchoolBoy/schoolBoySandToss.mp3", false, false);
 	// * SchoolGirl
-	SOUND_MANAGER->addSound("SchoolGirl_Attack",			"resources/sound/stageSound/schoolGirl/SchoolGirlAttack.mp3", false, false);
+	SOUND_MANAGER->addSound("SchoolGirl_Attack1",			"resources/sound/stageSound/schoolGirl/SchoolGirlAttack.mp3", false, false);
 	SOUND_MANAGER->addSound("SchoolGirl_Attack2",			"resources/sound/stageSound/schoolGirl/SchoolGirlAttack2.mp3", false, false);
 	SOUND_MANAGER->addSound("SchoolGirl_Attack3",			"resources/sound/stageSound/schoolGirl/SchoolGirlAttack3.mp3", false, false);
 	SOUND_MANAGER->addSound("SchoolGirl_Begging",			"resources/sound/stageSound/schoolGirl/SchoolGirlBegging.mp3", false, true);
