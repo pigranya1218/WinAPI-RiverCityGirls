@@ -76,6 +76,7 @@ void FoodObject::render()
 
 void FoodObject::eatEffect(Player * player)
 {
+	EFFECT_MANAGER->playZ("effect_eat", _position, 1.0f);
 	switch (_randomSpawn)
 	{
 		case 0:

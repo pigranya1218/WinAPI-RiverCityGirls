@@ -55,7 +55,15 @@ void MoneyObject::update()
 	_position.y += _gravity;
 	if (_position.y > 0)
 	{
-		_ani->stop();
+		switch (_randomSpawn)
+		{
+			case 3:
+			case 4:
+			case 5:
+			{_ani->stop(); }
+			break;
+		}
+		
 		_gravity = 0;
 	}
 
@@ -109,6 +117,7 @@ void MoneyObject::eatEffect(Player * player)
 
 	SOUND_MANAGER->stop("STAGE_getMoney");
 	SOUND_MANAGER->play("STAGE_getMoney", 1.0f);
+	EFFECT_MANAGER->playZ("effect_eat", _position, 1.0f);
 
 	switch (_randomSpawn)
 	{
