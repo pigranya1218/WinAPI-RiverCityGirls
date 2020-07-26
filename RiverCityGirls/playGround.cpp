@@ -420,6 +420,12 @@ HRESULT playGround::init()
 	IMAGE_MANAGER->addFrameImage("effect_explosion", L"resources/images/effect/explosion.png",  4, 4);
 	IMAGE_MANAGER->addFrameImage("effect_guard", L"resources/images/effect/effect_guard.png",  5, 8);
 	IMAGE_MANAGER->addFrameImage("effect_spark", L"resources/images/effect/effect_spark.png", 4, 1);
+	IMAGE_MANAGER->addFrameImage("effect_faseChange", L"resources/images/effect/faseChange.png", 3, 1);
+	IMAGE_MANAGER->addFrameImage("effect_standUpEffect", L"resources/images/effect/standUpEffect.png", 9, 1);
+	IMAGE_MANAGER->addFrameImage("effect_dashAttackEffect", L"resources/images/effect/dashAttackEffect.png", 7, 1);
+
+
+
 	// 이펙트 매니저에 등록
 	for (int i = 1; i < 5; i++)
 	{
@@ -432,6 +438,10 @@ HRESULT playGround::init()
 	EFFECT_MANAGER->addEffect("effect_explosion", "effect_explosion", 20, 10);
 	EFFECT_MANAGER->addEffect("effect_guard", "effect_guard", 50, 20);
 	EFFECT_MANAGER->addEffect("effect_spark", "effect_spark", 20, 10);
+	EFFECT_MANAGER->addEffect("effect_faseChange", "boss_faseChange", 30, 10);
+	EFFECT_MANAGER->addEffect("effect_standUpEffect", "boss_standUpEffect", 30, 10);
+	EFFECT_MANAGER->addEffect("effect_dashAttackEffect", "boss_dashAttackEffect", 30, 10);
+
 
 	D2D_RENDERER->addTextFormat(L"메이플스토리");		// 폰트 갖고옴	
 	

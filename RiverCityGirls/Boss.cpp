@@ -26,6 +26,10 @@ void Boss::release()
 
 void Boss::update()
 {
+	if (KEY_MANAGER->isStayKeyDown('W'))
+	{
+		_bossState = BOSS_STATE::ROAR;
+	}
 
 	if (_phase == BOSS_PHASE::DEFEAT)
 	{
@@ -750,7 +754,15 @@ void Boss::render()
 		break;
 		}
 	}
-
+	if (_phase == BOSS_PHASE::PHASE_2 )
+	{
+		
+		if (_electricTime < 0 && _bossState == BOSS_STATE::ROAR)
+		{
+			EFFECT_MANAGER->playZ("effect_faseChange", Vector3(_position.x, -310.0, _position.z - 20), 1);
+			_electricTime = 0.5;
+		}
+	}
 	if (_phase == BOSS_PHASE::PHASE_3)
 	{
 		if (_electricTime < 0 && _bossState != BOSS_STATE::METEOR_ATTACK)
