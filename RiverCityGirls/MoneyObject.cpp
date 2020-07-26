@@ -105,38 +105,24 @@ void MoneyObject::render()
 
 void MoneyObject::eatEffect(Player * player)
 {
+	_state = OBJECT_STATE::INACTIVE;
 
 	switch (_randomSpawn)
 	{
 		case 1:
-		{
-				_state = OBJECT_STATE::INACTIVE;
-				player->setMoney(player->getMoney() + 5.15f);
-		}
+		{ player->setMoney(player->getMoney() + 5.15f);	}
 		break;
 		case 2:
-		{
-				_state = OBJECT_STATE::INACTIVE;
-				player->setMoney(player->getMoney() + 10.25f);
-		}
+		{ player->setMoney(player->getMoney() + 10.25f); }
 		break;
 		case 3:
-		{
-				_state = OBJECT_STATE::INACTIVE;
-				player->setMoney(player->getMoney() + 15.00f);
-		}
+		{ player->setMoney(player->getMoney() + 15.00f); }
 		break;
 		case 4:
-		{
-			_state = OBJECT_STATE::INACTIVE;
-			player->setMoney(player->getMoney() + 20.15f);
-		}
+		{ player->setMoney(player->getMoney() + 20.15f); }
 		break;
 		case 5:
-		{
-			_state = OBJECT_STATE::INACTIVE;
-			player->setMoney(player->getMoney() + 30.25f);
-		}
+		{ player->setMoney(player->getMoney() + 30.25f); }
 		break;
 	}
 }
