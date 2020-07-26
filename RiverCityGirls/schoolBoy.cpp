@@ -677,6 +677,7 @@ void SchoolBoy::setState(ENEMY_STATE state, DIRECTION direction)
 	break;
 	case ENEMY_STATE::ATTACK:
 	{
+		SOUND_MANAGER->stop("SchoolBoy_Attack");
 		SOUND_MANAGER->play("SchoolBoy_Attack", 1.f);
 		int i = RANDOM->getFromIntTo(1, 4);
 		if (i == 3)
@@ -705,6 +706,7 @@ void SchoolBoy::setState(ENEMY_STATE state, DIRECTION direction)
 	break;
 	case ENEMY_STATE::DASHATTACK:
 	{
+		SOUND_MANAGER->stop("SchoolBoy_Attack");
 		SOUND_MANAGER->play("SchoolBoy_Attack", 1.f);
 		_attackS = 2;
 		_enemyImg = IMAGE_MANAGER->findImage("schoolboy_runAttack");
@@ -716,6 +718,7 @@ void SchoolBoy::setState(ENEMY_STATE state, DIRECTION direction)
 	break;
 	case ENEMY_STATE::JUMPATTACK:
 	{
+		SOUND_MANAGER->stop("SchoolBoy_Attack");
 		SOUND_MANAGER->play("SchoolBoy_Attack", 1.f);
 		_attackS = 2;
 		_enemyImg = IMAGE_MANAGER->findImage("schoolboy_jumpAttack");
@@ -738,6 +741,7 @@ void SchoolBoy::setState(ENEMY_STATE state, DIRECTION direction)
 	{
 		if (_hitType == ATTACK_TYPE::HIT1)
 		{
+			SOUND_MANAGER->stop("SchoolBoy_GetHit");
 			SOUND_MANAGER->play("SchoolBoy_GetHit", 1.f);
 		}
 		else if (_hitType == ATTACK_TYPE::HIT2)
@@ -745,6 +749,7 @@ void SchoolBoy::setState(ENEMY_STATE state, DIRECTION direction)
 			int playRate = RANDOM->getFromIntTo(3, 5);
 			char str[128];
 			sprintf_s(str, "SchoolBoy_GetHit%d", playRate);
+			SOUND_MANAGER->stop(str);
 			SOUND_MANAGER->play(str, 1.f);
 		}
 		_enemyImg = IMAGE_MANAGER->findImage("schoolboy_getHit");
@@ -765,6 +770,7 @@ void SchoolBoy::setState(ENEMY_STATE state, DIRECTION direction)
 	break;
 	case ENEMY_STATE::KNOCKDOWN:
 	{
+		SOUND_MANAGER->stop("SchoolBoy_GetHit2");
 		SOUND_MANAGER->play("SchoolBoy_GetHit2", 1.f);	
 		_enemyImg = IMAGE_MANAGER->findImage("schoolboy_knockDown");
 		_ani->init(_enemyImg->getWidth(), _enemyImg->getHeight(),
@@ -788,6 +794,7 @@ void SchoolBoy::setState(ENEMY_STATE state, DIRECTION direction)
 	break;
 	case ENEMY_STATE::SKILL:
 	{
+		SOUND_MANAGER->stop("SchoolBoy_SandToss");
 		SOUND_MANAGER->play("SchoolBoy_SandToss", 1.f);
 		_attackS = 5;
 		_enemyImg = IMAGE_MANAGER->findImage("schoolboy_skill");

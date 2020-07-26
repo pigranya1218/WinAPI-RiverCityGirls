@@ -57,6 +57,8 @@ void Boss::update()
 			_enemyManager->setBossUi(_hp, _maxHp);
 		}
 		
+		_attackRc = FloatRect(0, 0, 0, 0);
+		_viewRc = FloatRect(0, 0, 0, 0);
 
 		Vector3 playerPos = _enemyManager->getPlayerPosition(); // 플레이어의 위치
 		float distanceFromPlayer = sqrt(pow(playerPos.x - _position.x, 2) + pow(playerPos.z - _position.z, 2)); // 플레이어와 xz 거리
@@ -217,15 +219,39 @@ void Boss::update()
 				_count++;
 				if (_count == 2)
 				{
+					_attackS = 8;
 					_enemyImg = IMAGE_MANAGER->findImage("boss_attack2");
 					_ani->init(_enemyImg->getWidth(), _enemyImg->getHeight(),
 						_enemyImg->getMaxFrameX(), _enemyImg->getMaxFrameY());
 					_ani->setFPS(30);
 					_ani->start();
+					
 				}
 				else if (_count > 2)
 				{
-					setState(BOSS_STATE::LAUGH, _direction, true);
+					//attack2 공격 렉트
+					if (_ani->isPlay())
+					{
+						if (_direction == DIRECTION::LEFT && _ani->getPlayIndex() == _attackS)
+						{
+							_attackRc = FloatRect(_position.x - 150, _position.y - 45,
+								_position.x - 20, _position.y + 30);
+						}
+						else if (_direction == DIRECTION::RIGHT && _ani->getPlayIndex() == _attackS)
+						{
+							_attackRc = FloatRect(_position.x + 20, _position.y - 45,
+								_position.x + 120, _position.y + 30);
+						}
+						else
+						{
+							_attackRc = FloatRect(0, 0, 0, 0);
+							_viewRc = FloatRect(0, 0, 0, 0);
+						}
+						_viewRc = FloatRect(_attackRc.left, _position.z + _attackRc.top,
+							_attackRc.right, _position.z + _attackRc.bottom);
+						enemyAttack(_position, _size, OBJECT_TEAM::ENEMY, _attackRc, 5, ATTACK_TYPE::STUN);
+					}
+					else setState(BOSS_STATE::LAUGH, _direction, true);
 				}
 				else
 				{
@@ -236,6 +262,28 @@ void Boss::update()
 					_ani->start();
 				}
 			}
+			else
+			{
+				//attack1 공격 렉트
+				if (_direction == DIRECTION::LEFT && _ani->getPlayIndex() == _attackS)
+				{
+					_attackRc = FloatRect(_position.x - 150, _position.y - 45,
+						_position.x - 20, _position.y + 30);
+				}
+				else if (_direction == DIRECTION::RIGHT && _ani->getPlayIndex() == _attackS)
+				{
+					_attackRc = FloatRect(_position.x + 20, _position.y - 45,
+						_position.x + 120, _position.y + 30);
+				}
+				else
+				{
+					_attackRc = FloatRect(0, 0, 0, 0);
+					_viewRc = FloatRect(0, 0, 0, 0);
+				}
+				_viewRc = FloatRect(_attackRc.left, _position.z + _attackRc.top,
+					_attackRc.right, _position.z + _attackRc.bottom);
+				enemyAttack(_position, _size, OBJECT_TEAM::ENEMY, _attackRc, 5, ATTACK_TYPE::STUN);
+			}
 		}
 		break;
 
@@ -244,6 +292,28 @@ void Boss::update()
 			if (!_ani->isPlay())
 			{
 				setState(BOSS_STATE::LAUGH, _direction, true);
+			}
+			else
+			{
+				//powerPunch 공격 렉트
+				if (_direction == DIRECTION::LEFT && _ani->getPlayIndex() == _attackS)
+				{
+					_attackRc = FloatRect(_position.x - 150, _position.y - 45,
+						_position.x - 20, _position.y + 30);
+				}
+				else if (_direction == DIRECTION::RIGHT && _ani->getPlayIndex() == _attackS)
+				{
+					_attackRc = FloatRect(_position.x + 20, _position.y - 45,
+						_position.x + 120, _position.y + 30);
+				}
+				else
+				{
+					_attackRc = FloatRect(0, 0, 0, 0);
+					_viewRc = FloatRect(0, 0, 0, 0);
+				}
+				_viewRc = FloatRect(_attackRc.left, _position.z + _attackRc.top,
+					_attackRc.right, _position.z + _attackRc.bottom);
+				enemyAttack(_position, _size, OBJECT_TEAM::ENEMY, _attackRc, 5, ATTACK_TYPE::STUN);
 			}
 		}
 		break;
@@ -557,6 +627,7 @@ void Boss::render()
 		FloatRect rc = FloatRect(Vector2(_position.x, _position.z + _position.y + (_size.y / 2)), Vector2(_size.x, _size.z), Pivot::Center);
 		CAMERA_MANAGER->drawLine(Vector2(_position.x, _position.z), Vector2(_position.x, _position.z + _position.y));
 		CAMERA_MANAGER->rectangle(rc, D2D1::ColorF::Enum::Red, 1, 1);
+		CAMERA_MANAGER->rectangle(_viewRc, D2D1::ColorF::Enum::Magenta, 1, 1);
 	}
 
 	_enemyImg->setScale(3);
@@ -691,6 +762,7 @@ void Boss::setState(BOSS_STATE state, DIRECTION direction, bool initTime)
 	break;
 	case BOSS_STATE::STRONG_PUNCH:
 	{
+		_attackS = 17;
 		_enemyImg = IMAGE_MANAGER->findImage("boss_powerAttack");
 		_ani->init(_enemyImg->getWidth(), _enemyImg->getHeight(),
 			_enemyImg->getMaxFrameX(), _enemyImg->getMaxFrameY());
@@ -701,6 +773,7 @@ void Boss::setState(BOSS_STATE state, DIRECTION direction, bool initTime)
 	case BOSS_STATE::WEAK_PUNCH_COMBO:
 	{
 		_count = 0;
+		_attackS = 5;
 		_enemyImg = IMAGE_MANAGER->findImage("boss_attack1");
 		_ani->init(_enemyImg->getWidth(), _enemyImg->getHeight(),
 			_enemyImg->getMaxFrameX(), _enemyImg->getMaxFrameY());
