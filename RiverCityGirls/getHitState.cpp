@@ -50,13 +50,21 @@ PlayerState * getHitState::update(Player & player)
 	{
 	case GET_HIT_STATE::HIT:
 
-		
+		if (player.getHp() <= 0)
+		{
+			_getHitState = GET_HIT_STATE::GAME_OVER;
+			setGetHitAni(player);
+		}
+
+
+
 			lastPlayerY = player.getPosition().y;
 			moveDir.x += (player.getDirection() == DIRECTION::RIGHT) ? -0.3 : 0.3;
 			
 			player.move(moveDir);
 			currentPlayerY = player.getPosition().y;
 		
+
 			if (!_ani->isPlay())
 			{
 
@@ -71,7 +79,11 @@ PlayerState * getHitState::update(Player & player)
 
 	case GET_HIT_STATE::HIT2:
 		
-
+		if (player.getHp() <= 0)
+		{
+			_getHitState = GET_HIT_STATE::GAME_OVER;
+			setGetHitAni(player);
+		}
 		
 			lastPlayerY = player.getPosition().y;
 			moveDir.x += (player.getDirection() == DIRECTION::RIGHT) ? -0.3 : 0.3;

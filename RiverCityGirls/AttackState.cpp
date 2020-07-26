@@ -9,8 +9,9 @@ void AttackState::enter(Player & player)
 	switch (_skill)
 	{
 	case ATTACK_SKILL:: QC1:
-		
+		SOUND_MANAGER->stop("KYOKO_Chop" + to_string(num3));
 		SOUND_MANAGER->play("KYOKO_Chop"+ to_string(num3), 1.0f);
+		
 		_img = IMAGE_MANAGER->findImage("Kyoko_attack1");
 		_ani = new Animation;
 		_ani->init(_img->getWidth(), _img->getHeight(), _img->getMaxFrameX(), _img->getMaxFrameY());
@@ -27,7 +28,9 @@ void AttackState::enter(Player & player)
 		_ani->start();
 		break;
 	case ATTACK_SKILL::RUN_QC:
+		SOUND_MANAGER->stop("KYOKO_BackElbow" + to_string(num2));
 		SOUND_MANAGER->play("KYOKO_BackElbow" + to_string(num2), 1.0f);
+		
 		_img = IMAGE_MANAGER->findImage("Kyoko_backelbow");
 		_ani = new Animation;
 		_ani->init(_img->getWidth(), _img->getHeight(), _img->getMaxFrameX(), _img->getMaxFrameY());
@@ -44,6 +47,7 @@ void AttackState::enter(Player & player)
 		_ani->start();
 		break;
 	case ATTACK_SKILL::JUMP_QC:
+		SOUND_MANAGER->stop("KYOKO_HipAttack" + to_string(num2));
 		SOUND_MANAGER->play("KYOKO_HipAttack" + to_string(num2), 1.0f);
 		_img = IMAGE_MANAGER->findImage("Kyoko_buttbump");
 		_ani = new Animation;
@@ -62,7 +66,9 @@ void AttackState::enter(Player & player)
 		
 		break;
 	case ATTACK_SKILL::HC:
+		SOUND_MANAGER->stop("KYOKO_HeavyAtkKick");
 		SOUND_MANAGER->play("KYOKO_HeavyAtkKick", 1.0f);
+		
 		_img = IMAGE_MANAGER->findImage("Kyoko_axekick");
 		_ani = new Animation;
 		_ani->init(_img->getWidth(), _img->getHeight(), _img->getMaxFrameX(), _img->getMaxFrameY());
@@ -79,7 +85,9 @@ void AttackState::enter(Player & player)
 		_ani->start();
 		break;
 	case ATTACK_SKILL::RUN_HC:
+		SOUND_MANAGER->stop("KYOKO_Dive" + to_string(num2));
 		SOUND_MANAGER->play("KYOKO_Dive" + to_string(num2), 1.0f);
+		
 		_img = IMAGE_MANAGER->findImage("Kyoko_dive");
 		_ani = new Animation;
 		_ani->init(_img->getWidth(), _img->getHeight(), _img->getMaxFrameX(), _img->getMaxFrameY());
@@ -96,6 +104,7 @@ void AttackState::enter(Player & player)
 		_ani->start();
 		break;
 	case ATTACK_SKILL::JUMP_HC:
+		SOUND_MANAGER->stop("KYOKO_JumpKick");
 		SOUND_MANAGER->play("KYOKO_JumpKick", 1.0f);
 		_img = IMAGE_MANAGER->findImage("Kyoko_airstep");
 		_ani = new Animation;
@@ -381,6 +390,10 @@ PlayerState * AttackState::update(Player & player)
 					_viewRc = FloatRect(_attackRc.left, position.z + _attackRc.top,
 						_attackRc.right, position.z + _attackRc.bottom);
 					player.attack(player.getPosition(), player.getSize(), OBJECT_TEAM::PLAYER, _attackRc, 10, ATTACK_TYPE::HIT1);
+					if (player.attack(player.getPosition(), player.getSize(), OBJECT_TEAM::PLAYER, _attackRc, 10, ATTACK_TYPE::HIT1))
+					{
+						EFFECT_MANAGER->playZ("effect_4", Vector3((_attackRc.left + _attackRc.right) / 2, (_attackRc.top + _attackRc.bottom) / 2, position.z + player.getSize().z / 2), 1);
+					}
 				}
 
 				if (_initTime >= 0.2 &&KEY_MANAGER->isOnceKeyDown('Z'))
@@ -410,7 +423,7 @@ PlayerState * AttackState::update(Player & player)
 				
 			if (_ani->getPlayIndex() == 5)
 			{
-				//Vector3 position = player.getPosition();
+				Vector3 position = player.getPosition();
 				if (player.getDirection() == DIRECTION::RIGHT)
 				{
 					_attackRc = FloatRect(player.getPosition().x + 20, player.getPosition().y ,
@@ -426,6 +439,10 @@ PlayerState * AttackState::update(Player & player)
 				_viewRc = FloatRect(_attackRc.left, player.getPosition().z + _attackRc.top,
 					_attackRc.right, player.getPosition().z + _attackRc.bottom);
 				player.attack(player.getPosition(), player.getSize(), OBJECT_TEAM::PLAYER, _attackRc, 10, ATTACK_TYPE::KNOCKDOWN);
+				if (player.attack(player.getPosition(), player.getSize(), OBJECT_TEAM::PLAYER, _attackRc, 10, ATTACK_TYPE::HIT1))
+				{
+					EFFECT_MANAGER->playZ("effect_1", Vector3((_attackRc.left + _attackRc.right) / 2, (_attackRc.top + _attackRc.bottom) / 2, position.z + player.getSize().z / 2), 1);
+				}
 			}
 
 			moveDir.y -= _currJumpPower;
@@ -462,6 +479,10 @@ PlayerState * AttackState::update(Player & player)
 						_viewRc = FloatRect(_attackRc.left, position.z + _attackRc.top,
 							_attackRc.right, position.z + _attackRc.bottom);
 						player.attack(player.getPosition(), player.getSize(), OBJECT_TEAM::PLAYER, _attackRc, 10, ATTACK_TYPE::KNOCKDOWN);
+						if (player.attack(player.getPosition(), player.getSize(), OBJECT_TEAM::PLAYER, _attackRc, 10, ATTACK_TYPE::HIT1))
+						{
+							EFFECT_MANAGER->playZ("effect_4", Vector3((_attackRc.left + _attackRc.right) / 2, (_attackRc.top + _attackRc.bottom) / 2, position.z + player.getSize().z / 2), 1);
+						}
 					}
 
 				}
@@ -498,6 +519,10 @@ PlayerState * AttackState::update(Player & player)
 						_viewRc = FloatRect(_attackRc.left, position.z + _attackRc.top,
 							_attackRc.right, position.z + _attackRc.bottom);
 						player.attack(player.getPosition(), player.getSize(), OBJECT_TEAM::PLAYER, _attackRc, 10, ATTACK_TYPE::KNOCKDOWN);
+						if (player.attack(player.getPosition(), player.getSize(), OBJECT_TEAM::PLAYER, _attackRc, 10, ATTACK_TYPE::HIT1))
+						{
+							EFFECT_MANAGER->playZ("effect_4", Vector3((_attackRc.left + _attackRc.right) / 2, (_attackRc.top + _attackRc.bottom) / 2, position.z + player.getSize().z / 2), 1);
+						}
 					}
 					else if (_ani->getPlayIndex() > 10)
 					{
@@ -511,7 +536,7 @@ PlayerState * AttackState::update(Player & player)
 
 				if (_ani->getPlayIndex() == 6)
 				{
-					//Vector3 position = player.getPosition();
+					Vector3 position = player.getPosition();
 					if (player.getDirection() == DIRECTION::RIGHT)
 					{
 						_attackRc = FloatRect(player.getPosition().x , player.getPosition().y+90,
@@ -529,6 +554,10 @@ PlayerState * AttackState::update(Player & player)
 					_viewRc = FloatRect(_attackRc.left, player.getPosition().z + _attackRc.top,
 						_attackRc.right, player.getPosition().z + _attackRc.bottom);
 					player.attack(player.getPosition(), player.getSize(), OBJECT_TEAM::PLAYER, _attackRc, 10, ATTACK_TYPE::KNOCKDOWN);
+					if (player.attack(player.getPosition(), player.getSize(), OBJECT_TEAM::PLAYER, _attackRc, 10, ATTACK_TYPE::HIT1))
+					{
+						EFFECT_MANAGER->playZ("effect_4", Vector3((_attackRc.left + _attackRc.right) / 2, (_attackRc.top + _attackRc.bottom) / 2, position.z + player.getSize().z / 2), 1);
+					}
 				}
 
 				moveDir.x += _currMoveDirX;

@@ -327,6 +327,9 @@
     <ClInclude Include="GuardState.h">
       <Filter>PlayGround\Player\State</Filter>
     </ClInclude>
+    <ClInclude Include="StartState.h">
+      <Filter>PlayGround\Player\State</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="windowsAPI.cpp">
@@ -537,6 +540,9 @@
       <Filter>PlayGround\Object</Filter>
     </ClCompile>
     <ClCompile Include="GuardState.cpp">
+      <Filter>PlayGround\Player\State</Filter>
+    </ClCompile>
+    <ClCompile Include="StartState.cpp">
       <Filter>PlayGround\Player\State</Filter>
     </ClCompile>
   </ItemGroup>
