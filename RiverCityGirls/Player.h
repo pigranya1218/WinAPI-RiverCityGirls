@@ -23,7 +23,7 @@ private:
 	Synthesize(int, _maxHp, MaxHp)
 	Synthesize(bool, _onObject, OnObject)
 	Synthesize(int, _exp, Exp)
-	Synthesize(int, _money, Money)
+	Synthesize(float, _money, Money)
 	Synthesize(float, _damageTime, DamageTime)
 	Synthesize(float, _damage,Damage)//받는 데미지
 
