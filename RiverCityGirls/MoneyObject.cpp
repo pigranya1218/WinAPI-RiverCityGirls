@@ -55,7 +55,15 @@ void MoneyObject::update()
 	_position.y += _gravity;
 	if (_position.y > 0)
 	{
-		_ani->stop();
+		switch (_randomSpawn)
+		{
+			case 3:
+			case 4:
+			case 5:
+			{_ani->stop(); }
+			break;
+		}
+		
 		_gravity = 0;
 	}
 
