@@ -606,6 +606,8 @@ void SchoolBoy::render()
 //ÇÇ°Ý
 bool SchoolBoy::hitEffect(Vector3 pos, Vector3 size, OBJECT_TEAM team, FloatRect attackRc, float damage, ATTACK_TYPE type)
 {
+	
+
 	if (_state == ENEMY_STATE::KNOCKDOWN || _state == ENEMY_STATE::STANDUP) {
 		return false;
 	}
