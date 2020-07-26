@@ -139,6 +139,12 @@ bool Player::getHit(Vector3 pos, Vector3 size, OBJECT_TEAM team, FloatRect attac
 				{
 					_direction = DIRECTION::LEFT;
 				}
+				int num = RANDOM->getFromIntTo(1, 5);
+				SOUND_MANAGER->stop("KYOKO_GetHit" + to_string(num));
+				SOUND_MANAGER->play("KYOKO_GetHit" + to_string(num), 1.0f);
+				SOUND_MANAGER->stop("STAGE_HitSound" + to_string(num));
+				SOUND_MANAGER->play("STAGE_HitSound" + to_string(num), 1.0f);
+
 
 				_state->exit(*this);
 				delete _state;
@@ -156,7 +162,11 @@ bool Player::getHit(Vector3 pos, Vector3 size, OBJECT_TEAM team, FloatRect attac
 				{
 					_direction = DIRECTION::LEFT;
 				}
-
+				int num = RANDOM->getFromIntTo(1, 4);
+				SOUND_MANAGER->stop("KYOKO_GetHit" + to_string(num));
+				SOUND_MANAGER->play("KYOKO_GetHit" + to_string(num), 1.0f);
+				SOUND_MANAGER->stop("STAGE_HitSound" + to_string(num));
+				SOUND_MANAGER->play("STAGE_HitSound" + to_string(num), 1.0f);
 				_state->exit(*this);
 				delete _state;
 				_state = state;
@@ -165,6 +175,10 @@ bool Player::getHit(Vector3 pos, Vector3 size, OBJECT_TEAM team, FloatRect attac
 			}
 			else 
 			{
+				EFFECT_MANAGER->playZ("effect_1", Vector3(attackRc.getCenter().x, attackRc.getCenter().y, _position.z + _size.z / 2), 1);
+				int num = RANDOM->getFromIntTo(1, 4);
+				SOUND_MANAGER->stop("STAGE_HitSound" + to_string(num));
+				SOUND_MANAGER->play("STAGE_HitSound" + to_string(num), 1.0f);
 				_state->exit(*this);
 				delete _state;
 				_state = gdState;
@@ -184,6 +198,13 @@ bool Player::getHit(Vector3 pos, Vector3 size, OBJECT_TEAM team, FloatRect attac
 			}
 
 			EFFECT_MANAGER->playZ("effect_4", Vector3(attackRc.getCenter().x, attackRc.getCenter().y, _position.z + _size.z / 2), 1);
+			int num = RANDOM->getFromIntTo(1, 4);
+
+			SOUND_MANAGER->stop("KYOKO_GetHit" + to_string(num));
+			SOUND_MANAGER->play("KYOKO_GetHit" + to_string(num),1.0f);
+			SOUND_MANAGER->stop("STAGE_HitSound" + to_string(num));
+			SOUND_MANAGER->play("STAGE_HitSound" + to_string(num), 1.0f);
+
 			_state->exit(*this);
 			delete _state;
 			_state = state;
