@@ -519,7 +519,9 @@ void SchoolBoy::render()
 	case ENEMY_STATE::DASHATTACK:
 	case ENEMY_STATE::SKILL:
 	{
-
+		Vector3 drawPos = _position;
+		drawPos.y += 10;
+		CAMERA_MANAGER->aniRenderZ(_enemyImg, drawPos, _size, _ani, -(_position.y + (_size.y / 2)));
 	}
 	break;
 	case ENEMY_STATE::GUARD:
@@ -543,7 +545,7 @@ void SchoolBoy::render()
 		else
 		{
 			Vector3 drowPos = _position;
-			drowPos.y = _position.y + 30;
+			drowPos.y = _position.y + 15;
 			CAMERA_MANAGER->aniRenderZ(_enemyImg, drowPos, _size, _ani, -(_position.y + (_size.y / 2)));
 		}
 	}
@@ -553,7 +555,7 @@ void SchoolBoy::render()
 		if (_hp > 0)
 		{
 			Vector3 drawPos = _position;
-			drawPos.y += 10;
+			drawPos.y += 5;
 			CAMERA_MANAGER->aniRenderZ(_enemyImg, drawPos, _size, _ani, -(_position.y + (_size.y / 2)));
 		}
 		else _isActive = false;
@@ -677,17 +679,17 @@ void SchoolBoy::setState(ENEMY_STATE state, DIRECTION direction)
 		if (i == 3)
 		{
 			_attackS = 3;
-			_drawYFix = -10;
+			_drawYFix = -30;
 		}
 		else if (i == 2)
 		{
 			_attackS = 2;
-			_drawYFix = -5;
+			_drawYFix = -15;
 		}
 		else
 		{
 			_attackS = 2;
-			_drawYFix = 2;
+			_drawYFix = 5;
 		}
 		char imgNameNum[128];
 		sprintf_s(imgNameNum, "schoolboy_attack%d", i);
