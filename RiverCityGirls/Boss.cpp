@@ -795,9 +795,9 @@ void Boss::setState(BOSS_STATE state, DIRECTION direction, bool initTime)
 	}
 }
 
-void Boss::hitEffect(Vector3 pos, Vector3 size, OBJECT_TEAM team, FloatRect attackRc, float damage, ATTACK_TYPE type)
+bool Boss::hitEffect(Vector3 pos, Vector3 size, OBJECT_TEAM team, FloatRect attackRc, float damage, ATTACK_TYPE type)
 {
-	if (_bossState == BOSS_STATE::GET_HIT || _bossState == BOSS_STATE::GROUND_HIT) return;
+	if (_bossState == BOSS_STATE::GET_HIT || _bossState == BOSS_STATE::GROUND_HIT) return false;
 
 	if (_phase == BOSS_PHASE::PHASE_1)
 	{
@@ -828,12 +828,15 @@ void Boss::hitEffect(Vector3 pos, Vector3 size, OBJECT_TEAM team, FloatRect atta
 			setState(BOSS_STATE::GET_HIT, _direction, true);
 		}
 	}
-	if (_bossState == BOSS_STATE::GROUND)
+	else if (_bossState == BOSS_STATE::GROUND)
 	{
 		_jumpPower = -10;
 		_gravity = 0;
 		setState(BOSS_STATE::GROUND_HIT, _direction, false);
 	}
+
+	return true;
+
 }
 
 void Boss::setAttackState(BOSS_PHASE phase, float playerDistance)
