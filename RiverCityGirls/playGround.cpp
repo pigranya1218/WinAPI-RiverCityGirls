@@ -128,6 +128,7 @@ HRESULT playGround::init()
 	IMAGE_MANAGER->addFrameImage("OBJECT_workingMaleD_reaction",	L"resources/images/object/objectHuman_update/WorkingMaleD_react.png", 3, 2);
 
 	// * Player
+	IMAGE_MANAGER->addFrameImage("Kyoko_battle_start", L"resources/images/characters/kyoko/Kyoko_battle_start.png", 26, 2);
 	IMAGE_MANAGER->addFrameImage("Kyoko_idle", L"resources/images/characters/kyoko/Kyoko_idle.png", 12, 2);
 	IMAGE_MANAGER->addFrameImage("Kyoko_walk", L"resources/images/characters/kyoko/Kyoko_walk.png",12,2);
 	IMAGE_MANAGER->addFrameImage("Kyoko_run", L"resources/images/characters/kyoko/Kyoko_run.png", 16, 2);
@@ -204,10 +205,8 @@ HRESULT playGround::init()
 	IMAGE_MANAGER->addFrameImage("cheergirl_heldRelease", L"resources/images/characters/enemy_cheergirl/grab_release.png", 4, 2);
 	IMAGE_MANAGER->addFrameImage("cheergirl_groundUp", L"resources/images/characters/enemy_cheergirl/groundup.png", 11, 2);
 	IMAGE_MANAGER->addFrameImage("cheergirl_stun", L"resources/images/characters/enemy_cheergirl/stun.png", 5, 2);
-	IMAGE_MANAGER->addFrameImage("cheergirl_walk", L"resources/images/characters/enemy_cheergirl/walk.png", 12, 2);
-	IMAGE_MANAGER->addFrameImage("cheergirl_jumpAttack1", L"resources/images/characters/enemy_cheergirl/divekick_start.png", 6, 2);
-	IMAGE_MANAGER->addFrameImage("cheergirl_jumpAttack2", L"resources/images/characters/enemy_cheergirl/divekick_middle.png", 7, 2);
-	IMAGE_MANAGER->addFrameImage("cheergirl_jumpAttack3", L"resources/images/characters/enemy_cheergirl/divekick.png", 26, 2);
+	IMAGE_MANAGER->addFrameImage("cheergirl_walk", L"resources/images/characters/enemy_cheergirl/walk.png", 12, 2);	
+	IMAGE_MANAGER->addFrameImage("cheergirl_jumpAttack", L"resources/images/characters/enemy_cheergirl/divekick.png", 13, 2);
 	//보스
 	IMAGE_MANAGER->addFrameImage("boss_block", L"resources/images/characters/boss_misuzu/Misuzu_block.png", 4, 2);
 	IMAGE_MANAGER->addFrameImage("boss_walk", L"resources/images/characters/boss_misuzu/MizusuWalk.png", 10, 2);
@@ -231,6 +230,7 @@ HRESULT playGround::init()
 	IMAGE_MANAGER->addFrameImage("boss_tackle_init", L"resources/images/characters/boss_misuzu/RCG_Misuzu_tackle_initial.png", 5, 2);
 	IMAGE_MANAGER->addFrameImage("boss_tackle_loop", L"resources/images/characters/boss_misuzu/RCG_Misuzu_tackle_loop.png", 11, 2);
 	IMAGE_MANAGER->addFrameImage("boss_electric", L"resources/images/characters/boss_misuzu/electric.png", 2, 2);
+	IMAGE_MANAGER->addFrameImage("boss_groundbreak", L"resources/images/characters/boss_misuzu/groundbreak.png", 1, 1);
 
 
 	// * 스테이지
@@ -244,6 +244,8 @@ HRESULT playGround::init()
 
 	// * UI
 	IMAGE_MANAGER->addImage("blackScreen", L"resources/images/UI/blackScreen.png");				// 검은 화면입니다.
+
+	IMAGE_MANAGER->addFrameImage("loading", L"resources/images/UI/loadingFrame.png", 4, 1);
 
 	IMAGE_MANAGER->addFrameImage("chainLock_top"	, L"resources/images/UI/lock/chain_top_lock.png"	, 1, 13);	// 위 사슬 잠금
 	IMAGE_MANAGER->addFrameImage("chainLock_bot"	, L"resources/images/UI/lock/chain_bot_lock.png"	, 1, 13);	// 밑 사슬 잠금
@@ -351,7 +353,7 @@ HRESULT playGround::init()
 	SOUND_MANAGER->addSound("BOSS_Voice_Elbow2",			"resources/sound/stageSound/Boss/voice/BossElbow2.mp3", false, false);
 	SOUND_MANAGER->addSound("BOSS_Voice_GetHit",			"resources/sound/stageSound/Boss/voice/BossGetHit.mp3", false, false);
 	SOUND_MANAGER->addSound("BOSS_Voice_GroundShotGun",		"resources/sound/stageSound/Boss/voice/BossGroundShotGun.mp3", false, false);
-	SOUND_MANAGER->addSound("BOSS_Voice_Laugh",				"resources/sound/stageSound/Boss/voice/BossLaugh.mp3", false, false);
+	SOUND_MANAGER->addSound("BOSS_Voice_Laugh1",			"resources/sound/stageSound/Boss/voice/BossLaugh.mp3", false, false);
 	SOUND_MANAGER->addSound("BOSS_Voice_Laugh2",			"resources/sound/stageSound/Boss/voice/BossLaugh2.mp3", false, false);
 	SOUND_MANAGER->addSound("BOSS_Voice_Scream",			"resources/sound/stageSound/Boss/voice/BossScream.mp3", false, true);
 	// * CheerLeader
@@ -410,6 +412,7 @@ HRESULT playGround::init()
 	IMAGE_MANAGER->addFrameImage("effect_2", L"resources/images/effect/effect_2.png", 15, 1);
 	IMAGE_MANAGER->addFrameImage("effect_3", L"resources/images/effect/effect_3.png",  4, 4);
 	IMAGE_MANAGER->addFrameImage("effect_4", L"resources/images/effect/effect_4.png",  5, 3);
+	IMAGE_MANAGER->addFrameImage("effect_5", L"resources/images/effect/effect_5.png", 7, 2);
 	IMAGE_MANAGER->addFrameImage("effect_explosion", L"resources/images/effect/explosion.png",  4, 4);
 	IMAGE_MANAGER->addFrameImage("effect_guard", L"resources/images/effect/effect_guard.png",  5, 8);
 

@@ -5,7 +5,7 @@
 ChairObject::ChairObject(Vector3 position, DIRECTION direction, int imageType)
 {
 	_direction = direction;
-	_size = Vector3(5, 5, 5);
+	_size = Vector3(40, 100, 20);
 	_position = Vector3(position.x, -(_size.y / 2), position.z);
 
 	switch (imageType)

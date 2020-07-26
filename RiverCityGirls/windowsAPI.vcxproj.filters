@@ -327,6 +327,9 @@
     <ClInclude Include="GuardState.h">
       <Filter>PlayGround\Player\State</Filter>
     </ClInclude>
+    <ClInclude Include="StartState.h">
+      <Filter>PlayGround\Player\State</Filter>
+    </ClInclude>
     <ClInclude Include="MoneyObject.h">
       <Filter>PlayGround\Object</Filter>
     </ClInclude>

@@ -255,13 +255,17 @@ struct tagHeartInfo
 {
 	bool	active;	// 출력 여부
 
-	HRESULT init()
+	HRESULT init(int loopCount)
 	{
 		img = IMAGE_MANAGER->findImage("heart");
 		black = IMAGE_MANAGER->findImage("blackScreen");
+		loading = IMAGE_MANAGER->findImage("loading");		
 
-		active = 0;
+		maxLoop = loopCount;
 		scale = 3.0f;
+		curFrame = active = 0;
+		curLoop = 1;
+		elapseT = 4.0f;
 
 		return S_OK;
 	}
@@ -273,11 +277,33 @@ struct tagHeartInfo
 
 			heartRc = rectMakePivot(playerPos, Vector2(img->getWidth() * scale, img->getHeight() * scale), Pivot::Center);
 
-			scale -= 0.01f;
-			if (scale < 0)
+			if(scale > 0) scale -= 0.01f;
+			else
 			{
-				active = false;
-				scale = 5.0f;
+				isLoading = true;
+			}
+			if (isLoading)
+			{
+				elapseT -= TIME_MANAGER->getElapsedTime() * 10;
+				if (elapseT <= 0)
+				{
+					elapseT = 4.0f;
+					if (curFrame < loading->getMaxFrameX() - 1) curFrame++;
+					else
+					{
+						curFrame = 0;
+						curLoop++;
+					}
+				}				
+
+				if (curLoop == maxLoop)
+				{
+					isLoading = false;
+					active = false;
+					curLoop = 1;
+					curFrame = 0;
+					scale = 3.0f;
+				}
 			}
 		}		
 	}
@@ -304,16 +330,28 @@ struct tagHeartInfo
 			black->render(rcT.getCenter());
 
 			black->setSize(rcB.getSize());
-			black->render(rcB.getCenter());			
+			black->render(rcB.getCenter());	
+
+			if (isLoading)
+			{
+				loading->frameRender(Vector2(WINSIZEX - loading->getFrameSize().x / 2, WINSIZEY - loading->getFrameSize().y / 2), curFrame, 0);
+			}
 		}
 	}
 
 private:
 	Image*		img;		// 하트
 	Image*		black;		// 검정 화면
-	float		scale;		// 스케일
+	Image*		loading;	// 로딩 프레임
 	Vector2		playerPos;	// 플레이어 위치
 	FloatRect	heartRc;	// 하트 좌표 확인용 렉트
+	Animation*	ani;		// 애니렌더 사용
+	float		scale;		// 스케일
+	int			curLoop;	// 현재 루프
+	int			maxLoop;	// 최대 루프
+	int			curFrame;	// 현재 프레임
+	float		elapseT;	// 시간 계산용
+	bool		isLoading;	// 로딩창 출력 여부
 };
 
 struct tagShopInfo
@@ -690,7 +728,8 @@ public:
 	// 문 세팅
 	void setDoor(vector<tagDoorInfo> doors);
 
-	void setHart(bool active)	{ _heart.active = active; }
+	void setHeart(bool active)	{ _heart.active = active; }
+	bool getHeart() { return _heart.active; }
 
 	void setShopUI(bool active) { _shop.active = active; }
 	bool getShopUI()			{ return _shop.active; }

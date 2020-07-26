@@ -64,7 +64,7 @@ void MiddleStage::init(Image * background, float bgScale)
 
 	_isQuestClear = true;
 	_isQuesting = false;
-	_maxRestCount = 8;
+	_maxRestCount = 4;
 	_restCount = _maxRestCount;
 
 	DOOR_STATE doorStates[3] = {DOOR_STATE::UNLOCK, DOOR_STATE::SHOP, (_isQuestClear)?DOOR_STATE::UNLOCK:DOOR_STATE::LOCK};
@@ -186,7 +186,7 @@ Stage * MiddleStage::update()
 			_deadNum++;
 		}
 
-		if (_deadNum == 8)
+		if (_deadNum == 4)
 		{
 			_isQuesting = false;
 			_isQuestClear = true;
@@ -196,15 +196,15 @@ Stage * MiddleStage::update()
 			_doorInfos[2].doorState = DOOR_STATE::UNLOCK;
 			_stageManager->setDoorInfo(_doorInfos);
 		}
-		else if (_deadNum == 6)
+		else if (_deadNum == 3)
 		{
 			_stageManager->setLockLevel(1);
 		}
-		else if (_deadNum == 4)
+		else if (_deadNum == 2)
 		{
 			_stageManager->setLockLevel(2);
 		}
-		else if (_deadNum == 2)
+		else if (_deadNum == 1)
 		{
 			_stageManager->setLockLevel(3);
 		}

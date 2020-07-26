@@ -26,8 +26,12 @@ void StageManager::init()
 	stage_3->init(IMAGE_MANAGER->findImage("STAGE_BOSS_BEFORE"), 3);
 	_stageMap["BOSS_STAGE"] = stage_3;
 
-	_currStage = _stageMap["START_STAGE"];
+	//_currStage = _stageMap["START_STAGE"];
+	_currStage = _stageMap["BOSS_STAGE"];
 	_currStage->enter();
+	_player->setStartState();
+	
+	TIME_MANAGER->update(60);
 }
 
 void StageManager::release()
@@ -132,4 +136,9 @@ void StageManager::startDialogue(BossChapter keyname)
 bool StageManager::isDialoging()
 {
 	return _dgManager->getIsPlay();
+}
+
+void StageManager::setHeart(bool isVisible)
+{
+	_uiManager->setHeart(isVisible);
 }

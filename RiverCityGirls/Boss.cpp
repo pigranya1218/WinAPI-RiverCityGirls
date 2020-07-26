@@ -15,6 +15,7 @@ void Boss::init()
 	_maxHp = 300;
 	_hp = _maxHp;
 	_isActive = true;
+	_checkDialog = false;
 }
 
 void Boss::release()
@@ -25,6 +26,7 @@ void Boss::release()
 
 void Boss::update()
 {
+
 	if (_phase == BOSS_PHASE::DEFEAT)
 	{
 		if (!_ani->isPlay())
@@ -40,6 +42,12 @@ void Boss::update()
 			_ani->start();
 			_enemyManager->setBossUiVisible(false);
 			_enemyManager->startDialogue(BossChapter::BATTLE_AFTER);
+			_checkDialog = true;
+		}
+
+		if (!_enemyManager->isDialoging() && _checkDialog)
+		{
+			_enemyManager->setHeart(true);
 		}
 	}
 	else
@@ -50,6 +58,8 @@ void Boss::update()
 			_enemyManager->setBossUi(_hp, _maxHp);
 		}
 		
+		_attackRc = FloatRect(0, 0, 0, 0);
+		_viewRc = FloatRect(0, 0, 0, 0);
 
 		Vector3 playerPos = _enemyManager->getPlayerPosition(); // 플레이어의 위치
 		float distanceFromPlayer = sqrt(pow(playerPos.x - _position.x, 2) + pow(playerPos.z - _position.z, 2)); // 플레이어와 xz 거리
@@ -88,6 +98,7 @@ void Boss::update()
 		break;
 		case BOSS_STATE::LAUGH:
 		{
+			
 			if (!_ani->isPlay())
 			{
 				setState(BOSS_STATE::IDLE, _direction, true);
@@ -125,7 +136,6 @@ void Boss::update()
 
 			if (!_ani->isPlay())
 			{
-				_combo++;
 				_gravity = 0;
 				setState(BOSS_STATE::GROUND, _direction, false);
 			}
@@ -211,24 +221,74 @@ void Boss::update()
 				_count++;
 				if (_count == 2)
 				{
+					SOUND_MANAGER->stop("BOSS_Voice_Elbow2");
+					SOUND_MANAGER->play("BOSS_Voice_Elbow2", 1.f);
+					_attackS = 8;
 					_enemyImg = IMAGE_MANAGER->findImage("boss_attack2");
 					_ani->init(_enemyImg->getWidth(), _enemyImg->getHeight(),
 						_enemyImg->getMaxFrameX(), _enemyImg->getMaxFrameY());
 					_ani->setFPS(30);
 					_ani->start();
+					
 				}
 				else if (_count > 2)
 				{
-					setState(BOSS_STATE::LAUGH, _direction, true);
+					//attack2 공격 렉트
+					if (_ani->isPlay())
+					{
+						if (_direction == DIRECTION::LEFT && _ani->getPlayIndex() == _attackS)
+						{
+							_attackRc = FloatRect(_position.x - 150, _position.y - 45,
+								_position.x - 20, _position.y + 30);
+						}
+						else if (_direction == DIRECTION::RIGHT && _ani->getPlayIndex() == _attackS)
+						{
+							_attackRc = FloatRect(_position.x + 20, _position.y - 45,
+								_position.x + 120, _position.y + 30);
+						}
+						else
+						{
+							_attackRc = FloatRect(0, 0, 0, 0);
+							_viewRc = FloatRect(0, 0, 0, 0);
+						}
+						_viewRc = FloatRect(_attackRc.left, _position.z + _attackRc.top,
+							_attackRc.right, _position.z + _attackRc.bottom);
+						enemyAttack(_position, _size, _team, _attackRc, 5, ATTACK_TYPE::STUN);
+					}
+					else setState(BOSS_STATE::LAUGH, _direction, true);
 				}
 				else
 				{
+					SOUND_MANAGER->stop("BOSS_Voice_Elbow");
+					SOUND_MANAGER->play("BOSS_Voice_Elbow", 1.f);
 					_enemyImg = IMAGE_MANAGER->findImage("boss_attack1");
 					_ani->init(_enemyImg->getWidth(), _enemyImg->getHeight(),
 						_enemyImg->getMaxFrameX(), _enemyImg->getMaxFrameY());
 					_ani->setFPS(30);
 					_ani->start();
 				}
+			}
+			else
+			{
+				//attack1 공격 렉트
+				if (_direction == DIRECTION::LEFT && _ani->getPlayIndex() == _attackS)
+				{
+					_attackRc = FloatRect(_position.x - 150, _position.y - 45,
+						_position.x - 20, _position.y + 30);
+				}
+				else if (_direction == DIRECTION::RIGHT && _ani->getPlayIndex() == _attackS)
+				{
+					_attackRc = FloatRect(_position.x + 20, _position.y - 45,
+						_position.x + 120, _position.y + 30);
+				}
+				else
+				{
+					_attackRc = FloatRect(0, 0, 0, 0);
+					_viewRc = FloatRect(0, 0, 0, 0);
+				}
+				_viewRc = FloatRect(_attackRc.left, _position.z + _attackRc.top,
+					_attackRc.right, _position.z + _attackRc.bottom);
+				enemyAttack(_position, _size, _team, _attackRc, 5, ATTACK_TYPE::STUN);
 			}
 		}
 		break;
@@ -238,6 +298,28 @@ void Boss::update()
 			if (!_ani->isPlay())
 			{
 				setState(BOSS_STATE::LAUGH, _direction, true);
+			}
+			else
+			{
+				//powerPunch 공격 렉트
+				if (_direction == DIRECTION::LEFT && _ani->getPlayIndex() == _attackS)
+				{
+					_attackRc = FloatRect(_position.x - 150, _position.y - 45,
+						_position.x - 20, _position.y + 30);
+				}
+				else if (_direction == DIRECTION::RIGHT && _ani->getPlayIndex() == _attackS)
+				{
+					_attackRc = FloatRect(_position.x + 20, _position.y - 45,
+						_position.x + 120, _position.y + 30);
+				}
+				else
+				{
+					_attackRc = FloatRect(0, 0, 0, 0);
+					_viewRc = FloatRect(0, 0, 0, 0);
+				}
+				_viewRc = FloatRect(_attackRc.left, _position.z + _attackRc.top,
+					_attackRc.right, _position.z + _attackRc.bottom);
+				enemyAttack(_position, _size, _team, _attackRc, 5, ATTACK_TYPE::STUN);
 			}
 		}
 		break;
@@ -261,6 +343,25 @@ void Boss::update()
 					setState(BOSS_STATE::IDLE, _direction, true);
 				}
 			}
+			else
+			{
+				//standup 공격 렉트
+				if (_ani->getPlayIndex() == _attackS)
+				{
+					_size.z = _position.x -1150;
+					_attackRc = FloatRect(_position.x - 250, _position.y ,
+						_position.x + 250, _position.y + 200);					
+				}
+				else
+				{
+					_size.z = 30;
+					_attackRc = FloatRect(0, 0, 0, 0);
+					_viewRc = FloatRect(0, 0, 0, 0);
+				}
+				_viewRc = FloatRect(_attackRc.left, _position.z + _attackRc.top,
+					_attackRc.right, _position.z + _attackRc.bottom);
+				enemyAttack(_position, _size, _team, _attackRc, 5, ATTACK_TYPE::STUN);
+			}
 		}
 		break;
 
@@ -269,6 +370,25 @@ void Boss::update()
 			if (!_ani->isPlay())
 			{
 				setState(BOSS_STATE::IDLE, _direction, true);
+			}
+			else
+			{
+				//roar 공격 렉트
+				if (_ani->getPlayIndex() == _attackS)
+				{
+					_size.z = _position.x - 1050;
+					_attackRc = FloatRect(_position.x - 250, _position.y-200,
+						_position.x + 250, _position.y + 200);
+				}
+				else
+				{
+					_size.z = 30;
+					_attackRc = FloatRect(0, 0, 0, 0);
+					_viewRc = FloatRect(0, 0, 0, 0);
+				}
+				_viewRc = FloatRect(_attackRc.left, _position.z + _attackRc.top,
+					_attackRc.right, _position.z + _attackRc.bottom);
+				enemyAttack(_position, _size, _team, _attackRc, 5, ATTACK_TYPE::STUN);
 			}
 		}
 		break;
@@ -347,6 +467,7 @@ void Boss::update()
 					attackSize.z = 150;
 
 					_enemyManager->enemyAttackObject(_position, attackSize, OBJECT_TEAM::BOSS, FloatRect(_position.x - 150, _position.y - 100, _position.x + 150, _position.y + 100), 10, ATTACK_TYPE::KNOCKDOWN);
+					enemyAttack(_position, attackSize, OBJECT_TEAM::BOSS, FloatRect(_position.x - 150, _position.y - 100, _position.x + 150, _position.y + 100), 10, ATTACK_TYPE::KNOCKDOWN);
 					CAMERA_MANAGER->pushShakeEvent(-20, 0.06, 0.24);
 				}
 			}
@@ -383,7 +504,7 @@ void Boss::update()
 					int speedX = (_phase == BOSS_PHASE::PHASE_2)? 6: 10;
 					int speedZ = (_phase == BOSS_PHASE::PHASE_2) ? 2 : 3;
 					moveDir.x += (_direction == DIRECTION::RIGHT) ? speedX : -speedX;
-					moveDir.z += (playerPos.z >= _position.z + 10) ? speedZ : ((playerPos.z <= _position.z - 10) ? -speedZ : 0);
+					moveDir.z += (playerPos.z >= _position.z + 90) ? speedZ : ((playerPos.z <= _position.z - 90) ? -speedZ : 0);
 
 					_enemyManager->moveEnemy(this, moveDir);
 
@@ -399,6 +520,8 @@ void Boss::update()
 					{
 						attackRc = FloatRect(_position.x, _position.y - 100, _position.x + 90, _position.y);
 					}
+					_viewRc = FloatRect(attackRc.left, _position.z + attackRc.top,
+						attackRc.right, _position.z + attackRc.bottom);
 
 					if (_enemyManager->enemyAttack(_position, attackSize, OBJECT_TEAM::BOSS, attackRc, 10, ATTACK_TYPE::KNOCKDOWN) ||
 						_enemyManager->enemyAttackObject(_position, attackSize, OBJECT_TEAM::BOSS, attackRc, 10, ATTACK_TYPE::KNOCKDOWN)) // 사물이나 플레이어에게 부딪힘
@@ -433,6 +556,8 @@ void Boss::update()
 
 void Boss::render()
 {
+
+
 	//좌우에 따른 애니메이션 프레임 및 루프 조정
 	if (_phase != BOSS_PHASE::DEFEAT)
 	{
@@ -455,16 +580,18 @@ void Boss::render()
 		{
 			if (_direction == DIRECTION::LEFT)
 			{
-				_ani->setPlayFrame(_enemyImg->getMaxFrameX() + 3 * _combo, _enemyImg->getMaxFrameX() + 3 * _combo + 1, false, false);
+				_ani->setPlayFrame(_enemyImg->getMaxFrameX() + 3 * (_combo - 1), _enemyImg->getMaxFrameX() + 3 * _combo, false, false);
 			}
 			else
 			{
-				_ani->setPlayFrame(3 * _combo, 3 * _combo + 1, false, false);
+				_ani->setPlayFrame(3 * (_combo - 1), 3 * _combo, false, false);
 			}
 		}
 		break;
 		case BOSS_STATE::METEOR_ATTACK:
 		{
+
+
 			if (_count == 0)
 			{
 				if (_direction == DIRECTION::LEFT)
@@ -543,7 +670,7 @@ void Boss::render()
 		break;
 		}
 	}
-	
+
 
 	if (DEBUG_MANAGER->isDebugMode(DEBUG_TYPE::ENEMY))
 	{
@@ -551,6 +678,7 @@ void Boss::render()
 		FloatRect rc = FloatRect(Vector2(_position.x, _position.z + _position.y + (_size.y / 2)), Vector2(_size.x, _size.z), Pivot::Center);
 		CAMERA_MANAGER->drawLine(Vector2(_position.x, _position.z), Vector2(_position.x, _position.z + _position.y));
 		CAMERA_MANAGER->rectangle(rc, D2D1::ColorF::Enum::Red, 1, 1);
+		CAMERA_MANAGER->rectangle(_viewRc, D2D1::ColorF::Enum::Magenta, 1, 1);
 	}
 
 	_enemyImg->setScale(3);
@@ -632,6 +760,8 @@ void Boss::render()
 		}
 	}
 	
+	
+	
 
 	switch (_bossState) // 그림자 그리기
 	{
@@ -676,6 +806,11 @@ void Boss::setState(BOSS_STATE state, DIRECTION direction, bool initTime)
 	break;
 	case BOSS_STATE::LAUGH:
 	{
+		int playRate = RANDOM->getInt(2);
+		char str[128];
+		sprintf_s(str, "BOSS_Voice_Laugh%d", playRate);
+		SOUND_MANAGER->stop(str);
+		SOUND_MANAGER->play(str, 1.f);
 		_enemyImg = IMAGE_MANAGER->findImage("boss_laugh");
 		_ani->init(_enemyImg->getWidth(), _enemyImg->getHeight(),
 			_enemyImg->getMaxFrameX(), _enemyImg->getMaxFrameY());
@@ -685,6 +820,9 @@ void Boss::setState(BOSS_STATE state, DIRECTION direction, bool initTime)
 	break;
 	case BOSS_STATE::STRONG_PUNCH:
 	{
+		SOUND_MANAGER->stop("Boss_Effect_WUPunch");
+		SOUND_MANAGER->play("Boss_Effect_WUPunch", 1.f);
+		_attackS = 17;
 		_enemyImg = IMAGE_MANAGER->findImage("boss_powerAttack");
 		_ani->init(_enemyImg->getWidth(), _enemyImg->getHeight(),
 			_enemyImg->getMaxFrameX(), _enemyImg->getMaxFrameY());
@@ -694,7 +832,10 @@ void Boss::setState(BOSS_STATE state, DIRECTION direction, bool initTime)
 	break;
 	case BOSS_STATE::WEAK_PUNCH_COMBO:
 	{
+		SOUND_MANAGER->stop("BOSS_Voice_Elbow");
+		SOUND_MANAGER->play("BOSS_Voice_Elbow", 1.f);
 		_count = 0;
+		_attackS = 5;
 		_enemyImg = IMAGE_MANAGER->findImage("boss_attack1");
 		_ani->init(_enemyImg->getWidth(), _enemyImg->getHeight(),
 			_enemyImg->getMaxFrameX(), _enemyImg->getMaxFrameY());
@@ -704,6 +845,8 @@ void Boss::setState(BOSS_STATE state, DIRECTION direction, bool initTime)
 	break;
 	case BOSS_STATE::GET_HIT:
 	{
+		SOUND_MANAGER->stop("BOSS_Voice_GetHit");
+		SOUND_MANAGER->play("BOSS_Voice_GetHit", 1.f);
 		_enemyImg = IMAGE_MANAGER->findImage("boss_getHit");
 		_ani->init(_enemyImg->getWidth(), _enemyImg->getHeight(),
 			_enemyImg->getMaxFrameX(), _enemyImg->getMaxFrameY());
@@ -713,6 +856,7 @@ void Boss::setState(BOSS_STATE state, DIRECTION direction, bool initTime)
 	break;
 	case BOSS_STATE::GROUND_HIT:
 	{
+
 		_enemyImg = IMAGE_MANAGER->findImage("boss_groundHit");
 		_ani->init(_enemyImg->getWidth(), _enemyImg->getHeight(),
 			_enemyImg->getMaxFrameX(), _enemyImg->getMaxFrameY());
@@ -741,6 +885,7 @@ void Boss::setState(BOSS_STATE state, DIRECTION direction, bool initTime)
 	break;
 	case BOSS_STATE::STAND_UP:
 	{
+		_attackS = 5;
 		_enemyImg = IMAGE_MANAGER->findImage("boss_getup");
 		_ani->init(_enemyImg->getWidth(), _enemyImg->getHeight(),
 			_enemyImg->getMaxFrameX(), _enemyImg->getMaxFrameY());
@@ -750,6 +895,9 @@ void Boss::setState(BOSS_STATE state, DIRECTION direction, bool initTime)
 	break;
 	case BOSS_STATE::ROAR:
 	{
+		//SOUND_MANAGER->stop("BOSS_Voice_Scream");
+		//SOUND_MANAGER->play("BOSS_Voice_Scream", 1.f);
+		_attackS = 5;
 		_enemyImg = IMAGE_MANAGER->findImage("boss_roar");
 		_ani->init(_enemyImg->getWidth(), _enemyImg->getHeight(),
 			_enemyImg->getMaxFrameX(), _enemyImg->getMaxFrameY());
@@ -759,12 +907,15 @@ void Boss::setState(BOSS_STATE state, DIRECTION direction, bool initTime)
 	break;
 	case BOSS_STATE::METEOR_ATTACK:
 	{
+		SOUND_MANAGER->stop("Boss_Effect_Jump");
+		SOUND_MANAGER->play("Boss_Effect_Jump", 1.f);
 		_count = 0;
 		_enemyImg = IMAGE_MANAGER->findImage("boss_jump");
 		_ani->init(_enemyImg->getWidth(), _enemyImg->getHeight(),
 			_enemyImg->getMaxFrameX(), _enemyImg->getMaxFrameY());
 		_ani->setFPS(15);
 		_ani->start();
+		
 	}
 	break;
 	case BOSS_STATE::METEOR_ATTACK_DELAY:
@@ -789,9 +940,9 @@ void Boss::setState(BOSS_STATE state, DIRECTION direction, bool initTime)
 	}
 }
 
-void Boss::hitEffect(Vector3 pos, Vector3 size, OBJECT_TEAM team, FloatRect attackRc, float damage, ATTACK_TYPE type)
+bool Boss::hitEffect(Vector3 pos, Vector3 size, OBJECT_TEAM team, FloatRect attackRc, float damage, ATTACK_TYPE type)
 {
-	if (_bossState == BOSS_STATE::GET_HIT || _bossState == BOSS_STATE::GROUND_HIT) return;
+	if (_bossState == BOSS_STATE::GET_HIT || _bossState == BOSS_STATE::GROUND_HIT) return false;
 
 	if (_phase == BOSS_PHASE::PHASE_1)
 	{
@@ -806,9 +957,11 @@ void Boss::hitEffect(Vector3 pos, Vector3 size, OBJECT_TEAM team, FloatRect atta
 		_hp = max(0, _hp - damage);
 	}
 
+	_combo++;
+
 	if (_bossState == BOSS_STATE::IDLE || _bossState == BOSS_STATE::WALK || _bossState == BOSS_STATE::LAUGH) // 빈틈
 	{
-		if (_combo > 2 || type == ATTACK_TYPE::KNOCKDOWN)
+		if (_combo > 3 || type == ATTACK_TYPE::KNOCKDOWN)
 		{
 			_combo = 0;
 			setState(BOSS_STATE::KNOCKDOWN, _direction, true);
@@ -820,12 +973,15 @@ void Boss::hitEffect(Vector3 pos, Vector3 size, OBJECT_TEAM team, FloatRect atta
 			setState(BOSS_STATE::GET_HIT, _direction, true);
 		}
 	}
-	if (_bossState == BOSS_STATE::GROUND)
+	else if (_bossState == BOSS_STATE::GROUND)
 	{
 		_jumpPower = -10;
 		_gravity = 0;
 		setState(BOSS_STATE::GROUND_HIT, _direction, false);
 	}
+
+	return true;
+
 }
 
 void Boss::setAttackState(BOSS_PHASE phase, float playerDistance)

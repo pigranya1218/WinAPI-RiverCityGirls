@@ -25,7 +25,7 @@ HRESULT UIManager::init(Player* player)
 	result = _playerInfo.init();
 	result = _bossInfo.init();
 	result = _levelInfo.init();
-	result = _heart.init();
+	result = _heart.init(3);
 	result = _shop.init();
 	
 	
@@ -67,17 +67,20 @@ void UIManager::render()
 {
 	_lock.render();
 
-	
-	_bossInfo.render();
-	_levelInfo.render();
-
 	if (!_vDoor.empty())
 	{
 		for (int i = 0; i < _vDoor.size(); i++)
 		{
 			_vDoor[i].render();
 		}
-	}		
+	}
+
+	CAMERA_MANAGER->fillOutline();
+	
+	_bossInfo.render();
+
+	_levelInfo.render();
+	
 	_heart.render();
 
 	 _shop.render();	
