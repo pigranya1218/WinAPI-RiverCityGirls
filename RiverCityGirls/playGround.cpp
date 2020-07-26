@@ -362,7 +362,7 @@ HRESULT playGround::init()
 	SOUND_MANAGER->addSound("BOSS_Voice_GroundShotGun",		"resources/sound/stageSound/Boss/voice/BossGroundShotGun.mp3", false, false);
 	SOUND_MANAGER->addSound("BOSS_Voice_Laugh1",			"resources/sound/stageSound/Boss/voice/BossLaugh.mp3", false, false);
 	SOUND_MANAGER->addSound("BOSS_Voice_Laugh2",			"resources/sound/stageSound/Boss/voice/BossLaugh2.mp3", false, false);
-	SOUND_MANAGER->addSound("BOSS_Voice_Scream",			"resources/sound/stageSound/Boss/voice/BossScream.mp3", false, true);
+	SOUND_MANAGER->addSound("BOSS_Voice_Scream",			"resources/sound/stageSound/Boss/voice/BossScream.mp3", false, false);
 	// * CheerLeader
 	SOUND_MANAGER->addSound("CheerLeader_Attack1",			"resources/sound/stageSound/cheerLeader/cheerAttack.mp3", false, false);
 	SOUND_MANAGER->addSound("CheerLeader_Attack2",			"resources/sound/stageSound/cheerLeader/cheerAttack2.mp3", false, false);

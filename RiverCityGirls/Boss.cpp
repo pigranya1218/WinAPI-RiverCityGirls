@@ -103,6 +103,7 @@ void Boss::update()
 			{
 				setState(BOSS_STATE::IDLE, _direction, true);
 			}
+			
 		}
 		break;
 		case BOSS_STATE::GET_HIT:
@@ -336,11 +337,15 @@ void Boss::update()
 			{
 				if (_phase == BOSS_PHASE::PHASE_1 && _hp == 200)
 				{
+					SOUND_MANAGER->stop("BOSS_Voice_2Phase");
+					SOUND_MANAGER->play("BOSS_Voice_2Phase", 1.f);
 					setState(BOSS_STATE::ROAR, _direction, true);
 					_phase = BOSS_PHASE::PHASE_2;
 				}
 				else if (_phase == BOSS_PHASE::PHASE_2 && _hp == 100)
 				{
+					SOUND_MANAGER->stop("BOSS_Voice_3Phase");
+					SOUND_MANAGER->play("BOSS_Voice_3Phase", 1.f);
 					setState(BOSS_STATE::ROAR, _direction, true);
 					_phase = BOSS_PHASE::PHASE_3;
 				}
@@ -456,6 +461,8 @@ void Boss::update()
 				{
 					_gravity = 0;
 					_jumpPower = 0;
+					SOUND_MANAGER->stop("Boss_Effect_DropSound");
+					SOUND_MANAGER->play("Boss_Effect_DropSound", 1.f);
 					//지면에 떨어졌을 때의 이펙트 재생
 					
 
@@ -712,6 +719,7 @@ void Boss::render()
 			Vector3 drawPos = _position;
 			drawPos.y -= 35;
 			CAMERA_MANAGER->aniRenderZ(_enemyImg, drawPos, _size, _ani);
+			
 		}
 		break;
 		case BOSS_STATE::IDLE:
@@ -849,6 +857,8 @@ void Boss::setState(BOSS_STATE state, DIRECTION direction, bool initTime)
 	break;
 	case BOSS_STATE::LAUGH:
 	{
+		SOUND_MANAGER->stop("BOSS_Voice_Laugh1");
+		SOUND_MANAGER->play("BOSS_Voice_Laugh1", 1.0f);
 		int playRate = RANDOM->getInt(2);
 		char str[128];
 		sprintf_s(str, "BOSS_Voice_Laugh%d", playRate);
@@ -899,7 +909,8 @@ void Boss::setState(BOSS_STATE state, DIRECTION direction, bool initTime)
 	break;
 	case BOSS_STATE::GROUND_HIT:
 	{
-
+		SOUND_MANAGER->stop("BOSS_Voice_GroundShotGun");
+		SOUND_MANAGER->play("BOSS_Voice_GroundShotGun", 1.f);
 		_enemyImg = IMAGE_MANAGER->findImage("boss_groundHit");
 		_ani->init(_enemyImg->getWidth(), _enemyImg->getHeight(),
 			_enemyImg->getMaxFrameX(), _enemyImg->getMaxFrameY());
@@ -909,6 +920,8 @@ void Boss::setState(BOSS_STATE state, DIRECTION direction, bool initTime)
 	break;
 	case BOSS_STATE::KNOCKDOWN:
 	{
+		SOUND_MANAGER->stop("BOSS_Voice_Scream");
+		SOUND_MANAGER->play("BOSS_Voice_Scream", 1.f);
 		_count = 0;
 		_enemyImg = IMAGE_MANAGER->findImage("boss_blownBack");
 		_ani->init(_enemyImg->getWidth(), _enemyImg->getHeight(),
@@ -928,6 +941,8 @@ void Boss::setState(BOSS_STATE state, DIRECTION direction, bool initTime)
 	break;
 	case BOSS_STATE::STAND_UP:
 	{
+		SOUND_MANAGER->stop("BOSS_Voice_GroundShotGun");
+		SOUND_MANAGER->play("BOSS_Voice_GroundShotGun", 1.f);
 		_attackS = 5;
 		_enemyImg = IMAGE_MANAGER->findImage("boss_getup");
 		_ani->init(_enemyImg->getWidth(), _enemyImg->getHeight(),
@@ -938,8 +953,8 @@ void Boss::setState(BOSS_STATE state, DIRECTION direction, bool initTime)
 	break;
 	case BOSS_STATE::ROAR:
 	{
-		//SOUND_MANAGER->stop("BOSS_Voice_Scream");
-		//SOUND_MANAGER->play("BOSS_Voice_Scream", 1.f);
+		SOUND_MANAGER->stop("BOSS_Voice_Scream");
+		SOUND_MANAGER->play("BOSS_Voice_Scream", 1.f);
 		_attackS = 5;
 		_enemyImg = IMAGE_MANAGER->findImage("boss_roar");
 		_ani->init(_enemyImg->getWidth(), _enemyImg->getHeight(),
