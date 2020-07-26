@@ -517,16 +517,16 @@ void Boss::update()
 					_enemyManager->moveEnemy(this, moveDir);
 
 					Vector3 attackSize = _size;
-					attackSize.z = 50;
+					attackSize.z = 70;
 
 					FloatRect attackRc;
 					if (_direction == DIRECTION::LEFT)
 					{
-						attackRc = FloatRect(_position.x - 90, _position.y - 100, _position.x, _position.y);
+						attackRc = FloatRect(_position.x - 130, _position.y - 100, _position.x, _position.y);
 					}
 					else
 					{
-						attackRc = FloatRect(_position.x, _position.y - 100, _position.x + 90, _position.y);
+						attackRc = FloatRect(_position.x, _position.y - 100, _position.x + 130, _position.y);
 					}
 					_viewRc = FloatRect(attackRc.left, _position.z + attackRc.top,
 						attackRc.right, _position.z + attackRc.bottom);
