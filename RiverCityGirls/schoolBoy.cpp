@@ -643,6 +643,9 @@ void SchoolBoy::setState(ENEMY_STATE state, DIRECTION direction)
 			_enemyImg->getMaxFrameX(), _enemyImg->getMaxFrameY());
 		_ani->setFPS(10);
 		_ani->start();
+
+		SOUND_MANAGER->stop("SchoolBoy_Attack");
+		SOUND_MANAGER->play("SchoolBoy_Attack", 0.7f);
 	}
 	break;
 	case ENEMY_STATE::DASHATTACK:
@@ -653,6 +656,8 @@ void SchoolBoy::setState(ENEMY_STATE state, DIRECTION direction)
 			_enemyImg->getMaxFrameX(), _enemyImg->getMaxFrameY());
 		_ani->setFPS(10);
 		_ani->start();
+		SOUND_MANAGER->stop("SchoolBoy_Attack");
+		SOUND_MANAGER->play("SchoolBoy_Attack", 0.7f);
 	}
 	break;
 	case ENEMY_STATE::JUMPATTACK:
@@ -663,6 +668,8 @@ void SchoolBoy::setState(ENEMY_STATE state, DIRECTION direction)
 			_enemyImg->getMaxFrameX(), _enemyImg->getMaxFrameY());
 		_ani->setFPS(10);
 		_ani->start();
+		SOUND_MANAGER->stop("SchoolBoy_Attack");
+		SOUND_MANAGER->play("SchoolBoy_Attack", 0.7f);
 	}
 	break;
 	case ENEMY_STATE::GUARD:
@@ -681,6 +688,8 @@ void SchoolBoy::setState(ENEMY_STATE state, DIRECTION direction)
 			_enemyImg->getMaxFrameX(), _enemyImg->getMaxFrameY());
 		_ani->setFPS(7);
 		_ani->start();
+		SOUND_MANAGER->stop("SchoolBoy_GetHit4");
+		SOUND_MANAGER->play("SchoolBoy_GetHit4", 0.7f);
 	}
 	break;
 	case ENEMY_STATE::STUN:
@@ -701,6 +710,8 @@ void SchoolBoy::setState(ENEMY_STATE state, DIRECTION direction)
 		//else _ani->setPlayFrame(_enemyImg->getMaxFrameX(), 57, false, false);
 		_ani->setFPS(10);
 		_ani->start();
+		SOUND_MANAGER->stop("SchoolBoy_GetHit3");
+		SOUND_MANAGER->play("SchoolBoy_GetHit3", 0.7f);
 	}
 	break;
 	case ENEMY_STATE::STANDUP:
@@ -722,6 +733,9 @@ void SchoolBoy::setState(ENEMY_STATE state, DIRECTION direction)
 			_enemyImg->getMaxFrameX(), _enemyImg->getMaxFrameY());
 		_ani->setFPS(10);
 		_ani->start();
+
+		SOUND_MANAGER->stop("SchoolBoy_SandToss");
+		SOUND_MANAGER->play("SchoolBoy_SandToss", 0.7f);
 	}
 	break;
 	case ENEMY_STATE::HELD:
