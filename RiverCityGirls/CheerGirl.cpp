@@ -33,6 +33,7 @@ void CheerGirl::update()
 	if (_elapsedTime >1)
 	{
 		_hitCount = 0;
+
 	}
 
 	// 상태에 따른 행동 및 상태 전이
@@ -346,6 +347,7 @@ void CheerGirl::update()
 
 	case ENEMY_STATE::HIT: // 작은 경직
 	{
+		
 		_gravity += 1;
 		moveDir.x += (_direction == DIRECTION::RIGHT) ? -1 : 1;
 		moveDir.y += _gravity;
@@ -439,6 +441,10 @@ void CheerGirl::update()
 
 void CheerGirl::render()
 {
+	char str[1000];
+	sprintf_s(str, "[스쿨걸] elapsedTime : %f, _hitCount : %f", _elapsedTime, _hitCount);
+	TextOut(_hdc, 500, 40, str, strlen(str));
+
 	//좌우에 따른 애니메이션 프레임 및 루프 조정
 	switch (_state)
 	{

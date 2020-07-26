@@ -39,8 +39,7 @@ void StageScene::update()
 {
 	_stageManager->update();
 	CAMERA_MANAGER->processEvent();
-
-	// _player->update();
+	EFFECT_MANAGER->update();
 	
 	_uiManager->update();
 	_dgManager->update();	
@@ -49,7 +48,7 @@ void StageScene::update()
 void StageScene::render()
 {
 	_stageManager->render();
-	// _player->render();
+	EFFECT_MANAGER->render();
 
 	CAMERA_MANAGER->renderZList();
 

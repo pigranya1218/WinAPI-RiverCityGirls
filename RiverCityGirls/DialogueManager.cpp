@@ -279,7 +279,7 @@ void DialogueManager::keyReaction()
 	{
 		_skip.curGauge = 0;
 
-		for (int i = 0; i < _qCharacterImg.size(); ++i)
+		for (int i = 0; !_qCharacterImg.empty(); i++)
 		{
 			_qCharacterImg.pop();
 			_qCharacterMsg.pop();

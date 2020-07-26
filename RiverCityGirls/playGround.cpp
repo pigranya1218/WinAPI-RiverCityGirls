@@ -139,6 +139,8 @@ HRESULT playGround::init()
 	IMAGE_MANAGER->addFrameImage("Kyoko_guard", L"resources/images/characters/kyoko/Kyoko_guard.png", 3, 2);
 	IMAGE_MANAGER->addFrameImage("Kyoko_standup", L"resources/images/characters/kyoko/Kyoko_standup.png", 9, 2);
 	IMAGE_MANAGER->addFrameImage("Kyoko_knockout", L"resources/images/characters/kyoko/Kyoko_knockout.png", 24, 2);
+	IMAGE_MANAGER->addFrameImage("Kyoko_stun", L"resources/images/characters/kyoko/Kyoko_stun.png", 4, 2);
+	IMAGE_MANAGER->addFrameImage("Kyoko_gameover", L"resources/images/characters/kyoko/Kyoko_gameover.png", 26, 2);
 
 	//Enemy 이미지 
     //schoolBoy
@@ -222,6 +224,7 @@ HRESULT playGround::init()
 	IMAGE_MANAGER->addFrameImage("boss_faseupdate", L"resources/images/characters/boss_misuzu/RCG_Misuzu_roar.png", 12, 2);
 	IMAGE_MANAGER->addFrameImage("boss_tackle_init", L"resources/images/characters/boss_misuzu/RCG_Misuzu_tackle_initial.png", 5, 2);
 	IMAGE_MANAGER->addFrameImage("boss_tackle_loop", L"resources/images/characters/boss_misuzu/RCG_Misuzu_tackle_loop.png", 11, 2);
+	IMAGE_MANAGER->addFrameImage("boss_electric", L"resources/images/characters/boss_misuzu/electric.png", 2, 2);
 
 
 	// * 스테이지
@@ -298,7 +301,8 @@ HRESULT playGround::init()
 	SOUND_MANAGER->addSound("STAGE_HitSound2",				"resources/sound/stageSound/HitSound2.mp3", false, false);
 	SOUND_MANAGER->addSound("STAGE_HitSound3",				"resources/sound/stageSound/HitSound3.mp3", false, false);
 	// * Kyoko
-	SOUND_MANAGER->addSound("KYOKO_BackElbow",				"resources/sound/stageSound/Kyoko/KyokoBackElbow.mp3", false, false);
+	
+	SOUND_MANAGER->addSound("KYOKO_BackElbow1",				"resources/sound/stageSound/Kyoko/KyokoBackElbow.mp3", false, false);
 	SOUND_MANAGER->addSound("KYOKO_BackElbow2",				"resources/sound/stageSound/Kyoko/KyokoBackElbow2.mp3", false, false);
 	SOUND_MANAGER->addSound("KYOKO_Chop1",					"resources/sound/stageSound/Kyoko/KyokoChop.mp3", false, false);
 	SOUND_MANAGER->addSound("KYOKO_Chop2",					"resources/sound/stageSound/Kyoko/KyokoChop2.mp3", false, false);
@@ -307,15 +311,15 @@ HRESULT playGround::init()
 	SOUND_MANAGER->addSound("KYOKO_Dive1",					"resources/sound/stageSound/Kyoko/KyokoDive.mp3", false, false);
 	SOUND_MANAGER->addSound("KYOKO_Dive2",					"resources/sound/stageSound/Kyoko/KyokoDive2.mp3", false, false);
 	SOUND_MANAGER->addSound("KYOKO_GameOver",				"resources/sound/stageSound/Kyoko/KyokoGameOver.mp3", false, true);
-	SOUND_MANAGER->addSound("KYOKO_GetHit",					"resources/sound/stageSound/Kyoko/KyokoGetHit.mp3", false, false);
+	SOUND_MANAGER->addSound("KYOKO_GetHit1",					"resources/sound/stageSound/Kyoko/KyokoGetHit.mp3", false, false);
 	SOUND_MANAGER->addSound("KYOKO_GetHit2",				"resources/sound/stageSound/Kyoko/KyokoGetHit2.mp3", false, false);
 	SOUND_MANAGER->addSound("KYOKO_Grab",					"resources/sound/stageSound/Kyoko/KyoKoGrab.mp3", false, false);
-	SOUND_MANAGER->addSound("KYOKO_GrabHit",				"resources/sound/stageSound/Kyoko/KyokoGrabHit.mp3", false, false);
+	SOUND_MANAGER->addSound("KYOKO_GrabHit1",				"resources/sound/stageSound/Kyoko/KyokoGrabHit.mp3", false, false);
 	SOUND_MANAGER->addSound("KYOKO_GrabHit2",				"resources/sound/stageSound/Kyoko/KyokoGrabHit2.mp3", false, false);
 	SOUND_MANAGER->addSound("KYOKO_GrabHit3",				"resources/sound/stageSound/Kyoko/KyokoGrabHit3.mp3", false, false);
 	SOUND_MANAGER->addSound("KYOKO_HeavyAtkKick",			"resources/sound/stageSound/Kyoko/KyokoHeavyAtkKick.mp3", false, false);
-	SOUND_MANAGER->addSound("KYOKO_HipAttack",				"resources/sound/stageSound/Kyoko/KyokoHipAttack.mp3", false, false);
-	SOUND_MANAGER->addSound("KYOKO_HipAttackWithoutVoice",	"resources/sound/stageSound/Kyoko/KyokoHipAttackWithoutVoice.mp3", false, false);
+	SOUND_MANAGER->addSound("KYOKO_HipAttack1",				"resources/sound/stageSound/Kyoko/KyokoHipAttack.mp3", false, false);
+	SOUND_MANAGER->addSound("KYOKO_HipAttack2",	            "resources/sound/stageSound/Kyoko/KyokoHipAttackWithoutVoice.mp3", false, false);
 	SOUND_MANAGER->addSound("KYOKO_JumpKick",				"resources/sound/stageSound/Kyoko/KyokoJumpKick.mp3", false, false);
 	SOUND_MANAGER->addSound("KYOKO_LevelUP",				"resources/sound/stageSound/Kyoko/KyokoLevelUP.mp3", false, false);
 	SOUND_MANAGER->addSound("KYOKO_Run",					"resources/sound/stageSound/Kyoko/KyokoRun.mp3", false, true);
@@ -400,13 +404,19 @@ HRESULT playGround::init()
 	IMAGE_MANAGER->addFrameImage("effect_2", L"resources/images/effect/effect_2.png", 15, 1);
 	IMAGE_MANAGER->addFrameImage("effect_3", L"resources/images/effect/effect_3.png",  4, 4);
 	IMAGE_MANAGER->addFrameImage("effect_4", L"resources/images/effect/effect_4.png",  5, 3);
+	IMAGE_MANAGER->addFrameImage("effect_explosion", L"resources/images/effect/explosion.png",  4, 4);
+	IMAGE_MANAGER->addFrameImage("effect_guard", L"resources/images/effect/effect_guard.png",  5, 8);
 	// 이펙트 매니저에 등록
 	for (int i = 1; i < 5; i++)
 	{
 		string name = "effect_" + to_string(i);
 		Image* img = IMAGE_MANAGER->findImage(name);
-		EFFECT_MANAGER->addEffect(name, name.c_str(), img->getWidth(), img->getHeight(), img->getMaxFrameX(), img->getMaxFrameY(), 10, 10);
+		EFFECT_MANAGER->addEffect(name, name.c_str(), 40, 10);
 	}		
+
+	EFFECT_MANAGER->addEffect("effect_electric", "boss_electric", 30, 10);
+	EFFECT_MANAGER->addEffect("effect_explosion", "effect_explosion", 20, 10);
+	EFFECT_MANAGER->addEffect("effect_guard", "effect_guard", 50, 20);
 
 	D2D_RENDERER->addTextFormat(L"메이플스토리");		// 폰트 갖고옴	
 	

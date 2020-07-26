@@ -43,12 +43,16 @@ protected:
 	ATTACK_TYPE _hitType;	//플레이어에게 받은 피격 타입
 
 	int _hp;				//체력
-	float _hitCount;          //맞았을때 카운트
+	float _hitCount;        //피격 카운트
+	int _attackCount;		//공격 카운트(카운트 처리로 플레이어 넉다운 시키기)
 	float _jumpPower;       //점프파워
 	float _gravity;         //중력값
 	float _elapsedTime;		// 상태 전환 계산 타이머
 
 	bool _isActive;			//적 개체 생존 여부
+	bool _isAttack;			//공격 처리
+
+	float _drawYFix;		//이미지 렌더 Y축 조정용
 
 	
 public:
