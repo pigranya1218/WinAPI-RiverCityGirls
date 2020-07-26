@@ -82,9 +82,10 @@ void AttackState::enter(Player & player)
 		{
 			_ani->setPlayFrame(13, 26, false, false);
 		}
-
+		CAMERA_MANAGER->pushShakeEvent(-2, 0.06, 0.1);
 		_ani->setFPS(15);
 		_ani->start();
+		
 		break;
 	case ATTACK_SKILL::RUN_HC:
 		SOUND_MANAGER->stop("KYOKO_Dive" + to_string(num2));
@@ -269,7 +270,7 @@ PlayerState * AttackState::update(Player & player)
 				{
 					SOUND_MANAGER->stop("KYOKO_Combo");
 					SOUND_MANAGER->play("KYOKO_Combo",1.0f);
-
+					CAMERA_MANAGER->pushShakeEvent(-2, 0.06, 0.1);
 					_img = IMAGE_MANAGER->findImage("Kyoko_attack3");
 
 					_ani->init(_img->getWidth(), _img->getHeight(), _img->getMaxFrameX(), _img->getMaxFrameY());
@@ -324,6 +325,7 @@ PlayerState * AttackState::update(Player & player)
 			}
 			else
 			{
+				
 				if (_ani->getPlayIndex() == 5)
 				{
 					Vector3 position = player.getPosition();
@@ -488,6 +490,8 @@ PlayerState * AttackState::update(Player & player)
 				}
 				else
 				{
+					
+					
 					if (_ani->getPlayIndex() == 6)
 					{
 						Vector3 position = player.getPosition();
@@ -507,6 +511,7 @@ PlayerState * AttackState::update(Player & player)
 						
 						if (player.attack(player.getPosition(), player.getSize(), OBJECT_TEAM::PLAYER, _attackRc, 10, ATTACK_TYPE::KNOCKDOWN))
 						{
+							CAMERA_MANAGER->pushShakeEvent(-2, 0.06, 0.1);
 							EFFECT_MANAGER->playZ("effect_4", Vector3((_attackRc.left + _attackRc.right) / 2, (_attackRc.top + _attackRc.bottom) / 2, position.z + player.getSize().z / 2), 1);
 						}
 					}
@@ -547,6 +552,7 @@ PlayerState * AttackState::update(Player & player)
 						
 						if (player.attack(player.getPosition(), player.getSize(), OBJECT_TEAM::PLAYER, _attackRc, 10, ATTACK_TYPE::KNOCKDOWN))
 						{
+							CAMERA_MANAGER->pushShakeEvent(-2, 0.06, 0.1);
 							EFFECT_MANAGER->playZ("effect_4", Vector3((_attackRc.left + _attackRc.right) / 2, (_attackRc.top + _attackRc.bottom) / 2, position.z + player.getSize().z / 2), 1);
 						}
 					}
@@ -664,8 +670,11 @@ void AttackState::render(Player & player)
 		}
 	}
 
+	
+
 	if (_skill == ATTACK_SKILL::HC)
 	{
+		
 		position.y += 15;
 	}
 	else if (_skill == ATTACK_SKILL::QC3)
