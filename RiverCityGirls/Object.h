@@ -43,7 +43,7 @@ public:
 	void isEat(Player* gameObject); // 위치가 겹쳤는지 체크하기 위해 공통으로 사용되는 위치 체크 함수
 	virtual void eatEffect(Player* gameObject); // 위치가 겹쳤을 때 호출되는 함수, 각 오브젝트별로 구현하기
 	bool getHit(Vector3 pos, Vector3 size, OBJECT_TEAM team, FloatRect attackRc, float damage, ATTACK_TYPE type); // 맞았는지 체크하기 위해 공통으로 사용되는 충돌 처리 함수
-	virtual void hitEffect(Vector3 pos, Vector3 size, OBJECT_TEAM team, FloatRect attackRc, float damage, ATTACK_TYPE type); // 맞았을 때 호출되는 함수, 각 오브젝트별로 구현하기
+	virtual bool hitEffect(Vector3 pos, Vector3 size, OBJECT_TEAM team, FloatRect attackRc, float damage, ATTACK_TYPE type); // 맞았을 때 호출되는 함수, 각 오브젝트별로 구현하기
 	float getCenterBottom(Vector2 pos);
 };
 

@@ -53,6 +53,7 @@ public:
 	bool enemyAttack(Vector3 pos, Vector3 size, OBJECT_TEAM team, FloatRect attackRc, float damage, ATTACK_TYPE type);
 	bool enemyAttackObject(Vector3 pos, Vector3 size, OBJECT_TEAM team, FloatRect attackRc, float damage, ATTACK_TYPE type);
 	void startDialogue(BossChapter key);
+	void spawnMoney(Vector3 pos);
 	bool isDialoging();
 	void setHeart(bool isVisible);
 };

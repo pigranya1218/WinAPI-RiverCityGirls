@@ -69,9 +69,9 @@ void SnackMachineObject::collision(Vector3 * newPoses, GameObject* gameObject)
 	_restrictRect->checkCollision(newPoses, gameObject);
 }
 
-void SnackMachineObject::hitEffect(Vector3 pos, Vector3 size, OBJECT_TEAM team, FloatRect attackRc, float damage, ATTACK_TYPE type)
+bool SnackMachineObject::hitEffect(Vector3 pos, Vector3 size, OBJECT_TEAM team, FloatRect attackRc, float damage, ATTACK_TYPE type)
 {
-	if (team != OBJECT_TEAM::PLAYER) return; // 플레이어가 때린 게 아니라면 패스
+	if (team != OBJECT_TEAM::PLAYER) return false; // 플레이어가 때린 게 아니라면 패스
 
 	if (_state != OBJECT_STATE::BROKEN)
 	{
@@ -103,5 +103,9 @@ void SnackMachineObject::hitEffect(Vector3 pos, Vector3 size, OBJECT_TEAM team, 
 			//_objectManager->spawnFood(Vector3(_position.x, 25.0, _position.z + 60));
 			_objectManager->spawnMoney(Vector3(_position.x, 50.0, _position.z + 60));
 		}
+
+		return true;
 	}
+
+	return false;
 }
