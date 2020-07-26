@@ -407,7 +407,6 @@ void CheerGirl::update()
 			{
 				setState(ENEMY_STATE::STANDUP, _direction);
 			}
-
 		}
 	}
 	break;

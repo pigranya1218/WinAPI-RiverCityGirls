@@ -327,6 +327,9 @@
     <ClInclude Include="GuardState.h">
       <Filter>PlayGround\Player\State</Filter>
     </ClInclude>
+    <ClInclude Include="MoneyObject.h">
+      <Filter>PlayGround\Object</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="windowsAPI.cpp">
@@ -538,6 +541,9 @@
     </ClCompile>
     <ClCompile Include="GuardState.cpp">
       <Filter>PlayGround\Player\State</Filter>
+    </ClCompile>
+    <ClCompile Include="MoneyObject.cpp">
+      <Filter>PlayGround\Object</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

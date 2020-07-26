@@ -67,6 +67,12 @@ HRESULT playGround::init()
 	IMAGE_MANAGER->addImage("OBJECT_FOOD_APPLE",					L"resources/images/object/RCG_Consumables_apple.png");
 	IMAGE_MANAGER->addImage("OBJECT_FOOD_CHILI",					L"resources/images/object/RCG_Consumables_chili.png");
 	IMAGE_MANAGER->addImage("OBJECT_FOOD_CHIKEN",					L"resources/images/object/RCG_Consumables_hen.png");
+	// ** MONEY
+	IMAGE_MANAGER->addFrameImage("OBJECT_MOVE_COIN_SILVER",			L"resources/images/object/money/fx_coin_anim_silver.png", 4, 4);
+	IMAGE_MANAGER->addFrameImage("OBJECT_MOVE_COIN_GOLD",			L"resources/images/object/money/fx_gold_coin_spin.png", 4, 4);
+	IMAGE_MANAGER->addFrameImage("OBJECT_MOVE_MONEY_BLUE",			L"resources/images/object/money/fx_money_blue_4x4.png", 4, 4);
+	IMAGE_MANAGER->addFrameImage("OBJECT_MOVE_MONEY_GREEN",			L"resources/images/object/money/fx_money_green_4x4.png", 4, 4);
+	IMAGE_MANAGER->addFrameImage("OBJECT_MOVE_MONEY_PURPLE",		L"resources/images/object/money/fx_money_purple_4x4.png", 4, 4);
 	// ** SNACKMACHINE
 	IMAGE_MANAGER->addImage("OBJECT_SNACKMACHINE_RIGHT",			L"resources/images/object/cafeteria_snackmachine_right.png");
 	IMAGE_MANAGER->addImage("OBJECT_SNACKMACHINE_RIGHT_BROKEN",		L"resources/images/object/cafeteria_snackmachine_right_broken.png");
@@ -406,6 +412,7 @@ HRESULT playGround::init()
 	IMAGE_MANAGER->addFrameImage("effect_4", L"resources/images/effect/effect_4.png",  5, 3);
 	IMAGE_MANAGER->addFrameImage("effect_explosion", L"resources/images/effect/explosion.png",  4, 4);
 	IMAGE_MANAGER->addFrameImage("effect_guard", L"resources/images/effect/effect_guard.png",  5, 8);
+
 	// 이펙트 매니저에 등록
 	for (int i = 1; i < 5; i++)
 	{
