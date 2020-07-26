@@ -345,6 +345,11 @@ void Boss::update()
 			}
 			else
 			{
+				//standup 이펙트
+				if (_ani->getPlayIndex() >= _attackS)
+				{
+					EFFECT_MANAGER->playZ("effect_standUpEffect", Vector3(_position.x, _position.y + 50, _position.z + 30), 3.5f);
+				}
 				//standup 공격 렉트
 				if (_ani->getPlayIndex() == _attackS)
 				{
@@ -445,6 +450,9 @@ void Boss::update()
 				{
 					_gravity = 0;
 					_jumpPower = 0;
+					//지면에 떨어졌을 때의 이펙트 재생
+					
+
 					if (_phase == BOSS_PHASE::PHASE_2)
 					{
 						setState(BOSS_STATE::METEOR_ATTACK_DELAY, _direction, true);
