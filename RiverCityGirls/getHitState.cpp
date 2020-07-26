@@ -165,7 +165,10 @@ PlayerState * getHitState::update(Player & player)
 		}
 		break;
 	case GET_HIT_STATE::GAME_OVER:
-
+		if (!_ani->isPlay())
+		{
+			player.gameOver();
+		}
 		break;
 
 	}

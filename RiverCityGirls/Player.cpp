@@ -236,3 +236,8 @@ void Player::setStartState()
 	_state = state;
 	state->enter(*this);
 }
+
+void Player::gameOver()
+{
+	_stageManager->gameOver();
+}

@@ -141,3 +141,7 @@ void StageManager::setHeart(bool isVisible)
 {
 	_uiManager->setHeart(isVisible);
 }
+
+void StageManager::gameOver()
+{
+}

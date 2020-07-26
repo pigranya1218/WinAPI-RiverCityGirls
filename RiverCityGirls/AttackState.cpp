@@ -176,8 +176,8 @@ PlayerState * AttackState::update(Player & player)
 			}
 		}
 			
-		if (_initTime>=0.13 &&KEY_MANAGER->isOnceKeyDown('Z')&&player.attack(player.getPosition(), player.getSize(), 
-			OBJECT_TEAM::PLAYER, _attackRc, 10, ATTACK_TYPE::HIT1))
+		if (_initTime>=0.13 &&KEY_MANAGER->isOnceKeyDown('Z') &&
+			player.attack(player.getPosition(), player.getSize(), OBJECT_TEAM::PLAYER, _attackRc, 10, ATTACK_TYPE::HIT1))
 		{
 			SOUND_MANAGER->play("KYOKO_Chop2", 1.0f);
 			_img = IMAGE_MANAGER->findImage("Kyoko_attack2");

@@ -43,5 +43,6 @@ public:
 	void startDialogue(BossChapter chapter);
 	bool isDialoging();
 	void setHeart(bool isVisible);
+	void gameOver();
 };
 
