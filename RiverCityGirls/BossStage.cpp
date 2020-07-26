@@ -39,7 +39,7 @@ void BossStage::init(Image * background, float bgScale)
 	_objectManager->spawnObject(OBJECT_TYPE::PILLAR, Vector3(2100, 150, 900), DIRECTION::RIGHT);
 
 
-	DOOR_STATE doorStates[2] = { DOOR_STATE::UNLOCK, DOOR_STATE::UNLOCK};
+	DOOR_STATE doorStates[2] = { DOOR_STATE::LOCK, DOOR_STATE::LOCK };
 	Vector3 doorPoses[2] = { Vector3(280, 0, 620),
 							Vector3(1390, 0, 290)};
 	for (int i = 0; i < 2; i++)
