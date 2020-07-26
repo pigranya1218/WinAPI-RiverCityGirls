@@ -5,7 +5,7 @@ MoneyObject::MoneyObject(Vector3 pos)
 {
 	_position = pos;
 	_size = Vector3(30, 100, 30);
-	_position.y = -_size.y * 2;
+	_position.y = -_size.y * 1.5f;
 	_remainTime = 10.0f;
 	_randomSpawn = RANDOM->getInt(5) + 1;
 
@@ -46,7 +46,7 @@ MoneyObject::MoneyObject(Vector3 pos)
 	_ani = new Animation;
 	_ani->init(_img->getWidth(), _img->getHeight(), _img->getMaxFrameX(), _img->getMaxFrameY());
 	_ani->setPlayFrame(0, 12, 0, 1);
-	_ani->setFPS(5);
+	_ani->setFPS(8);
 	_ani->start();
 }
 
@@ -55,7 +55,15 @@ void MoneyObject::update()
 	_position.y += _gravity;
 	if (_position.y > 0)
 	{
-		_ani->stop();
+		switch (_randomSpawn)
+		{
+			case 3:
+			case 4:
+			case 5:
+			{_ani->stop(); }
+			break;
+		}
+		
 		_gravity = 0;
 	}
 
@@ -106,6 +114,10 @@ void MoneyObject::render()
 void MoneyObject::eatEffect(Player * player)
 {
 	_state = OBJECT_STATE::INACTIVE;
+
+	SOUND_MANAGER->stop("STAGE_getMoney");
+	SOUND_MANAGER->play("STAGE_getMoney", 1.0f);
+	EFFECT_MANAGER->playZ("effect_eat", _position, 1.0f);
 
 	switch (_randomSpawn)
 	{

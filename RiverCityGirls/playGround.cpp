@@ -426,6 +426,8 @@ HRESULT playGround::init()
 
 
 
+	IMAGE_MANAGER->addFrameImage("effect_eat", L"resources/images/effect/particle-effects-png.png", 8, 6);
+
 	// 이펙트 매니저에 등록
 	for (int i = 1; i < 5; i++)
 	{
@@ -444,6 +446,7 @@ HRESULT playGround::init()
 	EFFECT_MANAGER->addEffect("effect_faseChange", "effect_faseChange", 30, 10);
 	EFFECT_MANAGER->addEffect("effect_standUpEffect", "effect_standUpEffect", 30, 10);
 	EFFECT_MANAGER->addEffect("effect_dashAttackEffect", "effect_dashAttackEffect", 30, 10);
+	EFFECT_MANAGER->addEffect("effect_eat", "effect_eat", 50, 20);
 
 	D2D_RENDERER->addTextFormat(L"메이플스토리");		// 폰트 갖고옴	
 	

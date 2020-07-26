@@ -92,7 +92,6 @@ bool MrRudis::hitEffect(Vector3 pos, Vector3 size, OBJECT_TEAM team, FloatRect a
 		}
 		_ani->setFPS(15);
 		_ani->start();
-		return true;
 	}
 
 	return false;
