@@ -26,14 +26,7 @@ void Boss::release()
 
 void Boss::update()
 {
-	if (KEY_MANAGER->isOnceKeyDown('Q'))
-	{
-		setState(BOSS_STATE::STAND_UP, _direction, true);
-	}
-	if (KEY_MANAGER->isOnceKeyDown('W'))
-	{
-		setState(BOSS_STATE::ROAR, _direction, true);
-	}
+	
 
 	if (_phase == BOSS_PHASE::DEFEAT)
 	{
@@ -560,6 +553,8 @@ void Boss::update()
 
 void Boss::render()
 {
+
+
 	//좌우에 따른 애니메이션 프레임 및 루프 조정
 	if (_phase != BOSS_PHASE::DEFEAT)
 	{
@@ -592,6 +587,8 @@ void Boss::render()
 		break;
 		case BOSS_STATE::METEOR_ATTACK:
 		{
+
+
 			if (_count == 0)
 			{
 				if (_direction == DIRECTION::LEFT)
@@ -670,7 +667,7 @@ void Boss::render()
 		break;
 		}
 	}
-	
+
 
 	if (DEBUG_MANAGER->isDebugMode(DEBUG_TYPE::ENEMY))
 	{
@@ -759,6 +756,8 @@ void Boss::render()
 			_electricTime = 0.5;
 		}
 	}
+	
+	
 	
 
 	switch (_bossState) // 그림자 그리기
@@ -891,12 +890,14 @@ void Boss::setState(BOSS_STATE state, DIRECTION direction, bool initTime)
 	break;
 	case BOSS_STATE::METEOR_ATTACK:
 	{
+	
 		_count = 0;
 		_enemyImg = IMAGE_MANAGER->findImage("boss_jump");
 		_ani->init(_enemyImg->getWidth(), _enemyImg->getHeight(),
 			_enemyImg->getMaxFrameX(), _enemyImg->getMaxFrameY());
 		_ani->setFPS(15);
 		_ani->start();
+		
 	}
 	break;
 	case BOSS_STATE::METEOR_ATTACK_DELAY:

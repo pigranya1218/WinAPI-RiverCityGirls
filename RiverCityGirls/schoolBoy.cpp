@@ -86,8 +86,10 @@ void SchoolBoy::update()
 		moveDir.y += _gravity;
 
 		float lastY = _position.y;
+		float lastX = _position.x;
 		_enemyManager->moveEnemy(this, moveDir);
 		float currY = _position.y;
+		float currX = _position.x;
 
 		if (lastY != currY) // 떨어짐
 		{
@@ -96,19 +98,24 @@ void SchoolBoy::update()
 		else
 		{
 			_gravity = 0;
-			if (distanceFromPlayer <= 200 && _elapsedTime > 1) // 모래 뿌리기
-			{
-				setState(ENEMY_STATE::SKILL, _direction);
-			}
 			if (distanceFromPlayer <= 100) // 근접 시 공격
 			{
 				setState(ENEMY_STATE::ATTACK, _direction);
+				if (_state != ENEMY_STATE::ATTACK && _hitType == ATTACK_TYPE::HIT1)
+				{
+					setState(ENEMY_STATE::GUARD, _direction);
+				}
 			}
-			else if (_elapsedTime >= 5) // 오랜 쫓음으로 인해 한번 점프해본다
+			else if (_elapsedTime >= 5)
 			{
-				setState(ENEMY_STATE::JUMP, _direction);
+				setState(ENEMY_STATE::SKILL, _direction);
 				_gravity = -22;
 			}
+		}
+		if (_state == ENEMY_STATE::WALK && lastX == currX)
+		{
+
+			setState(ENEMY_STATE::RETURN, _direction);
 		}
 	}
 	break;
@@ -125,8 +132,10 @@ void SchoolBoy::update()
 		moveDir.y += _gravity;
 
 		float lastY = _position.y;
+		float lastX = _position.x;
 		_enemyManager->moveEnemy(this, moveDir);
 		float currY = _position.y;
+		float currX = _position.x;
 
 		if (lastY != currY) // 떨어짐
 		{
@@ -135,9 +144,6 @@ void SchoolBoy::update()
 		else
 		{
 			_gravity = 0;
-			//오브젝트 사이에 충돌
-			
-
 			if (distanceFromPlayer <= 100) // 근접 시 공격
 			{
 				setState(ENEMY_STATE::DASHATTACK, _direction);
@@ -147,6 +153,11 @@ void SchoolBoy::update()
 				setState(ENEMY_STATE::JUMP, _direction);
 				_gravity = -26;
 			}
+		}
+		if (_state == ENEMY_STATE::RUN && lastX == currX)
+		{
+
+			setState(ENEMY_STATE::RETURN, _direction);
 		}
 	}
 	break;
@@ -475,14 +486,7 @@ void SchoolBoy::render()
 		CAMERA_MANAGER->drawLine(Vector2(_position.x, _position.z), Vector2(_position.x, _position.z + _position.y));
 		CAMERA_MANAGER->rectangle(rc, D2D1::ColorF::Enum::Red, 1, 1);
 		CAMERA_MANAGER->rectangle(_viewRc, D2D1::ColorF::Enum::Magenta, 1, 1);
-
-		//test
-		char str[255];
-		sprintf_s(str, "[스쿨보이] state : %d, jumpPower : %d, gravity : %d", (int)_state, _jumpPower, _gravity);
-		TextOut(_hdc, 500, 0, str, strlen(str));
-
-		sprintf_s(str, "[스쿨보이] elapsedTime : %f, hitCount : %f, attackCount : %d", _elapsedTime, _hitCount, _attackCount);
-		TextOut(_hdc, 500, 20, str, strlen(str));
+		
 	}
 
 	_enemyImg->setScale(3.f);
@@ -653,6 +657,16 @@ void SchoolBoy::setState(ENEMY_STATE state, DIRECTION direction)
 		_ani->init(_enemyImg->getWidth(), _enemyImg->getHeight(),
 			_enemyImg->getMaxFrameX(), _enemyImg->getMaxFrameY());
 		
+		_ani->setFPS(10);
+		_ani->start();
+	}
+	break;
+	case ENEMY_STATE::RETURN:
+	{
+		_enemyImg = IMAGE_MANAGER->findImage("schoolboy_walk");
+		_ani->init(_enemyImg->getWidth(), _enemyImg->getHeight(),
+			_enemyImg->getMaxFrameX(), _enemyImg->getMaxFrameY());
+
 		_ani->setFPS(10);
 		_ani->start();
 	}
