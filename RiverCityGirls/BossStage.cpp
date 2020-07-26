@@ -72,16 +72,12 @@ void BossStage::enter()
 {
 	Stage::enter();
 	
+	SOUND_MANAGER->stop("Boss_StageBGM");
+	SOUND_MANAGER->play("Boss_StageBGM", 0.3);
+
 	if (_enemyManager->getEnemyCount() < 1)
 	{
-		SOUND_MANAGER->stop("Boss_TalkingBGM");
-		SOUND_MANAGER->play("Boss_TalkingBGM", 1.f);
 		_stageManager->startDialogue(BossChapter::BATTLE_BEFORE);
-	}
-	else
-	{
-		SOUND_MANAGER->stop("Boss_StageBGM");
-		SOUND_MANAGER->play("Boss_StageBGM", 0.3);
 	}
 }
 
@@ -150,5 +146,14 @@ void BossStage::render()
 
 	_objectManager->render();
 	_enemyManager->render();
+}
+
+void BossStage::gameOver()
+{
+	Stage::enter();
+	_enemyManager->clearEnemy();
+	_player->setPosition(Vector3(1150, -(_player->getSize().y * 0.5), 750));
+	_player->setIdleState();
+	_player->setHp(_player->getMaxHp());
 }
 
